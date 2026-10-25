@@ -1340,6 +1340,19 @@ img[src^="spr:"]{opacity:0}
 .ncd.in{opacity:1;transform:none}
 .nwv~footer,.nwv footer{position:relative;z-index:3}
 @media(prefers-reduced-motion:reduce){.ncd{opacity:1;transform:none}}
+
+/* client */
+.cl-cols{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,80px);padding:clamp(10px,2vw,30px) clamp(6px,1.4vw,24px)}
+.clv h2{font-family:"Noto Sans KR",sans-serif;font-weight:800;font-size:clamp(.82rem,.9vw,1rem);letter-spacing:-.01em;margin:0}
+.cl-r{display:block;width:12px;height:2px;background:var(--fg);margin:10px 0 26px}
+.cl-g{margin-bottom:28px;opacity:0;transform:translateY(24px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
+.cl-g.in{opacity:1;transform:none}
+.cl-g h3{font-family:"Noto Sans KR",sans-serif;font-weight:700;font-size:clamp(.8rem,.86vw,.95rem);margin:0 0 14px}
+.cl-g ul{list-style:none;margin:0;padding:0 0 0 clamp(14px,1.2vw,22px);display:grid;gap:clamp(5px,.5vw,8px)}
+.cl-g a{font-size:clamp(.74rem,.8vw,.9rem);color:#333;text-decoration:none;transition:color .2s,padding .3s}
+.cl-g a:hover{color:var(--accent);padding-left:6px}
+@media(max-width:700px){.cl-cols{grid-template-columns:1fr}.cl-cols>div+div{display:none}}
+@media(prefers-reduced-motion:reduce){.cl-g{opacity:1;transform:none}}
 /* ── about ── */
 .about{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,6vw,80px)}
 .about .lead{font-family:var(--display);font-size:var(--s1);line-height:1.85;max-width:30em;display:grid;gap:1em}
@@ -1444,7 +1457,7 @@ img[src^="spr:"]{opacity:0}
   <div class="wrap">
     <a class="logo" href="#home" aria-label="Instant Classic Film 처음으로">ICF</a>
     <nav aria-label="주요 메뉴" id="nav">
-      <a href="#film">Film</a><a href="#commercial">Commercial</a><a href="#art">ArtFilm</a><a href="#journal">Essay</a><a href="#news">News</a><a href="#about">About</a>
+      <a href="#film">Film</a><a href="#commercial">Commercial</a><a href="#art">ArtFilm</a><a href="#journal">Essay</a><a href="#news">News</a><a href="#client">Client</a><a href="#about">About</a>
     </nav>
   </div>
 </header>
@@ -1875,7 +1888,7 @@ function homeD(){
   </section>
   <section class="ix">
     <p class="ix-lede">하나의 스쳐가는 장면이 아니라 하나의 기준을 만든다는 마음으로 이미지를 설계하며,<br>순간을 ‘현대의 고전’으로 남기는 작업을 지향합니다.</p>
-    <div class="ix-links"><a href="#film">Film</a><a href="#commercial">Commercial</a><a href="#journal">Essay</a><a href="#news">News</a><a href="#about">About</a></div>
+    <div class="ix-links"><a href="#film">Film</a><a href="#commercial">Commercial</a><a href="#journal">Essay</a><a href="#news">News</a><a href="#client">Client</a><a href="#about">About</a></div>
   </section>
   ${hvSwitch()}
   </div>`;
@@ -2500,17 +2513,33 @@ function newsArticle(id){
 function bindNews(){
   const H=$("#nH");if(!H)return;const bg=$("#nHb"),t=$("#nHt"),sl=[...bg.children];let j=0,raf=0;
   hydrate();
-  const iv=setInterval(()=>{if(!document.body.contains(H))return clearInterval(iv);sl[j].classList.remove("on");j=(j+1)%sl.length;sl[j].classList.add("on")},4500);
+  const iv=setInterval(()=>{if(!document.body.contains(H))return clearInterval(iv);if(sl.length<2)return;sl[j].classList.remove("on");j=(j+1)%sl.length;sl[j].classList.add("on")},4500);
   const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{rootMargin:"0px 0px -8% 0px"});
-  document.querySelectorAll(".ncd").forEach((c,i)=>{c.style.transitionDelay=(i%4)*70+"ms";io.observe(c)});
+  document.querySelectorAll(".ncd,.cl-g").forEach((c,i)=>{c.style.transitionDelay=(i%4)*70+"ms";io.observe(c)});
   const sc=()=>{const y=scrollY,h=innerHeight;bg.style.transform=`translate3d(0,${-y*0.12}px,0) scale(${1.06+y/h*0.04})`;const p=Math.min(1,y/(h*0.7));t.style.transform=`translateY(${y*0.35}px) scale(${1-p*0.12})`;t.style.opacity=1-p;raf=0};
   const on=()=>{if(!raf)raf=requestAnimationFrame(sc)};addEventListener("scroll",on,{passive:true});sc();
   reelOff=()=>{removeEventListener("scroll",on);clearInterval(iv);io.disconnect()};
-  return;
-  document.querySelectorAll(".n4").forEach(c=>{c.addEventListener("mousemove",e=>{const r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;c.style.transform=`perspective(900px) rotateY(${x*6}deg) rotateX(${-y*6}deg)`});c.addEventListener("mouseleave",()=>c.style.transform="")});
-  const P=$("#n3P"),R=document.querySelectorAll(".n3-r");if(!P)return;
-  R.forEach(r=>{r.addEventListener("mouseenter",()=>{const u=r.dataset.src;if(!u)return;spURL(u).then(x=>{P.style.backgroundImage=`url('${x}')`;P.classList.add("on")})});r.addEventListener("mouseleave",()=>P.classList.remove("on"))});
-  const mv=e=>{P.style.transform=`translate(${e.clientX+24}px,${e.clientY-90}px)`};addEventListener("mousemove",mv);reelOff=()=>removeEventListener("mousemove",mv);
+}
+
+/* ───────── Client ───────── [국문, 영문, 작품키] */
+const CLIENTS=[
+ ["아티스트","Artists",[["담담","DAMDAM","c0"],["유명한아이","Famous Kid","c2"],["트렌드지","TRENDZ","c6"],["아이칠린 제이","ICHILLIN' J","c36"],["정상수 (BLASTA)","BLASTA","c35"],["엔하이픈","ENHYPEN","c32"],["권해찬","Kwon Haechan","c23"],["AUBE","AUBE","c24"]]],
+ ["브랜드","Brand",[["던킨","Dunkin'","c32"],["셀파렉스","Selparex","c16"],["쿠쿠","CUCKOO","c19"],["듀오덤","DuoDERM","c12"],["가스트론","GASTRON","c17"],["hy 하이퍼부스팅앰플","hy Hyper Boosting Ampoule","c13"],["다농바이오","Danong Bio","c7"],["아르떼","ARTE","c5"],["다짐","DAZYM","c14"],["원즈아토","Wonzato","c30"],["금천미트","Geumcheon Meat","c18"],["후지필름","FUJIFILM","c25"],["DUDU","DUDU","c22"],["SMTECH","SMTECH","c1"]]],
+ ["기업","Corporate",[["토요타","TOYOTA","c3"],["GS칼텍스","GS Caltex","c9"],["KG모빌리티 토레스 EVX","KG Mobility TORRES EVX","c10"],["바텍","VATECH","c20"],["바인그룹","VINE Group","c29"]]],
+ ["공간·호텔","Hospitality",[["호텔 에버리치","Hotel Everich","c27"],["이자카야 산쥬로쿠","Izakaya Sanjuroku","c31"],["광장시장","Gwangjang Market","c11"]]],
+ ["관공서","Public",[["서울특별시","Seoul Metropolitan Government","c15"],["청주시 · 청주문화재야행","Cheongju Cultural Heritage Night","c21"]]],
+ ["영화·기관","Film & Institutions",[["한국예술종합학교","Korea National University of Arts","f4"],["영화진흥위원회","Korean Film Council (KOFIC)","f9"],["신영균문화예술재단","Shin Young-kyun Arts & Culture Foundation","f1"],["충남정보문화산업진흥원","Chungnam ICT & Culture Industry Agency","f0"],["충남영상위원회","Chungnam Film Commission","f5"],["강원영상위원회","Gangwon Film Commission","f13"],["서울국제어린이영화제","Seoul International Children's Film Festival","f15"],["제이포엔터테인먼트","J4 Entertainment","f2"],["브이에이코퍼레이션","VA Corporation","f7"]]]];
+function clientView(){
+  const HK=["c32","c0","c36","c35","c6","c9"].filter(k=>gl(k).length);
+  const href=k=>`#${k[0]==="f"?"film":"commercial"}-${k.slice(1)}`;
+  const col=(ko)=>CLIENTS.map(([gk,ge,L])=>`<div class="cl-g"><h3>${ko?gk:ge}</h3><ul>${L.map(([k,e,w])=>`<li><a href="${href(w)}">${esc(ko?k:e)}</a></li>`).join("")}</ul></div>`).join("");
+  return `<div class="view nwv clv">
+    <section class="nhero dark" id="nH"><div class="nh-bg" id="nHb">${HK.map((k,i)=>`<i class="${i?"":"on"}" style="background-image:url('${nImg(k)}')"></i>`).join("")}</div><h1 id="nHt">Client</h1><span class="nh-dn mono">Scroll</span></section>
+    <div class="npanel"><div class="cl-cols">
+      <div><h2>클라이언트 및 파트너 목록</h2><i class="cl-r"></i>${col(1)}</div>
+      <div><h2>CLIENTS &amp; PARTNERS</h2><i class="cl-r"></i>${col(0)}</div>
+    </div></div>
+  </div>`;
 }
 /* ───────── 홈 시안 3종: Contact · Spectrum · Monitor ───────── */
 const SPCOL={"f0": "#545d5f", "f1": "#6b593f", "f10": "#505445", "f11": "#7e6750", "f12": "#3d2e08", "f13": "#725f44", "f14": "#625c52", "f15": "#6d665b", "f16": "#a09b9f", "f17": "#a17238", "f18": "#3d4244", "f19": "#838365", "f2": "#616f51", "f20": "#897c6a", "f21": "#9a8d77", "f22": "#7b806e", "f23": "#735031", "f24": "#692631", "f25": "#665d2f", "f26": "#7b4b2d", "f27": "#a08759", "f28": "#454e45", "f29": "#677569", "f3": "#485a58", "f30": "#645845", "f31": "#4c484d", "f32": "#7c2c3a", "f33": "#6b603a", "f34": "#503d39", "f4": "#5e5e50", "f5": "#555744", "f6": "#65523b", "f7": "#5a603f", "f8": "#56615b", "f9": "#4d514d"};
@@ -2726,6 +2755,7 @@ function route(){document.body.classList.remove("lb-open");document.body.style.o
   else if(/^commercial-\d+$/.test(h))html=commercialDetail(+h.split("-")[1]),section="commercial";
   else if(h==="journal")html=journal();
   else if(h==="news")html=newsView();
+  else if(h==="client")html=clientView();
   else if(/^news-\d+$/.test(h))html=newsArticle(h.slice(5)),section="news";
   else if(/^journal-/.test(h))html=article(h.slice(8)),section="journal";
   else if(h==="about"||h==="contact")html=`<div class="view cv dark ab-dark" style="background-image:url('${cover("f17",img(17))}')"><div class="cv-in"><div class="cv-title"><h1>About</h1><p>Jung Dabin — Director · Cinematographer · Colorist</p></div>${about()}</div></div>`,section="about";
@@ -2888,7 +2918,7 @@ function bind(h){
   if(h==="film"||h==="commercial"){applyFilter($("#shelf"),h==="film"?state.role:state.kind,false);bindHero();bindShelf();return}
   if(/^film-\d+$/.test(h))return bindGallery("f"+h.split("-")[1]);
   if(/^commercial-\d+$/.test(h))return bindGallery("c"+h.split("-")[1]);
-  if(h==="news")return bindNews();
+  if(h==="news"||h==="client")return bindNews();
   if(h!=="home")return;
   if(state.hv==="q")return bindShowreel();
   if(state.hv==="x")return bindSlate();
