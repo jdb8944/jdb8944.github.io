@@ -1384,6 +1384,12 @@ img[src^="spr:"]{opacity:0}
 .ab-dark .ab-text{max-width:min(960px,100%)}
 .ab-dark .ab-text p{font-size:clamp(1rem,1.1vw,1.2rem)}
 .ab-cl .cl-logos{grid-template-columns:repeat(auto-fill,minmax(clamp(130px,11vw,200px),1fr))}
+
+/* 기울기 없음: 모든 경사 면을 수평으로 */
+:root{--slant:0px}
+.npanel{clip-path:none!important;margin-top:calc(-1 * clamp(48px,7vw,120px));padding-top:clamp(28px,3vw,48px)}
+.jpanel{margin-top:calc(-1 * clamp(48px,7vw,120px))}
+.phero,.whero,.slant{clip-path:none!important}
 /* ── about ── */
 .about{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,6vw,80px)}
 .about .lead{font-family:var(--display);font-size:var(--s1);line-height:1.85;max-width:30em;display:grid;gap:1em}
