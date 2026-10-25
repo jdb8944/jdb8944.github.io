@@ -2496,7 +2496,7 @@ function bindSpotlight(){
 const RCLIPS=[["006", "c6"], ["013", "f6"], ["018", "f6"], ["025", "c2"], ["032", "f6"], ["046", "f3"], ["072", "f16"], ["077", "f16"], ["080", "f16"], ["088", "c28"], ["097", "f17"], ["105", "c6"], ["106", "f31"], ["108", "c31"], ["119", "f7"], ["121", "f7"], ["126", "f31"], ["127", "c2"], ["129", "c36"], ["130", "f19"], ["137", "c6"], ["147", "f19"], ["151", "c7"], ["157", "f2"], ["162", "c28"], ["163", "f4"], ["169", "f5"], ["173", "f19"], ["178", "c11"], ["182", "c11"], ["194", "c1"], ["197", "f7"], ["198", "c7"], ["200", "f31"], ["204", "f7"], ["206", "f32"], ["218", "f32"], ["220", "c0"], ["222", "c0"], ["232", "f32"], ["240", "f4"], ["250", "c28"], ["260", "f18"], ["271", "c2"], ["272", "c4"], ["285", "c35"], ["290", "c4"], ["301", "c4"], ["302", "c28"], ["306", "f12"], ["317", "c8"], ["319", "c8"], ["321", "c8"], ["326", "c8"], ["333", "c8"], ["337", "c34"], ["338", "f15"], ["346", "f15"], ["356", "f10"], ["371", "f3"], ["372", "f3"], ["375", "f3"], ["376", "f15"], ["379", "f15"]];
 const reelT=k=>{const A=k[0]==="f"?F:C,d=A[+k.slice(1)];return d?d[0]:""};
 const reelH=k=>`#${k[0]==="f"?"film":"commercial"}-${k.slice(1)}`;
-const QNM=(()=>{const q=(location.search.match(/nm=(\d)/)||[])[1];try{if(q)localStorage.setItem("icf-nm",q);return q||localStorage.getItem("icf-nm")||"1"}catch(e){return q||"1"}})();
+const QNM=(()=>{const q=(location.search.match(/nm=(\d)/)||[])[1];return q||"3"})();
 function homeQ(){
   return `<div class="view hreel"><section class="qr dark" id="qr" data-nm="${QNM}">
     <div class="qr-vs" id="qrVs">${[0,1,2].map(n=>`<video muted playsinline preload="auto" class="qr-v${n?"":" on"}"></video>`).join("")}</div>
