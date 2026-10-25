@@ -1370,6 +1370,20 @@ img[src^="spr:"]{opacity:0}
 .cl-names a,.cl-names span{color:inherit;text-decoration:none;white-space:nowrap}
 .cl-names a:hover{color:var(--accent)}
 .cl-names i{font-style:normal;margin:0 .6em;opacity:.35}
+
+/* 좌우 여백 통일: 에세이 목록·어바웃을 뉴스와 같은 폭으로 */
+.jpanel.wrap{max-width:none;margin-left:clamp(12px,4vw,140px);margin-right:clamp(12px,4vw,140px);padding-left:0;padding-right:0}
+.jgrid{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:clamp(36px,3.4vw,56px) clamp(18px,1.6vw,28px)!important}
+.jcard h3{font-size:clamp(1.1rem,1.3vw,1.45rem)}
+.jcard p{font-size:clamp(.82rem,.86vw,.95rem)}
+@media (max-width:1100px){.jgrid{grid-template-columns:repeat(3,minmax(0,1fr))!important}}
+@media (max-width:900px){.jgrid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media (max-width:560px){.jgrid{grid-template-columns:minmax(0,1fr)!important}}
+.cv-in{max-width:none;padding-left:clamp(20px,6vw,160px);padding-right:clamp(20px,6vw,160px)}
+.ab-dark .ab-row{grid-template-columns:clamp(180px,18vw,300px) 1fr}
+.ab-dark .ab-text{max-width:min(960px,100%)}
+.ab-dark .ab-text p{font-size:clamp(1rem,1.1vw,1.2rem)}
+.ab-cl .cl-logos{grid-template-columns:repeat(auto-fill,minmax(clamp(130px,11vw,200px),1fr))}
 /* ── about ── */
 .about{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,6vw,80px)}
 .about .lead{font-family:var(--display);font-size:var(--s1);line-height:1.85;max-width:30em;display:grid;gap:1em}
