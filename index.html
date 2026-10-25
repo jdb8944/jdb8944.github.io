@@ -1091,6 +1091,7 @@ img[src^="spr:"]{opacity:0}
 .whero::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(ellipse 46% 52% at 50% 50%,rgba(0,0,0,.55),rgba(0,0,0,.18) 70%,transparent)}
 .whero h1{font-size:clamp(3.2rem,8.4vw,6.8rem);font-weight:500;text-shadow:0 2px 24px rgba(0,0,0,.55),0 1px 2px rgba(0,0,0,.4)}
 .whero h1 .it{font-size:.74rem;letter-spacing:.22em;opacity:1;margin-top:18px;text-shadow:0 1px 10px rgba(0,0,0,.7)}
+.vframe.vport{aspect-ratio:9/16;max-height:82vh;margin:0 auto;max-width:calc(82vh*9/16)}
 /* ── about ── */
 .about{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,6vw,80px)}
 .about .lead{font-family:var(--display);font-size:var(--s1);line-height:1.85;max-width:30em;display:grid;gap:1em}
@@ -1417,6 +1418,15 @@ Object.assign(MEDIA.c31,{"s":[0.562,0.562,0.562],"x":[[4000,0,2000,2873],[4000,2
 Object.assign(MEDIA.c32,{"s":[1.777,1.778,1.778],"x":[[0,2250,2000,1125],[0,3375,2000,1125],[0,4500,2000,1125],[0,5625,2000,1125],[0,6750,2000,1125],[0,7875,2000,1125],[0,9000,2000,1125]]});
 Object.assign(MEDIA.c34,{"s":[1.33,1.33,1.333,1.33],"x":[[0,4508,2000,1502],[0,6010,2000,1494],[0,7504,2000,1504],[0,9008,2000,1504],[0,10512,2000,1502],[0,12014,2000,1502]]});
 Object.assign(MEDIA.c35,{"s":[2.386,2.107,2.387],"x":[[0,1787,2000,838],[0,2625,2000,838],[0,3463,2000,838],[0,4301,2000,838],[0,5139,2000,842],[0,5981,2000,838],[0,6819,2000,838]]});
+
+/* 영상: 로컬 mp4가 있는 작품, 유튜브 임베드(실제 사이트에서만) */
+const MVLOCAL=new Set([...Object.keys(MVBLOB),"c20","c27","c28","c29","c30","c31","c32","c34"]);
+const VPORT=new Set(["c31"]);
+const YTEMBED=location.protocol==="https:"&&!ONART;
+const hasVid=(k,yt)=>ONART?!!MVBLOB[k]:(location.protocol==="file:"?MVLOCAL.has(k):(MVLOCAL.has(k)||!!yt));
+if(INFO[33])INFO[33][2]=INFO[33][2]||"wjX-cMrywt4";
+if(INFO[34])INFO[34][2]=INFO[34][2]||"X46cqXSZXBA";
+if(CINFO[34])CINFO[34][1]=CINFO[34][1]||"iDCl9m9WS6s";
 /* 영화제·수상·제작지원 (원본 사이트 + 기존 기록 통합): [구분, 연도, 국문, 영문] */
 const FEST={
 0:[["Competition","2026","제30회 부천국제판타스틱영화제 · 부천 초이스 코리안 장편 공식 경쟁","30th Bucheon International Fantastic Film Festival (BIFAN) — Bucheon Choice: Korean Features"],
@@ -1813,7 +1823,7 @@ function detailShell({k,title,kicker,roles,meta,heroSrc,intro,side,fest,staff,sp
       ${intro?`<div class="fd-syn"><h4>${kicker}</h4>${intro}</div>`:keyFrame(k,title)}
       <aside class="fd-side">${k[0]==="f"&&STAFF[+k.slice(1)]?"":posterBlock(k,title)}${side}${yt&&!video?`<a class="watch-btn" href="https://www.youtube.com/watch?v=${yt}" target="_blank" rel="noopener">Watch ↗</a>`:""}</aside>
     </section>
-    ${video?`<section class="fd-video wrap"><div class="vframe" data-yt="${video}" data-k="${k}" style="background-image:url('${heroSrc}')"><button class="vplay" aria-label="영상 재생"><span>▶</span><em class="mono">Play Music Video</em></button></div></section>`:""}${fest&&fest.length?festBlock(fest):""}
+    ${video?`<section class="fd-video wrap"><div class="vframe${VPORT.has(k)?" vport":""}" data-yt="${video}" data-k="${k}" style="background-image:url('${heroSrc}')"><button class="vplay" aria-label="영상 재생"><span>▶</span><em class="mono">${k[0]==="f"?"Play Film":/MV/.test((C[+k.slice(1)]||[])[2]||"")?"Play Music Video":"Play"}</em></button></div></section>`:""}${fest&&fest.length?festBlock(fest):""}
     ${staff||""}
     ${spec}
     ${stillsBlock(k,title)}
@@ -1841,7 +1851,7 @@ function filmDetail(i){
     fest:FEST[i]||f[6]||[],
     staff:staffBlock(i),
     spec:specAuto("f"+i,f[3],f[4],f[5],FGRADE[i],isCol(f),f[1])||specBlock([["Aspect Ratio",f[4]+" : 1"],["Running Time",enRT(f[3])],["Released",enDate(f[1])]]),
-    yt,prev:pg.prev,next:pg.next,list:pg.list});
+    yt,video:hasVid(k,yt)?(yt||"-"):"",prev:pg.prev,next:pg.next,list:pg.list});
 }
 function commercialDetail(i){
   const c=C[i];if(!c)return notFound();
@@ -1856,7 +1866,7 @@ function commercialDetail(i){
     side:extra.map(([a,b])=>`<div><h4>${a}</h4><p>${esc(b)}</p></div>`).join("")+`<div><h4>Type</h4><p>${esc(c[2])}</p></div>`,
     fest:[],
     spec:specAuto("c"+i,ci[2],ci[3],ci[4],ci[5],/Color/.test(ci[0]),c[1])||specBlock([["Aspect Ratio",ci[3]?ci[3]+" : 1":""],["Running Time",enRT(ci[2])],["Released",enDate(c[1])]]),
-    yt:ci[1],video:/MV/.test(c[2])&&(ci[1]||MVBLOB[k])?(ci[1]||"-"):"",prev:pg.prev,next:pg.next,list:pg.list});
+    yt:ci[1],video:hasVid(k,ci[1])?(ci[1]||"-"):"",prev:pg.prev,next:pg.next,list:pg.list});
 }
 function about(){
   const Y=[
@@ -2452,11 +2462,12 @@ function onScroll(){
 addEventListener("scroll",onScroll,{passive:true});
 document.addEventListener("click",e=>{
   const vp=e.target.closest(".vframe[data-yt]");if(vp&&!vp.classList.contains("on")){const id=vp.dataset.yt,k=vp.dataset.k;
-    const yt=()=>{if(id&&id!=="-")window.open("https://www.youtube.com/watch?v="+id,"_blank","noopener")};
-    const srcs=[ONART&&MVBLOB[k],MVBLOB[k]&&"mv/"+k+".mp4"].filter(Boolean);
+    const emb=()=>{vp.innerHTML=`<iframe src="https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&playsinline=1" allow="autoplay; encrypted-media; fullscreen; picture-in-picture" allowfullscreen title="video"></iframe>`;vp.classList.add("on")};
+    const yt=()=>{if(!id||id==="-")return;if(YTEMBED)emb();else window.open("https://www.youtube.com/watch?v="+id,"_blank","noopener")};
+    const srcs=[ONART&&MVBLOB[k],(!ONART||MVBLOB[k])&&MVLOCAL.has(k)&&"mv/"+k+".mp4"].filter(Boolean);
     if(!srcs.length){yt();return}
     const vd=document.createElement("video");vd.controls=true;vd.autoplay=true;vd.playsInline=true;let n=0;
-    vd.onerror=()=>{n++;if(n<srcs.length)vd.src=srcs[n];else{vp.classList.remove("on");vp.innerHTML='<button class="vplay"><span>▶</span><em class="mono">Watch on YouTube</em></button>';vp.onclick=()=>yt()}};
+    vd.onerror=()=>{n++;if(n<srcs.length)vd.src=srcs[n];else if(YTEMBED&&id&&id!=="-")emb();else{vp.classList.remove("on");vp.innerHTML='<button class="vplay"><span>▶</span><em class="mono">Watch on YouTube</em></button>';vp.onclick=()=>yt()}};
     vd.src=srcs[0];vp.innerHTML="";vp.appendChild(vd);vp.classList.add("on");vd.play().catch(()=>{});return}
   const hv=e.target.closest("[data-hv]");if(hv){state.hv=hv.dataset.hv;save();scrolls.home=0;route();return}
   const fb=e.target.closest("[data-filter]");
