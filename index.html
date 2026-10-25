@@ -1304,6 +1304,24 @@ img[src^="spr:"]{opacity:0}
 @media(max-width:820px){.n4-grid{columns:1}.n4.big,.n4.big .n4-ov{min-height:420px}}
 .ncard .nsrc{font-size:.72rem;line-height:1.8;color:var(--muted)}.ncard .nsrc a{color:inherit;text-decoration:none;border-bottom:1px solid transparent}.ncard .nsrc a:hover{color:var(--fg);border-color:currentColor}
 .ncard .jthumb img{aspect-ratio:16/10;object-fit:cover}
+
+/* news: caska식 */
+.ngrid{columns:4 240px;column-gap:20px}
+.ncd{break-inside:avoid;margin-bottom:42px;display:grid;gap:10px}
+.ncd-im{display:block;overflow:hidden;background:#111}.ncd-im img{display:block;width:100%;height:auto;transition:transform .6s}.ncd-im:hover img{transform:scale(1.03)}
+.ncd-d{font-size:.7rem;margin:8px 0 0;color:var(--fg)}
+.ncd h3{font-family:"Noto Sans KR",sans-serif;font-weight:800;font-size:1.08rem;line-height:1.4;letter-spacing:-.03em;margin:0}
+.ncd h3 a{color:inherit;text-decoration:none}.ncd h3 a:hover{color:var(--accent)}
+.ncd-r{display:block;width:22px;height:2px;background:#c9ad7c}
+.ncd-x{font-size:.78rem;line-height:1.75;color:#555;margin:0;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.ncd-more{justify-self:start;font-size:.56rem;letter-spacing:.08em;text-transform:uppercase;color:var(--fg);text-decoration:none;border:1px solid var(--fg);padding:6px 10px;transition:background .2s,color .2s}
+.ncd-more:hover{background:var(--fg);color:var(--bg,#fff)}
+.nart-src{display:grid;margin-top:1.6em;border-top:1px solid var(--fg)}
+.nart-src>p{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin:12px 0 4px}
+.nart-src a{display:grid;grid-template-columns:140px 1fr auto;gap:14px;align-items:baseline;padding:10px 0;border-bottom:1px solid var(--rule,#ddd);text-decoration:none;color:inherit;font-size:.86rem}
+.nart-src a b{font-size:.78rem}.nart-src a i{font-style:normal;font-size:.62rem;color:var(--muted)}.nart-src a:hover span{color:var(--accent)}
+.nart-w{display:grid;gap:4px;margin-top:1.6em;padding:16px 18px;border:1px solid var(--fg);text-decoration:none;color:var(--fg)}.nart-w .mono{font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;opacity:.7}
+@media(max-width:820px){.ngrid{columns:2 150px;column-gap:14px}.nart-src a{grid-template-columns:1fr auto}.nart-src a span{grid-column:1/-1}}
 /* ── about ── */
 .about{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,6vw,80px)}
 .about .lead{font-family:var(--display);font-size:var(--s1);line-height:1.85;max-width:30em;display:grid;gap:1em}
@@ -2410,26 +2428,56 @@ const EVT=[
  ["f4",/Video/,"시적허용 — 35mm 필름 제작기","Video"],
  ["c6",/./,"트렌드지 'GLOW' 컴백과 뮤직비디오","Release"],
  ["c8",/./,"트렌드지 '위로위로' 뮤직비디오","Release"]];
-function newsView(){
-  const th=k=>k&&MEDIA[k]&&gl(k).length?SU(k,rs(k)):"";
-  const E=EVT.map(e=>({e,items:[]}));
+/* 사건별 본문 (기사 내용을 바탕으로) */
+const EVTX={
+"트로픽 — 제30회 판타지아 국제단편경쟁 최우수 촬영상":"캐나다 몬트리올에서 열린 제30회 판타지아 국제영화제 국제단편경쟁에서 단편 '트로픽'(감독 박정윤)의 촬영을 맡은 정다빈이 최우수 촬영상을 받았다. 한국예술종합학교 AT랩이 제작한 작품으로, 영화제에서 월드 프리미어로 처음 공개됐다.",
+"트로픽 — 판타지아 국제영화제 월드 프리미어":"'트로픽'이 제30회 판타지아 국제영화제 단편 프로그램에 초청돼 월드 프리미어로 상영됐다. 한국 단편 쇼케이스 CineMapsosa 섹션에 포함됐다.",
+"더 러버 — 부천판타스틱영화제 부천초이스 상영":"송현범 감독의 첫 장편 '더 러버'가 제30회 부천국제판타스틱영화제 부천초이스 한국 장편 경쟁작으로 관객과 만났다. 주연 김민기가 GV에 참석했다.",
+"더 러버 — 부천판타스틱영화제 장편 경쟁 선정":"제30회 부천국제판타스틱영화제가 장편 경쟁 10편을 발표했고, '더 러버'가 부천초이스 한국 장편 경쟁에 이름을 올렸다.",
+"두 번의 장례 — 넷플릭스 공개":"미쟝센단편영화제 상영작 '두 번의 장례'(감독 양승우)가 넷플릭스에 공개됐다.",
+"두 번의 장례 — 한국영화데이터베이스 등재":"한국영상자료원 KMDb에 작품 정보가 등재됐다. 미쟝센·전주 단편 상영과 파리한국영화제 심사위원 특별언급 기록이 함께 올라 있다.",
+"컬러풀 해피니스 — 독립영화 라이브러리 스페셜 위크":"인디그라운드 2025 독립영화 라이브러리에 선정된 '컬러풀 해피니스'(감독 박혜원)가 스페셜 위크 상영작에 포함됐다.",
+"콜록 콜록, 컬러! — 제17회 대단한단편영화제 대단한 감독상":"제17회 대단한단편영화제 폐막식에서 김세진 감독의 '콜록, 콜록, 컬러!'가 대단한 감독상을 받았다.",
+"콜록 콜록, 컬러! — 제24회 뉴욕아시안영화제":"'콜록, 콜록, 컬러!'가 제24회 뉴욕아시안영화제에 초청돼 인터내셔널 프리미어로 상영됐다.",
+"시적허용 — 제30회 부산국제영화제 와이드앵글 한국단편경쟁":"35mm 필름으로 찍은 '시적허용'이 제30회 부산국제영화제 와이드앵글 한국단편경쟁에 초청됐다. 9월 20일 롯데시네마 센텀시티에서 GV와 함께 상영됐다.",
+"시적허용 — 35mm 필름 제작기":"여덟 캔의 필름, 리허설 세 번에 테이크 한 번. 해가 지는 옥상에서 35mm로 단편을 찍은 과정을 영상으로 정리했다.",
+"아이칠린 제이 'BANANA' 뮤직비디오 공개":"아이칠린의 첫 유닛 아이칠린 제이가 타이틀곡 'BANANA (Look At Me!)'를 발매하고 뮤직비디오를 공개했다.",
+"트렌드지 'GLOW' 컴백과 뮤직비디오":"트렌드지가 네 번째 싱글 'DREAMLIKE'의 타이틀곡 'GLOW'로 컴백하며 뮤직비디오를 공개했다.",
+"트렌드지 '위로위로' 뮤직비디오":"데뷔 2주년을 맞은 트렌드지가 스페셜 싱글 '위로위로'의 뮤직비디오를 선공개했다."};
+const newsEvents=()=>{const E=EVT.map((e,id)=>({e,id,items:[]}));
   NEWS.forEach(n=>{const hit=E.find(x=>x.e[0]===n[4]&&x.e[1].test(n[5]+" "+n[0])&&!(x.e[1].source==="."&&E.some(y=>y!==x&&y.e[0]===n[4]&&y.e[1].source!=="."&&y.e[1].test(n[5]+" "+n[0]))));(hit||E[E.length-1]).items.push(n)});
-  const L=E.filter(x=>x.items.length).map(x=>{x.items.sort((a,b)=>b[0].localeCompare(a[0]));x.last=x.items[0][0];return x}).sort((a,b)=>b.last.localeCompare(a.last));
-  const dt=d=>d.includes("--")?d.slice(0,4):d.slice(0,7).replace(".",". ");
-  const hero=th("f7")||img(7);
-  return `<div class="view">${phero("News","Press &amp; festivals",hero)}
-    <div class="jpanel wrap"><div class="jinner"><div class="jgrid">${L.map(x=>{const [k,,title,kind]=x.e,first=x.items[x.items.length-1];
-      return `<article class="jcard ncard">
-        <a href="${x.items[0][3]}" target="_blank" rel="noopener" class="jthumb"><img src="${th(k)}" alt="" loading="lazy"></a>
-        <div class="jdate">${dt(x.last)} · ${kind}</div>
-        <h3><a href="${x.items[0][3]}" target="_blank" rel="noopener">${esc(title)}</a></h3>
-        <i class="rule"></i>
-        <p>${esc(first[6])}</p>
-        <p class="nsrc">${x.items.map(n=>`<a href="${n[3]}" target="_blank" rel="noopener">${esc(n[1])}</a>`).join(" · ")}</p>
+  return E.filter(x=>x.items.length).map(x=>{x.items.sort((a,b)=>b[0].localeCompare(a[0]));x.last=x.items[0][0];return x}).sort((a,b)=>b.last.localeCompare(a.last))};
+const nDate=d=>{if(d.includes("--"))return d.slice(0,4)+"년";const [y,m,dd]=d.split(".");return `${y}년 ${m}월 ${dd}일`};
+const nImg=k=>k&&MEDIA[k]&&gl(k).length?SU(k,rs(k)):"";
+function newsView(){
+  const L=newsEvents();
+  return `<div class="view">${phero("News","",nImg("f7")||img(7))}
+    <div class="jpanel wrap"><div class="jinner"><div class="ngrid">${L.map(x=>{const [k,,title]=x.e,body=EVTX[title]||x.items[0][6];
+      return `<article class="ncd">
+        <a href="#news-${x.id}" class="ncd-im"><img src="${nImg(k)}" alt="" loading="lazy"></a>
+        <p class="ncd-d">On ${nDate(x.last)}</p>
+        <h3><a href="#news-${x.id}">${esc(title)}</a></h3>
+        <i class="ncd-r"></i>
+        <p class="ncd-x">${esc(body)}</p>
+        <a class="ncd-more" href="#news-${x.id}">Keep reading</a>
       </article>`}).join("")}</div></div></div>
   </div>`;
 }
-function bindNews(){
+function newsArticle(id){
+  const L=newsEvents(),x=L.find(y=>y.id===+id);if(!x)return notFound();
+  const [k,,title,kind]=x.e,o=L.indexOf(x),nx=L[(o+1)%L.length];
+  const wt=k[0]==="f"?F[+k.slice(1)]:C[+k.slice(1)];
+  return `<article class="view wrap essay nart">
+    <div class="ess-top"><a class="back mono" href="#news">← News</a><p class="mono">On ${nDate(x.last)} · ${kind}</p><h1>${esc(title)}</h1></div>
+    <figure class="ess-cover"><img src="${nImg(k)}" alt=""></figure>
+    <div class="ess-body"><p>${esc(EVTX[title]||x.items[0][6])}</p>
+      <div class="nart-src"><p class="mono">Coverage</p>${x.items.map(n=>`<a href="${n[3]}" target="_blank" rel="noopener"><b>${esc(n[1])}</b><span>${esc(n[2])}</span><i class="mono">${n[0].includes("--")?n[0].slice(0,4):n[0]}</i></a>`).join("")}</div>
+      ${wt?`<a class="nart-w" href="#${k[0]==="f"?"film":"commercial"}-${k.slice(1)}"><span class="mono">Project</span><b>${esc(wt[0])} →</b></a>`:""}
+    </div>
+    <nav class="ess-next"><span class="mono">Next</span><a href="#news-${nx.id}">${esc(nx.e[2])} →</a></nav>
+  </article>`;
+}
+function bindNews(){return;
   document.querySelectorAll(".n4").forEach(c=>{c.addEventListener("mousemove",e=>{const r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;c.style.transform=`perspective(900px) rotateY(${x*6}deg) rotateX(${-y*6}deg)`});c.addEventListener("mouseleave",()=>c.style.transform="")});
   const P=$("#n3P"),R=document.querySelectorAll(".n3-r");if(!P)return;
   R.forEach(r=>{r.addEventListener("mouseenter",()=>{const u=r.dataset.src;if(!u)return;spURL(u).then(x=>{P.style.backgroundImage=`url('${x}')`;P.classList.add("on")})});r.addEventListener("mouseleave",()=>P.classList.remove("on"))});
@@ -2649,6 +2697,7 @@ function route(){document.body.classList.remove("lb-open");document.body.style.o
   else if(/^commercial-\d+$/.test(h))html=commercialDetail(+h.split("-")[1]),section="commercial";
   else if(h==="journal")html=journal();
   else if(h==="news")html=newsView();
+  else if(/^news-\d+$/.test(h))html=newsArticle(h.slice(5)),section="news";
   else if(/^journal-/.test(h))html=article(h.slice(8)),section="journal";
   else if(h==="about"||h==="contact")html=`<div class="view cv dark ab-dark" style="background-image:url('${cover("f17",img(17))}')"><div class="cv-in"><div class="cv-title"><h1>About</h1><p>Jung Dabin — Director · Cinematographer · Colorist</p></div>${about()}</div></div>`,section="about";
   else html=notFound();
