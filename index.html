@@ -1322,6 +1322,24 @@ img[src^="spr:"]{opacity:0}
 .nart-src a b{font-size:.78rem}.nart-src a i{font-style:normal;font-size:.62rem;color:var(--muted)}.nart-src a:hover span{color:var(--accent)}
 .nart-w{display:grid;gap:4px;margin-top:1.6em;padding:16px 18px;border:1px solid var(--fg);text-decoration:none;color:var(--fg)}.nart-w .mono{font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;opacity:.7}
 @media(max-width:820px){.ngrid{columns:2 150px;column-gap:14px}.nart-src a{grid-template-columns:1fr auto}.nart-src a span{grid-column:1/-1}}
+
+/* news: 꽉 찬 화면 + 스크롤 움직임 */
+.nhero{position:relative;height:100svh;min-height:560px;display:grid;place-items:center;color:#fff;overflow:hidden;background:#0b0b0b}
+.nh-bg{position:fixed;inset:-4% 0 0 0;height:108svh;z-index:0;will-change:transform}
+.nh-bg i{position:absolute;inset:0;background:center/cover no-repeat;opacity:0;transition:opacity 1.6s ease}
+.nh-bg i.on{opacity:1}
+.nh-bg::after{content:"";position:absolute;inset:0;background:rgba(0,0,0,.3)}
+.nhero h1{position:relative;z-index:2;font-family:"Noto Sans KR",sans-serif;font-weight:900;font-size:clamp(3rem,7vw,6.4rem);letter-spacing:-.04em;margin:0;will-change:transform,opacity}
+.nh-dn{position:absolute;z-index:2;bottom:28px;left:50%;transform:translateX(-50%);font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;opacity:.8;animation:nhd 2s ease-in-out infinite}
+@keyframes nhd{50%{transform:translate(-50%,6px);opacity:.4}}
+.npanel{position:relative;z-index:3;background:var(--bg);margin:calc(var(--slant) * -1.2) clamp(12px,4vw,140px) 0;padding:clamp(28px,3vw,48px) clamp(18px,2vw,32px) 120px;clip-path:polygon(0 var(--slant),100% 0,100% 100%,0 100%);padding-top:calc(var(--slant) + 20px)}
+.nwv .ngrid{columns:4 260px;column-gap:clamp(16px,1.6vw,28px)}
+.nwv .ncd h3{font-size:clamp(1.05rem,1.3vw,1.4rem)}
+.nwv .ncd-x{font-size:clamp(.78rem,.85vw,.92rem)}
+.ncd{opacity:0;transform:translateY(40px);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1)}
+.ncd.in{opacity:1;transform:none}
+.nwv~footer,.nwv footer{position:relative;z-index:3}
+@media(prefers-reduced-motion:reduce){.ncd{opacity:1;transform:none}}
 /* ── about ── */
 .about{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,6vw,80px)}
 .about .lead{font-family:var(--display);font-size:var(--s1);line-height:1.85;max-width:30em;display:grid;gap:1em}
@@ -2451,8 +2469,10 @@ const nDate=d=>{if(d.includes("--"))return d.slice(0,4)+"년";const [y,m,dd]=d.s
 const nImg=k=>k&&MEDIA[k]&&gl(k).length?SU(k,rs(k)):"";
 function newsView(){
   const L=newsEvents();
-  return `<div class="view">${phero("News","",nImg("f7")||img(7))}
-    <div class="jpanel wrap"><div class="jinner"><div class="ngrid">${L.map(x=>{const [k,,title]=x.e,body=EVTX[title]||x.items[0][6];
+  const HK=["f7","f0","f4","f11","f5","c36","f13","c6"].filter(k=>gl(k).length);
+  return `<div class="view nwv">
+    <section class="nhero dark" id="nH"><div class="nh-bg" id="nHb">${HK.map((k,i)=>`<i class="${i?"":"on"}" style="background-image:url('${nImg(k)}')"></i>`).join("")}</div><h1 id="nHt">News</h1><span class="nh-dn mono">Scroll</span></section>
+    <div class="npanel"><div class="ngrid">${L.map(x=>{const [k,,title]=x.e,body=EVTX[title]||x.items[0][6];
       return `<article class="ncd">
         <a href="#news-${x.id}" class="ncd-im"><img src="${nImg(k)}" alt="" loading="lazy"></a>
         <p class="ncd-d">On ${nDate(x.last)}</p>
@@ -2460,7 +2480,7 @@ function newsView(){
         <i class="ncd-r"></i>
         <p class="ncd-x">${esc(body)}</p>
         <a class="ncd-more" href="#news-${x.id}">Keep reading</a>
-      </article>`}).join("")}</div></div></div>
+      </article>`}).join("")}</div></div>
   </div>`;
 }
 function newsArticle(id){
@@ -2477,7 +2497,16 @@ function newsArticle(id){
     <nav class="ess-next"><span class="mono">Next</span><a href="#news-${nx.id}">${esc(nx.e[2])} →</a></nav>
   </article>`;
 }
-function bindNews(){return;
+function bindNews(){
+  const H=$("#nH");if(!H)return;const bg=$("#nHb"),t=$("#nHt"),sl=[...bg.children];let j=0,raf=0;
+  hydrate();
+  const iv=setInterval(()=>{if(!document.body.contains(H))return clearInterval(iv);sl[j].classList.remove("on");j=(j+1)%sl.length;sl[j].classList.add("on")},4500);
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{rootMargin:"0px 0px -8% 0px"});
+  document.querySelectorAll(".ncd").forEach((c,i)=>{c.style.transitionDelay=(i%4)*70+"ms";io.observe(c)});
+  const sc=()=>{const y=scrollY,h=innerHeight;bg.style.transform=`translate3d(0,${-y*0.12}px,0) scale(${1.06+y/h*0.04})`;const p=Math.min(1,y/(h*0.7));t.style.transform=`translateY(${y*0.35}px) scale(${1-p*0.12})`;t.style.opacity=1-p;raf=0};
+  const on=()=>{if(!raf)raf=requestAnimationFrame(sc)};addEventListener("scroll",on,{passive:true});sc();
+  reelOff=()=>{removeEventListener("scroll",on);clearInterval(iv);io.disconnect()};
+  return;
   document.querySelectorAll(".n4").forEach(c=>{c.addEventListener("mousemove",e=>{const r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;c.style.transform=`perspective(900px) rotateY(${x*6}deg) rotateX(${-y*6}deg)`});c.addEventListener("mouseleave",()=>c.style.transform="")});
   const P=$("#n3P"),R=document.querySelectorAll(".n3-r");if(!P)return;
   R.forEach(r=>{r.addEventListener("mouseenter",()=>{const u=r.dataset.src;if(!u)return;spURL(u).then(x=>{P.style.backgroundImage=`url('${x}')`;P.classList.add("on")})});r.addEventListener("mouseleave",()=>P.classList.remove("on"))});
