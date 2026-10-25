@@ -1092,6 +1092,78 @@ img[src^="spr:"]{opacity:0}
 .whero h1{font-size:clamp(3.2rem,8.4vw,6.8rem);font-weight:500;text-shadow:0 2px 24px rgba(0,0,0,.55),0 1px 2px rgba(0,0,0,.4)}
 .whero h1 .it{font-size:.74rem;letter-spacing:.22em;opacity:1;margin-top:18px;text-shadow:0 1px 10px rgba(0,0,0,.7)}
 .vframe.vport{aspect-ratio:9/16;max-height:82vh;margin:0 auto;max-width:calc(82vh*9/16)}
+
+/* home X: slate */
+.sl{position:relative;height:100vh;min-height:600px;background:#0b0b0b;overflow:hidden;display:grid;place-items:center}
+.sl-bg{position:absolute;inset:0;background:center/cover no-repeat;filter:brightness(.55);transition:background-image .4s}
+.sl-board{position:relative;z-index:2;width:min(620px,88vw);transform-origin:left bottom}
+.sl-stick{height:42px;background:#151515;display:grid;grid-template-columns:repeat(7,1fr);transform-origin:6px 100%;transform:rotate(-14deg);transition:transform .18s cubic-bezier(.6,0,.4,1);border:2px solid #f2efe8;border-bottom:0;overflow:hidden}
+.sl-stick i{background:repeating-linear-gradient(0deg,transparent,transparent);transform:skewX(-35deg);margin:0 -6px}
+.sl-stick i:nth-child(odd){background:#f2efe8}
+.sl-board.clap .sl-stick{animation:clap .5s ease}
+@keyframes clap{0%{transform:rotate(-14deg)}45%{transform:rotate(0)}100%{transform:rotate(-14deg)}}
+.sl-body{background:#111;border:2px solid #f2efe8;display:grid;grid-template-columns:repeat(3,1fr);color:#f2efe8;font-family:var(--mono)}
+.sl-r{border:1px solid rgba(242,239,232,.35);padding:10px 14px;display:grid;gap:4px;min-width:0}
+.sl-r.full{grid-column:1/-1}.sl-r.half{grid-column:span 1}
+.sl-body .sl-r.half:nth-of-type(5),.sl-body .sl-r.half:nth-of-type(7){grid-column:span 2}
+.sl-r span{font-size:.55rem;letter-spacing:.24em;opacity:.6}
+.sl-r b{font-family:"Gowun Batang",var(--essay);font-weight:700;font-size:clamp(1.1rem,2.6vw,1.7rem);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sl-r.full b{font-size:clamp(1.6rem,4.4vw,2.8rem)}
+.sl-k{position:absolute;bottom:90px;left:0;right:0;text-align:center;z-index:2;color:#f2efe8;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;opacity:.75}
+/* home A: aspect */
+.as{position:relative;height:100vh;min-height:560px;background:#000;color:#f2efe8;display:grid;place-items:center;overflow:hidden}
+.as-win{--ar:1.78;display:block;width:min(92vw,calc(70vh*var(--ar)));aspect-ratio:var(--ar);overflow:hidden;transition:width 1s cubic-bezier(.6,0,.2,1),aspect-ratio 1s cubic-bezier(.6,0,.2,1),opacity .5s;box-shadow:0 0 0 1px rgba(255,255,255,.06)}
+.as-win img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 6s linear}
+.as-win:hover img{transform:scale(1.03)}
+.as-win.out{opacity:0}
+.as-cap{position:absolute;left:clamp(16px,4vw,56px);bottom:clamp(80px,12vh,110px);display:grid;gap:6px}
+.as-ar{font-size:.8rem;letter-spacing:.1em;color:#e0a640}.as-ar b{font-size:2.2rem;font-weight:400}
+.as-cap h1{font-size:clamp(1.6rem,3.2vw,2.6rem);font-weight:700;letter-spacing:-.03em;margin:0}
+.as-cap .mono{font-size:.62rem;letter-spacing:.14em;opacity:.8}
+.as-k{position:absolute;top:84px;right:clamp(16px,4vw,56px);font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;opacity:.6}
+/* home E: credits */
+.cr{position:relative;height:100vh;min-height:560px;background:#050505;color:#ece7dd;overflow:hidden}
+.cr-bg{position:absolute;inset:0;background:center/cover no-repeat;opacity:0;transition:opacity .8s;filter:brightness(.35) saturate(.8)}
+.cr-bg.on{opacity:1}
+.cr-roll{position:absolute;left:0;right:0;top:0;display:grid;justify-items:center;text-align:center;will-change:transform;padding-bottom:40vh}
+.cr-pre,.cr-sub{font-size:.62rem;letter-spacing:.3em;text-transform:uppercase;opacity:.7}
+.cr-roll h1{font-family:var(--didone);font-weight:400;font-size:clamp(3rem,8vw,6.4rem);margin:14px 0 8px;letter-spacing:-.01em}
+.cr-y{margin-top:12vh;display:grid;gap:22px;width:min(760px,92vw)}
+.cr-y h2{font-size:.7rem;letter-spacing:.4em;font-weight:400;opacity:.55;margin:0 0 6px}
+.cr-l{display:grid;grid-template-columns:1fr auto 1fr;gap:28px;align-items:baseline;text-decoration:none;color:inherit;transition:color .3s}
+.cr-l span{text-align:right;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;opacity:.6;font-family:var(--mono)}
+.cr-l b{font-size:1.3rem;font-weight:500;letter-spacing:-.01em}
+.cr-l i{text-align:left;font-style:normal;font-size:.8rem;opacity:.6}
+.cr-l:hover{color:#e0a640}
+.cr-end{margin-top:14vh;font-size:1rem}.cr-end.mono{margin-top:16px;font-size:.66rem;letter-spacing:.16em}.cr-end a{color:inherit}
+@media(max-width:820px){.cr-l{grid-template-columns:1fr;gap:2px}.cr-l span,.cr-l i{text-align:center}}
+/* home Y: timeline */
+.tm{position:relative;min-height:100vh;background:#f4f1ea;padding-top:clamp(100px,14vh,140px);overflow:hidden}
+.tm-h{padding:0 clamp(16px,4vw,56px);display:grid;gap:8px}
+.tm-h h1{font-family:var(--didone);font-weight:400;font-size:clamp(2.4rem,6vw,4.6rem);margin:0;letter-spacing:-.02em}
+.tm-h .mono{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.tm-scroll{overflow-x:auto;overflow-y:hidden;scrollbar-width:thin;margin-top:20px}
+.tm-track{position:relative;width:5600px;height:820px}
+.tm-axis{position:absolute;left:0;right:0;top:50%;height:1px;background:#111}
+.tm-axis span{position:absolute;top:0;height:14px;border-left:1px solid #111}
+.tm-axis b{position:absolute;top:18px;left:8px;font-family:var(--didone);font-weight:400;font-size:2rem;color:#111}
+.tm-it{position:absolute;width:220px;text-decoration:none;color:#111;display:grid;gap:6px;transition:transform .3s}
+.tm-it.up{bottom:calc(50% + 24px + var(--o))}.tm-it.dn{top:calc(50% + 70px + var(--o))}
+.tm-it img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;filter:grayscale(.6);transition:filter .4s}
+.tm-it:hover img{filter:none}.tm-it:hover{transform:translateY(-4px);z-index:2}
+.tm-it span{display:flex;justify-content:space-between;gap:8px;font-size:.8rem}.tm-it i{font-style:normal;font-size:.6rem;opacity:.6}
+.tm-it::before{content:"";position:absolute;left:0;width:1px;background:#111;opacity:.4}
+.tm-it.up::before{top:100%;height:calc(24px + var(--o))}.tm-it.dn::before{bottom:100%;height:calc(70px + var(--o))}
+/* home H: spotlight */
+.spt{position:relative;height:100vh;min-height:560px;background:#000;overflow:hidden;cursor:none}
+.spt-wall{position:absolute;inset:-2%;display:grid;grid-template-columns:repeat(8,1fr);gap:4px}
+.spt-wall a{display:block;overflow:hidden;aspect-ratio:16/10}.spt-wall img{width:100%;height:100%;object-fit:cover;display:block}
+.spt-dark{--x:50%;--y:50%;position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle 300px at var(--x) var(--y),rgba(0,0,0,0) 0,rgba(0,0,0,.25) 45%,rgba(0,0,0,.94) 100%)}
+.spt-cap{position:absolute;left:0;right:0;bottom:90px;text-align:center;color:#f2efe8;pointer-events:none;display:grid;gap:8px}
+.spt-cap h1{font-family:var(--didone);font-weight:400;font-size:clamp(2.2rem,5vw,4rem);margin:0}
+.spt-cap .mono{font-size:.6rem;letter-spacing:.24em;text-transform:uppercase;opacity:.7}
+.spt-name{color:#e0a640;opacity:1!important;min-height:1em}
+@media(hover:none){.spt{cursor:auto}.spt-wall{grid-template-columns:repeat(4,1fr)}}
 /* ── about ── */
 .about{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,6vw,80px)}
 .about .lead{font-family:var(--display);font-size:var(--s1);line-height:1.85;max-width:30em;display:grid;gap:1em}
@@ -1575,7 +1647,7 @@ const enRT=s=>s?s.replace(/hour/,"h").replace(/(\d+)min/,"$1m").replace(/(\d+)se
 
 const state={role:"all",kind:"all",hv:"s"};
 try{const s=JSON.parse(localStorage.getItem("icf-filters")||"{}");["role","kind","hv"].forEach(k=>{if(s[k])state[k]=s[k]})}catch(_){}
-if(!["c","d","t","r","w","s","p","k","b","v"].includes(state.hv))state.hv="s";
+if(!["c","d","t","r","w","s","p","k","b","v","x","a","e","y","h"].includes(state.hv))state.hv="s";
 if(!["all","mv","cf","brand","corp","doc"].includes(state.kind))state.kind="all";
 const save=()=>{try{localStorage.setItem("icf-filters",JSON.stringify(state))}catch(_){}};
 
@@ -1632,7 +1704,7 @@ function homeD(){
   ${hvSwitch()}
   </div>`;
 }
-const hvSwitch=()=>`<div class="hv" role="group" aria-label="Home drafts">${[["k","Contact"],["b","Spectrum"],["v","Monitor"],["s","Screening"],["p","Split"],["t","Titles"],["r","Reel"],["w","Wall"],["d","Instant"],["c","Cover"]].map(([k,l])=>`<button id="hv-${k}" data-hv="${k}" aria-pressed="${state.hv===k}">${l}</button>`).join("")}</div>`;
+const hvSwitch=()=>`<div class="hv" role="group" aria-label="Home drafts">${[["x","Slate"],["a","Aspect"],["e","Credits"],["y","Timeline"],["h","Spotlight"],["k","Contact"],["b","Spectrum"],["v","Monitor"],["s","Screening"],["p","Split"],["t","Titles"],["r","Reel"],["w","Wall"],["d","Instant"],["c","Cover"]].map(([k,l])=>`<button id="hv-${k}" data-hv="${k}" aria-pressed="${state.hv===k}">${l}</button>`).join("")}</div>`;
 function homeT(){
   const items=FO.map(i=>[F[i],i]).map(([f,i])=>{const k="f"+i,po=has(k,"p");
     const src=po?W(k,"p",0):has(k,"s")?SU(k,rs(k)):img(i);
@@ -1684,7 +1756,7 @@ function homeP(){
     </div>
   </section>${hvSwitch()}</div>`;
 }
-const home=()=>({k:homeK,b:homeB,v:homeV,c:homeC,d:homeD,r:homeR,w:homeW,s:homeS,p:homeP}[state.hv]||homeT)();
+const home=()=>({x:homeX,a:homeA,e:homeE,y:homeY,h:homeH,k:homeK,b:homeB,v:homeV,c:homeC,d:homeD,r:homeR,w:homeW,s:homeS,p:homeP}[state.hv]||homeT)();
 
 function phero(title,sub,src){
   return `<section class="phero dark" style="background-image:url('${src}')"><h1>${title}<span class="it">${sub}</span></h1></section>`;
@@ -2266,6 +2338,110 @@ function bindMonitor(){
   const key=e=>{if(e.key==="ArrowRight")go(j+1);if(e.key==="ArrowLeft")go(j-1)};addEventListener("keydown",key);
   raf=requestAnimationFrame(tick);reelOff=()=>{cancelAnimationFrame(raf);removeEventListener("keydown",key)};
 }
+/* ───────── 홈 시안 5종: Slate · Aspect · Credits · Timeline · Spotlight ───────── */
+const dirOf=i=>{const c=(STAFF[i]&&STAFF[i].crew)||[];const r=c.find(x=>/^Director/.test(x[0]));return r?r[1].split(" · ")[0]:""};
+const camOf=i=>(F[i][5]||"").split(",")[0].trim();
+const mkFlip=(ids,D,go)=>{let j=0,t0=performance.now(),raf=0;const tick=now=>{if(!document.body.contains(ids))return;if(now-t0>=D&&!reduced()){j++;go(j);t0=now}raf=requestAnimationFrame(tick)};raf=requestAnimationFrame(tick);
+  const key=e=>{if(e.key==="ArrowRight"){j++;go(j);t0=performance.now()}if(e.key==="ArrowLeft"){j--;go(j);t0=performance.now()}};addEventListener("keydown",key);reelOff=()=>{cancelAnimationFrame(raf);removeEventListener("keydown",key)}};
+
+/* X: 슬레이트 — 클래퍼보드에 작품 정보가 적히고, 딱 소리 나듯 장면이 바뀐다 */
+function homeX(){
+  const L=homeList().sort(()=>Math.random()-.5),i=L[0];
+  return `<div class="view hslate"><section class="sl dark" id="sl" data-list="${L.join(",")}">
+    <a class="sl-bg" id="slBg" href="#film-${i}" style="background-image:url('${SU("f"+i,rs("f"+i))}')" aria-label="${esc(F[i][0])}"></a>
+    <div class="sl-board" id="slB">
+      <div class="sl-stick"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      <div class="sl-body">
+        <div class="sl-r full"><span>PROD.</span><b id="slT">${esc(F[i][0])}</b></div>
+        <div class="sl-r"><span>ROLL</span><b id="slRoll">A${String(i).padStart(3,"0")}</b></div><div class="sl-r"><span>SCENE</span><b id="slSc">${F[i][1].slice(2,4)}</b></div><div class="sl-r"><span>TAKE</span><b id="slTk">1</b></div>
+        <div class="sl-r half"><span>DIRECTOR</span><b id="slD">${esc(dirOf(i)||"—")}</b></div><div class="sl-r half"><span>CAMERA</span><b>Jung Dabin</b></div>
+        <div class="sl-r half"><span>DATE</span><b id="slDt">${F[i][1]}</b></div><div class="sl-r half"><span>FORMAT</span><b id="slF">${F[i][4]?F[i][4]+" : 1":"—"}</b></div>
+      </div>
+    </div>
+    <p class="sl-k mono">Instant Classic Film — Jung Dabin, Director · Cinematographer</p>
+  </section>${hvSwitch()}</div>`;
+}
+function bindSlate(){
+  const sl=$("#sl");if(!sl)return;const L=sl.dataset.list.split(",").map(Number),b=$("#slB"),bg=$("#slBg");
+  mkFlip(sl,5200,j=>{const i=L[((j%L.length)+L.length)%L.length];b.classList.remove("clap");void b.offsetWidth;b.classList.add("clap");
+    setTimeout(()=>{bg.href="#film-"+i;spURL(SU("f"+i,rs("f"+i))).then(u=>bg.style.backgroundImage=`url('${u}')`);
+      $("#slT").textContent=F[i][0];$("#slRoll").textContent="A"+String(i).padStart(3,"0");$("#slSc").textContent=F[i][1].slice(2,4);$("#slTk").textContent=String(1+(j%3));$("#slD").textContent=dirOf(i)||"—";$("#slDt").textContent=F[i][1];$("#slF").textContent=F[i][4]?F[i][4]+" : 1":"—"},260)});
+}
+
+/* A: 화면비 — 같은 화면에서 작품마다 실제 화면비로 레터박스가 열리고 닫힌다 */
+function homeA(){
+  const L=homeList().filter(i=>F[i][4]).sort(()=>Math.random()-.5),i=L[0];
+  return `<div class="view haspect"><section class="as dark" id="as" data-list="${L.join(",")}">
+    <a class="as-win" id="asW" href="#film-${i}" style="--ar:${F[i][4]}"><img id="asI" src="${SU("f"+i,rs("f"+i))}" alt=""></a>
+    <div class="as-cap"><p class="as-ar mono"><b id="asAr">${F[i][4]}</b> : 1</p><h1 id="asT">${esc(F[i][0])}</h1><p class="mono" id="asM">${F[i][1].slice(0,4)} · ${roleEn(F[i])}</p></div>
+    <p class="as-k mono">Instant Classic Film · Every film has its own frame</p>
+  </section>${hvSwitch()}</div>`;
+}
+function bindAspect(){
+  const as=$("#as");if(!as)return;const L=as.dataset.list.split(",").map(Number),w=$("#asW"),im=$("#asI");
+  mkFlip(as,5000,j=>{const i=L[((j%L.length)+L.length)%L.length];w.classList.add("out");
+    setTimeout(()=>{w.style.setProperty("--ar",F[i][4]);w.href="#film-"+i;setSrc(im,SU("f"+i,rs("f"+i)));$("#asAr").textContent=F[i][4];$("#asT").textContent=F[i][0];$("#asM").textContent=F[i][1].slice(0,4)+" · "+roleEn(F[i]);setTimeout(()=>w.classList.remove("out"),120)},500)});
+}
+
+/* E: 엔딩 크레딧 — 검은 화면에 크레딧이 천천히 올라간다. 줄에 올리면 그 장면이 뒤에 깔린다 */
+function homeE(){
+  const L=FO;const yrs={};L.forEach(i=>{const y=F[i][1].slice(0,4);(yrs[y]=yrs[y]||[]).push(i)});
+  return `<div class="view hcred"><section class="cr dark" id="cr">
+    <div class="cr-bg" id="crBg" aria-hidden="true"></div>
+    <div class="cr-roll" id="crR">
+      <p class="cr-pre mono">Instant Classic Film presents</p>
+      <h1>Jung Dabin</h1><p class="cr-sub mono">Director · Cinematographer · Colorist</p>
+      ${Object.keys(yrs).sort().reverse().map(y=>`<div class="cr-y"><h2 class="mono">${y}</h2>${yrs[y].map(i=>{const k="f"+i,d=/Dir/.test(F[i][2])?"":dirOf(i),u=gl(k).length?SU(k,rs(k)):"";return `<a class="cr-l" href="#film-${i}" data-src="${u}"><span>${roleEn(F[i])}</span><b>${esc(F[i][0])}</b><i>${d?"dir. "+esc(d):""}</i></a>`}).join("")}</div>`).join("")}
+      <p class="cr-end">순간을 ‘현대의 고전’으로</p><p class="cr-end mono"><a href="#film">All films</a> · <a href="#commercial">Commercial</a> · <a href="#about">About</a></p>
+    </div>
+  </section>${hvSwitch()}</div>`;
+}
+function bindCredits(){
+  const cr=$("#cr");if(!cr)return;const R=$("#crR"),bg=$("#crBg");let y=0,hold=false,raf=0,last=performance.now();
+  const H=()=>R.scrollHeight;R.style.transform=`translateY(${innerHeight*0.55}px)`;y=innerHeight*0.55;
+  const tick=now=>{if(!document.body.contains(cr))return;const dt=now-last;last=now;if(!hold&&!reduced()){y-=dt*0.035;if(y<-H()+innerHeight*0.3)y=innerHeight*0.9;R.style.transform=`translateY(${y}px)`}raf=requestAnimationFrame(tick)};raf=requestAnimationFrame(tick);
+  const wh=e=>{y-=e.deltaY*0.6;R.style.transform=`translateY(${y}px)`};cr.addEventListener("wheel",wh,{passive:true});
+  R.querySelectorAll(".cr-l").forEach(a=>{a.addEventListener("mouseenter",()=>{hold=true;const u=a.dataset.src;if(u)spURL(u).then(x=>{bg.style.backgroundImage=`url('${x}')`;bg.classList.add("on")})});a.addEventListener("mouseleave",()=>{hold=false;bg.classList.remove("on")})});
+  reelOff=()=>cancelAnimationFrame(raf);
+}
+
+/* Y: 타임라인 — 2017년부터 지금까지, 가로로 흘러가는 연표 위에 작품이 놓인다 */
+function homeY(){
+  const L=[...FO].sort((a,b)=>F[a][1].localeCompare(F[b][1]));const y0=2017,y1=2026;
+  const pos=i=>{const [y,m]=F[i][1].split(".").map(Number);return ((y-y0)*12+(m-1))/((y1-y0+1)*12)*100};
+  return `<div class="view htime"><section class="tm" id="tm">
+    <div class="tm-h"><p class="mono">Instant Classic Film · ${y0}—${y1}</p><h1>Ten years of frames</h1><p class="tm-hint mono">Scroll →</p></div>
+    <div class="tm-scroll" id="tmS"><div class="tm-track">
+      <div class="tm-axis">${Array.from({length:y1-y0+1},(_,n)=>`<span style="left:${n/(y1-y0+1)*100}%"><b>${y0+n}</b></span>`).join("")}</div>
+      ${(()=>{const TW=5600,IW=230,ends={up:[],dn:[]};let side=0;return L.map(i=>{const k="f"+i,u=gl(k).length?SU(k,rs(k)):img(i),x=pos(i)/100*TW;
+        let pick=null;for(let tries=0;tries<2&&!pick;tries++){const sd=(side+tries)%2?"dn":"up",E=ends[sd];for(let l=0;l<3;l++){if((E[l]??-1e9)<x-6){pick=[sd,l];break}}}
+        if(!pick){const sd=side%2?"dn":"up",E=ends[sd];let l=0;for(let q=1;q<3;q++)if((E[q]??0)<(E[l]??0))l=q;pick=[sd,l]}
+        ends[pick[0]][pick[1]]=x+IW;side++;
+        return `<a class="tm-it ${pick[0]}" href="#film-${i}" style="left:${x.toFixed(0)}px;--o:${pick[1]*148}px"><img src="${u}" alt="${esc(F[i][0])}" loading="lazy"><span><b>${esc(F[i][0])}</b><i class="mono">${F[i][1]}</i></span></a>`}).join("")})()}
+    </div></div>
+  </section>${hvSwitch()}</div>`;
+}
+function bindTimeline(){
+  const s=$("#tmS");if(!s)return;const wh=e=>{if(Math.abs(e.deltaY)>Math.abs(e.deltaX)){s.scrollLeft+=e.deltaY;e.preventDefault()}};s.addEventListener("wheel",wh,{passive:false});
+  s.scrollLeft=s.scrollWidth;
+}
+
+/* H: 스포트라이트 — 어두운 벽 전체에 스틸이 깔려 있고, 커서가 손전등처럼 비추는 곳만 보인다 */
+function homeH(){
+  const L=homeList(),T=[];for(let n=0;n<48;n++){const i=L[n%L.length];T.push(i)}T.sort(()=>Math.random()-.5);
+  return `<div class="view hspot"><section class="spt dark" id="spt">
+    <div class="spt-wall">${T.map(i=>`<a href="#film-${i}" title="${esc(F[i][0])}"><img src="${SU("f"+i,rs("f"+i))}" alt="" loading="lazy"></a>`).join("")}</div>
+    <div class="spt-dark" id="sptD"></div>
+    <div class="spt-cap"><h1>Instant Classic Film</h1><p class="mono">Light is where the story begins</p><p class="spt-name mono" id="sptN">&nbsp;</p></div>
+  </section>${hvSwitch()}</div>`;
+}
+function bindSpotlight(){
+  const s=$("#spt");if(!s)return;const d=$("#sptD"),n=$("#sptN");let tx=innerWidth/2,ty=innerHeight/2,x=tx,y=ty,raf=0,idle=0;
+  const mv=e=>{const r=s.getBoundingClientRect();tx=e.clientX-r.left;ty=e.clientY-r.top;idle=0;const a=e.target.closest("a");n.textContent=a?a.title:" "};
+  s.addEventListener("mousemove",mv);
+  const tick=t=>{if(!document.body.contains(s))return;idle++;if(idle>180){tx=innerWidth/2+Math.cos(t/1600)*innerWidth*.3;ty=innerHeight/2+Math.sin(t/1100)*innerHeight*.25}x+=(tx-x)*.12;y+=(ty-y)*.12;d.style.setProperty("--x",x+"px");d.style.setProperty("--y",y+"px");raf=requestAnimationFrame(tick)};raf=requestAnimationFrame(tick);
+  reelOff=()=>{cancelAnimationFrame(raf)};
+}
 
 /* ───────── 라우터 ───────── */
 const scrolls={};let cur="";let showTimer=null;
@@ -2442,6 +2618,11 @@ function bind(h){
   if(/^film-\d+$/.test(h))return bindGallery("f"+h.split("-")[1]);
   if(/^commercial-\d+$/.test(h))return bindGallery("c"+h.split("-")[1]);
   if(h!=="home")return;
+  if(state.hv==="x")return bindSlate();
+  if(state.hv==="a")return bindAspect();
+  if(state.hv==="e")return bindCredits();
+  if(state.hv==="y")return bindTimeline();
+  if(state.hv==="h")return bindSpotlight();
   if(state.hv==="k")return bindContact();
   if(state.hv==="b")return bindSpectrum();
   if(state.hv==="v")return bindMonitor();
