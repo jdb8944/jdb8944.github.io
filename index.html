@@ -1354,6 +1354,12 @@ img[src^="spr:"]{opacity:0}
 .cl-g span{font-size:clamp(.74rem,.8vw,.9rem);color:#333}
 @media(max-width:700px){.cl-cols{grid-template-columns:1fr}.cl-cols>div+div{display:none}}
 @media(prefers-reduced-motion:reduce){.cl-g{opacity:1;transform:none}}
+
+.cl-logos{display:grid;grid-template-columns:repeat(auto-fill,minmax(clamp(120px,12vw,210px),1fr));gap:clamp(28px,3vw,52px) clamp(24px,3vw,56px);align-items:center;justify-items:center;padding:clamp(20px,3vw,48px) clamp(6px,1.4vw,24px) clamp(40px,5vw,80px);border-bottom:1px solid var(--rule,#e2e2e2);margin-bottom:clamp(30px,4vw,60px)}
+.cl-l{position:relative;display:block;height:clamp(30px,2.8vw,46px);width:100%}
+.cl-l img{position:absolute;inset:0;height:100%!important;width:100%!important;object-fit:contain;filter:brightness(0);opacity:.78;transition:filter .45s,opacity .45s,transform .45s}
+.cl-l:hover img{filter:none;opacity:1;transform:scale(1.06)}
+.cl-l.mono:hover img{filter:brightness(0)}
 /* ── about ── */
 .about{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,6vw,80px)}
 .about .lead{font-family:var(--display);font-size:var(--s1);line-height:1.85;max-width:30em;display:grid;gap:1em}
@@ -2530,13 +2536,14 @@ const CLIENTS=[
  ["공간·호텔","Hospitality",[["호텔 에버리치","Hotel Everich","c27"],["이자카야 산쥬로쿠","Izakaya Sanjuroku","c31"],["광장시장","Gwangjang Market","c11"]]],
  ["관공서","Public",[["서울특별시","Seoul Metropolitan Government","c15"],["청주시 · 청주문화재야행","Cheongju Cultural Heritage Night","c21"]]],
  ["영화·기관","Film & Institutions",[["한국예술종합학교","Korea National University of Arts","f4"],["영화진흥위원회","Korean Film Council (KOFIC)","f9"],["신영균문화예술재단","Shin Young-kyun Arts & Culture Foundation","f1"],["충남정보문화산업진흥원","Chungnam ICT & Culture Industry Agency","f0"],["충남영상위원회","Chungnam Film Commission","f5"],["강원영상위원회","Gangwon Film Commission","f13"],["서울국제어린이영화제","Seoul International Children's Film Festival","f15"],["제이포엔터테인먼트","J4 Entertainment","f2"],["브이에이코퍼레이션","VA Corporation","f7"]]]];
+const CLOGO=[["toyota","TOYOTA","c3"],["dunkin","Dunkin'","c32"],["enhypen","ENHYPEN","c32"],["gscaltex","GS Caltex","c9"],["fujifilm","FUJIFILM","c25"],["kgm","KG Mobility","c10"],["hanwha","Hanwha Life Financial Service",""],["vatech","VATECH","c20"],["kofic","Korean Film Council","f9"],["karts","Korea National University of Arts","f4",1],["ctia","Chungnam Content Agency","f0"]];
 function clientView(){
   const HK=["c32","c0","c36","c35","c6","c9"].filter(k=>gl(k).length);
   const href=k=>`#${k[0]==="f"?"film":"commercial"}-${k.slice(1)}`;
   const col=(ko)=>CLIENTS.map(([gk,ge,L])=>`<div class="cl-g"><h3>${ko?gk:ge}</h3><ul>${L.map(([k,e,w])=>`<li>${w?`<a href="${href(w)}">${esc(ko?k:e)}</a>`:`<span>${esc(ko?k:e)}</span>`}</li>`).join("")}</ul></div>`).join("");
   return `<div class="view nwv clv">
     <section class="nhero dark" id="nH"><div class="nh-bg" id="nHb">${HK.map((k,i)=>`<i class="${i?"":"on"}" style="background-image:url('${nImg(k)}')"></i>`).join("")}</div><h1 id="nHt">Client</h1><span class="nh-dn mono">Scroll</span></section>
-    <div class="npanel"><div class="cl-cols">
+    <div class="npanel"><div class="cl-logos">${CLOGO.map(([f,n,w,mono])=>{const im=`<img src="img/cl/${f}.webp" alt="${esc(n)}" loading="lazy">`;return w?`<a class="cl-l${mono?" mono":""}" href="#${w[0]==="f"?"film":"commercial"}-${w.slice(1)}" title="${esc(n)}">${im}</a>`:`<span class="cl-l" title="${esc(n)}">${im}</span>`}).join("")}</div><div class="cl-cols">
       <div><h2>클라이언트 및 파트너 목록</h2><i class="cl-r"></i>${col(1)}</div>
       <div><h2>CLIENTS &amp; PARTNERS</h2><i class="cl-r"></i>${col(0)}</div>
     </div></div>
