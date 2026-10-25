@@ -1182,13 +1182,37 @@ img[src^="spr:"]{opacity:0}
 @media(max-width:820px){.qr-mid{bottom:170px}.qr-now{bottom:120px;left:16px;right:auto;text-align:left}.qr-links{display:none}}
 .qr-id{position:absolute;left:clamp(16px,4vw,56px);bottom:clamp(110px,16vh,150px);font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;opacity:.75;margin:0}
 @media(max-width:820px){.qr-id{bottom:170px}}
-/* showreel: 큰 이름 */
-.qr-name{position:absolute;left:0;right:0;bottom:0;padding:0 clamp(12px,2vw,28px) clamp(70px,9vh,90px);pointer-events:none;z-index:2}
-.qr-name h1{margin:0;font-family:var(--didone);font-weight:500;font-size:19.6vw;line-height:.78;letter-spacing:-.035em;white-space:nowrap;color:#f4f1ea;text-shadow:0 0 40px rgba(0,0,0,.25)}
-.qr-name .mono{font-size:clamp(.6rem,1vw,.8rem);letter-spacing:.3em;text-transform:uppercase;margin:0 0 1.2vw .4vw;opacity:.9}
-.qr-sh{background:linear-gradient(180deg,rgba(0,0,0,.4),transparent 22%,transparent 55%,rgba(0,0,0,.55))!important}
+/* showreel: 이름 표기 시안 (data-nm) */
+.qr-sh{background:linear-gradient(180deg,rgba(0,0,0,.4),transparent 22%,transparent 60%,rgba(0,0,0,.5))!important}
 .qr-now{bottom:auto!important;top:84px}
-@media(max-width:820px){.qr-name h1{font-size:33vw;white-space:normal;line-height:.82}.qr-name h1 span{display:block}.qr-name{padding-bottom:84px}.qr-now{top:80px;left:auto!important;right:16px!important;text-align:right!important}}
+.qr-name{position:absolute;inset:0;pointer-events:none;z-index:2;color:#f4f1ea}
+.qr-name h1,.qr-name p{margin:0}
+.qn-ko,.qn-pre{display:none}
+.qn-role{font-size:.6rem;letter-spacing:.28em;text-transform:uppercase;opacity:.8}
+/* 1 크레딧: 화면 가운데 오프닝 크레딧처럼 */
+.qr[data-nm="1"] .qr-name{display:grid;place-content:center;justify-items:center;text-align:center;gap:14px}
+.qr[data-nm="1"] .qn-pre{display:block;font-size:.62rem;letter-spacing:.34em;text-transform:uppercase;opacity:.8}
+.qr[data-nm="1"] .qn-en{font-family:var(--didone);font-weight:400;font-size:clamp(1.8rem,3.4vw,3rem);letter-spacing:.32em;text-transform:uppercase;padding-left:.32em;text-shadow:0 1px 18px rgba(0,0,0,.5)}
+.qr[data-nm="1"] .qn-role{display:none}
+/* 2 굵은 고딕 */
+.qr[data-nm="2"] .qr-name{display:flex;flex-direction:column;justify-content:flex-end;padding:0 clamp(16px,4vw,56px) clamp(84px,11vh,110px)}
+.qr[data-nm="2"] .qn-en{font-family:"Noto Sans KR",sans-serif;font-weight:900;font-size:clamp(3.2rem,9vw,9rem);line-height:.86;letter-spacing:-.045em;text-transform:uppercase}
+.qr[data-nm="2"] .qn-role{margin-top:14px}
+/* 3 모노 미니멀: 구석에 작게 */
+.qr[data-nm="3"] .qr-name{display:flex;flex-direction:column;justify-content:flex-end;padding:0 clamp(16px,4vw,56px) clamp(84px,11vh,110px);gap:6px}
+.qr[data-nm="3"] .qn-en{font-family:var(--mono);font-weight:500;font-size:clamp(.95rem,1.4vw,1.2rem);letter-spacing:.4em;text-transform:uppercase}
+/* 4 한글 세로쓰기 */
+.qr[data-nm="4"] .qn-en{display:none}
+.qr[data-nm="4"] .qn-ko{display:block;position:absolute;right:clamp(16px,4vw,56px);top:50%;transform:translateY(-46%);writing-mode:vertical-rl;font-family:"Gowun Batang",serif;font-weight:700;font-size:clamp(3rem,7vw,6.4rem);letter-spacing:.18em;text-shadow:0 2px 24px rgba(0,0,0,.4)}
+.qr[data-nm="4"] .qn-role{position:absolute;left:clamp(16px,4vw,56px);bottom:clamp(84px,11vh,110px)}
+/* 5 외곽선 대형 */
+.qr[data-nm="5"] .qr-name{display:grid;place-content:center;text-align:center}
+.qr[data-nm="5"] .qn-en{font-family:"Noto Sans KR",sans-serif;font-weight:900;font-size:14.5vw;line-height:.9;letter-spacing:-.04em;text-transform:uppercase;color:transparent;-webkit-text-stroke:1.5px rgba(244,241,234,.9);white-space:nowrap}
+.qr[data-nm="5"] .qn-role{margin-top:18px}
+/* 6 이탤릭 서명 */
+.qr[data-nm="6"] .qr-name{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding-bottom:clamp(84px,11vh,110px);gap:6px;text-align:center}
+.qr[data-nm="6"] .qn-en{font-family:"Cormorant Garamond",serif;font-style:italic;font-weight:400;font-size:clamp(2.6rem,5.2vw,4.8rem);letter-spacing:-.005em;text-shadow:0 2px 20px rgba(0,0,0,.45)}
+@media(max-width:820px){.qr[data-nm="2"] .qn-en span,.qr[data-nm="5"] .qn-en span{display:block}.qr[data-nm="5"] .qn-en{font-size:24vw;white-space:normal}.qr[data-nm="4"] .qn-ko{font-size:16vw}}
 /* ── about ── */
 .about{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,6vw,80px)}
 .about .lead{font-family:var(--display);font-size:var(--s1);line-height:1.85;max-width:30em;display:grid;gap:1em}
@@ -2472,11 +2496,12 @@ function bindSpotlight(){
 const RCLIPS=[["006", "c6"], ["013", "f6"], ["018", "f6"], ["025", "c2"], ["032", "f6"], ["046", "f3"], ["072", "f16"], ["077", "f16"], ["080", "f16"], ["088", "c28"], ["097", "f17"], ["105", "c6"], ["106", "f31"], ["108", "c31"], ["119", "f7"], ["121", "f7"], ["126", "f31"], ["127", "c2"], ["129", "c36"], ["130", "f19"], ["137", "c6"], ["147", "f19"], ["151", "c7"], ["157", "f2"], ["162", "c28"], ["163", "f4"], ["169", "f5"], ["173", "f19"], ["178", "c11"], ["182", "c11"], ["194", "c1"], ["197", "f7"], ["198", "c7"], ["200", "f31"], ["204", "f7"], ["206", "f32"], ["218", "f32"], ["220", "c0"], ["222", "c0"], ["232", "f32"], ["240", "f4"], ["250", "c28"], ["260", "f18"], ["271", "c2"], ["272", "c4"], ["285", "c35"], ["290", "c4"], ["301", "c4"], ["302", "c28"], ["306", "f12"], ["317", "c8"], ["319", "c8"], ["321", "c8"], ["326", "c8"], ["333", "c8"], ["337", "c34"], ["338", "f15"], ["346", "f15"], ["356", "f10"], ["371", "f3"], ["372", "f3"], ["375", "f3"], ["376", "f15"], ["379", "f15"]];
 const reelT=k=>{const A=k[0]==="f"?F:C,d=A[+k.slice(1)];return d?d[0]:""};
 const reelH=k=>`#${k[0]==="f"?"film":"commercial"}-${k.slice(1)}`;
+const QNM=(()=>{const q=(location.search.match(/nm=(\d)/)||[])[1];try{if(q)localStorage.setItem("icf-nm",q);return q||localStorage.getItem("icf-nm")||"1"}catch(e){return q||"1"}})();
 function homeQ(){
-  return `<div class="view hreel"><section class="qr dark" id="qr">
+  return `<div class="view hreel"><section class="qr dark" id="qr" data-nm="${QNM}">
     <div class="qr-vs" id="qrVs">${[0,1,2].map(n=>`<video muted playsinline preload="auto" class="qr-v${n?"":" on"}"></video>`).join("")}</div>
     <div class="qr-sh"></div>
-    <div class="qr-name"><p class="mono">Director · Cinematographer · Colorist</p><h1><span>Jung</span> <span>Dabin</span></h1></div>
+    <div class="qr-name"><p class="mono qn-pre">Cinematography by</p><h1 class="qn-en"><span>Jung</span> <span>Dabin</span></h1><h1 class="qn-ko">정다빈</h1><p class="mono qn-role">Director · Cinematographer · Colorist</p></div>
     <a class="qr-now" id="qrNow" href="#film"><span class="mono">Now</span><b id="qrT">&nbsp;</b></a>
   </section>${hvSwitch()}</div>`;
 }
