@@ -1823,7 +1823,7 @@ function detailShell({k,title,kicker,roles,meta,heroSrc,intro,side,fest,staff,sp
       ${intro?`<div class="fd-syn"><h4>${kicker}</h4>${intro}</div>`:keyFrame(k,title)}
       <aside class="fd-side">${k[0]==="f"&&STAFF[+k.slice(1)]?"":posterBlock(k,title)}${side}${yt&&!video?`<a class="watch-btn" href="https://www.youtube.com/watch?v=${yt}" target="_blank" rel="noopener">Watch ↗</a>`:""}</aside>
     </section>
-    ${video?`<section class="fd-video wrap"><div class="vframe${VPORT.has(k)?" vport":""}" data-yt="${video}" data-k="${k}" style="background-image:url('${heroSrc}')"><button class="vplay" aria-label="영상 재생"><span>▶</span><em class="mono">${k[0]==="f"?"Play Film":/MV/.test((C[+k.slice(1)]||[])[2]||"")?"Play Music Video":"Play"}</em></button></div></section>`:""}${fest&&fest.length?festBlock(fest):""}
+    ${video&&YTEMBED&&video!=="-"?`<section class="fd-video wrap"><div class="vframe on${VPORT.has(k)?" vport":""}"><iframe src="https://www.youtube-nocookie.com/embed/${video}?rel=0&playsinline=1" loading="lazy" allow="autoplay; encrypted-media; fullscreen; picture-in-picture" allowfullscreen title="${esc(title)}"></iframe></div></section>`:video?`<section class="fd-video wrap"><div class="vframe${VPORT.has(k)?" vport":""}" data-yt="${video}" data-k="${k}" style="background-image:url('${heroSrc}')"><button class="vplay" aria-label="영상 재생"><span>▶</span><em class="mono">${k[0]==="f"?"Play Film":/MV/.test((C[+k.slice(1)]||[])[2]||"")?"Play Music Video":"Play"}</em></button></div></section>`:""}${fest&&fest.length?festBlock(fest):""}
     ${staff||""}
     ${spec}
     ${stillsBlock(k,title)}
