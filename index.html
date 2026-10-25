@@ -1351,6 +1351,7 @@ img[src^="spr:"]{opacity:0}
 .cl-g ul{list-style:none;margin:0;padding:0 0 0 clamp(14px,1.2vw,22px);display:grid;gap:clamp(5px,.5vw,8px)}
 .cl-g a{font-size:clamp(.74rem,.8vw,.9rem);color:#333;text-decoration:none;transition:color .2s,padding .3s}
 .cl-g a:hover{color:var(--accent);padding-left:6px}
+.cl-g span{font-size:clamp(.74rem,.8vw,.9rem);color:#333}
 @media(max-width:700px){.cl-cols{grid-template-columns:1fr}.cl-cols>div+div{display:none}}
 @media(prefers-reduced-motion:reduce){.cl-g{opacity:1;transform:none}}
 /* ── about ── */
@@ -2525,14 +2526,14 @@ function bindNews(){
 const CLIENTS=[
  ["아티스트","Artists",[["담담","DAMDAM","c0"],["유명한아이","Famous Kid","c2"],["트렌드지","TRENDZ","c6"],["아이칠린 제이","ICHILLIN' J","c36"],["정상수 (BLASTA)","BLASTA","c35"],["엔하이픈","ENHYPEN","c32"],["권해찬","Kwon Haechan","c23"],["AUBE","AUBE","c24"]]],
  ["브랜드","Brand",[["던킨","Dunkin'","c32"],["셀파렉스","Selparex","c16"],["쿠쿠","CUCKOO","c19"],["듀오덤","DuoDERM","c12"],["가스트론","GASTRON","c17"],["hy 하이퍼부스팅앰플","hy Hyper Boosting Ampoule","c13"],["다농바이오","Danong Bio","c7"],["아르떼","ARTE","c5"],["다짐","DAZYM","c14"],["원즈아토","Wonzato","c30"],["금천미트","Geumcheon Meat","c18"],["후지필름","FUJIFILM","c25"],["DUDU","DUDU","c22"],["SMTECH","SMTECH","c1"]]],
- ["기업","Corporate",[["토요타","TOYOTA","c3"],["GS칼텍스","GS Caltex","c9"],["KG모빌리티 토레스 EVX","KG Mobility TORRES EVX","c10"],["바텍","VATECH","c20"],["바인그룹","VINE Group","c29"]]],
+ ["기업","Corporate",[["토요타","TOYOTA","c3"],["GS칼텍스","GS Caltex","c9"],["KG모빌리티 토레스 EVX","KG Mobility TORRES EVX","c10"],["바텍","VATECH","c20"],["바인그룹","VINE Group","c29"],["한화생명금융서비스","Hanwha Life Financial Service",""]]],
  ["공간·호텔","Hospitality",[["호텔 에버리치","Hotel Everich","c27"],["이자카야 산쥬로쿠","Izakaya Sanjuroku","c31"],["광장시장","Gwangjang Market","c11"]]],
  ["관공서","Public",[["서울특별시","Seoul Metropolitan Government","c15"],["청주시 · 청주문화재야행","Cheongju Cultural Heritage Night","c21"]]],
  ["영화·기관","Film & Institutions",[["한국예술종합학교","Korea National University of Arts","f4"],["영화진흥위원회","Korean Film Council (KOFIC)","f9"],["신영균문화예술재단","Shin Young-kyun Arts & Culture Foundation","f1"],["충남정보문화산업진흥원","Chungnam ICT & Culture Industry Agency","f0"],["충남영상위원회","Chungnam Film Commission","f5"],["강원영상위원회","Gangwon Film Commission","f13"],["서울국제어린이영화제","Seoul International Children's Film Festival","f15"],["제이포엔터테인먼트","J4 Entertainment","f2"],["브이에이코퍼레이션","VA Corporation","f7"]]]];
 function clientView(){
   const HK=["c32","c0","c36","c35","c6","c9"].filter(k=>gl(k).length);
   const href=k=>`#${k[0]==="f"?"film":"commercial"}-${k.slice(1)}`;
-  const col=(ko)=>CLIENTS.map(([gk,ge,L])=>`<div class="cl-g"><h3>${ko?gk:ge}</h3><ul>${L.map(([k,e,w])=>`<li><a href="${href(w)}">${esc(ko?k:e)}</a></li>`).join("")}</ul></div>`).join("");
+  const col=(ko)=>CLIENTS.map(([gk,ge,L])=>`<div class="cl-g"><h3>${ko?gk:ge}</h3><ul>${L.map(([k,e,w])=>`<li>${w?`<a href="${href(w)}">${esc(ko?k:e)}</a>`:`<span>${esc(ko?k:e)}</span>`}</li>`).join("")}</ul></div>`).join("");
   return `<div class="view nwv clv">
     <section class="nhero dark" id="nH"><div class="nh-bg" id="nHb">${HK.map((k,i)=>`<i class="${i?"":"on"}" style="background-image:url('${nImg(k)}')"></i>`).join("")}</div><h1 id="nHt">Client</h1><span class="nh-dn mono">Scroll</span></section>
     <div class="npanel"><div class="cl-cols">
