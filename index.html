@@ -1360,6 +1360,16 @@ img[src^="spr:"]{opacity:0}
 .cl-l img{position:absolute;inset:0;height:100%!important;width:100%!important;object-fit:contain;filter:brightness(0);opacity:.78;transition:filter .45s,opacity .45s,transform .45s}
 .cl-l:hover img{filter:none;opacity:1;transform:scale(1.06)}
 .cl-l.mono:hover img{filter:brightness(0)}
+
+/* about: clients */
+.ab-cl .cl-logos{border-bottom:1px solid var(--rule);padding:10px 0 clamp(48px,6vw,80px);margin-bottom:clamp(36px,5vw,64px)}
+.ab-dark .ab-cl .cl-l img{filter:brightness(0) invert(1);opacity:.72}
+.ab-dark .ab-cl .cl-l:hover img{filter:brightness(0) invert(1);opacity:1}
+.ab-cl .ab-row h3 small{display:block;font-family:var(--body);font-size:.72rem;opacity:.6;margin-top:6px}
+.cl-names{margin:0;font-size:.98rem;line-height:2;word-break:keep-all}
+.cl-names a,.cl-names span{color:inherit;text-decoration:none;white-space:nowrap}
+.cl-names a:hover{color:var(--accent)}
+.cl-names i{font-style:normal;margin:0 .6em;opacity:.35}
 /* ── about ── */
 .about{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,6vw,80px)}
 .about .lead{font-family:var(--display);font-size:var(--s1);line-height:1.85;max-width:30em;display:grid;gap:1em}
@@ -1464,7 +1474,7 @@ img[src^="spr:"]{opacity:0}
   <div class="wrap">
     <a class="logo" href="#home" aria-label="Instant Classic Film 처음으로">ICF</a>
     <nav aria-label="주요 메뉴" id="nav">
-      <a href="#film">Film</a><a href="#commercial">Commercial</a><a href="#art">ArtFilm</a><a href="#journal">Essay</a><a href="#news">News</a><a href="#client">Client</a><a href="#about">About</a>
+      <a href="#film">Film</a><a href="#commercial">Commercial</a><a href="#art">ArtFilm</a><a href="#journal">Essay</a><a href="#news">News</a><a href="#about">About</a>
     </nav>
   </div>
 </header>
@@ -1895,7 +1905,7 @@ function homeD(){
   </section>
   <section class="ix">
     <p class="ix-lede">하나의 스쳐가는 장면이 아니라 하나의 기준을 만든다는 마음으로 이미지를 설계하며,<br>순간을 ‘현대의 고전’으로 남기는 작업을 지향합니다.</p>
-    <div class="ix-links"><a href="#film">Film</a><a href="#commercial">Commercial</a><a href="#journal">Essay</a><a href="#news">News</a><a href="#client">Client</a><a href="#about">About</a></div>
+    <div class="ix-links"><a href="#film">Film</a><a href="#commercial">Commercial</a><a href="#journal">Essay</a><a href="#news">News</a><a href="#about">About</a></div>
   </section>
   ${hvSwitch()}
   </div>`;
@@ -2174,12 +2184,13 @@ function about(){
     <div class="aw-sum"><b>${AW.length}</b><span>Festival selections, awards &amp; screenings · ${YS[YS.length-1]} — ${YS[0]}<br>${NA} awards · ${new Set(AW.map(a=>a.i)).size} films</span></div>
     ${YS.map(y=>`<div class="aw-yr"><h3>${y}</h3><ol>${AW.filter(a=>a.y===y).sort((p,q)=>q.w-p.w).map(a=>`<li${a.w?' class="aw-win"':""}><a href="#film-${a.i}" class="aw-th"${a.src?` style="background-image:url('${a.src}')"`:""}></a><div class="aw-t"><span class="aw-f">${esc(a.f)}</span><span class="aw-en">${esc(a.en)}</span><span class="aw-m"><a href="#film-${a.i}" class="aw-lk">${esc(a.t)}<span aria-hidden="true"> ↗</span></a> <em>${a.w?"Award":esc(a.ty)}</em></span></div></li>`).join("")}</ol></div>`).join("")}
   </section>
+  ${clientSection("04")}
   <section class="ab-sec">
-    <p class="ab-no mono">04 — Kit</p>
+    <p class="ab-no mono">05 — Kit</p>
     <div class="ab-kit">${KIT.map(([t,l])=>`<div><h3>${t}</h3><ul>${l.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>`).join("")}</div>
   </section>
   <section class="ab-sec ab-contact" id="contact">
-    <p class="ab-no mono">05 — Contact</p>
+    <p class="ab-no mono">06 — Contact</p>
     
     <div class="contact">
       <div><span class="label">Email</span><span class="v">jdb8944@hanmail.net</span><button class="copy" data-copy="jdb8944@hanmail.net">Copy</button></div>
@@ -2536,7 +2547,15 @@ const CLIENTS=[
  ["공간·호텔","Hospitality",[["호텔 에버리치","Hotel Everich","c27"],["이자카야 산쥬로쿠","Izakaya Sanjuroku","c31"],["광장시장","Gwangjang Market","c11"]]],
  ["관공서","Public",[["서울특별시","Seoul Metropolitan Government","c15"],["청주시 · 청주문화재야행","Cheongju Cultural Heritage Night","c21"]]],
  ["영화·기관","Film & Institutions",[["한국예술종합학교","Korea National University of Arts","f4"],["영화진흥위원회","Korean Film Council (KOFIC)","f9"],["신영균문화예술재단","Shin Young-kyun Arts & Culture Foundation","f1"],["충남정보문화산업진흥원","Chungnam ICT & Culture Industry Agency","f0"],["충남영상위원회","Chungnam Film Commission","f5"],["강원영상위원회","Gangwon Film Commission","f13"],["서울국제어린이영화제","Seoul International Children's Film Festival","f15"],["제이포엔터테인먼트","J4 Entertainment","f2"],["브이에이코퍼레이션","VA Corporation","f7"]]]];
-const CLOGO=[["toyota","TOYOTA","c3"],["dunkin","Dunkin'","c32"],["enhypen","ENHYPEN","c32"],["gscaltex","GS Caltex","c9"],["fujifilm","FUJIFILM","c25"],["kgm","KG Mobility","c10"],["hanwha","Hanwha Life Financial Service",""],["vatech","VATECH","c20"],["kofic","Korean Film Council","f9"],["karts","Korea National University of Arts","f4",1],["ctia","Chungnam Content Agency","f0"]];
+const CLOGO=[["toyota","TOYOTA","c3"],["dunkin","Dunkin'","c32"],["enhypen","ENHYPEN","c32"],["gscaltex","GS Caltex","c9"],["fujifilm","FUJIFILM","c25"],["kgm","KG Mobility","c10"],["hanwha","Hanwha Life Financial Service",""],["vatech","VATECH","c20"],["kofic","Korean Film Council","f9"],["karts","Korea National University of Arts","f4",1],["ctia","Chungnam Content Agency","f0"],["ichillin","ICHILLIN'","c36"],["seoul","Seoul Metropolitan Government","c15"],["hy","hy","c13"],["convatec","Convatec · DuoDERM","c12"],["gastron","GASTRON","c17"],["cheongju","Cheongju City","c21"],["vine","VINE Group","c29"],["sicff","Seoul International Children's Film Festival","f15"]];
+function clientSection(no){
+  const href=k=>`#${k[0]==="f"?"film":"commercial"}-${k.slice(1)}`;
+  const lg=CLOGO.map(([f,n,w])=>{const im=`<img src="img/cl/${f}.webp" alt="${esc(n)}" loading="lazy">`;return w?`<a class="cl-l" href="${href(w)}" title="${esc(n)}">${im}</a>`:`<span class="cl-l" title="${esc(n)}">${im}</span>`}).join("");
+  return `<section class="ab-sec ab-cl" id="clients"><p class="ab-no mono">${no} — Clients &amp; Partners</p>
+    <div class="cl-logos">${lg}</div>
+    <div class="ab-rows">${CLIENTS.map(([gk,ge,L])=>`<div class="ab-row"><h3>${ge}<small>${gk}</small></h3><p class="cl-names">${L.map(([k,e,w])=>w?`<a href="${href(w)}">${esc(k)}</a>`:`<span>${esc(k)}</span>`).join('<i>·</i>')}</p></div>`).join("")}</div>
+  </section>`;
+}
 function clientView(){
   const HK=["c32","c0","c36","c35","c6","c9"].filter(k=>gl(k).length);
   const href=k=>`#${k[0]==="f"?"film":"commercial"}-${k.slice(1)}`;
@@ -2763,7 +2782,7 @@ function route(){document.body.classList.remove("lb-open");document.body.style.o
   else if(/^commercial-\d+$/.test(h))html=commercialDetail(+h.split("-")[1]),section="commercial";
   else if(h==="journal")html=journal();
   else if(h==="news")html=newsView();
-  else if(h==="client")html=clientView();
+  else if(h==="client"){location.replace("#about");setTimeout(()=>{const c=document.getElementById("clients");c&&c.scrollIntoView()},400);return}
   else if(/^news-\d+$/.test(h))html=newsArticle(h.slice(5)),section="news";
   else if(/^journal-/.test(h))html=article(h.slice(8)),section="journal";
   else if(h==="about"||h==="contact")html=`<div class="view cv dark ab-dark" style="background-image:url('${cover("f17",img(17))}')"><div class="cv-in"><div class="cv-title"><h1>About</h1><p>Jung Dabin — Director · Cinematographer · Colorist</p></div>${about()}</div></div>`,section="about";
