@@ -1213,6 +1213,33 @@ img[src^="spr:"]{opacity:0}
 .qr[data-nm="6"] .qr-name{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding-bottom:clamp(84px,11vh,110px);gap:6px;text-align:center}
 .qr[data-nm="6"] .qn-en{font-family:"Cormorant Garamond",serif;font-style:italic;font-weight:400;font-size:clamp(2.6rem,5.2vw,4.8rem);letter-spacing:-.005em;text-shadow:0 2px 20px rgba(0,0,0,.45)}
 @media(max-width:820px){.qr[data-nm="2"] .qn-en span,.qr[data-nm="5"] .qn-en span{display:block}.qr[data-nm="5"] .qn-en{font-size:24vw;white-space:normal}.qr[data-nm="4"] .qn-ko{font-size:16vw}}
+
+/* news v2: 이야기 단위 */
+.n2-head{padding-top:clamp(110px,16vh,170px);padding-bottom:clamp(40px,6vw,72px);border-bottom:1px solid var(--fg);display:grid;gap:10px}
+.n2-head .mono{font-size:.62rem;letter-spacing:.24em;text-transform:uppercase;color:var(--muted)}
+.n2-head h1{font-family:var(--didone);font-weight:400;font-size:clamp(4rem,12vw,9rem);line-height:.9;margin:0;letter-spacing:-.03em}
+.n2-sum{font-size:.9rem;color:var(--muted)}.n2-sum i{font-style:normal;margin:0 .4em}
+.n2-list{display:grid;padding-block:clamp(40px,6vw,80px) clamp(80px,10vw,140px)}
+.n2{display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(24px,4vw,64px);padding:clamp(36px,5vw,64px) 0;border-bottom:1px solid var(--rule,#ddd);align-items:start}
+.n2.rev .n2-img{order:2}
+.n2-img{position:relative;display:block;aspect-ratio:16/10;background:#111 center/cover;text-decoration:none;overflow:hidden;position:sticky;top:90px}
+.n2-img span{position:absolute;left:14px;bottom:12px;color:#fff;font-size:.62rem;letter-spacing:.14em;opacity:0;transition:opacity .3s;text-shadow:0 1px 8px rgba(0,0,0,.6)}
+.n2-img:hover span{opacity:1}
+.n2-tx{display:grid;gap:14px}
+.n2-k{display:flex;gap:14px;align-items:center;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.n2-k b{font-weight:500;color:var(--fg);border:1px solid currentColor;border-radius:999px;padding:3px 10px}
+.n2.award .n2-k b{color:#a8802f;border-color:#a8802f}
+.n2 h2{font-family:var(--essay);font-weight:400;font-size:clamp(1.5rem,2.6vw,2.2rem);line-height:1.3;letter-spacing:-.01em;margin:0}
+.n2-d{font-size:.92rem;line-height:1.8;color:#444;margin:0}
+.n2-c{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin:10px 0 0;border-top:1px solid var(--fg);padding-top:12px}
+.n2-c b{color:var(--fg);font-weight:500;margin-left:6px}
+.n2 ul{list-style:none;margin:0;padding:0}
+.n2 li a{display:grid;grid-template-columns:120px 1fr auto;gap:14px;align-items:baseline;padding:9px 0;border-bottom:1px solid var(--rule,#e2e2e2);text-decoration:none;color:inherit}
+.n2 li .o{font-size:.74rem;font-weight:700}
+.n2 li .t{font-size:.82rem;line-height:1.5;color:#444;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical}
+.n2 li .d{font-size:.6rem;color:var(--muted)}
+.n2 li a:hover .t{color:var(--accent)}
+@media(max-width:820px){.n2{grid-template-columns:1fr}.n2.rev .n2-img{order:0}.n2-img{position:relative;top:auto}.n2 li a{grid-template-columns:1fr auto}.n2 li .t{grid-column:1/-1;-webkit-line-clamp:2}}
 /* ── about ── */
 .about{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,6vw,80px)}
 .about .lead{font-family:var(--display);font-size:var(--s1);line-height:1.85;max-width:30em;display:grid;gap:1em}
@@ -2302,25 +2329,39 @@ const NEWS=[["2026.07.27", "한국경제", "한예종 '트로픽', 판타지아�
 ["2024.06.12", "allkpop", "TRENDZ returns with GLOW in their 4th single album", "https://www.allkpop.com/video/2024/06/trendz-returns-with-glow-in-their-4th-single-album", "c6", "Release", "트렌드지의 4번째 싱글 'GLOW' 뮤직비디오 공개.", 0],
 ["2024.07.08", "전자신문", "트렌드지, 여름 뜨겁게 달궜다! '글로벌 슈퍼 루키' 행보", "https://m.etnews.com/20240708000291", "c6", "Press", "'GLOW' 활동을 포함한 트렌드지의 여름 행보.", 0],
 ["2026.09.02", "전자신문", "첫 유닛! 아이칠린 제이, 'Look At Me!' D-DAY", "https://m.etnews.com/20260902000295", "c36", "Release", "타이틀곡 'BANANA (Look At Me!)' 발매와 뮤직비디오 티저 소개.", 0]];
+/* 같은 작품 기사들은 한 이야기로 묶는다: 작품키 → [구분, 제목, 한 줄] */
+const STORY={
+f7:["Award","트로픽, 판타지아 국제단편 최우수 촬영상","제30회 판타지아 국제영화제(캐나다 몬트리올) 국제단편경쟁에서 촬영을 맡은 정다빈이 최우수 촬영상을 받았다. 월드 프리미어로 처음 공개된 자리였다."],
+f0:["Festival","더 러버, 부천판타스틱영화제 장편 경쟁","송현범 감독의 첫 장편 '더 러버'가 제30회 BIFAN 부천초이스 한국 장편 경쟁 10편에 올라 7월 관객과 만났다."],
+f11:["Award","콜록 콜록, 컬러! — 대단한 감독상, 뉴욕아시안영화제","김세진 감독의 단편이 제17회 대단한단편영화제에서 대단한 감독상을 받고, 제24회 뉴욕아시안영화제에서 인터내셔널 프리미어로 상영됐다."],
+f4:["Festival","시적허용, 부산국제영화제 와이드앵글","35mm 필름으로 찍은 단편 '시적허용'이 제30회 부산국제영화제 와이드앵글 한국단편경쟁에 초청됐다."],
+f5:["Release","두 번의 장례, 넷플릭스 공개","미쟝센단편영화제 상영작으로 넷플릭스에 공개됐다. 파리한국영화제 심사위원 특별언급 기록이 KMDb에 올라 있다."],
+f13:["Festival","컬러풀 해피니스, 독립영화 라이브러리","인디그라운드 2025 독립영화 라이브러리에 선정돼 스페셜 위크에서 상영됐다."],
+c6:["Release","트렌드지 'GLOW' 뮤직비디오","트렌드지 네 번째 싱글 'DREAMLIKE'의 타이틀곡 'GLOW' 뮤직비디오가 공개됐다."],
+c8:["Release","트렌드지 '위로위로' 뮤직비디오","데뷔 2주년 스페셜 싱글 '위로위로' 뮤직비디오가 선공개됐다."],
+c36:["Release","아이칠린 제이 'BANANA' 뮤직비디오","아이칠린 첫 유닛 아이칠린 제이의 타이틀곡 'BANANA (Look At Me!)'가 발매됐다."]};
 function newsView(){
-  const L=[...NEWS].sort((a,b)=>b[0].localeCompare(a[0]));
-  const seen=new Set(),feat=L.filter(n=>n[7]&&!seen.has(n[4])&&seen.add(n[4])).slice(0,2);
-  const by={};L.forEach(n=>{const y=n[0].slice(0,4);(by[y]=by[y]||[]).push(n)});
   const wt=k=>{if(!k)return "";const t=k[0]==="f"?F[+k.slice(1)]:C[+k.slice(1)];return t?t[0]:""};
   const wl=k=>k?`#${k[0]==="f"?"film":"commercial"}-${k.slice(1)}`:"";
   const th=k=>k&&MEDIA[k]&&gl(k).length?SU(k,rs(k)):"";
-  const host=u=>{try{return new URL(u).hostname.replace(/^www\./,"")}catch(e){return ""}};
-  const hero=th("f7")||img(7);
-  return `<div class="view nw">
-    <section class="nw-hero dark" style="background-image:url('${hero}')"><div class="wrap"><p class="mono">Press · Festivals · Interviews</p><h1>News</h1><p class="nw-count mono">${L.length} articles · ${Object.keys(by).length} years</p></div></section>
-    ${feat.length?`<section class="nw-feat wrap">${feat.map(n=>`<a class="nf" href="${n[3]}" target="_blank" rel="noopener">
-      <span class="nf-img" style="background-image:url('${th(n[4])}')"></span>
-      <span class="nf-tx"><span class="nk mono">${esc(n[5])} · ${n[0]}</span><b>${esc(n[2])}</b><span class="nb">${esc(n[6])}</span><span class="no mono">${esc(n[1])} ↗</span></span></a>`).join("")}</section>`:""}
-    <section class="nw-list wrap">${Object.keys(by).sort().reverse().map(y=>`<div class="ny"><h2 class="ny-y">${y}</h2><ol>${by[y].map(n=>`<li class="nr">
-      <span class="nr-d mono">${n[0].slice(5)}</span>
-      <a class="nr-h" href="${n[3]}" target="_blank" rel="noopener"><span class="nr-k mono">${esc(n[5])}</span><b>${esc(n[2])}</b><span class="nr-b">${esc(n[6])}</span><span class="nr-o mono">${esc(n[1])} · ${host(n[3])} ↗</span></a>
-      ${n[4]?`<a class="nr-w" href="${wl(n[4])}"><span class="nr-t" style="background-image:url('${th(n[4])}')"></span><span class="mono">${esc(wt(n[4]))}</span></a>`:`<span class="nr-w"></span>`}
-    </li>`).join("")}</ol></div>`).join("")}</section>
+  const G={};NEWS.forEach(n=>{(G[n[4]]=G[n[4]]||[]).push(n)});
+  const S=Object.keys(G).map(k=>{const items=G[k].sort((a,b)=>b[0].localeCompare(a[0]));return {k,items,last:items[0][0],first:items[items.length-1][0]}})
+    .sort((a,b)=>{const r=x=>({Award:0,Festival:1}[(STORY[x.k]||[])[0]]??2);return r(a)-r(b)||b.last.localeCompare(a.last)});
+  const dd=d=>d.includes("--")?d.slice(0,4):d.slice(0,7).replace(".",". ");
+  const total=NEWS.length;
+  return `<div class="view nw2">
+    <section class="n2-head wrap"><p class="mono">Press · Festivals</p><h1>News</h1><p class="n2-sum">${S.length} stories <i>·</i> ${total} articles</p></section>
+    <section class="n2-list wrap">${S.map((g,n)=>{const st=STORY[g.k]||["News",wt(g.k),""],img=th(g.k);
+      return `<article class="n2 ${n%2?"rev":""} ${st[0]==="Award"?"award":""}">
+        <a class="n2-img" href="${wl(g.k)}" style="background-image:url('${img}')" aria-label="${esc(wt(g.k))}"><span class="mono">${esc(wt(g.k))} →</span></a>
+        <div class="n2-tx">
+          <p class="n2-k mono"><b>${st[0]}</b><span>${dd(g.first)}${g.first.slice(0,7)!==g.last.slice(0,7)?" — "+dd(g.last):""}</span></p>
+          <h2>${esc(st[1])}</h2>
+          ${st[2]?`<p class="n2-d">${esc(st[2])}</p>`:""}
+          <p class="n2-c mono">Coverage <b>${g.items.length}</b></p>
+          <ul>${g.items.map(x=>`<li><a href="${x[3]}" target="_blank" rel="noopener"><span class="o">${esc(x[1])}</span><span class="t">${esc(x[2])}</span><span class="d mono">${x[0].includes("--")?x[0].slice(0,4):x[0].slice(2)}</span></a></li>`).join("")}</ul>
+        </div>
+      </article>`}).join("")}</section>
   </div>`;
 }
 /* ───────── 홈 시안 3종: Contact · Spectrum · Monitor ───────── */
@@ -2496,7 +2537,7 @@ function bindSpotlight(){
 const RCLIPS=[["006", "c6"], ["013", "f6"], ["018", "f6"], ["025", "c2"], ["032", "f6"], ["046", "f3"], ["072", "f16"], ["077", "f16"], ["080", "f16"], ["088", "c28"], ["097", "f17"], ["105", "c6"], ["106", "f31"], ["108", "c31"], ["119", "f7"], ["121", "f7"], ["126", "f31"], ["127", "c2"], ["129", "c36"], ["130", "f19"], ["137", "c6"], ["147", "f19"], ["151", "c7"], ["157", "f2"], ["162", "c28"], ["163", "f4"], ["169", "f5"], ["173", "f19"], ["178", "c11"], ["182", "c11"], ["194", "c1"], ["197", "f7"], ["198", "c7"], ["200", "f31"], ["204", "f7"], ["206", "f32"], ["218", "f32"], ["220", "c0"], ["222", "c0"], ["232", "f32"], ["240", "f4"], ["250", "c28"], ["260", "f18"], ["271", "c2"], ["272", "c4"], ["285", "c35"], ["290", "c4"], ["301", "c4"], ["302", "c28"], ["306", "f12"], ["317", "c8"], ["319", "c8"], ["321", "c8"], ["326", "c8"], ["333", "c8"], ["337", "c34"], ["338", "f15"], ["346", "f15"], ["356", "f10"], ["371", "f3"], ["372", "f3"], ["375", "f3"], ["376", "f15"], ["379", "f15"]];
 const reelT=k=>{const A=k[0]==="f"?F:C,d=A[+k.slice(1)];return d?d[0]:""};
 const reelH=k=>`#${k[0]==="f"?"film":"commercial"}-${k.slice(1)}`;
-const QNM=(()=>{const q=(location.search.match(/nm=(\d)/)||[])[1];return q||"5"})();
+const QNM=(()=>{const q=(location.search.match(/nm=(\d)/)||[])[1];return q||"3"})();
 function homeQ(){
   return `<div class="view hreel"><section class="qr dark" id="qr" data-nm="${QNM}">
     <div class="qr-vs" id="qrVs">${[0,1,2].map(n=>`<video muted playsinline preload="auto" class="qr-v${n?"":" on"}"></video>`).join("")}</div>
