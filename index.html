@@ -1423,6 +1423,20 @@ img[src^="spr:"]{opacity:0}
 
 .es-frag p{font-family:var(--essay);font-size:clamp(1.05rem,1.3vw,1.2rem);line-height:2;margin:0 0 1.5em}
 .jcard .jdate{white-space:nowrap}
+
+.aft-h h1{font-size:clamp(2.6rem,6vw,5.4rem);text-align:center;padding:0 6vw}
+.aft-h .nh-dn{letter-spacing:.14em}
+.aft-b{max-width:720px;margin:0 auto;padding:clamp(40px,6vw,90px) 0 clamp(40px,5vw,70px)}
+.aft-b .aft-d{font-size:.66rem;letter-spacing:.14em;color:var(--muted);margin:0 0 10px}
+.aft-b h2{font-size:clamp(1.6rem,2.6vw,2.2rem);letter-spacing:-.03em;margin:0 0 1.4em;font-weight:900}
+.aft-b>p:not(.mono){font-family:var(--essay);font-size:clamp(1.04rem,1.25vw,1.18rem);line-height:2.05;margin:0 0 1.5em}
+.aft-b>p:last-of-type:not(.mono){}
+.aft-s{margin-top:3em!important;padding-top:18px;border-top:1px solid var(--line,#ddd);font-size:.62rem;letter-spacing:.14em;color:var(--muted)}
+.aft-s a{color:inherit;text-decoration:underline}
+.aft-n{display:flex;justify-content:space-between;gap:20px;margin-top:28px}
+.aft-n a{display:flex;flex-direction:column;gap:6px;font-size:.95rem;font-weight:700;max-width:48%}
+.aft-n a span{font-size:.58rem;letter-spacing:.16em;color:var(--muted);font-weight:400}
+.aft-n a.r{text-align:right;margin-left:auto}
 /* ── about ── */
 .about{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,6vw,80px)}
 .about .lead{font-family:var(--display);font-size:var(--s1);line-height:1.85;max-width:30em;display:grid;gap:1em}
@@ -1527,7 +1541,7 @@ img[src^="spr:"]{opacity:0}
   <div class="wrap">
     <a class="logo" href="#home" aria-label="Instant Classic Film 처음으로">ICF</a>
     <nav aria-label="주요 메뉴" id="nav">
-      <a href="#film">Film</a><a href="#commercial">Commercial</a><a href="#art">ArtFilm</a><a href="#journal">Essay</a><a href="#news">News</a><a href="#about">About</a>
+      <a href="#film">Film</a><a href="#commercial">Commercial</a><a href="#art">ArtFilm</a><a href="#journal">Essay</a><a href="#after">Afterthoughts</a><a href="#news">News</a><a href="#about">About</a>
     </nav>
   </div>
 </header>
@@ -1958,7 +1972,7 @@ function homeD(){
   </section>
   <section class="ix">
     <p class="ix-lede">하나의 스쳐가는 장면이 아니라 하나의 기준을 만든다는 마음으로 이미지를 설계하며,<br>순간을 ‘현대의 고전’으로 남기는 작업을 지향합니다.</p>
-    <div class="ix-links"><a href="#film">Film</a><a href="#commercial">Commercial</a><a href="#journal">Essay</a><a href="#news">News</a><a href="#about">About</a></div>
+    <div class="ix-links"><a href="#film">Film</a><a href="#commercial">Commercial</a><a href="#journal">Essay</a><a href="#after">Afterthoughts</a><a href="#news">News</a><a href="#about">About</a></div>
   </section>
   ${hvSwitch()}
   </div>`;
@@ -2285,14 +2299,6 @@ const ESSAYS=[
  coda:["그것은 단순한 호기심일까,","아니면 그것을 넘어선 무언가일까."],
  quote:"카메라는 설명하지 않는다. 바라보고, 인물의 배치가 관계와 감정을 말하게 한다.",
  refs:[]},
-{slug:"floor-13",frag:true,title:"13층",date:"2026. 10",img:EI("an_15"),
- lede:"엘리베이터 숫자가 바뀌는 동안의 일.",
- sec:[["",[
-  "엘리베이터를 기다리면서 다들 숫자를 본다. 13, 12, 11. 할 일이 없어서 보는 건데, 보다 보면 그 숫자가 꼭 무언가를 세고 있는 것 같다.",
-  "그 몇 초 동안 사람들은 대개 아무것도 하지 않는다. 휴대폰을 꺼냈다가 다시 넣고, 가방끈을 고쳐 메고, 문에 비친 자기 얼굴을 잠깐 본다. 누구에게도 보여 주려고 하는 행동이 아니라서 오히려 정직하다.",
-  "현장에서 내가 제일 좋아하는 순간도 비슷하다. 슬레이트가 빠지고, 액션 소리가 나기 직전. 배우도 스태프도 잠깐 아무것도 아닌 상태가 된다. 그 빈 몇 초에 가끔 컷보다 좋은 얼굴이 지나간다.",
-  "그래서 컷을 부르는 손이 조금 늦어질 때가 있다. 숫자가 1이 되고 문이 열리기 전까지는, 아직 아무 일도 일어나지 않았으니까."]]],
- coda:["띵,","그리고 문이 열린다."]},
 {slug:"two-teas",title:"두 세계의 향",date:"2026. 01",src:"Cinematography Note",work:"film-1",img:EI("mk_x5"),
  verse:["이질적인 두 세계가 만나","서로의 향을 품는다.","","각자의 다름이 흐릿하게 번지고,","남은 온기가","노을빛 속에 포개진다."],
  figs:[[EI("mk_x1"),"먹태와 녹차 · 한옥, 도착"],[EI("mk_x8"),"먹태와 녹차 · 기둥이라는 경계"],[W("f1","s",1),"먹태와 녹차 · 새벽 시장"],[W("f1","s",3),"먹태와 녹차"],[EI("mk_x4"),"먹태와 녹차"]],
@@ -2344,14 +2350,6 @@ const ESSAYS=[
  quote:"나한테 물건을 왜 훔치냐고 물어본 사람은 너가 처음이었어.",
  gear:[["Camera","ARRI Alexa Mini · Sony FX3"],["Lens","DZOFILM Arles Prime"],["Aspect","2.00 : 1"]],
  refs:["배드 지니어스 (2017)","위플래쉬 (2014)","베이비 드라이버 (2017)","소년 시절의 너 (2019)","노멀 피플 (2020)","유포리아","파벨만스 (2022)","벌새 (2018)"]},
-{slug:"red",frag:true,title:"레드",date:"2026. 07",work:"film-6",img:W("f6","s",1),
- lede:"곁에 있지만 화면에는 나오지 않는 것들에 대해.",
- sec:[["",[
-  "〈디어마이레드〉의 수진은 곰인형 레드를 늘 손에 쥐고 다닌다. 세상에 믿을 건 그것 하나뿐이라는 듯이. 촬영하는 동안 레드는 소품 담당의 가방 안에서, 테이블 끝에서, 모니터 옆에서 자주 우리를 보고 있었다.",
-  "감독은 이 이야기가 곰인형의 입장에서 출발했다고 했다. 내가 버리지 못하는 인형이 말을 할 수 있다면, 나를 버리지 말라고 하는 대신 눈에 보이지 않아도 늘 함께 있다고 말해 줄 것 같다고.",
-  "그 말을 듣고 좀 웃었다. 촬영감독도 비슷한 자리에 있다. 모든 장면에 있지만 어떤 장면에도 나오지 않는다. 나오면 안 된다. 거울에 비치면 지우고, 창에 비치면 자리를 옮긴다.",
-  "그래도 화면 어딘가에는 남는다. 어떤 거리에서 볼지, 얼마나 오래 볼지, 언제 눈을 돌릴지. 보이지 않는 사람이 고른 것들로 화면이 만들어진다. 곰인형이 그런 것처럼, 아무 말 없이."]]],
- coda:["나는 생각보다 자주 나타나.","어떤 날엔 할머니로,","어떤 날엔 지나가는 손님으로."]},
 {slug:"banana",title:"카메라는 누구의 자리인가",date:"2026. 08",src:"Cinematography Note",img:EI("bn_49"),
  verse:["아무도 봐 주지 않을 때,","다 봐 준다고 상상할 때,","그리고 우리끼리 남았을 때.","","카메라는 그때마다","서 있는 자리가 다르다."],
  figs:[[EI("bn_1"),"BANANA · 1막, 현실"],[EI("bn_54"),"BANANA · 텅 빈 역사"],[EI("bn_16"),"BANANA"],[EI("bn_48"),"BANANA · 3막, 회귀"],[EI("bn_9"),"BANANA"]],
@@ -2373,14 +2371,6 @@ const ESSAYS=[
  coda:["봐 달라고 노래하지만,","결국 가장 오래 남는 건","서로를 보던 얼굴이다."],
  quote:"기준은 카메라의 위치, 곧 누가 보고 있느냐.",
  refs:[]},
-{slug:"missing",frag:true,title:"155cm, 자주색 자켓",date:"2026. 06",work:"film-8",img:W("f8","s",1),figs:[[W("f8","s",3),"실종알림"]],
- lede:"하루에도 몇 번씩 울리는 문자에 대해.",
- sec:[["",[
-  "동진구에서 실종된 김금님 씨, 76세를 찾습니다. 155cm, 단정한 백발의 짧은 머리. 자주색 자켓, 남색 바지.",
-  "〈실종알림〉은 이 문장으로 시작한다. 다들 받아 봤을 문자다. 그리고 대부분 읽지 않고 넘긴다. 나도 그랬다. 잠금 화면 위로 잠깐 떴다 사라지는 몇 줄.",
-  "촬영을 준비하면서 그 몇 줄을 오래 들여다봤다. 키, 머리 모양, 옷 색깔. 한 사람이 세상에서 사라졌을 때 남는 건 결국 눈에 보이는 것들뿐이다. 낯선 사람이 길에서 알아볼 수 있는 것들.",
-  "카메라도 사람을 그렇게밖에 기록하지 못한다. 키와 얼굴과 옷 색깔, 그 사람이 서 있던 자리의 빛. 마음은 찍히지 않는다. 그래서 찍히는 것들을 최대한 정확하게 모아 두는 수밖에 없다. 누군가 그것만 보고도 그 사람을 알아볼 수 있도록.",
-  "요즘은 그 문자가 오면 끝까지 읽는다. 자주색 자켓을 입은 사람이 지나가면 한 번 더 본다."]]]},
 {slug:"anniversary",title:"말하지 않는 화면",date:"2025. 09",src:"Cinematography Note",work:"film-2",
  verse:["말하지 않아도","방은 기억한다.","","문틈으로 새던 목소리,","식탁 위의 빈자리,","천천히 떨어지던 풍선 하나."],
  coda:["다음엔 안 올 거예요.","꽃은 감사해요."],img:W("f2","s",2),figs:[[W("f2","s",0),"결혼기념일"],[W("f2","s",3),"결혼기념일"],[W("f2","s",5),"결혼기념일"],[W("f2","s",4),"결혼기념일"]],
@@ -2407,14 +2397,6 @@ const ESSAYS=[
  map:[["Aspect Ratio","1.00","2.39",.67,.67,"1.85"],["Brightness","Dark","Bright",.2,.76],["Quality of Light","Soft","Hard",0,.55],["Focal Length","Short","Long",.32,.86],["Depth of Field","Shallow","Deep",.26,.8],["Movement","Shake","Fix",.5,1],["Support","Grip","Stick",.4,.93],["Saturation","Low","High",.2,.76]],
  gear:[["Camera","Panasonic Lumix S1M2"],["Lens","Cooke Panchro/i Classic"],["Grip","1.5m Slider · Ilwoo Dolly"],["Aspect","1.85 : 1"]],
  refs:[]},
-{slug:"second-goodbye",frag:true,title:"작별을 한 번 더",date:"2026. 03",work:"film-5",img:W("f5","s",1),
- lede:"한 번으로 끝나지 않는 것들.",
- sec:[["",[
-  "장례식장에서 관이 바뀌어 장례를 두 번 치렀다는 기사가 있었다. 〈두 번의 장례〉는 그 어처구니없는 일에서 출발한 영화다. 생면부지의 두 가족이 하루를 같이 보내고, 결국 각자의 사람에게 미처 못 한 인사를 건넨다.",
-  "찍는 내내 생각했다. 작별이 원래 한 번에 될 리가 없다고. 처음엔 경황이 없어서, 사람들이 많아서, 실감이 안 나서 제대로 못 한다. 두 번째가 되어서야 겨우 얼굴을 본다.",
-  "현장에서는 이걸 테이크라고 부른다. 한 번 더 갈게요. 첫 테이크는 대개 무언가를 확인하는 시간이다. 동선이 맞는지, 포커스가 따라가는지, 빛이 제자리에 있는지. 정말로 그 장면을 보는 건 두 번째부터다.",
-  "삶에는 그런 기회가 잘 오지 않는다. 그래서 영화 안에서라도 한 번 더 하게 해 주고 싶었는지도 모른다. 카메라를 조금 더 멀리 두고, 그 두 번째 인사가 끝날 때까지 컷을 하지 않았다."]]],
- coda:["한 번 더 갈게요."]},
 {slug:"same-color",title:"같은 색, 다른 얼굴",date:"2026. 09",img:EI("sc_cover"),figs:[[EI("sc_f1"),"잔상 · 욕조, 무너진 초록"],[EI("sc_f2"),"잔상 · 해 질 녘, 푸르푸어"]],yt:"aNt4P7U4jkM",film:["Afterimage","X46cqXSZXBA"],
  lede:"같은 노랑인데 어떤 화면에서는 더없이 따뜻하고, 어떤 화면에서는 차갑게 식어 있다. 색이 감정을 지닌다면, 그 감정은 어디서 오고 어떻게 달라지는 걸까.",
  sec:[
@@ -2439,14 +2421,6 @@ const ESSAYS=[
    "머릿속의 색과 카메라에 찍히는 색은 좀처럼 같지 않다. 그래서 기준을 먼저 묶었다. 카메라 색온도를 한 자리에 고정하고, 그 위에서 조명만 움직였다. 기준이 흔들리지 않아야 조명의 색이 그대로 감정이 된다."]]],
  quote:"단 하나의 조명, 그 색온도를 바꾸는 것만으로도 마음속에 떠오르는 감정이 완전히 달라진다. — 비토리오 스토라로",
  refs:["순응자 (1970)","괴테, 색채론"]},
-{slug:"by-hand",frag:true,title:"손으로 그린 부품",date:"2026. 09",img:EI("mk_x4"),
- lede:"밤에 3D 프린터가 돌아가는 소리를 들으며.",
- sec:[["",[
-  "요즘은 밤마다 카메라에 붙일 부품을 그린다. 손잡이 하나, 작은 판 하나, 모니터를 걸 자리 하나. 사면 되는 것들인데, 꼭 내 손에 맞는 각도가 없다.",
-  "화면 속에서 형태를 다듬고 프린터로 보내면, 노즐이 아주 얇은 선을 한 층씩 쌓는다. 몇 시간이 걸린다. 그 소리를 틀어 놓고 다른 일을 하다 보면, 어느새 손바닥만 한 물건이 하나 생겨 있다.",
-  "처음 뽑은 건 늘 조금 어긋난다. 0.2mm가 커서 끼워지지 않거나, 생각보다 투박하다. 다시 그리고 다시 뽑는다. 세 번째쯤 되면 손에 맞는다.",
-  "촬영도 그렇게 배웠다. 머릿속의 화면과 실제로 찍힌 화면 사이에는 늘 0.2mm쯤의 차이가 있다. 그 차이를 줄이는 방법은 다시 하는 것밖에 없다. 그리고 결국 남는 건 사람이 만졌던 흔적이다. 매끈한 기성품보다 조금 투박해도, 그쪽이 더 오래 손에 붙어 있다."]]],
- coda:["한 층씩,","아주 얇게."]},
 {slug:"afterimage",title:"잔상",date:"2026. 08",img:EI("af_cover"),figs:[[EI("af_f1"),"잔상"],[EI("af_f2"),"잔상"],[EI("af_f3"),"잔상"]],yt:"X46cqXSZXBA",
  lede:"사람이 떠난 집에 혼자 남은 남자. 여덟 개의 장면, 여덟 개의 색. 감정을 대사로 말하지 않고 방의 빛으로 말해 보려고 했다.",
  sec:[
@@ -2786,6 +2760,77 @@ function clientView(){
     </div></div>
   </div>`;
 }
+/* ───────── Afterthoughts ───────── */
+const AFTER=[
+{id:"distance",title:"한 발 뒤로",date:"2026-10-24",img:W("f8","s",1),body:[
+ "사진이 충분히 좋지 않다면, 충분히 가까이 가지 않았기 때문이다. 로버트 카파의 말이다. 전쟁터 한가운데로 걸어 들어가던 사람다운 말이다.",
+ "나는 자주 그 반대로 한다. 좋은 장면 앞에서 오히려 한 발 물러선다. 특히 다큐멘터리를 찍을 때는 거리가 거의 전부라고 생각한다. 너무 가까우면 상대가 카메라를 의식하고, 너무 멀면 나는 그 사람을 모르는 채로 찍게 된다.",
+ "적당한 거리는 숫자로 정해지지 않는다. 그날의 공기, 그 사람의 기분, 내가 거기 얼마나 오래 있었는지에 따라 매번 달라진다. 그래서 첫날은 대개 카메라를 늦게 꺼낸다.",
+ "가까이 가는 용기만큼, 물러서는 용기도 있다고 믿는다."]},
+{id:"floor-13",title:"13층",date:"2026-10-11",img:EI("an_15"),body:[
+ "엘리베이터를 기다리면서 다들 숫자를 본다. 13, 12, 11. 할 일이 없어서 보는 건데, 보다 보면 그 숫자가 꼭 무언가를 세고 있는 것 같다.",
+ "그 몇 초 동안 사람들은 아무것도 하지 않는다. 휴대폰을 꺼냈다 다시 넣고, 문에 비친 자기 얼굴을 잠깐 본다. 누구에게 보여 주려는 행동이 아니라서 오히려 정직하다.",
+ "현장에도 그런 몇 초가 있다. 슬레이트가 빠지고 액션 소리가 나기 직전. 배우도 스태프도 잠깐 아무것도 아닌 상태가 된다. 가끔은 그 빈 몇 초에 컷보다 좋은 얼굴이 지나간다.",
+ "문이 열리기 전까지는, 아직 아무 일도 일어나지 않았으니까."]},
+{id:"expired",title:"유통기한",date:"2026-09-02",img:W("f4","s",4),body:[
+ "〈시적허용〉을 찍은 필름은 유통기한이 지나 있었다. Fujifilm Vivid 500. 이미 단종된 필름이라 새것을 구할 방법도 없었다.",
+ "현상해 보니 색이 조금 바래 있었다. 암부는 뭉치고, 필름 브리딩도 심했다. 처음엔 실패한 줄 알았다. 그런데 그 바랜 색이 묘하게 영화와 맞았다. 해가 지는 걸 두려워하는 소년의 이야기였다.",
+ "유통기한은 대개 맛이나 안전을 위한 숫자다. 그런데 어떤 것들은 그 날짜를 지나고 나서야 제 색을 낸다. 오래된 렌즈의 플레어나, 낡은 집의 노란 형광등 같은 것들.",
+ "그 뒤로는 날짜가 지난 것들을 쉽게 버리지 못한다."]},
+{id:"empty-frame",title:"빈 프레임",date:"2026-08-12",img:EI("af_cover"),body:[
+ "유튜브 채널 이름을 빈프레임이라고 지었다. 이름을 정하고 나서 한동안 이게 맞나 싶었다. 뭔가 채워져 있어야 할 것 같은 채널에 비어 있다는 이름이라니.",
+ "그런데 촬영은 늘 빈 화면에서 시작한다. 뷰파인더를 처음 들여다볼 때 거기엔 아직 아무것도 없다. 배우도, 빛도, 이야기도 아직이다. 그 빈 사각형 앞에서 무엇을 놓을지, 그리고 무엇을 끝까지 놓지 않을지 정한다.",
+ "다 채운 화면보다 조금 비워 둔 화면이 더 오래 남는다는 걸, 찍을수록 알게 된다. 관객이 들어올 자리가 있어야 하니까.",
+ "그래서 이름은 그대로 두기로 했다. 아직 비어 있어서, 계속 채울 수 있다."]},
+{id:"red",title:"레드",date:"2026-07-19",img:W("f6","s",1),body:[
+ "〈디어마이레드〉의 수진은 곰인형 레드를 늘 손에 쥐고 다닌다. 감독은 이 이야기가 곰인형의 입장에서 출발했다고 했다. 말을 할 수 있다면, 나를 버리지 말라는 대신 눈에 보이지 않아도 늘 곁에 있다고 말해 줄 것 같다고.",
+ "그 얘기를 듣고 조금 웃었다. 촬영감독도 비슷한 자리에 있다. 모든 장면에 있지만 어떤 장면에도 나오지 않는다. 나오면 안 된다. 거울에 비치면 지우고, 창에 비치면 자리를 옮긴다.",
+ "그래도 화면 어딘가에는 남는다. 어떤 거리에서, 얼마나 오래, 언제 눈을 돌릴지. 보이지 않는 사람이 고른 것들로 화면이 만들어진다.",
+ "곰인형처럼, 아무 말 없이."]},
+{id:"missing",title:"155cm, 자주색 자켓",date:"2026-06-08",img:W("f8","s",3),body:[
+ "동진구에서 실종된 김금님 씨, 76세를 찾습니다. 155cm, 단정한 백발의 짧은 머리. 자주색 자켓, 남색 바지.",
+ "〈실종알림〉은 이 문장으로 시작한다. 다들 받아 봤을 문자다. 대부분 읽지 않고 넘긴다. 잠금 화면 위로 잠깐 떴다 사라지는 몇 줄.",
+ "한 사람이 사라졌을 때 남는 건 결국 눈에 보이는 것들이다. 낯선 사람이 길에서 알아볼 수 있는 것들. 카메라도 사람을 그렇게밖에 기록하지 못한다. 키와 얼굴과 옷 색깔, 그 사람이 서 있던 자리의 빛. 마음은 찍히지 않는다.",
+ "그러니 찍히는 것들이라도 정확하게 모아 두는 수밖에 없다. 누군가 그것만 보고도 그 사람을 알아볼 수 있도록."]},
+{id:"second-goodbye",title:"작별을 한 번 더",date:"2026-04-21",img:W("f5","s",1),body:[
+ "장례식장에서 관이 바뀌어 장례를 두 번 치렀다는 기사가 있었다. 〈두 번의 장례〉는 그 어처구니없는 일에서 출발한 영화다.",
+ "작별이 원래 한 번에 될 리가 없다. 처음엔 경황이 없어서, 사람이 많아서, 실감이 안 나서 제대로 못 한다. 두 번째가 되어서야 겨우 얼굴을 본다.",
+ "현장에서는 이걸 테이크라고 부른다. 한 번 더 갈게요. 첫 테이크는 대개 확인하는 시간이다. 동선이 맞는지, 포커스가 따라가는지, 빛이 제자리에 있는지. 정말로 그 장면을 보는 건 두 번째부터다.",
+ "삶에는 그런 기회가 잘 오지 않는다. 그래서 영화 안에서라도 한 번 더 할 수 있게, 그 두 번째 인사가 끝날 때까지 컷을 하지 않았다."]},
+{id:"by-hand",title:"0.2mm",date:"2026-03-15",img:EI("mk_x4"),body:[
+ "가끔 카메라에 붙일 부품을 직접 그려서 3D 프린터로 뽑는다. 사면 되는 것들인데, 꼭 내 손에 맞는 각도가 없다.",
+ "처음 뽑은 건 늘 조금 어긋난다. 0.2mm가 커서 끼워지지 않거나, 생각보다 투박하다. 다시 그리고 다시 뽑는다. 세 번째쯤 되면 손에 맞는다.",
+ "촬영도 비슷하다. 머릿속의 화면과 실제로 찍힌 화면 사이에는 늘 0.2mm쯤의 차이가 있다. 그 차이를 줄이는 방법은 다시 하는 것밖에 없다.",
+ "그리고 결국 남는 건 사람이 만진 흔적이다. 조금 투박해도, 그쪽이 더 오래 손에 붙어 있다."]}
+];
+const aDate=d=>{const [y,m,dd]=d.split("-");return `${y}년 ${m}월 ${dd}일`};
+function afterView(){
+  return `<div class="view nwv">
+    <section class="nhero dark" id="nH"><div class="nh-bg" id="nHb">${AFTER.slice(0,6).map((a,i)=>`<i class="${i?"":"on"}" style="background-image:url('${a.img}')"></i>`).join("")}</div><h1 id="nHt">Afterthoughts</h1><span class="nh-dn mono">Scroll</span></section>
+    <div class="npanel"><div class="ngrid">${AFTER.map(a=>`<article class="ncd">
+        <a href="#after-${a.id}" class="ncd-im"><img src="${a.img}" alt="" loading="lazy"></a>
+        <p class="ncd-d">On ${aDate(a.date)}</p>
+        <h3><a href="#after-${a.id}">${esc(a.title)}</a></h3>
+        <i class="ncd-r"></i>
+        <p class="ncd-x">${esc(a.body[0])}</p>
+        <a class="ncd-more" href="#after-${a.id}">Keep reading</a>
+      </article>`).join("")}</div></div>
+  </div>`;
+}
+function afterPost(id){
+  const k=AFTER.findIndex(a=>a.id===id),a=AFTER[k];if(!a)return notFound();
+  const pv=AFTER[k+1],nx=AFTER[k-1];
+  return `<div class="view nwv aft">
+    <section class="nhero dark aft-h" id="nH"><div class="nh-bg" id="nHb"><i class="on" style="background-image:url('${a.img}')"></i></div><h1 id="nHt">${esc(a.title)}</h1><span class="nh-dn mono">On ${aDate(a.date)}</span></section>
+    <div class="npanel"><article class="aft-b">
+      <p class="mono aft-d">On ${aDate(a.date)}</p>
+      <h2>${esc(a.title)}</h2>
+      ${a.body.map(p=>`<p>${esc(p)}</p>`).join("")}
+      <p class="mono aft-s">Posted in <a href="#after">Afterthoughts</a></p>
+      <nav class="aft-n">${pv?`<a href="#after-${pv.id}"><span class="mono">Previous</span>${esc(pv.title)}</a>`:"<span></span>"}${nx?`<a href="#after-${nx.id}" class="r"><span class="mono">Next</span>${esc(nx.title)}</a>`:""}</nav>
+    </article></div>
+  </div>`;
+}
 /* ───────── 홈 시안 3종: Contact · Spectrum · Monitor ───────── */
 const SPCOL={"f0": "#545d5f", "f1": "#6b593f", "f10": "#505445", "f11": "#7e6750", "f12": "#3d2e08", "f13": "#725f44", "f14": "#625c52", "f15": "#6d665b", "f16": "#a09b9f", "f17": "#a17238", "f18": "#3d4244", "f19": "#838365", "f2": "#616f51", "f20": "#897c6a", "f21": "#9a8d77", "f22": "#7b806e", "f23": "#735031", "f24": "#692631", "f25": "#665d2f", "f26": "#7b4b2d", "f27": "#a08759", "f28": "#454e45", "f29": "#677569", "f3": "#485a58", "f30": "#645845", "f31": "#4c484d", "f32": "#7c2c3a", "f33": "#6b603a", "f34": "#503d39", "f4": "#5e5e50", "f5": "#555744", "f6": "#65523b", "f7": "#5a603f", "f8": "#56615b", "f9": "#4d514d"};
 const homeList=()=>FO.filter(i=>gl("f"+i).length);
@@ -3000,6 +3045,8 @@ function route(){document.body.classList.remove("lb-open");document.body.style.o
   else if(/^commercial-\d+$/.test(h))html=commercialDetail(+h.split("-")[1]),section="commercial";
   else if(h==="journal")html=journal();
   else if(h==="news")html=newsView();
+  else if(h==="after")html=afterView();
+  else if(/^after-/.test(h))html=afterPost(h.slice(6)),section="after";
   else if(h==="client"){location.replace("#about");setTimeout(()=>{const c=document.getElementById("clients");c&&c.scrollIntoView()},400);return}
   else if(/^news-\d+$/.test(h))html=newsArticle(h.slice(5)),section="news";
   else if(/^journal-/.test(h))html=article(h.slice(8)),section="journal";
@@ -3163,7 +3210,7 @@ function bind(h){
   if(h==="film"||h==="commercial"){applyFilter($("#shelf"),h==="film"?state.role:state.kind,false);bindHero();bindShelf();return}
   if(/^film-\d+$/.test(h))return bindGallery("f"+h.split("-")[1]);
   if(/^commercial-\d+$/.test(h))return bindGallery("c"+h.split("-")[1]);
-  if(h==="news"||h==="client")return bindNews();
+  if(h==="news"||h==="client"||/^after/.test(h))return bindNews();
   if(h!=="home")return;
   if(state.hv==="q")return bindShowreel();
   if(state.hv==="x")return bindSlate();
