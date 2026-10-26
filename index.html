@@ -1541,7 +1541,7 @@ img[src^="spr:"]{opacity:0}
   <div class="wrap">
     <a class="logo" href="#home" aria-label="Instant Classic Film 처음으로">ICF</a>
     <nav aria-label="주요 메뉴" id="nav">
-      <a href="#film">Film</a><a href="#commercial">Commercial</a><a href="#art">ArtFilm</a><a href="#journal">Essay</a><a href="#after">Afterthoughts</a><a href="#news">News</a><a href="#about">About</a>
+      <a href="#film">Film</a><a href="#commercial">Commercial</a><a href="#art">ArtFilm</a><a href="#journal">Essay</a><a href="#news">News</a><a href="#about">About</a>
     </nav>
   </div>
 </header>
@@ -1972,7 +1972,7 @@ function homeD(){
   </section>
   <section class="ix">
     <p class="ix-lede">하나의 스쳐가는 장면이 아니라 하나의 기준을 만든다는 마음으로 이미지를 설계하며,<br>순간을 ‘현대의 고전’으로 남기는 작업을 지향합니다.</p>
-    <div class="ix-links"><a href="#film">Film</a><a href="#commercial">Commercial</a><a href="#journal">Essay</a><a href="#after">Afterthoughts</a><a href="#news">News</a><a href="#about">About</a></div>
+    <div class="ix-links"><a href="#film">Film</a><a href="#commercial">Commercial</a><a href="#journal">Essay</a><a href="#news">News</a><a href="#about">About</a></div>
   </section>
   ${hvSwitch()}
   </div>`;
@@ -2826,9 +2826,26 @@ function afterPost(id){
       <p class="mono aft-d">On ${aDate(a.date)}</p>
       <h2>${esc(a.title)}</h2>
       ${a.body.map(p=>`<p>${esc(p)}</p>`).join("")}
-      <p class="mono aft-s">Posted in <a href="#after">Afterthoughts</a></p>
+      <p class="mono aft-s">Posted in <a href="#journal">Essay</a></p>
       <nav class="aft-n">${pv?`<a href="#after-${pv.id}"><span class="mono">Previous</span>${esc(pv.title)}</a>`:"<span></span>"}${nx?`<a href="#after-${nx.id}" class="r"><span class="mono">Next</span>${esc(nx.title)}</a>`:""}</nav>
     </article></div>
+  </div>`;
+}
+
+function essayIndex(){
+  const ed=d=>{const [y,m]=d.split(".").map(x=>x.trim());return `${y}-${m.padStart(2,"0")}-28`};
+  const L=[...ESSAYS.map(e=>({h:"#journal-"+e.slug,img:e.img,d:ed(e.date),lab:(()=>{const [y,m]=e.date.split(".").map(x=>x.trim());return `${y}년 ${m}월`})(),t:e.title,x:e.lede})),
+    ...AFTER.map(a=>({h:"#after-"+a.id,img:a.img,d:a.date,lab:aDate(a.date),t:a.title,x:a.body[0]}))].sort((p,q)=>q.d.localeCompare(p.d));
+  return `<div class="view nwv">
+    <section class="nhero dark" id="nH"><div class="nh-bg" id="nHb">${L.slice(0,7).map((a,i)=>`<i class="${i?"":"on"}" style="background-image:url('${a.img}')"></i>`).join("")}</div><h1 id="nHt">Essay</h1><span class="nh-dn mono">Scroll</span></section>
+    <div class="npanel"><div class="ngrid">${L.map(a=>`<article class="ncd">
+        <a href="${a.h}" class="ncd-im"><img src="${a.img}" alt="" loading="lazy"></a>
+        <p class="ncd-d">On ${a.lab}</p>
+        <h3><a href="${a.h}">${esc(a.t)}</a></h3>
+        <i class="ncd-r"></i>
+        <p class="ncd-x">${esc(a.x)}</p>
+        <a class="ncd-more" href="${a.h}">Keep reading</a>
+      </article>`).join("")}</div></div>
   </div>`;
 }
 /* ───────── 홈 시안 3종: Contact · Spectrum · Monitor ───────── */
@@ -3043,10 +3060,10 @@ function route(){document.body.classList.remove("lb-open");document.body.style.o
   else if(h==="commercial")html=commercial();
   else if(h==="art")html=artList();
   else if(/^commercial-\d+$/.test(h))html=commercialDetail(+h.split("-")[1]),section="commercial";
-  else if(h==="journal")html=journal();
+  else if(h==="journal")html=essayIndex();
   else if(h==="news")html=newsView();
-  else if(h==="after")html=afterView();
-  else if(/^after-/.test(h))html=afterPost(h.slice(6)),section="after";
+  else if(h==="after"){location.replace("#journal");return}
+  else if(/^after-/.test(h))html=afterPost(h.slice(6)),section="journal";
   else if(h==="client"){location.replace("#about");setTimeout(()=>{const c=document.getElementById("clients");c&&c.scrollIntoView()},400);return}
   else if(/^news-\d+$/.test(h))html=newsArticle(h.slice(5)),section="news";
   else if(/^journal-/.test(h))html=article(h.slice(8)),section="journal";
@@ -3210,7 +3227,7 @@ function bind(h){
   if(h==="film"||h==="commercial"){applyFilter($("#shelf"),h==="film"?state.role:state.kind,false);bindHero();bindShelf();return}
   if(/^film-\d+$/.test(h))return bindGallery("f"+h.split("-")[1]);
   if(/^commercial-\d+$/.test(h))return bindGallery("c"+h.split("-")[1]);
-  if(h==="news"||h==="client"||/^after/.test(h))return bindNews();
+  if(h==="news"||h==="client"||h==="journal"||/^after/.test(h))return bindNews();
   if(h!=="home")return;
   if(state.hv==="q")return bindShowreel();
   if(state.hv==="x")return bindSlate();
