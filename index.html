@@ -1390,6 +1390,19 @@ img[src^="spr:"]{opacity:0}
 .npanel{clip-path:none!important;margin-top:calc(-1 * clamp(48px,7vw,120px));padding-top:clamp(28px,3vw,48px)}
 .jpanel{margin-top:calc(-1 * clamp(48px,7vw,120px))}
 .phero,.whero,.slant{clip-path:none!important}
+
+/* about: 넓은 화면에서 오른쪽까지 채우기 */
+@media (min-width:1100px){
+ .ab-intro{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);column-gap:clamp(40px,6vw,120px);align-items:start}
+ .ab-intro .ab-no{grid-column:1/-1}
+ .ab-intro .ab-big{font-size:clamp(2.4rem,4.2vw,4.4rem);line-height:1.15;margin:0}
+ .ab-dark .ab-intro .ab-text{max-width:none}
+ .aw-yr ol{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:clamp(28px,3vw,56px)}
+ .aw-yr li:last-child{border-bottom:1px solid rgba(244,239,232,.1)}
+ .ab-kit{grid-template-columns:repeat(6,minmax(0,1fr))}
+ .ab-contact .contact{max-width:none;grid-template-columns:repeat(4,minmax(0,1fr))}
+ .ab-row ul{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:clamp(28px,3vw,56px)}
+}
 /* ── about ── */
 .about{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,6vw,80px)}
 .about .lead{font-family:var(--display);font-size:var(--s1);line-height:1.85;max-width:30em;display:grid;gap:1em}
