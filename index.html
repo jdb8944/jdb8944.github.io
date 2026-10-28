@@ -1556,7 +1556,7 @@ const F=[
 ["더 러버","2026.06","DOP, Color","1h 26m 57s","2.00","ARRI Alexa Mini, Sony FX3, DZOFILM Arles Prime",["제30회 부천국제판타스틱영화제 부천 초이스 코리안 장편 경쟁"],"장편","충동적인 도벽증이 있는 전학생 주호와, 같은 반에서 완벽한 도둑질을 해 온 도희. 둘은 학교 안에서 기묘한 도둑 배틀을 벌이며 서로의 결핍과 비밀을 마주한다."],
 ["먹태와 녹차","2026.01","DOP, Color","24m 56s","2.39","Panasonic S1M2, Cooke Panchro/i Classic FF",["제13회 필름게이트 영화제 작품상","제27회 신영균문화예술재단 필름게이트 제작지원작"]],
 ["결혼기념일","2026.01","DOP, Color","15m 54s","1.85","Panasonic S1M2, Cooke Panchro/i Classic FF",[]],
-["30번째 관객","2025.09","DOP, Color","3m 30s","1.33","ARRI Alexa Mini, Panasonic S1M2, Leica R Vintage",["커뮤니티비프 × 한예종 영상원 30주년 특별전"]],
+["30번째 관객","2025.09","DOP, Color","3m 30s","1.33 · 1.85","ARRI Alexa Mini, Panasonic S1M2, Leica R Vintage",["커뮤니티비프 × 한예종 영상원 30주년 특별전"]],
 ["시적허용","2025.04","Director, DOP, Color","10m 30s","1.85","ARRI 35BL Evolution, Fuji Vivid 500, Cooke S4",["제30회 부산국제영화제 와이드앵글 경쟁","제5회 2030 청년영화제 초청","제1회 럭키비디오스토어 영화제 초청"],"35mm 필름"],
 ["두 번의 장례","2025.04","DOP, Color","24m 20s","2.39","ARRI Alexa Mini, Zeiss Supreme Prime",["제20회 파리한국영화제 심사위원 특별언급","제22회 미쟝센 단편영화제 본선 경쟁","제8회 전주국제단편영화제 경쟁","제25회 전북독립영화제 경쟁","제21회 제천국제음악영화제 메이드 인 제천"]],
 ["디어마이레드","2025.04","DOP, Color","22m 37s","2.39","ARRI Alexa Mini, DZOFILM Pavo Anamorphic",[]],
@@ -1865,14 +1865,15 @@ const CAMS=[
  [/35BL/i,"ARRI 35BL Evolution","35mm Film","",""],
  [/Mavic/i,"DJI Mavic 3 Pro","Aerial","",""]];
 /* Alexa Mini: 3.4K RAW로 찍은 작품 (나머지는 4K UHD) */
-const ARRIRAW=new Set(["f0","f3","f5","f6","f10","f11","f16","c1","c5","c12","c13","c17"]);
+const ARRIRAW=new Set(["f0","f5","f6","f10","f11","f16","c1","c5","c12","c13","c17"]);
 const STOCK=/Vivid 500|Kodak|Vision3/i;
+const SPECCAP={f3:"Alexa Mini · Apple ProRes 4444 4K / S1II · 5.8K Apple ProRes 422 HQ"};
 const SPECEXTRA={f1:[["Exhibition","2K DCP · Scope"]]};
 function specAuto(k,rt,ar,cam,grade,color,rel){
   const toks=(cam||"").split(/,\s*/).filter(Boolean);let cams=[],lens=[],stock="";
   toks.forEach(t=>{if(STOCK.test(t)){stock=t;return}const c=CAMS.find(c=>c[0].test(t)||(/^FX6$/.test(t)&&c[1]==="Sony FX6"));if(c)cams.push(c);else lens.push(t)});
   const p=cams.find(c=>c[3]||c[4])||cams[0],arn=parseFloat(ar)||1.78;
-  const cap=stock?`35mm · ${stock.replace(/^Fuji/,"Fujifilm Eterna")}`:p?(typeof p[3]==="function"?(p[1]==="ARRI Alexa Mini"?p[3](k):p[3](arn)):p[3]):"";
+  const cap=SPECCAP[k]||(stock?`35mm · ${stock.replace(/^Fuji/,"Fujifilm Eterna")}`:p?(typeof p[3]==="function"?(p[1]==="ARRI Alexa Mini"?p[3](k):p[3](arn)):p[3]):"");
   const short=[["Running Time",enRT(rt)],["Aspect Ratio",ar?ar+" : 1":""],["Log · Gamut",p?p[4]:""],...(SPECEXTRA[k]||[]),["Released",enDate(rel)]].filter(x=>x[1]).slice(0,4);
   const camLine=cams.length===1?`${cams[0][1]} · ${cams[0][2]}`:cams.map(c=>c[1]).join(" · ");
   const long=[["Camera",camLine],["Lenses",lens.join(" · ")],["Capture",cap],["Digital Intermediate",grade?grade+(color?" · Jung Dabin":""):""]].filter(x=>x[1]);
@@ -2980,7 +2981,7 @@ function homeA(){
 function bindAspect(){
   const as=$("#as");if(!as)return;const L=as.dataset.list.split(",").map(Number),w=$("#asW"),im=$("#asI");
   mkFlip(as,5000,j=>{const i=L[((j%L.length)+L.length)%L.length];w.classList.add("out");
-    setTimeout(()=>{w.style.setProperty("--ar",F[i][4]);w.href="#film-"+i;setSrc(im,SU("f"+i,rs("f"+i)));$("#asAr").textContent=F[i][4];$("#asT").textContent=F[i][0];$("#asM").textContent=F[i][1].slice(0,4)+" · "+roleEn(F[i]);setTimeout(()=>w.classList.remove("out"),120)},500)});
+    setTimeout(()=>{w.style.setProperty("--ar",parseFloat(F[i][4]));w.href="#film-"+i;setSrc(im,SU("f"+i,rs("f"+i)));$("#asAr").textContent=F[i][4];$("#asT").textContent=F[i][0];$("#asM").textContent=F[i][1].slice(0,4)+" · "+roleEn(F[i]);setTimeout(()=>w.classList.remove("out"),120)},500)});
 }
 
 /* E: 엔딩 크레딧 — 검은 화면에 크레딧이 천천히 올라간다. 줄에 올리면 그 장면이 뒤에 깔린다 */
@@ -3043,8 +3044,8 @@ function bindSpotlight(){
   reelOff=()=>{cancelAnimationFrame(raf)};
 }
 
-/* Q: 쇼릴 — 짧은 컷 75개 중에서 들어올 때마다 무작위로 골라 빠르게 붙인다 */
-const RCLIPS=[["006", "c6"], ["013", "f6"], ["018", "f6"], ["025", "c2"], ["032", "f6"], ["046", "f3"], ["072", "f16"], ["077", "f16"], ["080", "f16"], ["088", "c28"], ["097", "f17"], ["105", "c6"], ["106", "f31"], ["108", "c31"], ["119", "f7"], ["121", "f7"], ["126", "f31"], ["127", "c2"], ["129", "c36"], ["130", "f19"], ["137", "c6"], ["147", "f19"], ["151", "c7"], ["157", "f2"], ["162", "c28"], ["163", "f4"], ["169", "f5"], ["173", "f19"], ["178", "c11"], ["182", "c11"], ["194", "c1"], ["197", "f7"], ["198", "c7"], ["200", "f31"], ["204", "f7"], ["206", "f32"], ["218", "f32"], ["220", "c0"], ["222", "c0"], ["232", "f32"], ["240", "f4"], ["250", "c28"], ["260", "f18"], ["271", "c2"], ["272", "c4"], ["285", "c35"], ["290", "c4"], ["301", "c4"], ["302", "c28"], ["306", "f12"], ["317", "c8"], ["319", "c8"], ["321", "c8"], ["326", "c8"], ["333", "c8"], ["337", "c34"], ["338", "f15"], ["346", "f15"], ["356", "f10"], ["371", "f3"], ["372", "f3"], ["375", "f3"], ["376", "f15"], ["379", "f15"]];
+/* Q: 쇼릴 — 짧은 컷 여러 작품에서 들어올 때마다 무작위로 골라 빠르게 붙인다 */
+const RCLIPS=[["r/006","c6"],["r/013","f6"],["r/018","f6"],["r/025","c2"],["r/032","f6"],["r/046","f3"],["r/072","f16"],["r/077","f16"],["r/080","f16"],["r/088","c28"],["r/097","f17"],["r/105","c6"],["r/106","f31"],["r/108","c31"],["r/119","f7"],["r/121","f7"],["r/126","f31"],["r/127","c2"],["r/129","c36"],["r/137","c6"],["r/151","c7"],["r/157","f2"],["r/162","c28"],["r/163","f4"],["r/169","f5"],["r/178","c11"],["r/182","c11"],["r/194","c1"],["r/197","f7"],["r/198","c7"],["r/200","f31"],["r/204","f7"],["r/206","f32"],["r/218","f32"],["r/220","c0"],["r/222","c0"],["r/232","f32"],["r/240","f4"],["r/250","c28"],["r/260","f18"],["r/271","c2"],["r/272","c4"],["r/285","c35"],["r/290","c4"],["r/301","c4"],["r/302","c28"],["r/306","f12"],["r/317","c8"],["r/319","c8"],["r/321","c8"],["r/326","c8"],["r/333","c8"],["r/337","c34"],["r/338","f15"],["r/346","f15"],["r/356","f10"],["r/371","f3"],["r/372","f3"],["r/375","f3"],["r/376","f15"],["r/379","f15"],["r2/c0_1","c0"],["r2/c0_2","c0"],["r2/c0_3","c0"],["r2/c0_4","c0"],["r2/c0_5","c0"],["r2/c11_2","c11"],["r2/c11_3","c11"],["r2/c1_1","c1"],["r2/c28_1","c28"],["r2/c28_2","c28"],["r2/c28_3","c28"],["r2/c28_4","c28"],["r2/c28_5","c28"],["r2/c2_1","c2"],["r2/c2_2","c2"],["r2/c2_3","c2"],["r2/c2_4","c2"],["r2/c30_1","c30"],["r2/c30_2","c30"],["r2/c30_3","c30"],["r2/c30_4","c30"],["r2/c31_1","c31"],["r2/c32_1","c32"],["r2/c32_2","c32"],["r2/c32_3","c32"],["r2/c32_4","c32"],["r2/c33_1","c33"],["r2/c33_2","c33"],["r2/c33_4","c33"],["r2/c34_1","c34"],["r2/c34_2","c34"],["r2/c34_3","c34"],["r2/c34_4","c34"],["r2/c35_1","c35"],["r2/c35_2","c35"],["r2/c35_3","c35"],["r2/c36_1","c36"],["r2/c36_2","c36"],["r2/c36_3","c36"],["r2/c36_4","c36"],["r2/c4_1","c4"],["r2/c4_2","c4"],["r2/c4_3","c4"],["r2/c4_4","c4"],["r2/c4_5","c4"],["r2/c5_1","c5"],["r2/c6_2","c6"],["r2/c6_3","c6"],["r2/c7_1","c7"],["r2/c7_2","c7"],["r2/c7_3","c7"],["r2/c8_1","c8"],["r2/c8_2","c8"],["r2/c8_3","c8"],["r2/c9_3","c9"],["r2/c9_4","c9"],["r2/f0_1","f0"],["r2/f0_2","f0"],["r2/f0_3","f0"],["r2/f0_4","f0"],["r2/f0_5","f0"],["r2/f0_6","f0"],["r2/f0_7","f0"],["r2/f0_8","f0"],["r2/f10_1","f10"],["r2/f10_2","f10"],["r2/f10_3","f10"],["r2/f10_4","f10"],["r2/f10_5","f10"],["r2/f10_6","f10"],["r2/f10_7","f10"],["r2/f11_1","f11"],["r2/f11_2","f11"],["r2/f11_3","f11"],["r2/f11_4","f11"],["r2/f11_5","f11"],["r2/f11_6","f11"],["r2/f12_1","f12"],["r2/f12_2","f12"],["r2/f12_3","f12"],["r2/f12_4","f12"],["r2/f12_5","f12"],["r2/f12_6","f12"],["r2/f13_1","f13"],["r2/f13_2","f13"],["r2/f13_3","f13"],["r2/f13_4","f13"],["r2/f13_5","f13"],["r2/f13_6","f13"],["r2/f14_1","f14"],["r2/f14_2","f14"],["r2/f14_3","f14"],["r2/f14_4","f14"],["r2/f14_5","f14"],["r2/f14_6","f14"],["r2/f15_1","f15"],["r2/f15_2","f15"],["r2/f15_3","f15"],["r2/f15_4","f15"],["r2/f15_5","f15"],["r2/f16_1","f16"],["r2/f16_2","f16"],["r2/f16_3","f16"],["r2/f16_5","f16"],["r2/f16_6","f16"],["r2/f17_1","f17"],["r2/f17_2","f17"],["r2/f17_3","f17"],["r2/f17_4","f17"],["r2/f17_5","f17"],["r2/f18_1","f18"],["r2/f18_2","f18"],["r2/f18_3","f18"],["r2/f18_4","f18"],["r2/f21_1","f21"],["r2/f21_2","f21"],["r2/f21_3","f21"],["r2/f21_4","f21"],["r2/f2_1","f2"],["r2/f2_2","f2"],["r2/f2_3","f2"],["r2/f2_4","f2"],["r2/f2_5","f2"],["r2/f2_6","f2"],["r2/f2_7","f2"],["r2/f31_1","f31"],["r2/f31_2","f31"],["r2/f31_3","f31"],["r2/f31_4","f31"],["r2/f31_5","f31"],["r2/f32_1","f32"],["r2/f32_2","f32"],["r2/f32_3","f32"],["r2/f32_4","f32"],["r2/f32_5","f32"],["r2/f33_1","f33"],["r2/f33_2","f33"],["r2/f33_3","f33"],["r2/f33_4","f33"],["r2/f34_2","f34"],["r2/f34_5","f34"],["r2/f3_1","f3"],["r2/f3_2","f3"],["r2/f3_3","f3"],["r2/f3_4","f3"],["r2/f3_5","f3"],["r2/f4_1","f4"],["r2/f4_2","f4"],["r2/f4_3","f4"],["r2/f4_4","f4"],["r2/f4_5","f4"],["r2/f4_6","f4"],["r2/f4_7","f4"],["r2/f5_1","f5"],["r2/f5_2","f5"],["r2/f5_3","f5"],["r2/f5_4","f5"],["r2/f5_5","f5"],["r2/f5_6","f5"],["r2/f5_7","f5"],["r2/f6_1","f6"],["r2/f6_2","f6"],["r2/f6_3","f6"],["r2/f6_4","f6"],["r2/f6_5","f6"],["r2/f6_6","f6"],["r2/f6_7","f6"],["r2/f7_2","f7"],["r2/f7_3","f7"],["r2/f7_4","f7"],["r2/f7_5","f7"],["r2/f7_6","f7"],["r2/f7_7","f7"],["r2/f7_8","f7"],["r2/f8_1","f8"],["r2/f8_2","f8"],["r2/f8_3","f8"],["r2/f8_4","f8"],["r2/f8_5","f8"],["r2/f8_6","f8"],["r2/f8_7","f8"],["r2/f9_1","f9"],["r2/f9_2","f9"],["r2/f9_3","f9"],["r2/f9_4","f9"],["r2/f9_5","f9"]];
 const reelT=k=>{const A=k[0]==="f"?F:C,d=A[+k.slice(1)];return d?d[0]:""};
 const reelH=k=>`#${k[0]==="f"?"film":"commercial"}-${k.slice(1)}`;
 const QNM=(()=>{const q=(location.search.match(/nm=(\d)/)||[])[1];return q||"3"})();
@@ -3058,11 +3059,15 @@ function homeQ(){
 }
 function bindShowreel(){
   const box=$("#qrVs");if(!box)return;const V=[...box.querySelectorAll("video")];
-  let order=[...RCLIPS].sort(()=>Math.random()-.5),p=0,cur=0,timer=0,alive=true;
-  const src=c=>`mv/r/${c[0]}.mp4`;
+  let cur=0,timer=0,alive=true;
+  const BK={};RCLIPS.forEach(c=>(BK[c[1]]=BK[c[1]]||[]).push(c));const WK=Object.keys(BK);const used=new Set(),recent=[];
+  const src=c=>`mv/${c[0]}.mp4`;
   const BEAT=[.5,.5,.75,.75,1,1,1.25,.5];
   const load=(v,c)=>{v.dataset.k=c[1];v.src=src(c);v.load()};
-  const next=()=>{const c=order[p%order.length];p++;if(p%order.length===0)order.sort(()=>Math.random()-.5);return c};
+  const next=()=>{let k,tries=0;do{k=WK[Math.floor(Math.random()*WK.length)];tries++}while(recent.includes(k)&&tries<30);
+    recent.push(k);if(recent.length>Math.min(8,WK.length-1))recent.shift();
+    let pool=BK[k].filter(c=>!used.has(c[0]));if(!pool.length){BK[k].forEach(c=>used.delete(c[0]));pool=BK[k]}
+    const c=pool[Math.floor(Math.random()*pool.length)];used.add(c[0]);return c};
   load(V[0],next());load(V[1],next());load(V[2],next());
   const show=i=>{V.forEach((v,j)=>v.classList.toggle("on",j===i));const v=V[i];try{v.currentTime=0}catch(e){}v.play().catch(()=>{});
     const k=v.dataset.k;$("#qrT").textContent=reelT(k);$("#qrNow").href=reelH(k)};
