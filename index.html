@@ -1440,6 +1440,22 @@ img[src^="spr:"]{opacity:0}
 
 .aft-f{margin:2.4em 0 2.6em}.aft-f img{width:100%;display:block}
 .aft-f figcaption{font-size:.6rem;letter-spacing:.14em;color:var(--muted);margin-top:8px}
+
+.fph .hi{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:rgba(0,0,0,.42);color:#f2efe8;opacity:0;transition:opacity .4s ease;pointer-events:none}
+.hi-fr{position:absolute;left:50%;top:50%;height:74%;aspect-ratio:var(--ar);max-width:92%;transform:translate(-50%,-50%) scale(.94);transition:transform .7s cubic-bezier(.2,.7,.2,1)}
+.hi-fr i{position:absolute;width:16px;height:16px;border:0 solid rgba(242,239,232,.9)}
+.hi-fr i:nth-child(1){left:0;top:0;border-width:1px 0 0 1px}.hi-fr i:nth-child(2){right:0;top:0;border-width:1px 1px 0 0}
+.hi-fr i:nth-child(3){left:0;bottom:0;border-width:0 0 1px 1px}.hi-fr i:nth-child(4){right:0;bottom:0;border-width:0 1px 1px 0}
+.hi-ar{position:relative;font-family:var(--essay);font-weight:400;font-size:clamp(1.4rem,9cqi,2.4rem);letter-spacing:-.01em;line-height:1;transform:translateY(8px);opacity:0;transition:all .5s ease .05s}
+.hi-ar small{font-size:.5em;opacity:.75}
+.hi-t{position:relative;display:flex;flex-wrap:wrap;justify-content:center;gap:4px 14px;font-family:var(--mono);font-size:.56rem;letter-spacing:.16em;text-transform:uppercase;opacity:0;transform:translateY(8px);transition:all .5s ease .15s;padding:0 12%}
+.hi-t span+span::before{content:"·";margin:0 10px 0 -8px;opacity:.6}
+.hi.nar .hi-t{font-size:.62rem}
+.fitem:hover .hi,.fitem:focus-visible .hi{opacity:1}
+.fitem:hover .hi-ar,.fitem:hover .hi-t,.fitem:focus-visible .hi-ar,.fitem:focus-visible .hi-t{opacity:1;transform:none}
+.fitem:hover .hi-fr{transform:translate(-50%,-50%) scale(1)}
+.fitem:hover .fph:has(.hi) .hov{opacity:0}
+.fph img{transition:opacity .45s ease,transform 1s cubic-bezier(.2,.7,.2,1)}
 /* ── about ── */
 .about{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,6vw,80px)}
 .about .lead{font-family:var(--display);font-size:var(--s1);line-height:1.85;max-width:30em;display:grid;gap:1em}
@@ -2059,13 +2075,15 @@ const laurels=i=>{const L=(FEST[i]||[]).filter(x=>x[0]!=="Production Support"&&x
   if(!L.length)return "";
   const n=L.length,c=n<2?1:n<5?2:n<10?3:4,sc=n<2?1.5:n<3?1.1:n<5?.9:n<7?.72:n<10?.6:.48;
   return `<span class="lr" style="--c:${c};--s:${sc}">${L.map(([t,y,ko,en],n)=>{const lg=flogo(en),cl=`lrl${t==="Award"?" lw":""}${lg?" lg":""}`;return lg?`<span class="${cl}" style="--d:${n*70}ms">${LBR}<span class="lgc"><img src="img/fl/${lg}.webp" alt="${esc(festShort(en))}"><span class="lrt"><em>${esc(festLabel(t,en))}</em><i>${y}</i></span></span>${LBR}</span>`:`<span class="${cl}" style="--d:${n*70}ms">${LBR}<span class="lrt"><em>${esc(festLabel(t,en))}</em><b>${esc(festShort(en))}</b><i>${y}</i></span>${LBR}</span>`}).join("")}</span>`};
+const hinfo=(ar,a)=>{a=a.filter(Boolean);const r=parseFloat(ar);
+  return `<span class="hi${r?"":" nar"}">${r?`<span class="hi-fr" style="--ar:${Math.min(r,2.4)}"><i></i><i></i><i></i><i></i></span><b class="hi-ar">${esc(ar)}<small> : 1</small></b>`:""}<span class="hi-t">${a.map(x=>`<span>${esc(x)}</span>`).join("")}</span></span>`};
 /* ───────── Film: 편집 격자 (사진 아래 캡션) ───────── */
 const pickStill=i=>rs("f"+i);
 function filmList(){
   const FF=FO.map(i=>F[i]);const tabs=[["all","All",FF.length],["dir","Directed",FF.filter(isDir).length],["dop","Cinematography",FF.filter(isDop).length],["col","Color",FF.filter(isCol).length]];
   const items=FO.map(i=>[F[i],i]).map(([f,i])=>{const k="f"+i,s=pickStill(i);const tags=["all",isDir(f)&&"dir",isDop(f)&&"dop",isCol(f)&&"col"].filter(Boolean).join(" ");
     return `<a class="fitem" href="#film-${i}" data-i="${i}" data-k="f${i}" data-tags="${tags}">
-      <span class="fph"><img src="${has(k,"s")?SU(k,s):img(i)}" alt="${esc(f[0])}" loading="lazy" data-s="${s}"><img alt="" aria-hidden="true" class="off"><span class="hov">View project</span>${laurels(i)}</span>
+      <span class="fph"><img src="${has(k,"s")?SU(k,s):img(i)}" alt="${esc(f[0])}" loading="lazy" data-s="${s}"><img alt="" aria-hidden="true" class="off"><span class="hov">View project</span>${laurels(i)||hinfo(f[4],[(f[5]||"").split(/,\s*/)[0],f[3]])}</span>
       <span class="ft"><b>${esc(f[0])}<i>${f[1].slice(0,4)}</i></b><span class="fr">${roleEn(f)}</span></span>
     </a>`}).join("");
   const fk=[4,0,7,5,1,12,2,11,9,6,14,16,8,10,3,13,15,22,19,31].map(i=>"f"+i).sort(()=>Math.random()-.5);
@@ -3163,6 +3181,11 @@ function bindShelf(){
     back.onload=()=>{back.classList.remove("off");front.classList.add("off")};
     back.dataset.s=s;setSrc(back,SU(kk,s));
   },1500);
+  items.forEach(it=>{let t=0;const G=gl(it.dataset.k);if(G.length<2)return;
+    const flip=()=>{const [a,b]=it.querySelectorAll("img"),front=a.classList.contains("off")?b:a,back=front===a?b:a;let s;do{s=G[rnd(G.length)]}while(s==front.dataset.s);
+      back.onload=()=>{back.classList.remove("off");front.classList.add("off")};back.dataset.s=s;setSrc(back,SU(it.dataset.k,s))};
+    it.addEventListener("mouseenter",()=>{clearInterval(t);t=setInterval(flip,900);setTimeout(flip,250)});
+    it.addEventListener("mouseleave",()=>clearInterval(t))});
 }
 function bindGallery(k){
   const lb=$("#lb");if(!lb)return;let t="s",j=0;
