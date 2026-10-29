@@ -1446,6 +1446,37 @@ img[src^="spr:"]{opacity:0}
 .fitem:hover .hl,.fitem:focus-visible .hl{opacity:1}
 .fitem:hover .hl span,.fitem:focus-visible .hl span{opacity:1;transform:none}
 .fitem:hover .fph:has(.hl) .hov{opacity:0}
+
+@property --x{syntax:"<percentage>";inherits:true;initial-value:50%}
+.cgw{position:relative;overflow:hidden;cursor:ew-resize;touch-action:pan-y;background:#111;user-select:none}
+.cgw img{display:block;width:100%;height:auto;pointer-events:none}
+.cgw .cga{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;clip-path:inset(0 calc(100% - var(--x)) 0 0)}
+.cgh{position:absolute;top:0;bottom:0;left:var(--x);width:1px;background:rgba(255,255,255,.85);box-shadow:0 0 0 .5px rgba(0,0,0,.25)}
+.cgh::after{content:"";position:absolute;top:50%;left:50%;width:30px;height:30px;margin:-15px 0 0 -15px;border:1px solid rgba(255,255,255,.9);border-radius:50%;background:rgba(0,0,0,.25);backdrop-filter:blur(4px)}
+.cgl,.cgr{position:absolute;top:12px;font-size:.56rem;letter-spacing:.16em;text-transform:uppercase;color:#fff;background:rgba(0,0,0,.4);padding:4px 8px;opacity:.85}
+.cgl{left:12px}.cgr{right:12px}
+.cgp figcaption{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:12px 0 0;font-size:.9rem}
+.cgp figcaption a,.cgp figcaption b{font-weight:700;color:inherit;text-decoration:none}
+.cgp figcaption a:hover{color:var(--accent)}
+.cgp figcaption span{font-size:.6rem;letter-spacing:.08em;color:var(--muted);text-align:right}
+.cg-hero{position:relative;background:#0b0b0b;min-height:100svh;display:flex;align-items:center}
+.cg-hero .cgp{width:100%;margin:0}.cg-hero .cgw{height:100svh}.cg-hero .cgw img:first-child{height:100%;object-fit:cover}
+.cg-hero figcaption{position:absolute;left:4vw;bottom:24px;color:#ddd;z-index:3}
+.cg-ht{position:absolute;left:4vw;top:50%;transform:translateY(-50%);color:#fff;z-index:3;pointer-events:none;text-shadow:0 2px 24px rgba(0,0,0,.4)}
+.cg-ht h1{font-family:"Noto Sans KR",sans-serif;font-weight:900;font-size:clamp(3rem,8vw,7rem);letter-spacing:-.04em;margin:0}
+.cg-ht p{font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;margin:6px 0 0;opacity:.85}
+.cg-in{padding:clamp(48px,7vw,110px) 4vw}.cg-in.wrap{max-width:none}
+.cg-lede{max-width:640px;font-family:var(--essay);font-size:clamp(1.02rem,1.3vw,1.18rem);line-height:2;margin:0 0 clamp(40px,5vw,72px)}
+.cg-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(28px,3vw,48px) clamp(20px,2.2vw,36px)}
+@media(max-width:760px){.cg-grid{grid-template-columns:1fr}}
+.cg-cred{margin-top:clamp(64px,8vw,120px);border-top:1px solid var(--fg);padding-top:20px}
+.cg-cred h4{font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin:0 0 14px;font-weight:400}
+.cg-cred ol{list-style:none;padding:0;margin:0;columns:2;column-gap:4vw}
+@media(max-width:760px){.cg-cred ol{columns:1}}
+.cg-cred li{break-inside:avoid;border-bottom:1px solid var(--line,#ddd)}
+.cg-cred a{display:grid;grid-template-columns:52px 1fr auto;gap:12px;align-items:baseline;padding:11px 0;color:inherit;text-decoration:none}
+.cg-cred a:hover b{color:var(--accent)}
+.cg-cred span{font-size:.62rem;color:var(--muted)}.cg-cred i{font-style:normal;font-size:.7rem;color:var(--muted)}
 /* ── about ── */
 .about{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,6vw,80px)}
 .about .lead{font-family:var(--display);font-size:var(--s1);line-height:1.85;max-width:30em;display:grid;gap:1em}
@@ -1550,7 +1581,7 @@ img[src^="spr:"]{opacity:0}
   <div class="wrap">
     <a class="logo" href="#home" aria-label="Instant Classic Film 처음으로">ICF</a>
     <nav aria-label="주요 메뉴" id="nav">
-      <a href="#film">Film</a><a href="#commercial">Commercial</a><a href="#art">ArtFilm</a><a href="#journal">Essay</a><a href="#news">News</a><a href="#about">About</a>
+      <a href="#film">Film</a><a href="#commercial">Commercial</a><a href="#art">ArtFilm</a><a href="#color">Color</a><a href="#journal">Essay</a><a href="#news">News</a><a href="#about">About</a>
     </nav>
   </div>
 </header>
@@ -1982,7 +2013,7 @@ function homeD(){
   </section>
   <section class="ix">
     <p class="ix-lede">하나의 스쳐가는 장면이 아니라 하나의 기준을 만든다는 마음으로 이미지를 설계하며,<br>순간을 ‘현대의 고전’으로 남기는 작업을 지향합니다.</p>
-    <div class="ix-links"><a href="#film">Film</a><a href="#commercial">Commercial</a><a href="#journal">Essay</a><a href="#news">News</a><a href="#about">About</a></div>
+    <div class="ix-links"><a href="#film">Film</a><a href="#commercial">Commercial</a><a href="#color">Color</a><a href="#journal">Essay</a><a href="#news">News</a><a href="#about">About</a></div>
   </section>
   ${hvSwitch()}
   </div>`;
@@ -2885,6 +2916,36 @@ function essayIndex(){
       </article>`).join("")}</div></div>
   </div>`;
 }
+/* ───────── Color: DI 보정 전후 ───────── */
+const CG=[["f6","0"],["f9","0"],["f14","1"],["f8","1"],["c0","1"],["f10","1"],["f2","2"],["f13","2"],["f7","1"],["wl","1"],["f5","2"],["f9","1"],["f8","0"],["f6","2"],["f14","0"],["c0","0"],["f2","0"],["f31","0"],["f10","0"],["f13","1"],["f7","0"],["wl","0"]];
+const cgT=k=>k==="wl"?["화이트 라이","2025",""]:k[0]==="f"?[F[+k.slice(1)][0],F[+k.slice(1)][1].slice(0,4),"#film-"+k.slice(1)]:[C[+k.slice(1)][0],C[+k.slice(1)][1].slice(0,4),"#commercial-"+k.slice(1)];
+const cgCam=k=>{if(k[0]!=="f")return "";const t=(F[+k.slice(1)][5]||"").split(/,\s*/)[0],c=CAMS.find(c=>c[0].test(t));return c?`${c[1]} · ${c[4]}`:""};
+const cgPair=([k,n],cls="")=>{const [t,y,h]=cgT(k),cam=cgCam(k);
+  return `<figure class="cgp ${cls}"><div class="cgw" data-x="50" style="--x:50%"><img src="img/cg/${k}_${n}_b.webp" alt="${esc(t)} 보정 후" loading="lazy"><img class="cga" src="img/cg/${k}_${n}_a.webp" alt="${esc(t)} Rec.709" loading="lazy"><span class="cgl mono">Rec.709</span><span class="cgr mono">Final grade</span><i class="cgh"></i></div>
+  <figcaption>${h?`<a href="${h}">${esc(t)}</a>`:`<b>${esc(t)}</b>`}<span class="mono">${y}${cam?` · ${esc(cam)}`:""}</span></figcaption></figure>`};
+function colorView(){
+  const cols=FO.filter(i=>isCol(F[i]));
+  return `<div class="view cgv">
+    <section class="cg-hero dark">${cgPair(CG[0],"hero")}<div class="cg-ht"><h1>Color</h1><p class="mono">Digital Intermediate · DaVinci Resolve</p></div></section>
+    <div class="cg-in wrap">
+      <p class="cg-lede">촬영한 작품의 DI를 대부분 직접 한다. 현장에서 세운 빛을 마지막 한 장면까지 책임지고 싶어서. 왼쪽은 카메라 로그에 Rec.709 변환만 얹은 상태, 오른쪽은 최종 그레이딩이다. 가운데 선을 밀어서 비교할 수 있다.</p>
+      <div class="cg-grid">${CG.slice(1).map(p=>cgPair(p)).join("")}</div>
+      <section class="cg-cred"><h4 class="mono">Color credits</h4><ol>${cols.map(i=>`<li><a href="#film-${i}"><span class="mono">${F[i][1].slice(0,4)}</span><b>${esc(F[i][0])}</b><i>${esc(roleEn(F[i]))}</i></a></li>`).join("")}</ol></section>
+    </div>
+  </div>`;
+}
+function bindColor(){
+  document.querySelectorAll(".cgw").forEach(w=>{
+    const set=e=>{const r=w.getBoundingClientRect(),x=((e.touches?e.touches[0].clientX:e.clientX)-r.left)/r.width*100;w.style.setProperty("--x",Math.max(0,Math.min(100,x))+"%")};
+    let drag=false;
+    w.addEventListener("pointermove",e=>{if(e.pointerType==="mouse"||drag)set(e)});
+    w.addEventListener("pointerdown",e=>{drag=true;set(e);w.setPointerCapture(e.pointerId)});
+    w.addEventListener("pointerup",()=>drag=false);
+    w.addEventListener("mouseleave",()=>{w.style.transition="--x .6s";w.style.setProperty("--x","50%")});
+    w.addEventListener("mouseenter",()=>{w.style.transition=""});
+  });
+  const h=$(".cg-hero .cgw");if(h){let t=0,id=setInterval(()=>{if(!document.body.contains(h))return clearInterval(id);if(h.matches(":hover"))return;t+=.02;h.style.setProperty("--x",(50+38*Math.sin(t))+"%")},30)}
+}
 /* ───────── 홈 시안 3종: Contact · Spectrum · Monitor ───────── */
 const SPCOL={"f0": "#545d5f", "f1": "#6b593f", "f10": "#505445", "f11": "#7e6750", "f12": "#3d2e08", "f13": "#725f44", "f14": "#625c52", "f15": "#6d665b", "f16": "#a09b9f", "f17": "#a17238", "f18": "#3d4244", "f19": "#838365", "f2": "#616f51", "f20": "#897c6a", "f21": "#9a8d77", "f22": "#7b806e", "f23": "#735031", "f24": "#692631", "f25": "#665d2f", "f26": "#7b4b2d", "f27": "#a08759", "f28": "#454e45", "f29": "#677569", "f3": "#485a58", "f30": "#645845", "f31": "#4c484d", "f32": "#7c2c3a", "f33": "#6b603a", "f34": "#503d39", "f4": "#5e5e50", "f5": "#555744", "f6": "#65523b", "f7": "#5a603f", "f8": "#56615b", "f9": "#4d514d"};
 const homeList=()=>FO.filter(i=>gl("f"+i).length);
@@ -3103,6 +3164,7 @@ function route(){document.body.classList.remove("lb-open");document.body.style.o
   else if(/^commercial-\d+$/.test(h))html=commercialDetail(+h.split("-")[1]),section="commercial";
   else if(h==="journal")html=essayIndex();
   else if(h==="news")html=newsView();
+  else if(h==="color")html=colorView();
   else if(h==="after"){location.replace("#journal");return}
   else if(/^after-/.test(h))html=afterPost(h.slice(6)),section="journal";
   else if(h==="client"){location.replace("#about");setTimeout(()=>{const c=document.getElementById("clients");c&&c.scrollIntoView()},400);return}
@@ -3268,6 +3330,7 @@ function bind(h){
   if(h==="film"||h==="commercial"){applyFilter($("#shelf"),h==="film"?state.role:state.kind,false);bindHero();bindShelf();return}
   if(/^film-\d+$/.test(h))return bindGallery("f"+h.split("-")[1]);
   if(/^commercial-\d+$/.test(h))return bindGallery("c"+h.split("-")[1]);
+  if(h==="color")return bindColor();
   if(h==="news"||h==="client"||h==="journal"||/^after/.test(h))return bindNews();
   if(h!=="home")return;
   if(state.hv==="q")return bindShowreel();
