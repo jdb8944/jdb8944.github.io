@@ -1477,6 +1477,27 @@ img[src^="spr:"]{opacity:0}
 .cg-cred a{display:grid;grid-template-columns:52px 1fr auto;gap:12px;align-items:baseline;padding:11px 0;color:inherit;text-decoration:none}
 .cg-cred a:hover b{color:var(--accent)}
 .cg-cred span{font-size:.62rem;color:var(--muted)}.cg-cred i{font-style:normal;font-size:.7rem;color:var(--muted)}
+
+.cgc{padding:clamp(40px,5vw,80px) 0;border-top:1px solid var(--line,#ddd)}
+.cgc-h{display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin-bottom:18px}
+.cgc-h h3{margin:0;font-size:clamp(1.4rem,2.4vw,2.1rem);font-weight:900;letter-spacing:-.03em}
+.cgc-h h3 a{color:inherit;text-decoration:none}.cgc-h h3 a:hover{color:var(--accent)}
+.cgc-h span{font-size:.62rem;letter-spacing:.08em;color:var(--muted);text-align:right}
+.cgc-bc{margin:0 0 clamp(20px,2.4vw,34px)}
+.cgc-bc img{display:block;width:100%;height:clamp(34px,4.4vw,64px);object-fit:fill}
+.cgc-bc figcaption{font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:8px}
+.cgc-b{display:grid;grid-template-columns:minmax(0,2.2fr) minmax(0,1fr);gap:clamp(20px,2.6vw,44px);align-items:start}
+.cgc-b.nop{grid-template-columns:minmax(0,1fr)}
+.cgc-s{display:grid;grid-template-columns:1fr;gap:16px}
+.cgc-s .cgp.sub{width:62%;margin-left:auto}
+.cgc-s .cgp figcaption{display:none}
+.cgc-pal{display:flex;height:54px;border-radius:2px;overflow:hidden}
+.cgc-pal i{display:block}
+.cgc-hx{font-size:.56rem;letter-spacing:.06em;color:var(--muted);margin:8px 0 22px;word-spacing:6px}
+.cgc-n{font-family:var(--essay);font-size:clamp(.98rem,1.15vw,1.08rem);line-height:1.95;margin:0}
+.cgc-b.nop .cgc-i{display:grid;grid-template-columns:1fr 1.4fr;gap:clamp(20px,3vw,48px);align-items:start}
+@media(max-width:860px){.cgc-b,.cgc-b.nop .cgc-i{grid-template-columns:1fr}.cgc-s .cgp.sub{width:100%}}
+.cgp{margin:0}
 /* ── about ── */
 .about{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,6vw,80px)}
 .about .lead{font-family:var(--display);font-size:var(--s1);line-height:1.85;max-width:30em;display:grid;gap:1em}
@@ -2923,13 +2944,35 @@ const cgCam=k=>{if(k[0]!=="f")return "";const t=(F[+k.slice(1)][5]||"").split(/,
 const cgPair=([k,n],cls="")=>{const [t,y,h]=cgT(k),cam=cgCam(k);
   return `<figure class="cgp ${cls}"><div class="cgw" data-x="50" style="--x:50%"><img src="img/cg/${k}_${n}_b.webp" alt="${esc(t)} 보정 후" loading="lazy"><img class="cga" src="img/cg/${k}_${n}_a.webp" alt="${esc(t)} Rec.709" loading="lazy"><span class="cgl mono">Rec.709</span><span class="cgr mono">Final grade</span><i class="cgh"></i></div>
   <figcaption>${h?`<a href="${h}">${esc(t)}</a>`:`<b>${esc(t)}</b>`}<span class="mono">${y}${cam?` · ${esc(cam)}`:""}</span></figcaption></figure>`};
+const CGPAL={"f14": [["#1f1f22", "#5c412e", "#3f4a4e", "#6f6b60", "#8b8a7f", "#d0c5b6"], [26, 15, 15, 22, 16, 4]], "wl": [["#0d131e", "#11263e", "#524127", "#495f61", "#3e7e9d", "#a2b5b7"], [20, 22, 10, 27, 14, 5]], "f4": [["#1c1d24", "#39383a", "#585248", "#787862", "#97a27f", "#cbcf92"], [23, 22, 24, 16, 11, 1]], "f8": [["#1e1d17", "#30535f", "#66593a", "#608b95", "#92806f", "#b5b8bf"], [26, 11, 28, 10, 14, 8]], "f6": [["#211e14", "#1c434f", "#695038", "#507f86", "#9b8a74", "#bdbeb3"], [24, 13, 18, 9, 18, 16]], "f1": [["#25170f", "#3c3022", "#574a3b", "#6e6959", "#928d7d", "#b6b8ac"], [19, 20, 20, 18, 11, 8]], "f2": [["#17201b", "#313a2d", "#555b46", "#787a65", "#a0a287", "#c8ccb7"], [19, 21, 16, 20, 14, 7]], "f7": [["#221c11", "#553c16", "#3d5c54", "#7e5e28", "#8d8979", "#aab1ae"], [25, 20, 13, 15, 10, 13]], "f5": [["#1a1d17", "#483723", "#394e4d", "#6c604b", "#898476", "#a5b5ba"], [30, 13, 16, 10, 17, 11]], "f13": [["#1f1d1a", "#4a3326", "#58594d", "#8a5231", "#777e71", "#9f9b86"], [20, 20, 15, 6, 19, 17]], "f31": [["#1d1a1a", "#472d29", "#30545c", "#6c5259", "#789295", "#d8dedf"], [31, 18, 14, 14, 15, 5]], "c0": [["#18191f", "#503a37", "#825c53", "#ac8472", "#c8ab9b", "#e7dbce"], [21, 19, 15, 19, 17, 6]], "f10": [["#1c1b12", "#343124", "#484b42", "#676961", "#7b8e8c", "#babbba"], [24, 22, 17, 13, 17, 4]], "f9": [["#0d1915", "#232620", "#363e41", "#3d5666", "#777772", "#a29c91"], [26, 17, 13, 20, 10, 12]]};
+const CGCASE=[
+ {k:"f6",p:["0","2"]},
+ {k:"f2",p:["2","0"],note:"감정을 직접 드러내지 않는 영화라 채도는 중간에 두고 소프트한 빛으로 갔다. 무너지는 거실은 따뜻하게, 부엌은 차갑게 나눴다."},
+ {k:"f9",p:["0","1"]},
+ {k:"f8",p:["1","0"]},
+ {k:"f14",p:["1","0"]},
+ {k:"f10",p:["1","0"]},
+ {k:"f7",p:["1","0"]},
+ {k:"f5",p:["2"]},
+ {k:"f13",p:["2","1"]},
+ {k:"f31",p:["0"]},
+ {k:"c0",p:["1","0"],note:"원본이 생각보다 너무 깨끗하고 투명했다. 필름 에뮬레이션으로 지나친 선명도를 무너뜨리고 할레이션을 얹어 따뜻하고 클래식한 질감으로 만졌다."},
+ {k:"wl",p:["1","0"]},
+ {k:"f1",p:[],note:"처음엔 너무 따뜻하지 않은 중립의 톤으로 두 세계를 나눴다. 결말의 노을에서 두 색이 번져 겹치도록."},
+ {k:"f4",p:[],note:"유통기한이 지난 Fujifilm Vivid 500. 어두운 컷을 최대한 살리고 노이즈를 걷어 내되, 필름 특유의 질감은 지키려 했다."}];
+const cgHasLog=new Set([]); /* 로그 원본 프레임이 있으면 "k_n" 추가 */
+const cgCase=c=>{const [t,y,h]=cgT(c.k),cam=cgCam(c.k),pal=CGPAL[c.k];
+  return `<section class="cgc"><div class="cgc-h"><h3>${h?`<a href="${h}">${esc(t)}</a>`:esc(t)}</h3><span class="mono">${y}${cam?` · ${esc(cam)}`:""}</span></div>
+  <figure class="cgc-bc"><img src="img/bc/${c.k}.webp" alt="" loading="lazy"><figcaption class="mono">Final grade · 전체 러닝타임의 색</figcaption></figure>
+  <div class="cgc-b${c.p.length?"":" nop"}">${c.p.length?`<div class="cgc-s">${c.p.map((n,i)=>cgPair([c.k,n],i?"sub":"")).join("")}</div>`:""}
+   <aside class="cgc-i">${pal?`<div class="cgc-pal">${pal[0].map((x,i)=>`<i style="background:${x};flex:${Math.max(pal[1][i],3)}" title="${x}"></i>`).join("")}</div><p class="mono cgc-hx">${pal[0].join("  ")}</p>`:""}${c.note?`<p class="cgc-n">${esc(c.note)}</p>`:""}</aside></div></section>`};
 function colorView(){
   const cols=FO.filter(i=>isCol(F[i]));
   return `<div class="view cgv">
     <section class="cg-hero dark">${cgPair(CG[0],"hero")}<div class="cg-ht"><h1>Color</h1><p class="mono">Digital Intermediate · DaVinci Resolve</p></div></section>
     <div class="cg-in wrap">
-      <p class="cg-lede">촬영한 작품의 DI를 대부분 직접 한다. 현장에서 세운 빛을 마지막 한 장면까지 책임지고 싶어서. 왼쪽은 카메라 로그에 Rec.709 변환만 얹은 상태, 오른쪽은 최종 그레이딩이다. 가운데 선을 밀어서 비교할 수 있다.</p>
-      <div class="cg-grid">${CG.slice(1).map(p=>cgPair(p)).join("")}</div>
+      <p class="cg-lede">촬영한 작품의 DI를 대부분 직접 한다. 현장에서 세운 빛을 마지막 한 장면까지 책임지고 싶어서. 작품마다 영화 전체의 색 흐름과, 보정 전후를 함께 놓았다. 왼쪽은 Rec.709 변환만 얹은 상태, 오른쪽은 최종 그레이딩이다.</p>
+      ${CGCASE.map(cgCase).join("")}
       <section class="cg-cred"><h4 class="mono">Color credits</h4><ol>${cols.map(i=>`<li><a href="#film-${i}"><span class="mono">${F[i][1].slice(0,4)}</span><b>${esc(F[i][0])}</b><i>${esc(roleEn(F[i]))}</i></a></li>`).join("")}</ol></section>
     </div>
   </div>`;
