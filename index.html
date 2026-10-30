@@ -1570,6 +1570,16 @@ img[src^="spr:"]{opacity:0}
 .cgm-r em{position:absolute;top:-4px;bottom:-4px;width:1px;background:var(--fg)}
 .cgm-r span.mono{font-size:.6rem;text-align:right;color:var(--muted)}
 .cgk-sc .cgk-sw{margin-top:12px}
+
+.cgk-pf{display:grid;grid-template-columns:repeat(10,1fr);gap:clamp(6px,1vw,14px)}
+@media(max-width:760px){.cgk-pf{grid-template-columns:repeat(5,1fr)}}
+.cgk-pc{display:flex;flex-direction:column;background:none;border:0;padding:0;cursor:pointer;text-align:left;font:inherit;color:inherit}
+.cgk-pc i{display:block;height:clamp(22px,3vw,40px);transition:transform .3s ease}
+.cgk-pc:hover i{transform:scaleX(1.06)}
+.cgk-pc span{font-size:.62rem;margin-top:10px;color:var(--muted)}
+.cgk-pc em{font-style:normal;font-size:.78rem;margin-top:2px;word-break:keep-all}
+.cgk-pc:hover em{color:var(--accent)}
+.cgx-pal{display:flex;height:22px;margin:0 0 18px}.cgx-pal i{flex:1}
 /* ── about ── */
 .about{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,6vw,80px)}
 .about .lead{font-family:var(--display);font-size:var(--s1);line-height:1.85;max-width:30em;display:grid;gap:1em}
@@ -3066,9 +3076,8 @@ function cgCaseFull(k){const c=CGK[k],[t,y,h]=cgT(k);
    <div class="cgk-in wrap">
     <div class="cgk-top"><div><h4 class="mono">Concept</h4><blockquote>${esc(c.quote)}</blockquote></div>
      <div><h4 class="mono">Why</h4>${c.why.map(p=>`<p>${esc(p)}</p>`).join("")}</div></div>
-    <section class="cgk-flow"><h4 class="mono">러닝타임에 따른 색온도</h4>
-     <figure class="cgk-bc"><img src="img/bc/${c.bc||k}.webp" alt="">${cgWarm(c)}</figure>
-     <div class="cgk-lg mono"><span>차갑게</span><span>따뜻하게</span></div></section>
+    <section class="cgk-flow"><h4 class="mono">장면별 팔레트</h4>
+     <div class="cgk-pf">${c.ch.map(([n,ti],i)=>`<button class="cgk-pc" data-i="${i}" title="${esc(ti)}">${(c.pal[n]||[]).slice().reverse().map(x=>`<i style="background:${x}"></i>`).join("")}<span class="mono">${String(i+1).padStart(2,"0")}</span><em>${esc(ti.split(" — ")[0])}</em></button>`).join("")}</div></section>
     ${c.ch.map(([n,ti,tx,n2],i)=>{const m=(c.metrics||{})[n]||{};const bar=(l,v,mx,mean)=>`<div class="cgm-r"><span>${l}</span><i><b style="width:${Math.min(100,v/mx*100)}%"></b><em style="left:${mean/mx*100}%"></em></i><span class="mono">${v}</span></div>`;
      return `<section class="cgk-ch" id="cgch${i}"><div class="cgk-stage" data-n="${n}"><div class="cgw" style="--x:50%"><img src="${cgImg(k,n)}" alt="${esc(ti)}" loading="lazy"><img class="cga" src="${cgImg(k,n+"_709")}" alt="" loading="lazy"><span class="cgl mono">Rec.709</span><span class="cgr mono">Final</span><i class="cgh"></i></div>
       <div class="cgk-tabs mono"><button data-v="log">Log</button><button data-v="709" aria-pressed="true">Rec.709</button><span>↔ Final</span>${c.tmp?`<em>임시 이미지</em>`:""}</div></div>
@@ -3078,6 +3087,7 @@ function cgCaseFull(k){const c=CGK[k],[t,y,h]=cgT(k);
     <dl class="cgk-spec">${c.spec.map(([a,b])=>`<div><dt class="mono">${a}</dt><dd>${esc(b)}</dd></div>`).join("")}</dl>
     ${h?`<a class="cgk-go" href="${h}"><span class="mono">Project</span><b>${esc(t)} →</b></a>`:""}
    </div></article>`}
+const CGP2={"f0": ["#101418", "#2a2a27", "#3c494c", "#586264", "#8c9293", "#dde1e0"], "f34": ["#20080d", "#0d0e33", "#3f1d22", "#684135", "#a67664", "#cdccbd"], "f1": ["#1c1a14", "#352f25", "#514839", "#6c6a5e", "#92968d", "#c5c7bb"]};
 const CGIX=[
  {k:"f1",img:"img/cgk/f1/mk_69_1263.webp",bc:"f1hq",line:"두 세계를 색온도로 나누고, 끝에서 번지게 한다.",go:"#color-f1"},
  {k:"f2",img:W("f2","s",3),bc:"f2hq",line:"감정을 말하지 않는 색. 채도를 중간에 묶고, 온도만으로 균열을 보여 준다."},
@@ -3089,14 +3099,14 @@ function colorView(){
   const cols=FO.filter(i=>isCol(F[i]));
   return `<div class="view cgv"><section class="cgx-hero"><div class="wrap"><p class="mono">Digital Intermediate · DaVinci Resolve</p><h1>Color</h1><p class="cgx-l">촬영한 작품의 DI를 대부분 직접 한다. 현장에서 세운 빛을 마지막 한 장면까지 책임지고 싶어서. 작품마다 어떤 색을, 왜 골랐는지.</p></div></section>
    <div class="cgx wrap">${CGIX.map((x,n)=>{const [t,y,h]=cgT(x.k);return `<a class="cgx-c${n%2?" r":""}${x.go?"":" soon"}" href="${x.go||h}"><figure><img src="${x.img}" alt="${esc(t)}" loading="lazy"></figure>
-     <div class="cgx-t"><span class="mono">${String(n+1).padStart(2,"0")} · ${y}</span><h2>${esc(t)}</h2><p>${esc(x.line)}</p>${x.bc?`<img class="cgx-bc" src="img/bc/${x.bc}.webp" alt="">`:""}<b class="mono">${x.go?"Case 보기 →":"Case 준비 중"}</b></div></a>`}).join("")}</div>
+     <div class="cgx-t"><span class="mono">${String(n+1).padStart(2,"0")} · ${y}</span><h2>${esc(t)}</h2><p>${esc(x.line)}</p>${(CGPAL[x.k]||CGP2[x.k])?`<div class="cgx-pal">${(CGPAL[x.k]?CGPAL[x.k][0]:CGP2[x.k]).map(c=>`<i style="background:${c}"></i>`).join("")}</div>`:""}<b class="mono">${x.go?"Case 보기 →":"Case 준비 중"}</b></div></a>`}).join("")}</div>
    <div class="cg-in wrap"><section class="cg-cred"><h4 class="mono">Color credits</h4><ol>${cols.map(i=>`<li><a href="#film-${i}"><span class="mono">${F[i][1].slice(0,4)}</span><b>${esc(F[i][0])}</b><i>${esc(roleEn(F[i]))}</i></a></li>`).join("")}</ol></section></div></div>`;
 }
 function colorCase(k){return CGK[k]?`<div class="view cgv">${cgCaseFull(k)}<div class="cg-in wrap"><a class="cgk-go" href="#color"><span class="mono">Color</span><b>← 다른 작품</b></a></div></div>`:notFound()}
 function bindColor(){
   document.querySelectorAll(".cgk-stage").forEach(st=>{const w=st.querySelector(".cgw"),a=w.querySelector(".cga"),l=w.querySelector(".cgl"),n=st.dataset.n,k=(location.hash.split("-")[1]||"f1");
     st.querySelectorAll("button").forEach(b=>b.addEventListener("click",()=>{st.querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",x===b));a.src=cgImg(k,n+"_"+b.dataset.v);l.textContent=b.dataset.v==="log"?"Log":"Rec.709"}))});
-  document.querySelectorAll(".cw-d").forEach(g=>g.addEventListener("click",()=>{const e=document.getElementById("cgch"+g.dataset.i);e&&e.scrollIntoView({behavior:"smooth",block:"center"})}));
+  document.querySelectorAll(".cw-d,.cgk-pc").forEach(g=>g.addEventListener("click",()=>{const e=document.getElementById("cgch"+g.dataset.i);e&&e.scrollIntoView({behavior:"smooth",block:"center"})}));
   const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{rootMargin:"0px 0px -10% 0px"});
   document.querySelectorAll(".cgk-ch").forEach(c=>io.observe(c));
   document.querySelectorAll(".cgw").forEach(w=>{
