@@ -3317,7 +3317,7 @@ function bindShowreel(){
   const pickC=B=>{const k=pickK(Object.keys(B));let pool=B[k].filter(c=>!used.has(c[0]));if(!pool.length){B[k].forEach(c=>used.delete(c[0]));pool=B[k]}const c=pool[Math.floor(Math.random()*pool.length)];used.add(c[0]);return c};
   const R=(a,b)=>a+Math.random()*(b-a);
   /* 템포: 빠르게 몰아치다가, 중간 박자, 길게 머무는 구간을 오간다 */
-  const PH={fast:()=>Array.from({length:Math.round(R(4,8))},()=>[pickC(BK),R(.28,.48)]),
+  const PH={fast:()=>Array.from({length:Math.round(R(3,5))},()=>[pickC(BK),R(.55,.8)]),
     mid:()=>Array.from({length:Math.round(R(2,4))},()=>[pickC(BK),R(.85,1.35)]),
     slow:()=>Array.from({length:Math.random()<.35?2:1},()=>[pickC(HB),R(2.8,3.9)])};
   const ORDER={fast:["slow","mid","slow"],mid:["fast","slow"],slow:["fast","mid","fast"]};
