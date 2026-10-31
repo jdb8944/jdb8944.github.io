@@ -1729,6 +1729,23 @@ img[src^="spr:"]{opacity:0}
 .fd-bg .fd-syn p,.fd-bg .fd-side p,.fd-bg .credits dd,.fd-bg dd{color:#d6d2ca}
 .fd-bg a{color:inherit}
 .fd-bg .lb{z-index:50}
+
+/* 텍스트 우선 */
+.hxw[data-l=t]>.hx-t{display:block}
+.hx-t{padding:clamp(40px,5vw,72px) clamp(16px,4vw,56px) clamp(80px,8vw,120px)}
+.ht{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--rule);border-left:1px solid var(--rule)}
+.ht-c{position:relative;overflow:hidden;display:grid;grid-template-rows:auto 1fr auto auto;gap:4px;min-height:clamp(118px,13vw,170px);padding:clamp(14px,1.4vw,20px);border-right:1px solid var(--rule);border-bottom:1px solid var(--rule);color:var(--fg);text-decoration:none;opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
+.ht-c.in{opacity:1;transform:none}
+.ht-im{position:absolute;inset:0;background:center/cover no-repeat;opacity:0;filter:grayscale(1) contrast(.9);transition:opacity .5s,transform 1.2s cubic-bezier(.2,.7,.2,1);transform:scale(1.06)}
+.ht-c:hover .ht-im{opacity:.16;transform:none}
+.ht-c>*:not(.ht-im){position:relative;z-index:1}
+.ht-no{font-size:.58rem;letter-spacing:.14em;color:var(--muted)}
+.ht-c b{align-self:end;font-family:"Noto Sans KR",sans-serif;font-weight:800;font-size:clamp(1.25rem,1.9vw,1.75rem);letter-spacing:-.035em;line-height:1.1;transition:transform .4s cubic-bezier(.2,.7,.2,1)}
+.ht-c i{font-style:normal;font-size:.76rem;color:var(--muted)}
+.ht-n{font-size:.58rem;letter-spacing:.12em;color:var(--muted);text-transform:uppercase;margin-top:6px}
+.ht-c:hover b{transform:translateX(4px)}
+.ht-c:last-child{grid-column:span 1}
+@media(max-width:820px){.ht{grid-template-columns:repeat(2,1fr)}}
 /* ── about ── */
 .about{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,6vw,80px)}
 .about .lead{font-family:var(--display);font-size:var(--s1);line-height:1.85;max-width:30em;display:grid;gap:1em}
@@ -3555,12 +3572,13 @@ function homeMore(){
   const alt=`<section class="hx-alt hx-g"><div class="hg">${R.map(([h,t,ko,n,ks],i)=>`<a class="hg-c${i<2?" big":""}" href="${h}"><span class="hg-im" ${bg(ks)}></span><span class="hg-t"><b>${t}</b><i>${ko}${n?` · ${n}`:""}</i></span></a>`).join("")}</div></section>
   <section class="hx-alt hx-s"><div class="hs">${R.map(([h,t,ko,n,ks],i)=>`<a class="hs-c" href="${h}"><span class="hs-im" ${bg(ks)}></span><span class="hs-no mono">${String(i+1).padStart(2,"0")}</span><span class="hs-t"><b>${t}</b><i>${ko}</i></span></a>`).join("")}</div></section>
   <section class="hx-alt hx-b">${R.map(([h,t,ko,n,ks],i)=>`<a class="hb-r" href="${h}"><span class="hb-im" ${bg(ks)}></span><span class="hb-no mono">${String(i+1).padStart(2,"0")}</span><b>${t}</b><i>${ko}</i><span class="hb-c mono">${n||""}</span></a>`).join("")}</section>
-  <div class="hlx" role="group" aria-label="레이아웃 비교"><span class="mono">Layout</span>${[["l","목록"],["g","그리드"],["s","가로 스트립"],["b","띠"]].map(([k,t])=>`<button data-l="${k}">${t}</button>`).join("")}</div>`;
-  return `<div class="hxw" data-l="g">${alt}<section class="hx-idx"><ol>${R.map(([h,t,ko,n,ks],i)=>`<li><a href="${h}" data-img="${pick(ks)}"><span class="hx-no mono">${String(i+1).padStart(2,"0")}</span><b>${t}</b><i>${ko}</i><span class="hx-c mono">${n||""}</span></a></li>`).join("")}</ol><figure class="hx-side"><img class="hx-pv" alt="" aria-hidden="true"><figcaption class="mono"></figcaption></figure></section></div>`;
+  <section class="hx-alt hx-t"><div class="ht">${R.map(([h,t,ko,n,ks],i)=>`<a class="ht-c" href="${h}"><span class="ht-im" ${bg(ks)}></span><span class="ht-no mono">${String(i+1).padStart(2,"0")}</span><b>${t}</b><i>${ko}</i><span class="ht-n mono">${n?n+" "+(["works","works","works","cases","essays","stories"][i]||""):"→"}</span></a>`).join("")}<a class="ht-c" href="mailto:jdb8944@hanmail.net"><span class="ht-no mono">08</span><b>Contact</b><i>jdb8944@hanmail.net</i><span class="ht-n mono">Email →</span></a></div></section>
+  <div class="hlx" role="group" aria-label="레이아웃 비교"><span class="mono">Layout</span>${[["t","텍스트"],["l","목록"],["g","그리드"],["s","가로 스트립"],["b","띠"]].map(([k,t])=>`<button data-l="${k}">${t}</button>`).join("")}</div>`;
+  return `<div class="hxw" data-l="t">${alt}<section class="hx-idx"><ol>${R.map(([h,t,ko,n,ks],i)=>`<li><a href="${h}" data-img="${pick(ks)}"><span class="hx-no mono">${String(i+1).padStart(2,"0")}</span><b>${t}</b><i>${ko}</i><span class="hx-c mono">${n||""}</span></a></li>`).join("")}</ol><figure class="hx-side"><img class="hx-pv" alt="" aria-hidden="true"><figcaption class="mono"></figcaption></figure></section></div>`;
 }
 function bindHomeMore(){
-  const WR=$(".hxw");if(WR){let l="g";try{l=localStorage.getItem("icf-hl")||"g"}catch(_){}WR.dataset.l=l;const B=[...document.querySelectorAll(".hlx button")];const set=x=>{WR.dataset.l=x;B.forEach(b=>b.setAttribute("aria-pressed",b.dataset.l===x));try{localStorage.setItem("icf-hl",x)}catch(_){}};set(l);B.forEach(b=>b.addEventListener("click",()=>set(b.dataset.l)));
-    hydrate(WR);const io2=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){x.target.classList.add("in");io2.unobserve(x.target)}}),{rootMargin:"0px 0px -6% 0px"});WR.querySelectorAll(".hg-c,.hs-c,.hb-r").forEach((e,i)=>{e.style.transitionDelay=(i%7)*60+"ms";io2.observe(e)});
+  const WR=$(".hxw");if(WR){let l="t";try{l=localStorage.getItem("icf-hl2")||"t"}catch(_){}WR.dataset.l=l;const B=[...document.querySelectorAll(".hlx button")];const set=x=>{WR.dataset.l=x;B.forEach(b=>b.setAttribute("aria-pressed",b.dataset.l===x));try{localStorage.setItem("icf-hl2",x)}catch(_){}};set(l);B.forEach(b=>b.addEventListener("click",()=>set(b.dataset.l)));
+    hydrate(WR);const io2=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){x.target.classList.add("in");io2.unobserve(x.target)}}),{rootMargin:"0px 0px -6% 0px"});WR.querySelectorAll(".hg-c,.hs-c,.hb-r,.ht-c").forEach((e,i)=>{e.style.transitionDelay=(i%7)*60+"ms";io2.observe(e)});
     const hs=WR.querySelector(".hs");if(hs)hs.addEventListener("wheel",e=>{if(Math.abs(e.deltaY)>Math.abs(e.deltaX)&&WR.dataset.l==="s"){const m=hs.scrollWidth-hs.clientWidth;if((e.deltaY>0&&hs.scrollLeft<m-2)||(e.deltaY<0&&hs.scrollLeft>2)){e.preventDefault();hs.scrollLeft+=e.deltaY}}},{passive:false})}
   const S=$(".hx-idx");if(!S)return;const pv=S.querySelector(".hx-pv");hydrate(S);
   S.querySelectorAll("a[data-img]").forEach(a=>{if(a.dataset.img.startsWith("spr:"))spURL(a.dataset.img).then(u=>a.dataset.img=u)});
