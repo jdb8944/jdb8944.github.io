@@ -1603,6 +1603,28 @@ img[src^="spr:"]{opacity:0}
 .hxu{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:translateY(100%);transition:transform .8s cubic-bezier(.65,0,.35,1)}.hxu.in{transform:none}
 .fph .hx{overflow:hidden}
 .fitem:hover .fph:has(.hxu) .hov{opacity:0}
+
+/* News timeline */
+.ntl{max-width:1080px;margin:0 auto;padding:clamp(40px,6vw,90px) 0 40px}
+.ntl-y{position:relative;margin-bottom:clamp(40px,5vw,72px)}
+.ntl-yh{font-size:.7rem;letter-spacing:.2em;color:var(--muted);margin:0 0 26px;padding-left:calc(84px + 34px)}
+.ntl-e{display:grid;grid-template-columns:84px 34px 1fr;align-items:start;position:relative;padding-bottom:clamp(34px,3.6vw,52px)}
+.ntl-e::before{content:"";position:absolute;left:calc(84px + 16px);top:6px;bottom:0;width:1px;background:var(--rule)}
+.ntl-y .ntl-e:last-child::before{bottom:calc(100% - 12px)}
+.ntl-d{margin:2px 0 0;font-size:.72rem;letter-spacing:.06em;text-align:right;padding-right:6px;color:var(--fg)}
+.ntl-dot{width:9px;height:9px;border-radius:50%;background:var(--bg);border:1px solid var(--fg);margin:3px 0 0 12px;position:relative;z-index:1}
+.k-Award .ntl-dot{background:#c9ad7c;border-color:#c9ad7c}
+.ntl-d{grid-column:1}.ntl-dot{grid-column:2}.ntl-c{grid-column:3;display:grid;grid-template-columns:minmax(0,260px) 1fr;gap:clamp(16px,2vw,30px);align-items:start}
+.ntl-c:not(:has(.ntl-im)){grid-template-columns:1fr}
+.ntl-im{display:block;overflow:hidden;background:#111;aspect-ratio:16/9}.ntl-im img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .8s cubic-bezier(.2,.7,.2,1)}.ntl-im:hover img{transform:scale(1.04)}
+.ntl-k{margin:0 0 8px;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}.ntl-k a{color:inherit;text-decoration:none;border-bottom:1px solid transparent}.ntl-k a:hover{border-color:currentColor}
+.ntl-t h3{font-family:"Noto Sans KR",sans-serif;font-weight:800;font-size:clamp(1.05rem,1.4vw,1.35rem);line-height:1.4;letter-spacing:-.03em;margin:0 0 10px;word-break:keep-all}
+.ntl-x{font-size:clamp(.8rem,.88vw,.92rem);line-height:1.8;color:#555;margin:0 0 14px;word-break:keep-all}
+.ntl-src{display:flex;flex-wrap:wrap;gap:6px}
+.ntl-src a{font-size:.72rem;color:var(--fg);text-decoration:none;border:1px solid var(--rule);border-radius:999px;padding:4px 10px 4px 11px;display:inline-flex;gap:5px;align-items:center;transition:background .2s,color .2s}
+.ntl-src a span{font-size:.62rem;opacity:.55}.ntl-src a:hover{background:var(--fg);color:var(--bg)}
+.ntl-e{opacity:0;transform:translateY(30px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}.ntl-e.in{opacity:1;transform:none}
+@media(max-width:820px){.ntl-yh{padding-left:46px}.ntl-e{grid-template-columns:0 30px 1fr}.ntl-e::before{left:14px}.ntl-dot{margin-left:10px}.ntl-d{position:absolute;left:46px;top:-2px;text-align:left;font-size:.62rem;color:var(--muted)}.ntl-c{grid-template-columns:1fr;padding-top:18px}}
 /* ── about ── */
 .about{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,6vw,80px)}
 .about .lead{font-family:var(--display);font-size:var(--s1);line-height:1.85;max-width:30em;display:grid;gap:1em}
@@ -2801,7 +2823,26 @@ function article(slug){
 }
 /* ───────── News: 기사·영화제 소식 ─────────
    [날짜, 매체, 제목, url, 작품키, 구분, 한줄, 대표여부] */
-const NEWS=[["2026.10.30", "백세시대", "제18회 서울국제노인영화제 폐막… '만두 주름 다섯 개' 노인감독부문 대상", "https://www.100ssd.co.kr/news/articleView.html?idxno=214030", "f8", "Award", "제18회 서울국제노인영화제에서 '실종알림'이 시스프렌드상(청년감독 부문)과 특별상(관객상)을 받았다.", 1],
+const NEWS=[["2026.08.24", "스타뉴스", "IchiLLin's Lee Ji, Junie, and Yeeju unite.. First unit 'IchiLLin J' debuts on September 2", "https://www.starnewskorea.com/en/music/2026/08/24/2026082408472332971", "c36", "Release", "아이칠린 첫 유닛 결성, 9월 2일 'Look At Me!' 발매 예고.", 0],
+["2026.09.01", "톱스타뉴스", "아이칠린 제이, 픽셀 세계로 데뷔 시동…'BANANA (Look At Me!)' MV 티저", "https://www.topstarnews.net/news/articleView.html?idxno=16178939", "c36", "Release", "거울 속 픽셀 캐릭터가 등장하는 뮤직비디오 티저 공개.", 0],
+["2026.09.10", "일간스포츠", "셋으로 시작해 일곱으로 완성된 엔딩… 아이칠린 '바나나' 표정에 숨겨진 진심 [IS비하인드]", "https://isplus.com/article/view/isp202609090099", "c36", "Release", "일곱 멤버가 모두 나오는 뮤직비디오 마지막 장면의 뒷이야기.", 0],
+["2024.06.12", "allkpop", "TRENDZ returns with new album 'DREAMLIKE' and collaboration with hitmaker Kim Hyung Seok", "https://www.allkpop.com/article/2024/06/trendz-returns-with-new-album-dreamlike-and-collaboration-with-hitmaker-kim-hyung-seok", "c6", "Release", "김형석과 작업한 타이틀곡 'GLOW'로 컴백.", 0],
+["2024.06.12", "The Kpop Meal", "TRENDZ Shines with New Single Album 'Dreamlike'", "https://thekmeal.com/trendz-shines-with-new-single-album-dreamlike/", "c6", "Release", "'DREAMLIKE' 발매와 'GLOW' 뮤직비디오.", 0],
+["2024.06.13", "KpopWise", "TRENDZ Make a \"DREAMLIKE\" Comeback with 4th Mini Album", "https://kpopwise.com/2024/06/trendz-make-dreamlike-comeback-with-4th.html", "c6", "Release", "'DREAMLIKE' 컴백과 'GLOW' 뮤직비디오.", 0],
+["2024.01.11", "텐아시아", "트렌드지 \"데뷔 2주년, 이제부터가 시작…한 계단 위로 올라가겠단 의지\" [일문일답]", "https://www.tenasia.co.kr/article/2024011172324", "c8", "Release", "데뷔 2주년 '위로위로' 발매, 뮤직비디오 선공개.", 0],
+["2024.01.12", "KpopWise", "TRENDZ Celebrate Two Years Since Debut with New Single '위로위로 (Go Up)'", "https://www.kpopwise.com/2024/01/trendz-celebrate-two-years-since-debut.html", "c8", "Release", "데뷔 2주년 기념 싱글 '위로위로' 발매.", 0],
+["2024.01.22", "스포츠경향", "'인기가요' 트렌드지, 글로벌돌 실력 입증한 '위로위로'", "https://sports.khan.co.kr/article/202401220103003", "c8", "Release", "'인기가요'에서 '위로위로' 무대.", 0],
+["2026.06.01", "뉴시스", "부천국제판타스틱영화제, 한국 장편 경쟁작 10편 공개", "https://www.newsis.com/view/NISX20260601_0003651460", "f0", "Festival", "부천 초이스 코리안 10편에 '더 러버' 선정.", 0],
+["2026.06.01", "이데일리", "호러부터 SF·애니까지… BIFAN '부천 초이스 코리안' 10편 공개", "https://edaily.co.kr/News/Read?mediaCodeNo=257&newsId=03017606645477456", "f0", "Festival", "일탈을 꿈꾸는 10대의 불안과 욕망을 담은 작품으로 소개.", 0],
+["2026.06.01", "헤럴드경제", "BIFAN, 장편 경쟁작 10편 공개…장르적 다양성 확대", "https://biz.heraldcorp.com/article/10761097", "f0", "Festival", "십대의 일탈을 그린 작품으로 장편 경쟁 진출.", 0],
+["2026.06.02", "경기신문", "제30회 부천국제판타스틱영화제, '부천 초이스 코리안' 경쟁작 10편 공개", "https://www.kgnews.co.kr/news/article.html?no=898281", "f0", "Festival", "부천 초이스 코리안 경쟁작으로 소개.", 0],
+["2025.11.19", "데일리안", "제13회 필름게이트 영화제, CGV용산에서 12월 11일 개최", "https://v.daum.net/v/20251119092114199", "f1", "Festival", "신영균예술문화재단 제작지원작으로 상영.", 0],
+["2025.12.08", "씨네21", "[영화제] 시대와 영화의 대화, 제13회 필름게이트 영화제 12월11일부터 CGV용산아이파크몰에서", "https://cine21.com/news/view/?mag_id=108948", "f1", "Festival", "박세암 감독 '먹태와 녹차', 서정적인 관계 묘사로 소개.", 0],
+["2026.05.17", "미쟝센단편영화제 MSFF (YouTube)", "[MSFF2026] 두 번의 장례 | 양승우", "https://www.youtube.com/watch?v=bNiQjgqxOe8", "f5", "Video", "미쟝센단편영화제 공식 채널의 작품 영상.", 0],
+["2026.09.28", "Omelete", "KOFF 2026 chega a SP com filmes estrelados por Park Ji-hoon e Cha Eun-woo; confira", "https://www.omelete.com.br/korea/koff-2026-filmes-coreanos-programacao-sp", "f5", "Festival", "브라질 한국영화제 단편 경쟁에 편성.", 0],
+["2025.09.17", "노컷뉴스", "장재현→정서경 배출 한예종 영상원, 부산서 30주년 특별전 개최[30th BIFF]", "https://www.nocutnews.co.kr/news/6401248", "f3", "Festival", "부산영화제 기간의 영상원 30주년 특별전과 '프로젝트 30'.", 0],
+["2025.09.15", "교수신문", "한국예술종합학교 영상원 학생 및 출신 감독 작품 제30회 부산국제영화제 공식 초청", "https://www.kyosu.net/news/articleView.html?idxno=143879", "f4", "Festival", "한예종 영상원 작품 13편이 제30회 부산국제영화제에 초청됐다. '시적허용'은 와이드앵글 한국단편경쟁.", 1],
+["2026.10.30", "백세시대", "제18회 서울국제노인영화제 폐막… '만두 주름 다섯 개' 노인감독부문 대상", "https://www.100ssd.co.kr/news/articleView.html?idxno=214030", "f8", "Award", "제18회 서울국제노인영화제에서 '실종알림'이 시스프렌드상(청년감독 부문)과 특별상(관객상)을 받았다.", 1],
 ["2026.10.30", "현대불교", "세대 이은 '서울국제노인영화제' 나흘 여정 마무리", "https://www.hyunbulnews.com/news/articleView.html?idxno=506139", "f8", "Award", "서울국제노인영화제 폐막 소식. 치매 시어머니의 실종으로 돌봄을 다룬 '실종알림'의 수상을 전했다.", 0],
 ["2026.03.29","빈프레임 EmptyFrame (YouTube)","Before Sunset | The Making of a Short Film Shot on 35mm Film","https://www.youtube.com/watch?v=PaRyLVLv9ug","f4","Video","35mm 필름으로 찍은 시적허용의 제작기.",0],
 ["2026.07.27", "한국경제", "한예종 '트로픽', 판타지아영화제 최우수 촬영상", "https://www.hankyung.com/article/2026072789401", "f7", "Award", "한예종 AT랩 제작 단편 '트로픽'이 제30회 판타지아 국제단편 부문 최우수 촬영상을 받았다.", 1],
@@ -2839,8 +2880,13 @@ const EVT=[
  ["f0",/2026\.0[78]/,"더 러버 — 부천판타스틱영화제 부천초이스 상영","Festival"],
  ["f0",/2026\.06/,"더 러버 — 부천판타스틱영화제 장편 경쟁 선정","Festival"],
  ["f5",/Release/,"두 번의 장례 — 넷플릭스 공개","Release"],
- ["f5",/./,"두 번의 장례 — 한국영화데이터베이스 등재","Archive"],
- ["f13",/./,"컬러풀 해피니스 — 독립영화 라이브러리 스페셜 위크","Festival"],
+ ["f5",/Press/,"두 번의 장례 — 한국영화데이터베이스 등재","Archive"],
+ ["f5",/Festival/,"두 번의 장례 — 제4회 브라질 한국영화제 단편 경쟁","Festival"],
+ ["f5",/Video/,"두 번의 장례 — 미쟝센단편영화제 공식 영상 공개","Video"],
+ ["f8",/Award/,"실종알림 — 제18회 서울국제노인영화제 2관왕","Award"],
+ ["f1",/Festival/,"먹태와 녹차 — 제13회 필름게이트 영화제","Festival"],
+ ["f3",/Festival/,"30번째 관객 — 한예종 영상원 30주년 특별전","Festival"],
+ ["f13",/2026\.01/,"컬러풀 해피니스 — 독립영화 라이브러리 스페셜 위크","Festival"],
  ["f11",/Award/,"콜록 콜록, 컬러! — 제17회 대단한단편영화제 대단한 감독상","Award"],
  ["f11",/Festival/,"콜록 콜록, 컬러! — 제24회 뉴욕아시안영화제","Festival"],
  ["f4",/Festival/,"시적허용 — 제30회 부산국제영화제 와이드앵글 한국단편경쟁","Festival"],
@@ -2849,6 +2895,11 @@ const EVT=[
  ["c8",/./,"트렌드지 '위로위로' 뮤직비디오","Release"]];
 /* 사건별 본문 (기사 내용을 바탕으로) */
 const EVTX={
+"두 번의 장례 — 제4회 브라질 한국영화제 단편 경쟁":"'두 번의 장례'가 상파울루에서 열린 제4회 브라질 한국영화제(KOFF) 단편 경쟁에 편성됐고, 관객 투표로 최우수 단편상을 받았다.",
+"두 번의 장례 — 미쟝센단편영화제 공식 영상 공개":"미쟝센단편영화제 공식 채널에 '두 번의 장례'(감독 양승우)의 작품 영상이 올라왔다.",
+"실종알림 — 제18회 서울국제노인영화제 2관왕":"치매 시어머니의 실종으로 돌봄을 이야기한 '실종알림'(감독 이승헌)이 제18회 서울국제노인영화제에서 시스프렌드상(청년감독 부문)과 특별상(관객상)을 받았다.",
+"먹태와 녹차 — 제13회 필름게이트 영화제":"신영균예술문화재단 제작지원작 '먹태와 녹차'(감독 박세암)가 CGV용산아이파크몰에서 열린 제13회 필름게이트 영화제에서 상영되고 작품상을 받았다.",
+"30번째 관객 — 한예종 영상원 30주년 특별전":"부산국제영화제 기간, 한예종 영상원 30주년 특별전이 열렸다. '30번째 관객'은 CJ ENM과 함께한 옴니버스 '프로젝트 30'의 한 편이다.",
 "트로픽 — 제30회 판타지아 국제단편경쟁 최우수 촬영상":"캐나다 몬트리올에서 열린 제30회 판타지아 국제영화제 국제단편경쟁에서 단편 '트로픽'(감독 박정윤)의 촬영을 맡은 정다빈이 최우수 촬영상을 받았다. 한국예술종합학교 AT랩이 제작한 작품으로, 영화제에서 월드 프리미어로 처음 공개됐다.",
 "트로픽 — 판타지아 국제영화제 월드 프리미어":"'트로픽'이 제30회 판타지아 국제영화제 단편 프로그램에 초청돼 월드 프리미어로 상영됐다. 한국 단편 쇼케이스 CineMapsosa 섹션에 포함됐다.",
 "더 러버 — 부천판타스틱영화제 부천초이스 상영":"송현범 감독의 첫 장편 '더 러버'가 제30회 부천국제판타스틱영화제 부천초이스 한국 장편 경쟁작으로 관객과 만났다. 주연 김민기가 GV에 참석했다.",
@@ -2863,25 +2914,33 @@ const EVTX={
 "아이칠린 제이 'BANANA' 뮤직비디오 공개":"아이칠린의 첫 유닛 아이칠린 제이가 타이틀곡 'BANANA (Look At Me!)'를 발매하고 뮤직비디오를 공개했다.",
 "트렌드지 'GLOW' 컴백과 뮤직비디오":"트렌드지가 네 번째 싱글 'DREAMLIKE'의 타이틀곡 'GLOW'로 컴백하며 뮤직비디오를 공개했다.",
 "트렌드지 '위로위로' 뮤직비디오":"데뷔 2주년을 맞은 트렌드지가 스페셜 싱글 '위로위로'의 뮤직비디오를 선공개했다."};
-const newsEvents=()=>{const E=EVT.map((e,id)=>({e,id,items:[]}));
-  NEWS.forEach(n=>{const hit=E.find(x=>x.e[0]===n[4]&&x.e[1].test(n[5]+" "+n[0])&&!(x.e[1].source==="."&&E.some(y=>y!==x&&y.e[0]===n[4]&&y.e[1].source!=="."&&y.e[1].test(n[5]+" "+n[0]))));(hit||E[E.length-1]).items.push(n)});
-  return E.filter(x=>x.items.length).map(x=>{x.items.sort((a,b)=>b[0].localeCompare(a[0]));x.last=x.items[0][0];return x}).sort((a,b)=>b.last.localeCompare(a.last))};
+const NKO={Award:"수상",Festival:"영화제",Release:"공개",Press:"보도",Video:"영상",Interview:"인터뷰",Review:"리뷰",News:"소식",Campaign:"캠페인",Archive:"기록"};
+const wTitle=k=>{const w=k&&(k[0]==="f"?F[+k.slice(1)]:C[+k.slice(1)]);return w?w[0]:""};
+const newsEvents=()=>{const E=EVT.map((e,id)=>({e,id,items:[]}));const A={};
+  NEWS.forEach(n=>{const cand=E.filter(x=>x.e[0]===n[4]&&x.e[1].test(n[5]+" "+n[0]));const hit=cand.find(x=>x.e[1].source!==".")||cand[0];
+    if(hit){hit.items.push(n);return}
+    const key=n[4]+"|"+n[5]+"|"+n[0].slice(0,7);if(!A[key]){A[key]={e:[n[4],/./,`${wTitle(n[4])} — ${NKO[n[5]]||n[5]}`,n[5]],id:1000+Object.keys(A).length,items:[],auto:true}}A[key].items.push(n)});
+  return [...E,...Object.values(A)].filter(x=>x.items.length).map(x=>{x.items.sort((a,b)=>b[0].localeCompare(a[0]));x.last=x.items[0][0];x.first=x.items[x.items.length-1][0];return x}).sort((a,b)=>b.last.localeCompare(a.last))};
 const nDate=d=>{if(d.includes("--"))return d.slice(0,4)+"년";const [y,m,dd]=d.split(".");return `${y}년 ${m}월 ${dd}일`};
 const nImg=k=>k&&MEDIA[k]&&gl(k).length?SU(k,rs(k)):"";
 function newsView(){
   const L=newsEvents();
   const HK=["f7","f0","f4","f11","f5","c36","f13","c6"].filter(k=>gl(k).length);
+  const Y={};L.forEach(x=>{const y=x.last.slice(0,4);(Y[y]=Y[y]||[]).push(x)});
+  const md=d=>{const [y,m,dd]=d.split(".");return dd&&dd!=="--"?`${+m}.${+dd}`:`${+m||""}`};
   return `<div class="view nwv">
     <section class="nhero dark" id="nH"><div class="nh-bg" id="nHb">${HK.map((k,i)=>`<i class="${i?"":"on"}" style="background-image:url('${nImg(k)}')"></i>`).join("")}</div><h1 id="nHt">News</h1><span class="nh-dn mono">Scroll</span></section>
-    <div class="npanel"><div class="ngrid">${L.map(x=>{const [k,,title]=x.e,body=EVTX[title]||x.items[0][6];
-      return `<article class="ncd">
-        <a href="#news-${x.id}" class="ncd-im"><img src="${nImg(k)}" alt="" loading="lazy"></a>
-        <p class="ncd-d">On ${nDate(x.last)}</p>
-        <h3><a href="#news-${x.id}">${esc(title)}</a></h3>
-        <i class="ncd-r"></i>
-        <p class="ncd-x">${esc(body)}</p>
-        <a class="ncd-more" href="#news-${x.id}">Keep reading</a>
-      </article>`}).join("")}</div></div>
+    <div class="npanel"><div class="ntl">${Object.keys(Y).sort().reverse().map(y=>`<section class="ntl-y"><h2 class="ntl-yh mono">${y}</h2>
+      ${Y[y].map(x=>{const [k,,title,kind]=x.e,body=EVTX[title]||x.items[0][6],w=wTitle(k),href=k?`#${k[0]==="f"?"film":"commercial"}-${k.slice(1)}`:"";
+      return `<article class="ntl-e k-${kind}">
+        <p class="ntl-d mono">${md(x.last)}</p><i class="ntl-dot"></i>
+        <div class="ntl-c">
+          ${nImg(k)?`<a class="ntl-im" href="${href}"><img src="${nImg(k)}" alt="" loading="lazy"></a>`:""}
+          <div class="ntl-t"><p class="ntl-k mono">${esc(NKO[kind]||kind)}${w?` · <a href="${href}">${esc(w)}</a>`:""}</p>
+            <h3>${esc(title.includes(" — ")?title.split(" — ").slice(1).join(" — "):title)}</h3>
+            <p class="ntl-x">${esc(body)}</p>
+            <div class="ntl-src">${x.items.map(n=>`<a href="${n[3]}" target="_blank" rel="noopener" title="${esc(n[2])}">${esc(n[1])}<span>↗</span></a>`).join("")}</div>
+          </div></div></article>`}).join("")}</section>`).join("")}</div></div>
   </div>`;
 }
 function newsArticle(id){
@@ -2903,7 +2962,7 @@ function bindNews(){
   hydrate();
   const iv=setInterval(()=>{if(!document.body.contains(H))return clearInterval(iv);if(sl.length<2)return;sl[j].classList.remove("on");j=(j+1)%sl.length;sl[j].classList.add("on")},4500);
   const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{rootMargin:"0px 0px -8% 0px"});
-  document.querySelectorAll(".ncd,.cl-g").forEach((c,i)=>{c.style.transitionDelay=(i%4)*70+"ms";io.observe(c)});
+  document.querySelectorAll(".ncd,.cl-g,.ntl-e").forEach((c,i)=>{c.style.transitionDelay=(i%4)*70+"ms";io.observe(c)});
   const sc=()=>{const y=scrollY,h=innerHeight;bg.style.transform=`translate3d(0,${-y*0.12}px,0) scale(${1.06+y/h*0.04})`;const p=Math.min(1,y/(h*0.7));t.style.transform=`translateY(${y*0.35}px) scale(${1-p*0.12})`;t.style.opacity=1-p;raf=0};
   const on=()=>{if(!raf)raf=requestAnimationFrame(sc)};addEventListener("scroll",on,{passive:true});sc();
   reelOff=()=>{removeEventListener("scroll",on);clearInterval(iv);io.disconnect()};
