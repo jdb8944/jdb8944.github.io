@@ -1653,6 +1653,12 @@ img[src^="spr:"]{opacity:0}
 .ntl-hl a{padding:7px 2px}
 
 .nh-st{display:block;margin-top:18px;font-family:var(--mono);font-weight:400;font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;opacity:.72;white-space:pre;text-align:center}
+
+.fd-reel h4{font-family:var(--mono);font-weight:500;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin:0 0 12px}
+.fd-reel{margin-top:clamp(40px,5vw,72px)}
+.rl-box{position:relative;overflow:hidden;background:#0b0b0b;max-height:78svh;margin:0 auto}
+.rl-box video{position:absolute;opacity:0;transition:opacity .25s linear}.rl-box video.on{opacity:1}
+.rl-n{position:absolute;right:12px;bottom:10px;font-size:.58rem;letter-spacing:.14em;color:rgba(255,255,255,.7);z-index:2}
 /* ── about ── */
 .about{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,6vw,80px)}
 .about .lead{font-family:var(--display);font-size:var(--s1);line-height:1.85;max-width:30em;display:grid;gap:1em}
@@ -2358,7 +2364,7 @@ const stillEl=(k,j,alt)=>{const m=MEDIA[k];return j<m.s.length?`<img src="${W(k,
 function btsBlock(k,title){
   if(!has(k,"b"))return "";
   return `<section class="fd-bts wrap" aria-label="Behind the Scenes"><h4>Behind the Scenes</h4>
-    <div class="bts">${MEDIA[k].b.map((r,n)=>`<button class="bt" data-gal="b" data-n="${n}" aria-label="${esc(title)} 비하인드 크게 보기"><span class="bti" style="aspect-ratio:${(r[2]/r[3]).toFixed(3)};${spr(k,n)}"></span></button>`).join("")}</div></section>`;
+    <div class="bts">${MEDIA[k].b.map((r,n)=>[r,n]).sort(()=>Math.random()-.5).map(([r,n])=>`<button class="bt" data-gal="b" data-n="${n}" aria-label="${esc(title)} 비하인드 크게 보기"><span class="bti" style="aspect-ratio:${(r[2]/r[3]).toFixed(3)};${spr(k,n)}"></span></button>`).join("")}</div></section>`;
 }
 const posterBlock=(k,title)=>has(k,"p")?`<div class="fd-poster">${MEDIA[k].p.map((a,n)=>`<button data-gal="p" data-n="${n}" aria-label="포스터 크게 보기"><img src="${W(k,"p",n)}" alt="${esc(title)} poster" loading="lazy" style="aspect-ratio:${a}"></button>`).join("")}</div>`:"";
 function staffBlock(i){
@@ -2400,6 +2406,7 @@ function detailShell({k,title,kicker,roles,meta,heroSrc,intro,side,fest,staff,sp
     ${video&&YTEMBED&&video!=="-"?`<section class="fd-video wrap"><div class="vframe on${VPORT.has(k)?" vport":""}"><iframe src="https://www.youtube-nocookie.com/embed/${video}?rel=0&playsinline=1" loading="lazy" allow="autoplay; encrypted-media; fullscreen; picture-in-picture" allowfullscreen title="${esc(title)}"></iframe></div></section>`:video?`<section class="fd-video wrap"><div class="vframe${VPORT.has(k)?" vport":""}" data-yt="${video}" data-k="${k}" style="background-image:url('${heroSrc}')"><button class="vplay" aria-label="영상 재생"><span>▶</span><em class="mono">${k[0]==="f"?"Play Film":/MV/.test((C[+k.slice(1)]||[])[2]||"")?"Play Music Video":"Play"}</em></button></div></section>`:""}${fest&&fest.length?festBlock(fest):""}
     ${staff||""}
     ${spec}
+    <section class="fd-reel wrap" data-k="${k}" hidden><h4>Reel</h4><div class="rl-box"><video muted playsinline preload="auto"></video><video muted playsinline preload="auto"></video><span class="rl-n mono"></span></div></section>
     ${stillsBlock(k,title)}
     ${btsBlock(k,title)}
     <nav class="pager wrap" aria-label="More">
@@ -3678,8 +3685,8 @@ function bind(h){
   if(reelOff){reelOff();reelOff=null}
   if(h==="art"){bindHero();bindShelf();bindHX();return}
   if(h==="film"||h==="commercial"){applyFilter($("#shelf"),h==="film"?state.role:state.kind,false);bindHero();bindShelf();bindHX();return}
-  if(/^film-\d+$/.test(h))return bindGallery("f"+h.split("-")[1]);
-  if(/^commercial-\d+$/.test(h))return bindGallery("c"+h.split("-")[1]);
+  if(/^film-\d+$/.test(h)){bindWReel();return bindGallery("f"+h.split("-")[1])}
+  if(/^commercial-\d+$/.test(h)){bindWReel();return bindGallery("c"+h.split("-")[1])}
   if(/^color/.test(h))return bindColor();
   if(h==="news"||h==="client"||h==="journal"||/^after/.test(h))return bindNews();
   if(h!=="home")return;
@@ -3757,6 +3764,23 @@ function bindHX(){
       const f=front();if(f.dataset.s==G[j])return;f.dataset.s=G[j];setSrc(f,SU(k,G[j]));hx.querySelectorAll(".hxs b").forEach((b,q)=>b.classList.toggle("on",q===j))});
     it.addEventListener("mouseleave",()=>{on=false;clearInterval(tk);if(vid){vid.pause();vid.removeAttribute("src");vid.load();vid=null}hx.innerHTML=""});
   });
+}
+
+/* 작품별 릴: 그 작품의 컷을 이어 재생 */
+function bindWReel(){
+  const sec=$(".fd-reel");if(!sec)return;const k=sec.dataset.k;
+  const h=HCLIPS.filter(c=>c[1]===k).map(c=>c[0]),o=[...RCLIPS,...HVCLIPS].filter(c=>c[1]===k).map(c=>c[0]).sort(()=>Math.random()-.5);
+  const L=[...o.slice(0,2),...h,...o.slice(2)];if(L.length<2)return;sec.hidden=false;
+  const box=sec.querySelector(".rl-box"),V=[...box.querySelectorAll("video")],cnt=sec.querySelector(".rl-n");
+  const c=HCROP[k]||[0,0,1,1];box.style.aspectRatio=(16/9*c[2]/c[3]).toFixed(3);
+  V.forEach(v=>Object.assign(v.style,{width:(100/c[2])+"%",height:(100/c[3])+"%",left:(-c[0]/c[2]*100)+"%",top:(-c[1]/c[3]*100)+"%"}));
+  let n=0,cur=0,on=false;
+  const ld=(v,i)=>{v.src=`mv/${L[i%L.length]}.mp4`;v.load()};
+  ld(V[0],0);ld(V[1],1);
+  const play=()=>{const v=V[cur];v.currentTime=0;v.play().catch(()=>{});V.forEach((x,j)=>x.classList.toggle("on",j===cur));cnt.textContent=`${String(n%L.length+1).padStart(2,"0")} / ${String(L.length).padStart(2,"0")}`};
+  V.forEach((v,j)=>v.addEventListener("ended",()=>{if(j!==cur)return;n++;const old=cur;cur=1-cur;play();setTimeout(()=>ld(V[old],n+1),80)}));
+  const io=new IntersectionObserver(es=>es.forEach(e=>{on=e.isIntersecting;if(on)play();else V.forEach(v=>v.pause())}),{threshold:.25});io.observe(box);
+  const pr=reelOff;reelOff=()=>{io.disconnect();V.forEach(v=>{v.pause();v.removeAttribute("src")});pr&&pr()};
 }
 </script>
 
