@@ -1593,6 +1593,16 @@ img[src^="spr:"]{opacity:0}
 .hxs{position:absolute;left:10px;right:10px;bottom:10px;display:flex;gap:3px}.hxs b{flex:1;height:2px;background:rgba(255,255,255,.35)}.hxs b.on{background:#fff}
 .hxp{position:absolute;left:0;right:0;bottom:0;height:22%;display:flex;animation:hxp .45s ease}.hxp b{flex:1;position:relative}.hxp em{position:absolute;left:6px;bottom:5px;font-style:normal;font-size:.5rem;letter-spacing:.06em;color:rgba(255,255,255,.75);mix-blend-mode:difference}
 @keyframes hxp{from{transform:translateY(100%)}to{transform:none}}
+
+.fph .hr{position:absolute;inset:0;z-index:2;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.42);opacity:0;transition:opacity .4s ease;pointer-events:none}
+.fph .hr>span{display:flex;flex-direction:column;align-items:center;gap:8px;color:#f4f1ea;transform:translateY(8px);transition:transform .55s cubic-bezier(.2,.7,.2,1)}
+.fph .hr b{font-family:var(--essay);font-weight:400;font-size:clamp(1rem,6cqi,1.45rem);letter-spacing:.02em}
+.fph .hr i{font-style:normal;font-size:.56rem;letter-spacing:.16em;text-transform:uppercase;opacity:.75}
+.fitem:hover .hr,.fitem:focus-visible .hr{opacity:1}.fitem:hover .hr>span{transform:none}
+.fitem:hover .fph:has(.hr) .hov{opacity:0}
+.hxu{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:translateY(100%);transition:transform .8s cubic-bezier(.65,0,.35,1)}.hxu.in{transform:none}
+.fph .hx{overflow:hidden}
+.fitem:hover .fph:has(.hxu) .hov{opacity:0}
 /* ── about ── */
 .about{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,6vw,80px)}
 .about .lead{font-family:var(--display);font-size:var(--s1);line-height:1.85;max-width:30em;display:grid;gap:1em}
@@ -2239,6 +2249,7 @@ function filmList(){
 
 /* ───────── Commercial: 목록형 인덱스 ───────── */
 const isMV=c=>/MV/.test(c[2]);
+const roleHover=r=>{const L=roleList(r),K={Director:"연출",Cinematographer:"촬영",Colorist:"색보정"};return L.length?`<span class="hr"><span><b>${L.map(x=>K[x]).join(" · ")}</b><i class="mono">${L.join(" · ")}</i></span></span>`:""};
 const cRole=i=>CINFO[i]?CINFO[i][0]:"DOP";
 /* 커머셜 분류 */
 const CCAT={mv:[0,2,4,6,8,11,23,24,26,35,36],cf:[1,5,12,13,15,16,17,18,19,22,25,32],brand:[7,9,14,27,30,31],corp:[3,10,20,29],doc:[21]};
@@ -2249,7 +2260,7 @@ function commercial(){
   const items=CO.map(i=>[C[i],i]).map(([c,i])=>{const k="c"+i,r=cRole(i),n=has(k,"s")?MEDIA[k].s.length:0,s=rs(k);
     const tags="all "+ccat(i);
     return `<a class="fitem" href="#commercial-${i}" data-k="${k}" data-tags="${tags}">
-      <span class="fph"><img src="${n?SU(k,s):img(31+i)}" alt="${esc(c[0])}" loading="lazy" data-s="${s}"><img alt="" aria-hidden="true" class="off"><span class="hov">View project</span><span class="hx"></span></span>
+      <span class="fph"><img src="${n?SU(k,s):img(31+i)}" alt="${esc(c[0])}" loading="lazy" data-s="${s}"><img alt="" aria-hidden="true" class="off"><span class="hov">View project</span>${roleHover(r)}</span>
       <span class="ft"><b>${esc(c[0])}<i>${c[1].slice(0,4)}</i></b><span class="fr">${roleList(r).join(" · ")}</span></span>
       <span class="fk mono">${CCATN[ccat(i)]}${CCATN[ccat(i)]!==c[2]?" · "+esc(c[2]):""}</span>
     </a>`}).join("");
@@ -2269,7 +2280,7 @@ const pager=(t,i)=>{const k=t+i;
 function artList(){
   const items=AO.map(a=>{const s=rs(a.k);const r=a.f?roleEn(a.d):roleList(cRole(a.i)).join(" · ");
     return `<a class="fitem" href="${a.href}" data-k="${a.k}" data-tags="all">
-      <span class="fph"><img src="${SU(a.k,s)}" alt="${esc(a.d[0])}" loading="lazy" data-s="${s}"><img alt="" aria-hidden="true" class="off"><span class="hov">View project</span>${(a.f&&laurels(a.i))||`<span class="hx"></span>`}</span>
+      <span class="fph"><img src="${SU(a.k,s)}" alt="${esc(a.d[0])}" loading="lazy" data-s="${s}"><img alt="" aria-hidden="true" class="off"><span class="hov">View project</span><span class="hx"></span></span>
       <span class="ft"><b>${esc(a.d[0])}<i>${a.d[1].slice(0,4)}</i></b><span class="fr">${r}</span></span>
     </a>`}).join("");
   return `${whero("art","ArtFilm","Personal &amp; experimental works",[...ART,...ART,...ART].sort(()=>Math.random()-.5))}<div class="view works wtop">
@@ -3534,7 +3545,7 @@ function bindInstant(){
 function bind(h){
   clearInterval(showTimer);
   if(reelOff){reelOff();reelOff=null}
-  if(h==="art"){bindHero();bindShelf();bindHX();return}
+  if(h==="art"){bindHero();bindShelf();$("#shelf")&&($("#shelf").dataset.hm="u");bindHX();return}
   if(h==="film"||h==="commercial"){applyFilter($("#shelf"),h==="film"?state.role:state.kind,false);bindHero();bindShelf();bindHX();return}
   if(/^film-\d+$/.test(h))return bindGallery("f"+h.split("-")[1]);
   if(/^commercial-\d+$/.test(h))return bindGallery("c"+h.split("-")[1]);
@@ -3597,7 +3608,11 @@ function bindHX(){
     let vid=null,on=false;
     const clips=()=>{const h=(typeof HCLIPS!=="undefined"?HCLIPS:[]).filter(c=>c[1]===k).map(c=>c[0]),r=[...RCLIPS,...HVCLIPS].filter(c=>c[1]===k).map(c=>c[0]).sort(()=>Math.random()-.5);return [...h,...r]};
     const front=()=>{const [a,b]=ph.querySelectorAll("img");return a.classList.contains("off")?b:a};
+    let tk=0;
     it.addEventListener("mouseenter",()=>{on=true;const m=sh.dataset.hm;
+      if(m==="u"){const G=gl(k).sort(()=>Math.random()-.5).slice(0,8);if(G.length<2)return;let n=0;
+        const up=()=>{if(!on)return;const im=document.createElement("img");im.className="hxu";im.alt="";im.onload=()=>{hx.appendChild(im);requestAnimationFrame(()=>requestAnimationFrame(()=>im.classList.add("in")));const old=[...hx.querySelectorAll(".hxu")].slice(0,-2);setTimeout(()=>old.forEach(o=>o.remove()),900)};setSrc(im,SU(k,G[n++%G.length]))};
+        up();tk=setInterval(up,1100);return}
       if(m==="v"){const L=clips();if(!L.length)return;let n=0;vid=document.createElement("video");vid.muted=true;vid.playsInline=true;vid.className="hxv";
         const nx=()=>{vid.src=`mv/${L[n++%L.length]}.mp4`;vid.play().catch(()=>{})};vid.addEventListener("ended",nx);vid.addEventListener("playing",()=>vid.classList.add("in"),{once:true});nx();hx.appendChild(vid)}
       if(m==="s"){const G=gl(k);hx.innerHTML=G.length>1?`<i class="hxs">${G.map(()=>"<b></b>").join("")}</i>`:""}
@@ -3607,7 +3622,7 @@ function bindHX(){
     });
     it.addEventListener("mousemove",e=>{if(sh.dataset.hm!=="s")return;const G=gl(k);if(G.length<2)return;const r=ph.getBoundingClientRect(),j=Math.min(G.length-1,Math.floor((e.clientX-r.left)/r.width*G.length));
       const f=front();if(f.dataset.s==G[j])return;f.dataset.s=G[j];setSrc(f,SU(k,G[j]));hx.querySelectorAll(".hxs b").forEach((b,q)=>b.classList.toggle("on",q===j))});
-    it.addEventListener("mouseleave",()=>{on=false;if(vid){vid.pause();vid.removeAttribute("src");vid.load();vid=null}hx.innerHTML=""});
+    it.addEventListener("mouseleave",()=>{on=false;clearInterval(tk);if(vid){vid.pause();vid.removeAttribute("src");vid.load();vid=null}hx.innerHTML=""});
   });
 }
 </script>
