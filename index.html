@@ -1626,7 +1626,7 @@ img[src^="spr:"]{opacity:0}
 .ntl-e{opacity:0;transform:translateY(30px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}.ntl-e.in{opacity:1;transform:none}
 @media(max-width:820px){.ntl-yh{padding-left:46px}.ntl-e{grid-template-columns:0 30px 1fr}.ntl-e::before{left:14px}.ntl-dot{margin-left:10px}.ntl-d{position:absolute;left:46px;top:-2px;text-align:left;font-size:.62rem;color:var(--muted)}.ntl-c{grid-template-columns:1fr;padding-top:18px}}
 
-.nst{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--rule);padding:clamp(40px,5vw,70px) 0 clamp(28px,3vw,44px)}
+.nst{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);border-bottom:1px solid var(--rule);padding:clamp(40px,5vw,70px) 0 clamp(28px,3vw,44px)}
 .nst div{display:flex;flex-direction:column;gap:6px;padding:0 clamp(8px,1.5vw,20px)}.nst div+div{border-left:1px solid var(--rule)}
 .nst b{font-family:"Noto Sans KR",sans-serif;font-weight:900;font-size:clamp(2.2rem,5vw,4.2rem);letter-spacing:-.05em;line-height:1}
 .nst span{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}.nst i{font-style:normal;font-size:.78rem;color:var(--muted)}
@@ -2845,22 +2845,10 @@ const NEWS=[["2026.07.29", "뉴스컬처", "한예종 AT랩 제작 '트로픽', 
 ["2024.05.14", "뉴시스", "브이에이-한예종, 버추얼 프로덕션 영화 2편 제작 지원", "https://www.newsis.com/view/NISX20240514_0002735245", "f7", "Support", "버추얼 프로덕션 공모전 제작지원작 선정.", 0],
 ["2026.10.30", "뉴스인", "제18회 서울국제노인영화제 폐막…영화로 세대 잇는 공감의 장 마련", "https://www.newsin.co.kr/news/articleView.html?idxno=134658", "f8", "Award", "노인영화제 폐막과 시스프렌드상 수상.", 0],
 ["2026.10.31", "시사경제신문", "제18회 서울국제노인영화제 폐막…영화로 세대 잇는 공감의 장 마련", "https://www.sisanews.kr/news/articleView.html?idxno=126030", "f8", "Award", "노인영화제 시스프렌드상 수상 보도.", 0],
-["2026.10.14", "서울국제노인영화제", "SISFF 단편경쟁 - 실종알림", "https://sisff.seoulnoin.or.kr/index.php?mid=program2026&document_srl=20749", "f8", "Festival", "영화제 공식 상영작 페이지.", 0],
-["2025.02.12", "한예종 영화과 졸업영화제", "[전문사 고급 WS] 실종알림 / 이승헌", "https://blog.naver.com/kartsfilmfest_/223758317928", "f8", "Graduation", "제27회 졸업영화제 상영.", 0],
 ["2025.08.28", "뉴시스", "제3회 통영영화제, 경쟁부문 본선 12편 확정 및 포스터 공개", "https://www.newsis.com/view/NISX20250828_0003306013", "f10", "Festival", "통영영화제 T-그린 본선 진출.", 0],
 ["2025.08.29", "국제신문", "`통영영화제` 본선 진출작 12편 최종 선정, 영화제 분위기 고조", "https://www.kookje.co.kr/news2011/asp/newsbody.asp?key=20250829.99099008520", "f10", "Festival", "712편 가운데 본선 12편에 선정.", 0],
 ["2025.08.28", "뉴스로", "제3회 통영영화제 경쟁부분 본선 12편 확정", "https://www.newsro.kr/articles/1236938", "f10", "Festival", "통영영화제 경쟁부문 본선작 명단.", 0],
-["2025.09.12", "통영시 공식 블로그", "제3회 통영영화제 사전예매 안내", "https://blog.naver.com/tongyeongsi/224005425378", "f10", "Festival", "9월 28일 T-그린 상영 일정.", 0],
-["2026.03.17", "YouTube", "독립영화_점 위의 점 위의 점 4K mp4", "https://www.youtube.com/watch?v=Wsn2SiKxhzw", "f10", "Video", "감독 채널에 올라온 본편.", 0],
-["2026.02.11", "한예종 영화과 졸업영화제", "[전문사 중급 WS] 결혼기념일 / 송혜민", "https://blog.naver.com/kartsfilmfest_/224180218965", "f2", "Graduation", "제28회 졸업영화제 상영.", 0],
-["2025.02.11", "한예종 영화과 졸업영화제", "[전문사 중급 WS] 디어 마이 레드 / 정채윤", "https://blog.naver.com/kartsfilmfest_/223757010864", "f6", "Graduation", "제27회 졸업영화제 상영.", 0],
-["2024.02.08", "한예종 영화과 졸업영화제", "[전문사 단편 워크샵] 친절한 희진씨 / 정채윤", "https://blog.naver.com/kartsfilmfest_/223348179391", "f14", "Graduation", "제26회 졸업영화제 상영.", 0],
-["2025.09.05", "네이버TV (한국예술종합학교)", "단편영화ㅣ친절한 희진씨(2024) 감독 정채윤ㅣShort Film", "https://tv.naver.com/v/83594147", "f14", "Video", "한예종 공식 채널에 본편 공개.", 0],
-["2024.02.08", "한예종 영화과 졸업영화제", "[전문사 중급 WS] 오! 마이 드레스 / 황옥영", "https://blog.naver.com/kartsfilmfest_/223348281600", "f31", "Graduation", "제26회 졸업영화제 상영.", 0],
 ["2025.09.04", "강원일보", "TV하이라이트-9월5일", "https://www.kwnews.co.kr/page/view/2025090409263111473", "f15", "Broadcast", "KBS1 독립영화관 9월 5일 방영 소개.", 0],
-["2025.09.04", "KBS (네이트TV)", "[예고] 서울국제어린이영화제 특별전", "https://tv.nate.com/clip/5341803", "f15", "Broadcast", "독립영화관 어린이영화제 특별전 예고.", 0],
-["2024.02.08", "한예종 영화과 졸업영화제", "[전문사 초급 WS] 자전거수업 / 김지현", "https://blog.naver.com/kartsfilmfest_/223348192171", "f15", "Graduation", "제26회 졸업영화제 상영.", 0],
-["2024.02.08", "한예종 영화과 졸업영화제", "[전문사 초급 WS] 영원의 관문 / 이은지", "https://blog.naver.com/kartsfilmfest_/223348200558", "f16", "Graduation", "제26회 졸업영화제 상영.", 0],
 ["2026.08.24", "스타뉴스", "IchiLLin's Lee Ji, Junie, and Yeeju unite.. First unit 'IchiLLin J' debuts on September 2", "https://www.starnewskorea.com/en/music/2026/08/24/2026082408472332971", "c36", "Release", "아이칠린 첫 유닛 결성, 9월 2일 'Look At Me!' 발매 예고.", 0],
 ["2026.09.01", "톱스타뉴스", "아이칠린 제이, 픽셀 세계로 데뷔 시동…'BANANA (Look At Me!)' MV 티저", "https://www.topstarnews.net/news/articleView.html?idxno=16178939", "c36", "Release", "거울 속 픽셀 캐릭터가 등장하는 뮤직비디오 티저 공개.", 0],
 ["2026.09.10", "일간스포츠", "셋으로 시작해 일곱으로 완성된 엔딩… 아이칠린 '바나나' 표정에 숨겨진 진심 [IS비하인드]", "https://isplus.com/article/view/isp202609090099", "c36", "Release", "일곱 멤버가 모두 나오는 뮤직비디오 마지막 장면의 뒷이야기.", 0],
@@ -2876,7 +2864,6 @@ const NEWS=[["2026.07.29", "뉴스컬처", "한예종 AT랩 제작 '트로픽', 
 ["2026.06.02", "경기신문", "제30회 부천국제판타스틱영화제, '부천 초이스 코리안' 경쟁작 10편 공개", "https://www.kgnews.co.kr/news/article.html?no=898281", "f0", "Festival", "부천 초이스 코리안 경쟁작으로 소개.", 0],
 ["2025.11.19", "데일리안", "제13회 필름게이트 영화제, CGV용산에서 12월 11일 개최", "https://v.daum.net/v/20251119092114199", "f1", "Festival", "신영균예술문화재단 제작지원작으로 상영.", 0],
 ["2025.12.08", "씨네21", "[영화제] 시대와 영화의 대화, 제13회 필름게이트 영화제 12월11일부터 CGV용산아이파크몰에서", "https://cine21.com/news/view/?mag_id=108948", "f1", "Festival", "박세암 감독 '먹태와 녹차', 서정적인 관계 묘사로 소개.", 0],
-["2026.05.17", "미쟝센단편영화제 MSFF (YouTube)", "[MSFF2026] 두 번의 장례 | 양승우", "https://www.youtube.com/watch?v=bNiQjgqxOe8", "f5", "Video", "미쟝센단편영화제 공식 채널의 작품 영상.", 0],
 ["2026.09.28", "Omelete", "KOFF 2026 chega a SP com filmes estrelados por Park Ji-hoon e Cha Eun-woo; confira", "https://www.omelete.com.br/korea/koff-2026-filmes-coreanos-programacao-sp", "f5", "Festival", "브라질 한국영화제 단편 경쟁에 편성.", 0],
 ["2025.09.17", "노컷뉴스", "장재현→정서경 배출 한예종 영상원, 부산서 30주년 특별전 개최[30th BIFF]", "https://www.nocutnews.co.kr/news/6401248", "f3", "Festival", "부산영화제 기간의 영상원 30주년 특별전과 '프로젝트 30'.", 0],
 ["2025.09.15", "교수신문", "한국예술종합학교 영상원 학생 및 출신 감독 작품 제30회 부산국제영화제 공식 초청", "https://www.kyosu.net/news/articleView.html?idxno=143879", "f4", "Festival", "한예종 영상원 작품 13편이 제30회 부산국제영화제에 초청됐다. '시적허용'은 와이드앵글 한국단편경쟁.", 1],
@@ -2890,7 +2877,6 @@ const NEWS=[["2026.07.29", "뉴스컬처", "한예종 AT랩 제작 '트로픽', 
 ["2026.07.26", "Fantasia International Film Festival", "The 2026 Edition of Fantasia International Film Festival Announces Juried Awards", "https://fantasiafestival.com/en/news/the-2026-edition-of-fantasia-international-film-festival-announces-juried-awards-hanna-bergholms-nightborn-takes-top-honors", "f7", "Award", "판타지아 공식 심사 결과. 국제단편 촬영상에 '트로픽'의 정다빈.", 1],
 ["2026.07.26", "Rue Morgue", "Fantasia '26: 'NIGHTBORN,' 'NO REST FOR THE WICKED' and more score top awards", "https://rue-morgue.com/?p=78332", "f7", "Award", "판타지아 수상 목록에 '트로픽' 정다빈 촬영상.", 0],
 ["2026.08.04", "MovieMaker", "Nightborn and No Rest for the Wicked Win Top Prizes at 30th Fantasia Film Festival", "https://www.moviemaker.com/fantasia-2026-winners/", "f7", "Award", "제30회 판타지아 수상작 정리. 국제단편 촬영상 정다빈('트로픽').", 0],
-["2026.07.20", "Fantasia International Film Festival", "TROPIC", "https://fantasiafestival.com/en/film/tropic", "f7", "Festival", "판타지아 공식 작품 페이지. 월드 프리미어, 감독 박정윤 · 촬영 정다빈.", 0],
 ["2026.07.02", "ScreenAnarchy", "Fantasia 2026 Shorts: Beauty in The Light, The Dark, Out There And in Each Other", "https://screenanarchy.com/2026/07/fantasia-2026-shorts.html", "f7", "Festival", "판타지아 단편 라인업. 한국 단편 쇼케이스에 '트로픽' 포함.", 0],
 ["2026.07.03", "Asian Movie Pulse", "Fantasia 2026 Unveils Expansive Asian Short Film Lineup for Its 30th Edition", "https://asianmoviepulse.com/2026/07/fantasia-2026-unveils-expansive/", "f7", "Festival", "판타지아 아시아 단편 라인업. '트로픽'을 월드 프리미어로 소개.", 0],
 ["2026.06.01", "Korea Herald", "BIFAN unveils 10 feature competition films, expanding genre diversity", "https://biz.heraldcorp.com/article/10774696", "f0", "Festival", "BIFAN 장편 경쟁 10편 발표. 송현범 감독 '더 러버' 포함.", 1],
@@ -2898,12 +2884,7 @@ const NEWS=[["2026.07.29", "뉴스컬처", "한예종 AT랩 제작 '트로픽', 
 ["2026.07.14", "Sports Kyunghyang", "Actor Kim Min-gi colors the 30th Bucheon International Fantastic Film Festival", "https://sports.khan.co.kr/en/article/202607142249007", "f0", "Festival", "'더 러버'의 부천초이스 경쟁 초청과 상영 소식, 영문판.", 0],
 ["2026.07.15", "한국아이닷컴", "김민기, 부천영화제서 영화 '더 러버' 등 총 3편 선보이며 영화계 블루칩 떠올라", "https://www.hankooki.com/news/articleView.html?idxno=338488", "f0", "Festival", "BIFAN 부천초이스 장편 경쟁작 '더 러버'와 주연 김민기 이야기.", 0],
 ["2026.08.10", "톱스타뉴스", "김민기, 거울 셀카로 전한 여유로운 일상…'더 러버' 활약 잇는 행보", "https://www.topstarnews.net/news/articleView.html?idxno=16160017", "f0", "Press", "김민기의 첫 장편 주연작 '더 러버'의 BIFAN 상영을 언급.", 0],
-["2025.09.05", "부산국제영화제", "제30회 부산국제영화제 상영시간표", "https://www.biff.kr/pop/20250905/schedule_kor.asp", "f4", "Festival", "BIFF 공식 상영표. 와이드앵글 한국단편경쟁에 '시적허용', GV 포함.", 0],
-["2025.--.--", "KMDb", "두 번의 장례", "https://www.kmdb.or.kr/db/kor/detail/movie/K/39899", "f5", "Press", "감독 양승우 · 촬영 정다빈. 미쟝센 · 전주 상영, 파리한국영화제 특별언급 기록.", 0],
-["2026.06.24", "Netflix", "(미쟝센) 두 번의 장례", "https://www.netflix.com/kr/title/82876027", "f5", "Release", "미쟝센단편영화제 상영작으로 넷플릭스에 공개.", 0],
 ["2025.09.18", "MHN", "KT&G 17회 대단한 단편영화제...'내년에 또 봐요' 폐막식", "https://www.mhnse.com/news/articleView.html?idxno=460361", "f11", "Award", "대단한 감독상이 김세진 감독의 '콜록, 콜록, 컬러!'에.", 0],
-["2025.07.11", "New York Asian Film Festival", "Color, color, color! (콜록, 콜록, 컬러!)", "https://www.nyaff.org/nyaff25/films/color-color-color", "f11", "Festival", "제24회 뉴욕아시안영화제 공식 작품 페이지. 인터내셔널 프리미어.", 0],
-["2026.01.27", "인디그라운드", "'2025 독립영화 라이브러리' 스페셜 위크 진행! 화제의 장·단편 독립영화 92선 상영!", "https://indieground.kr/indie/newsrelease.do?mode=view&articleNo=3720", "f13", "Festival", "독립영화 라이브러리 스페셜 위크 상영작에 박혜원 감독의 '컬러풀 해피니스'.", 0],
 ["2024.01.11", "텐아시아", "트렌드지 \"데뷔 2주년, 이제부터가 시작…한 계단 위로 올라가겠단 의지\"", "https://www.tenasia.co.kr/article/2024011172324", "c8", "Release", "스페셜 싱글 '위로위로' 뮤직비디오 선공개와 발매 소식.", 0],
 ["2024.06.10", "전자신문", "트렌드지, 컴백 카운트다운 돌입…'퍼포먼스 신성' 노린다", "https://www.etnews.com/20240610000348", "c6", "Release", "타이틀곡 'GLOW' 컴백 예고와 티저 공개.", 0],
 ["2024.06.12", "allkpop", "TRENDZ returns with GLOW in their 4th single album", "https://www.allkpop.com/video/2024/06/trendz-returns-with-glow-in-their-4th-single-album", "c6", "Release", "트렌드지의 4번째 싱글 'GLOW' 뮤직비디오 공개.", 0],
@@ -2986,12 +2967,6 @@ const newsEvents=()=>{const E=EVT.map((e,id)=>({e,id,items:[]}));const A={};
   const base=[...E,...Object.values(A)].filter(x=>x.items.length);
   const nz=t=>t.replace(/제\s*\d+\s*회/g,"").replace(/\([^)]*\)/g,"").replace(/국제|\s|·|—/g,"");
   const FK={Award:"Award",Competition:"Festival","Official Selection":"Festival","Special Screening":"Festival",Broadcast:"Broadcast","Production Support":"Support"};
-  let fid=5000;
-  Object.keys(FEST).forEach(i=>{const k="f"+i;(FEST[i]||[]).forEach(f=>{const [t,y,ko]=f;const name=ko.split(" · ")[0],core=nz(name).slice(0,4);
-    if(core&&base.some(x=>x.e[0]===k&&nz(x.e[2]).includes(core)))return;
-    if(/^한국예술종합학교.*(제작|워크숍 제작)$/.test(ko)&&!/지원/.test(ko))return;
-    if(/버추얼 프로덕션 공모전|커뮤니티비프 × 한예종|인디그라운드 독립영화 라이브러리/.test(ko)&&base.some(x=>x.e[0]===k&&x.items.length))return;
-    base.push({e:[k,/./,`${wTitle(k)} — ${ko}`,FK[t]||"Festival"],id:fid++,items:[],rec:true,last:y+".--.--",first:y+".--.--"})})});
   return base.map(x=>{if(x.items.length){x.items.sort((a,b)=>b[0].localeCompare(a[0]));x.last=x.items[0][0];x.first=x.items[x.items.length-1][0]}return x}).sort((a,b)=>b.last.replace(/-/g,"0").localeCompare(a.last.replace(/-/g,"0"))||(a.rec?1:0)-(b.rec?1:0))};
 const nDate=d=>{if(d.includes("--"))return d.slice(0,4)+"년";const [y,m,dd]=d.split(".");return `${y}년 ${m}월 ${dd}일`};
 const nImg=k=>k&&MEDIA[k]&&gl(k).length?SU(k,rs(k)):"";
@@ -3001,7 +2976,7 @@ function newsView(){
   const Y={};L.forEach(x=>{const y=x.last.slice(0,4);(Y[y]=Y[y]||[]).push(x)});
   const md=d=>{const [y,m,dd]=d.split(".");return m&&m!=="--"?(dd&&dd!=="--"?`${+m}.${+dd}`:`${+m}`):"—"};
   const FA=Object.values(FEST).flat(),fests=new Set(FA.filter(f=>f[0]!=="Production Support").map(f=>f[2].split(" · ")[0].replace(/제\s*\d+\s*회\s*/,"")));
-  const ST=[[NEWS.length,"Articles","기사"],[new Set(NEWS.map(n=>n[1])).size,"Outlets","매체"],[fests.size,"Festivals","영화제"],[FA.filter(f=>f[0]==="Award").length,"Awards","수상"]];
+  const ST=[[NEWS.length,"Articles","기사"],[new Set(NEWS.map(n=>n[1])).size,"Outlets","매체"],[FA.filter(f=>f[0]==="Award").length,"Awards","수상"]];
   return `<div class="view nwv">
     <section class="nhero dark" id="nH"><div class="nh-bg" id="nHb">${HK.map((k,i)=>`<i class="${i?"":"on"}" style="background-image:url('${nImg(k)}')"></i>`).join("")}</div><h1 id="nHt">News</h1><span class="nh-dn mono">Scroll</span></section>
     <div class="npanel"><div class="nst">${ST.map(([n,en,ko])=>`<div><b data-n="${n}">${n}</b><span class="mono">${en}</span><i>${ko}</i></div>`).join("")}</div>
@@ -3742,6 +3717,7 @@ route();
 
 /* ───────── 영화제 없는 작품의 hover 비교 (임시) ───────── */
 const HVCLIPS=[["hv/c10_1","c10"],["hv/c10_2","c10"],["hv/c12_1","c12"],["hv/c12_2","c12"],["hv/c13_1","c13"],["hv/c14_1","c14"],["hv/c14_2","c14"],["hv/c15_1","c15"],["hv/c15_2","c15"],["hv/c16_1","c16"],["hv/c16_2","c16"],["hv/c17_1","c17"],["hv/c17_2","c17"],["hv/c18_1","c18"],["hv/c18_2","c18"],["hv/c19_1","c19"],["hv/c19_2","c19"],["hv/c20_1","c20"],["hv/c20_2","c20"],["hv/c21_1","c21"],["hv/c21_2","c21"],["hv/c22_1","c22"],["hv/c22_2","c22"],["hv/c23_1","c23"],["hv/c23_2","c23"],["hv/c24_1","c24"],["hv/c24_2","c24"],["hv/c25_1","c25"],["hv/c25_2","c25"],["hv/c26_1","c26"],["hv/c26_2","c26"],["hv/c27_1","c27"],["hv/c29_1","c29"],["hv/c29_2","c29"],["hv/c3_1","c3"],["hv/c3_2","c3"],["hv/f19_1","f19"],["hv/f19_2","f19"],["hv/f22_1","f22"],["hv/f22_2","f22"],["hv/f27_1","f27"],["hv/f27_2","f27"],["hv/f28_1","f28"],["hv/f28_2","f28"],["hv/f30_1","f30"],["hv/f30_2","f30"]];
+const HCROP={"c0":[0.125,0.0,0.75,1.0],"c34":[0.125,0.0,0.75,1.0],"c4":[0.0,0.12,1.0,0.759],"f0":[0.0,0.056,1.0,0.889],"f10":[0.0,0.019,1.0,0.963],"f11":[0.0,0.12,1.0,0.759],"f12":[0.0,0.12,1.0,0.759],"f13":[0.0,0.019,1.0,0.963],"f14":[0.0,0.019,1.0,0.963],"f15":[0.0,0.019,1.0,0.963],"f16":[0.0,0.12,1.0,0.759],"f17":[0.13,0.009,0.74,0.981],"f18":[0.0,0.12,1.0,0.759],"f21":[0.0,0.12,1.0,0.75],"f2":[0.0,0.019,1.0,0.963],"f31":[0.0,0.019,1.0,0.963],"f34":[0.172,0.009,0.698,0.981],"f3":[0.125,0.0,0.75,1.0],"f4":[0.0,0.019,1.0,0.963],"f5":[0.0,0.12,1.0,0.759],"f6":[0.0,0.12,1.0,0.759],"f7":[0.0,0.125,1.0,0.755],"f8":[0.0,0.056,1.0,0.889],"f9":[0.0,0.019,1.0,0.963],"c14":[0.0,0.111,1.0,0.81],"c23":[0.0,0.12,1.0,0.759],"c24":[0.0,0.102,1.0,0.796],"f19":[0.0,0.12,1.0,0.75],"f22":[0.0,0.12,1.0,0.759],"f27":[0.0,0.12,1.0,0.759],"f28":[0.0,0.019,1.0,0.963],"f30":[0.023,0.12,0.966,0.759],"c28":[0.13,0.009,0.74,0.981],"c2":[0.0,0.12,1.0,0.75],"c31":[0.339,0.148,0.323,0.852],"c35":[0.0,0.12,1.0,0.75],"c36":[0.125,0.0,0.75,0.986],"c7":[0.0,0.12,1.0,0.759],"f32":[0.0,0.019,1.0,0.963],"f33":[0.125,0.0,0.75,1.0]};
 function bindHX(){
   const sh=$("#shelf");if(!sh)return;
   sh.querySelectorAll(".fitem").forEach(it=>{const hx=it.querySelector(".hx");if(!hx)return;const k=it.dataset.k,ph=it.querySelector(".fph");
@@ -3754,7 +3730,8 @@ function bindHX(){
         const up=()=>{if(!on)return;const im=document.createElement("img");im.className="hxu";im.alt="";im.onload=()=>{hx.appendChild(im);requestAnimationFrame(()=>requestAnimationFrame(()=>im.classList.add("in")));const old=[...hx.querySelectorAll(".hxu")].slice(0,-2);setTimeout(()=>old.forEach(o=>o.remove()),900)};setSrc(im,SU(k,G[n++%G.length]))};
         up();tk=setInterval(up,1100);return}
       if(m==="v"){const L=clips();if(!L.length)return;let n=0;vid=document.createElement("video");vid.muted=true;vid.playsInline=true;vid.className="hxv";
-        const nx=()=>{vid.src=`mv/${L[n++%L.length]}.mp4`;vid.play().catch(()=>{})};vid.addEventListener("ended",nx);vid.addEventListener("playing",()=>vid.classList.add("in"),{once:true});nx();hx.appendChild(vid)}
+        const nx=()=>{vid.src=`mv/${L[n++%L.length]}.mp4`;vid.play().catch(()=>{})};vid.addEventListener("ended",nx);vid.addEventListener("playing",()=>vid.classList.add("in"),{once:true});nx();hx.appendChild(vid);
+        const c=HCROP[k];if(c){const W=ph.clientWidth,H=ph.clientHeight,vw=Math.max(W/c[2],H/(.5625*c[3])),vh=vw*.5625;Object.assign(vid.style,{objectFit:"fill",width:vw+"px",height:vh+"px",left:(W/2-vw*(c[0]+c[2]/2))+"px",top:(H/2-vh*(c[1]+c[3]/2))+"px",right:"auto",bottom:"auto"})}}
       if(m==="s"){const G=gl(k);hx.innerHTML=G.length>1?`<i class="hxs">${G.map(()=>"<b></b>").join("")}</i>`:""}
       if(m==="p"){const im=front();const draw=()=>{if(!on)return;try{const c=document.createElement("canvas"),w=48,h=27;c.width=w;c.height=h;const x=c.getContext("2d");x.drawImage(im,0,0,w,h);const d=x.getImageData(0,0,w,h).data,px=[];for(let j=0;j<d.length;j+=4)px.push([d[j],d[j+1],d[j+2]]);
           const lum=p=>.2126*p[0]+.7152*p[1]+.0722*p[2];px.sort((a,b)=>lum(a)-lum(b));let S=[0,1,2,3,4,5].map(q=>px[Math.floor((q+.5)*px.length/6)].slice());for(let it=0;it<8;it++){const acc=S.map(()=>[0,0,0,0]);for(const p of px){let bi=0,bd=1e9;S.forEach((c,ci)=>{const d=(c[0]-p[0])**2+(c[1]-p[1])**2+(c[2]-p[2])**2;if(d<bd){bd=d;bi=ci}});const a=acc[bi];a[0]+=p[0];a[1]+=p[1];a[2]+=p[2];a[3]++}S=S.map((c,ci)=>acc[ci][3]?acc[ci].slice(0,3).map(v=>Math.round(v/acc[ci][3])):c)}S.sort((a,b)=>lum(a)-lum(b));
