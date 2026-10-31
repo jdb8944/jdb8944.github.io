@@ -1580,6 +1580,19 @@ img[src^="spr:"]{opacity:0}
 .cgk-pc em{font-style:normal;font-size:.78rem;margin-top:2px;word-break:keep-all}
 .cgk-pc:hover em{color:var(--accent)}
 .cgx-pal{display:flex;height:22px;margin:0 0 18px}.cgx-pal i{flex:1}
+
+/* hover 비교 (임시) */
+.hmx{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:12;display:flex;align-items:center;gap:2px;background:var(--bg);border:1px solid var(--rule);border-radius:999px;padding:4px 4px 4px 14px;box-shadow:0 6px 24px rgba(0,0,0,.12)}
+.hmx span{font-size:.58rem;letter-spacing:.14em;color:var(--muted);margin-right:8px}
+.hmx button{font:inherit;font-size:.78rem;background:none;border:0;border-radius:999px;padding:7px 13px;cursor:pointer;color:var(--muted)}
+.hmx button[aria-pressed=true]{background:var(--fg);color:var(--bg)}
+.fph .hx{position:absolute;inset:0;z-index:3;pointer-events:none}
+#shelf:not([data-hm=l]) .fph .hl{display:none}
+#shelf:not([data-hm=l]) .fitem:hover .fph:has(.hx) .hov{opacity:0}
+.hxv{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .35s ease}.hxv.in{opacity:1}
+.hxs{position:absolute;left:10px;right:10px;bottom:10px;display:flex;gap:3px}.hxs b{flex:1;height:2px;background:rgba(255,255,255,.35)}.hxs b.on{background:#fff}
+.hxp{position:absolute;left:0;right:0;bottom:0;height:22%;display:flex;animation:hxp .45s ease}.hxp b{flex:1;position:relative}.hxp em{position:absolute;left:6px;bottom:5px;font-style:normal;font-size:.5rem;letter-spacing:.06em;color:rgba(255,255,255,.75);mix-blend-mode:difference}
+@keyframes hxp{from{transform:translateY(100%)}to{transform:none}}
 /* ── about ── */
 .about{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,6vw,80px)}
 .about .lead{font-family:var(--display);font-size:var(--s1);line-height:1.85;max-width:30em;display:grid;gap:1em}
@@ -2199,6 +2212,8 @@ const laurels=i=>{const L=(FEST[i]||[]).filter(x=>x[0]!=="Production Support"&&x
   if(!L.length)return "";
   const n=L.length,c=n<2?1:n<5?2:n<10?3:4,sc=n<2?1.5:n<3?1.1:n<5?.9:n<7?.72:n<10?.6:.48;
   return `<span class="lr" style="--c:${c};--s:${sc}">${L.map(([t,y,ko,en],n)=>{const lg=flogo(en),cl=`lrl${t==="Award"?" lw":""}${lg?" lg":""}`;return lg?`<span class="${cl}" style="--d:${n*70}ms">${LBR}<span class="lgc"><img src="img/fl/${lg}.webp" alt="${esc(festShort(en))}"><span class="lrt"><em>${esc(festLabel(t,en))}</em><i>${y}</i></span></span>${LBR}</span>`:`<span class="${cl}" style="--d:${n*70}ms">${LBR}<span class="lrt"><em>${esc(festLabel(t,en))}</em><b>${esc(festShort(en))}</b><i>${y}</i></span>${LBR}</span>`}).join("")}</span>`};
+var hmode="v";try{hmode=localStorage.getItem("icf-hm")||"v"}catch(_){}
+const HM=()=>hmode;
 const LOGX={34:"사람이 떠난 집에 혼자 남은 남자. 여덟 개의 장면, 여덟 개의 색."};
 const logline=i=>{let t=LOGX[i]||(INFO[i]&&INFO[i][0]&&INFO[i][0].join(" "))||"";if(!t)return "";
   const m=t.match(/^.*?[.?!。](?=\s|$)/);t=(m?m[0]:t).trim();if(t.length>70)t=t.slice(0,68).replace(/[\s,]+\S*$/,"")+"…";
@@ -2209,14 +2224,15 @@ function filmList(){
   const FF=FO.map(i=>F[i]);const tabs=[["all","All",FF.length],["dir","Directed",FF.filter(isDir).length],["dop","Cinematography",FF.filter(isDop).length],["col","Color",FF.filter(isCol).length]];
   const items=FO.map(i=>[F[i],i]).map(([f,i])=>{const k="f"+i,s=pickStill(i);const tags=["all",isDir(f)&&"dir",isDop(f)&&"dop",isCol(f)&&"col"].filter(Boolean).join(" ");
     return `<a class="fitem" href="#film-${i}" data-i="${i}" data-k="f${i}" data-tags="${tags}">
-      <span class="fph"><img src="${has(k,"s")?SU(k,s):img(i)}" alt="${esc(f[0])}" loading="lazy" data-s="${s}"><img alt="" aria-hidden="true" class="off"><span class="hov">View project</span>${laurels(i)||logline(i)}</span>
+      <span class="fph"><img src="${has(k,"s")?SU(k,s):img(i)}" alt="${esc(f[0])}" loading="lazy" data-s="${s}"><img alt="" aria-hidden="true" class="off"><span class="hov">View project</span>${laurels(i)||`${logline(i)}<span class="hx" data-i="${i}"></span>`}</span>
       <span class="ft"><b>${esc(f[0])}<i>${f[1].slice(0,4)}</i></b><span class="fr">${roleEn(f)}</span></span>
     </a>`}).join("");
   const fk=[4,0,7,5,1,12,2,11,9,6,14,16,8,10,3,13,15,22,19,31].map(i=>"f"+i).sort(()=>Math.random()-.5);
   return `${whero("film","Film","Short films &amp; features",fk)}<div class="view works wtop">
     <div class="works-head"><p class="wcount mono">${FO.length} films</p>
       <div class="ftabs" role="group" aria-label="Filter">${tabs.map(([k,l,n])=>`<button class="ftab" id="f-${k}" data-filter="${k}" aria-pressed="${state.role===k}">${l}<sup>${n}</sup></button>`).join("")}</div></div>
-    <div class="fgrid" id="shelf">${items}</div>
+    <div class="fgrid" id="shelf" data-hm="${HM()}">${items}</div>
+    <div class="hmx" role="group" aria-label="Hover 비교"><span class="mono">Hover 비교</span>${[["l","로그라인"],["v","영상"],["s","스틸"],["p","팔레트"]].map(([k,t])=>`<button data-hm="${k}" aria-pressed="${HM()===k}">${t}</button>`).join("")}</div>
   </div>`;
 }
 
@@ -2240,7 +2256,8 @@ function commercial(){
   return `${whero("com","Commercial","Music videos &amp; brand films",ck)}<div class="view works wtop">
     <div class="works-head"><p class="wcount mono">${CO.length} works</p>
       <div class="ftabs" role="group" aria-label="Filter">${tabs.map(([k,l,n])=>`<button class="ftab" id="f-${k}" data-filter="${k}" aria-pressed="${state.kind===k}">${l}<sup>${n}</sup></button>`).join("")}</div></div>
-    <div class="fgrid" id="shelf">${items}</div>
+    <div class="fgrid" id="shelf" data-hm="${HM()}">${items}</div>
+    <div class="hmx" role="group" aria-label="Hover 비교"><span class="mono">Hover 비교</span>${[["l","로그라인"],["v","영상"],["s","스틸"],["p","팔레트"]].map(([k,t])=>`<button data-hm="${k}" aria-pressed="${HM()===k}">${t}</button>`).join("")}</div>
   </div>`;
 }
 
@@ -2257,7 +2274,8 @@ function artList(){
     </a>`}).join("");
   return `${whero("art","ArtFilm","Personal &amp; experimental works",[...ART,...ART,...ART].sort(()=>Math.random()-.5))}<div class="view works wtop">
     <div class="works-head"><p class="wcount mono">${AO.length} works</p></div>
-    <div class="fgrid" id="shelf">${items}</div>
+    <div class="fgrid" id="shelf" data-hm="${HM()}">${items}</div>
+    <div class="hmx" role="group" aria-label="Hover 비교"><span class="mono">Hover 비교</span>${[["l","로그라인"],["v","영상"],["s","스틸"],["p","팔레트"]].map(([k,t])=>`<button data-hm="${k}" aria-pressed="${HM()===k}">${t}</button>`).join("")}</div>
   </div>`;
 }
 /* ───────── 작품 페이지 (Film · Commercial 공통) ───────── */
@@ -3516,7 +3534,7 @@ function bind(h){
   clearInterval(showTimer);
   if(reelOff){reelOff();reelOff=null}
   if(h==="art"){bindHero();bindShelf();return}
-  if(h==="film"||h==="commercial"){applyFilter($("#shelf"),h==="film"?state.role:state.kind,false);bindHero();bindShelf();return}
+  if(h==="film"||h==="commercial"){applyFilter($("#shelf"),h==="film"?state.role:state.kind,false);bindHero();bindShelf();if(h==="film")bindHX();return}
   if(/^film-\d+$/.test(h))return bindGallery("f"+h.split("-")[1]);
   if(/^commercial-\d+$/.test(h))return bindGallery("c"+h.split("-")[1]);
   if(/^color/.test(h))return bindColor();
@@ -3569,6 +3587,28 @@ document.addEventListener("click",e=>{
 });
 addEventListener("hashchange",route);
 route();
+
+/* ───────── 영화제 없는 작품의 hover 비교 (임시) ───────── */
+function bindHX(){
+  const sh=$("#shelf");if(!sh)return;
+  document.querySelectorAll(".hmx button").forEach(b=>b.addEventListener("click",()=>{hmode=b.dataset.hm;try{localStorage.setItem("icf-hm",hmode)}catch(_){}sh.dataset.hm=hmode;document.querySelectorAll(".hmx button").forEach(x=>x.setAttribute("aria-pressed",x===b))}));
+  sh.querySelectorAll(".fitem").forEach(it=>{const hx=it.querySelector(".hx");if(!hx)return;const k=it.dataset.k,ph=it.querySelector(".fph");
+    let vid=null,on=false;
+    const clips=()=>{const h=(typeof HCLIPS!=="undefined"?HCLIPS:[]).filter(c=>c[1]===k).map(c=>c[0]),r=RCLIPS.filter(c=>c[1]===k).map(c=>c[0]).sort(()=>Math.random()-.5);return [...h,...r]};
+    const front=()=>{const [a,b]=ph.querySelectorAll("img");return a.classList.contains("off")?b:a};
+    it.addEventListener("mouseenter",()=>{on=true;const m=sh.dataset.hm;
+      if(m==="v"){const L=clips();if(!L.length)return;let n=0;vid=document.createElement("video");vid.muted=true;vid.playsInline=true;vid.className="hxv";
+        const nx=()=>{vid.src=`mv/${L[n++%L.length]}.mp4`;vid.play().catch(()=>{})};vid.addEventListener("ended",nx);vid.addEventListener("playing",()=>vid.classList.add("in"),{once:true});nx();hx.appendChild(vid)}
+      if(m==="s"){const G=gl(k);hx.innerHTML=G.length>1?`<i class="hxs">${G.map(()=>"<b></b>").join("")}</i>`:""}
+      if(m==="p"){const im=front();const draw=()=>{if(!on)return;try{const c=document.createElement("canvas"),w=48,h=27;c.width=w;c.height=h;const x=c.getContext("2d");x.drawImage(im,0,0,w,h);const d=x.getImageData(0,0,w,h).data,px=[];for(let j=0;j<d.length;j+=4)px.push([d[j],d[j+1],d[j+2]]);
+          const lum=p=>.2126*p[0]+.7152*p[1]+.0722*p[2];px.sort((a,b)=>lum(a)-lum(b));let S=[0,1,2,3,4,5].map(q=>px[Math.floor((q+.5)*px.length/6)].slice());for(let it=0;it<8;it++){const acc=S.map(()=>[0,0,0,0]);for(const p of px){let bi=0,bd=1e9;S.forEach((c,ci)=>{const d=(c[0]-p[0])**2+(c[1]-p[1])**2+(c[2]-p[2])**2;if(d<bd){bd=d;bi=ci}});const a=acc[bi];a[0]+=p[0];a[1]+=p[1];a[2]+=p[2];a[3]++}S=S.map((c,ci)=>acc[ci][3]?acc[ci].slice(0,3).map(v=>Math.round(v/acc[ci][3])):c)}S.sort((a,b)=>lum(a)-lum(b));
+          hx.innerHTML=`<i class="hxp">${S.map(a=>{const hex="#"+a.map(v=>v.toString(16).padStart(2,"0")).join("");return `<b style="background:${hex}"><em class="mono">${hex}</em></b>`}).join("")}</i>`}catch(e){}};im.complete?draw():im.addEventListener("load",draw,{once:true})}
+    });
+    it.addEventListener("mousemove",e=>{if(sh.dataset.hm!=="s")return;const G=gl(k);if(G.length<2)return;const r=ph.getBoundingClientRect(),j=Math.min(G.length-1,Math.floor((e.clientX-r.left)/r.width*G.length));
+      const f=front();if(f.dataset.s==G[j])return;f.dataset.s=G[j];setSrc(f,SU(k,G[j]));hx.querySelectorAll(".hxs b").forEach((b,q)=>b.classList.toggle("on",q===j))});
+    it.addEventListener("mouseleave",()=>{on=false;if(vid){vid.pause();vid.removeAttribute("src");vid.load();vid=null}hx.innerHTML=""});
+  });
+}
 </script>
 
 </body></html>
