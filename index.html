@@ -3604,7 +3604,7 @@ function bindInstant(){
 function bind(h){
   clearInterval(showTimer);
   if(reelOff){reelOff();reelOff=null}
-  if(h==="art"){bindHero();bindShelf();$("#shelf")&&($("#shelf").dataset.hm="u");bindHX();return}
+  if(h==="art"){bindHero();bindShelf();bindHX();return}
   if(h==="film"||h==="commercial"){applyFilter($("#shelf"),h==="film"?state.role:state.kind,false);bindHero();bindShelf();bindHX();return}
   if(/^film-\d+$/.test(h))return bindGallery("f"+h.split("-")[1]);
   if(/^commercial-\d+$/.test(h))return bindGallery("c"+h.split("-")[1]);
