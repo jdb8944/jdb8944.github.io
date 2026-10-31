@@ -1993,7 +1993,7 @@ const FEST={
    ["Official Selection","2026","제22회 제천국제음악영화제 · 녹턴 스페셜: 피아니시모","22nd Jecheon International Music & Film Festival (JIMFF) — Nocturne Special: Pianissimo"],
    ["Production Support", "2024", "한국예술종합학교 2024 전문사 장편영화 제작지원 선정작", "K-ARTS 2024 M.F.A. Feature Film Production Grant"],
    ["Production Support", "2024", "충남정보문화산업진흥원 2024 충남 독립예술영화 제작지원 선정작", "Chungnam ICT & Culture Industry Agency — 2024 Independent Film Production Grant"]],
-1:[["Award","2026","제13회 필름게이트 영화제 · 작품상","13th Filmgate Film Festival — Best Film"],
+1:[["Award","2025","제13회 필름게이트 영화제 · 작품상","13th Filmgate Film Festival — Best Film"],
    ["Production Support","2025","제27회 신영균문화예술재단 필름게이트 제작지원작","Shin Young-kyun Arts & Culture Foundation, 27th Filmgate — Production Grant"],
    ["Production Support","2025","제이포엔터테인먼트 단편영화 제작지원작","J4 Entertainment Short Film Production Support"],
    ["Production Support", "2025", "한국예술종합학교 영상원 영화과 고급 워크숍 제작", "K-ARTS School of Film — Advanced Workshop Production"]],
@@ -2006,7 +2006,7 @@ const FEST={
    ["Production Support", "2024", "한국예술종합학교 2024 전문사 촬영 고급 필름 프로젝트", "K-ARTS 2024 M.F.A. Cinematography — Advanced 35mm Film Project"]],
 5:[["Award","2026","제4회 브라질 한국영화제 (KOFF) · 경쟁부문 최우수 단편상 (관객투표)","4th Korean Film Festival — KOFF Brazil 2026 — Best Short Film, Audience Award"],
    ["Award","2025","제20회 파리한국영화제 · 심사위원 특별언급","20th Festival du Film Coréen à Paris (FFCP) — Jury Special Mention"],
-   ["Competition","2025","제22회 미쟝센 단편영화제 · 본선 경쟁","22nd Mise-en-scène Short Film Festival (MSFF) — Official Competition"],
+   ["Competition","2026","제22회 미쟝센 단편영화제 · 본선 경쟁","22nd Mise-en-scène Short Film Festival (MSFF) — Official Competition"],
    ["Competition","2025","제8회 전주국제단편영화제 · 경쟁","8th Jeonju International Short Film Festival — Competition"],
    ["Competition","2025","제25회 전북독립영화제 · 경쟁","25th Jeonbuk Independent Film Festival — Competition"],
    ["Competition","2025","남도영화제 시즌2 · 경쟁","Namdo Film Festival Season 2 — Competition"],
@@ -2058,6 +2058,9 @@ const FEST={
 14:[["Production Support", "2024", "한국예술종합학교 영상원 제작", "Produced at K-ARTS School of Film, TV & Multimedia"]],
 16:[["Production Support", "2023", "한국예술종합학교 영상원 제작", "Produced at K-ARTS School of Film, TV & Multimedia"]]
 };
+
+/* 영화제 개최일 (About 날짜순 정렬용): "작품|순번" */
+const FDATE={"0|0": "2026.07.02", "0|1": "2026.09.03", "1|0": "2025.12.11", "3|0": "2025.09.19", "4|0": "2025.09.17", "4|1": "2025.11.26", "5|0": "2026.10.01", "5|1": "2025.10.28", "5|2": "2026.06.18", "5|3": "2025.09.25", "5|4": "2025.10", "5|5": "2025.10.23", "5|6": "2025.09.04", "5|7": "2025.06.26", "7|0": "2026.07.16", "8|0": "2026.10.27", "8|1": "2026.10.27", "8|2": "2026.10.27", "10|0": "2025.09.27", "11|0": "2025.09.03", "11|1": "2026.10.07", "11|2": "2026.05.01", "11|3": "2026.09.02", "11|4": "2025.11.06", "11|5": "2025.06.20", "11|8": "2025.11.24", "12|0": "2025.07.03", "13|1": "2025.09.24", "13|2": "2025.11.06", "13|3": "2025.10.17", "15|0": "2025.09.05", "15|1": "2024.09", "32|0": "2026.10.23"};
 /* 테크 스펙: 카메라별 기본 사양을 붙여 자동 구성 */
 const CAMS=[
  [/Alexa Mini/i,"ARRI Alexa Mini","Super 35 ALEV III CMOS",k=>ARRIRAW.has(k)?"ARRIRAW 3.4K Open Gate · 4:3":"Apple ProRes 4K UHD · 10-bit 4:2:2","ARRI LogC3 · ARRI Wide Gamut 3"],
@@ -2446,7 +2449,7 @@ function about(){
 ["2019",[["COIN LAUNDRY","청학카페거리영화제 본선 경쟁"],["겨울 한강, 데이트","코닥어패럴 본선"]]],
 ["2018",[["원스 어폰 어 타임 인 경성","불독국제영화제 본선 경쟁"],["개는 구덩이를 판다","상록수단편영화제 · 울산단편영화제 본선 경쟁"]]],
 ["2017",[["광속전사 김민성","서울세계단편영화제 본선 경쟁"]]]];
-  const AW=[];Object.entries(FEST).forEach(([i,l])=>{i=+i;const k="f"+i;l.forEach(([t,y,ko,en])=>{if(t==="Production Support")return;AW.push({y,t:F[i][0],f:ko,en,ty:t,w:t==="Award",i,src:has(k,"s")?SU(k,rs(k)):""})})});
+  const AW=[];Object.entries(FEST).forEach(([i,l])=>{i=+i;const k="f"+i;l.forEach(([t,y,ko,en],n)=>{if(t==="Production Support")return;const d=FDATE[i+"|"+n]||"";AW.push({y:d?d.slice(0,4):y,d,t:F[i][0],f:ko,en,ty:t,w:t==="Award",i,src:has(k,"s")?SU(k,rs(k)):""})})});
   const YS=[...new Set(AW.map(a=>a.y))].sort().reverse();const NA=AW.filter(a=>a.w).length;
   const blk=(t,items)=>`<div class="ab-row"><h3>${t}</h3><ul>${items.map(x=>`<li>${x}</li>`).join("")}</ul></div>`;
   const KIT=[["Camera",["ARRI Alexa Mini","Panasonic S1M2"]],["Lens",["DZOFILM Arles Prime 14–100","DZOFILM Pictor Zoom 12–125","Leica R Vintage Cine-mod 16–135"]],["Light",["Aputure 1200X ×2","Aputure 600C mk2 ×2","Aputure 80C ×4","Amaran 300C","Aputure F21C, F22C","B7c 8 kit, MC Pro 8 kit"]],["Support",["Movi Pro (Ignite)","Ronin RS3 Pro","일우 미니집, Dolly","Greenbull Slider"]],["Monitor",["SmallHD Cine 7 ×3","Hollyland Mars M1 Duo","Vaxis Storm 3000","Atomos Sumo 19SE","OSEE 15″"]],["Grading",["DaVinci Resolve","EIZO CG2700","Dehancer, DCTL, Neat Video"]]];
@@ -2474,7 +2477,7 @@ function about(){
   <section class="ab-sec ab-aw">
     <p class="ab-no mono">03 — Awards &amp; Screenings</p>
     <div class="aw-sum"><b>${AW.length}</b><span>Festival selections, awards &amp; screenings · ${YS[YS.length-1]} — ${YS[0]}<br>${NA} awards · ${new Set(AW.map(a=>a.i)).size} films</span></div>
-    ${YS.map(y=>`<div class="aw-yr"><h3>${y}</h3><ol>${AW.filter(a=>a.y===y).sort((p,q)=>q.w-p.w).map(a=>`<li${a.w?' class="aw-win"':""}><a href="#film-${a.i}" class="aw-th"${a.src?` style="background-image:url('${a.src}')"`:""}></a><div class="aw-t"><span class="aw-f">${esc(a.f)}</span><span class="aw-en">${esc(a.en)}</span><span class="aw-m"><a href="#film-${a.i}" class="aw-lk">${esc(a.t)}<span aria-hidden="true"> ↗</span></a> <em>${a.w?"Award":esc(a.ty)}</em></span></div></li>`).join("")}</ol></div>`).join("")}
+    ${YS.map(y=>`<div class="aw-yr"><h3>${y}</h3><ol>${AW.filter(a=>a.y===y).sort((p,q)=>(q.d||"0").localeCompare(p.d||"0")).map(a=>`<li${a.w?' class="aw-win"':""}><a href="#film-${a.i}" class="aw-th"${a.src?` style="background-image:url('${a.src}')"`:""}></a><div class="aw-t"><span class="aw-f">${esc(a.f)}</span><span class="aw-en">${esc(a.en)}</span><span class="aw-m"><a href="#film-${a.i}" class="aw-lk">${esc(a.t)}<span aria-hidden="true"> ↗</span></a> <em>${a.w?"Award":esc(a.ty)}</em></span></div></li>`).join("")}</ol></div>`).join("")}
   </section>
   ${clientSection("04")}
   <section class="ab-sec">
