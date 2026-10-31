@@ -2212,7 +2212,7 @@ const laurels=i=>{const L=(FEST[i]||[]).filter(x=>x[0]!=="Production Support"&&x
   if(!L.length)return "";
   const n=L.length,c=n<2?1:n<5?2:n<10?3:4,sc=n<2?1.5:n<3?1.1:n<5?.9:n<7?.72:n<10?.6:.48;
   return `<span class="lr" style="--c:${c};--s:${sc}">${L.map(([t,y,ko,en],n)=>{const lg=flogo(en),cl=`lrl${t==="Award"?" lw":""}${lg?" lg":""}`;return lg?`<span class="${cl}" style="--d:${n*70}ms">${LBR}<span class="lgc"><img src="img/fl/${lg}.webp" alt="${esc(festShort(en))}"><span class="lrt"><em>${esc(festLabel(t,en))}</em><i>${y}</i></span></span>${LBR}</span>`:`<span class="${cl}" style="--d:${n*70}ms">${LBR}<span class="lrt"><em>${esc(festLabel(t,en))}</em><b>${esc(festShort(en))}</b><i>${y}</i></span>${LBR}</span>`}).join("")}</span>`};
-var hmode="v";try{hmode=localStorage.getItem("icf-hm")||"v"}catch(_){}
+var hmode="v";
 const HM=()=>hmode;
 const LOGX={34:"사람이 떠난 집에 혼자 남은 남자. 여덟 개의 장면, 여덟 개의 색."};
 const logline=i=>{let t=LOGX[i]||(INFO[i]&&INFO[i][0]&&INFO[i][0].join(" "))||"";if(!t)return "";
@@ -2232,7 +2232,6 @@ function filmList(){
     <div class="works-head"><p class="wcount mono">${FO.length} films</p>
       <div class="ftabs" role="group" aria-label="Filter">${tabs.map(([k,l,n])=>`<button class="ftab" id="f-${k}" data-filter="${k}" aria-pressed="${state.role===k}">${l}<sup>${n}</sup></button>`).join("")}</div></div>
     <div class="fgrid" id="shelf" data-hm="${HM()}">${items}</div>
-    <div class="hmx" role="group" aria-label="Hover 비교"><span class="mono">Hover 비교</span>${[["l","로그라인"],["v","영상"],["s","스틸"],["p","팔레트"]].map(([k,t])=>`<button data-hm="${k}" aria-pressed="${HM()===k}">${t}</button>`).join("")}</div>
   </div>`;
 }
 
@@ -2257,7 +2256,6 @@ function commercial(){
     <div class="works-head"><p class="wcount mono">${CO.length} works</p>
       <div class="ftabs" role="group" aria-label="Filter">${tabs.map(([k,l,n])=>`<button class="ftab" id="f-${k}" data-filter="${k}" aria-pressed="${state.kind===k}">${l}<sup>${n}</sup></button>`).join("")}</div></div>
     <div class="fgrid" id="shelf" data-hm="${HM()}">${items}</div>
-    <div class="hmx" role="group" aria-label="Hover 비교"><span class="mono">Hover 비교</span>${[["l","로그라인"],["v","영상"],["s","스틸"],["p","팔레트"]].map(([k,t])=>`<button data-hm="${k}" aria-pressed="${HM()===k}">${t}</button>`).join("")}</div>
   </div>`;
 }
 
@@ -2275,7 +2273,6 @@ function artList(){
   return `${whero("art","ArtFilm","Personal &amp; experimental works",[...ART,...ART,...ART].sort(()=>Math.random()-.5))}<div class="view works wtop">
     <div class="works-head"><p class="wcount mono">${AO.length} works</p></div>
     <div class="fgrid" id="shelf" data-hm="${HM()}">${items}</div>
-    <div class="hmx" role="group" aria-label="Hover 비교"><span class="mono">Hover 비교</span>${[["l","로그라인"],["v","영상"],["s","스틸"],["p","팔레트"]].map(([k,t])=>`<button data-hm="${k}" aria-pressed="${HM()===k}">${t}</button>`).join("")}</div>
   </div>`;
 }
 /* ───────── 작품 페이지 (Film · Commercial 공통) ───────── */
@@ -3591,7 +3588,6 @@ route();
 /* ───────── 영화제 없는 작품의 hover 비교 (임시) ───────── */
 function bindHX(){
   const sh=$("#shelf");if(!sh)return;
-  document.querySelectorAll(".hmx button").forEach(b=>b.addEventListener("click",()=>{hmode=b.dataset.hm;try{localStorage.setItem("icf-hm",hmode)}catch(_){}sh.dataset.hm=hmode;document.querySelectorAll(".hmx button").forEach(x=>x.setAttribute("aria-pressed",x===b))}));
   sh.querySelectorAll(".fitem").forEach(it=>{const hx=it.querySelector(".hx");if(!hx)return;const k=it.dataset.k,ph=it.querySelector(".fph");
     let vid=null,on=false;
     const clips=()=>{const h=(typeof HCLIPS!=="undefined"?HCLIPS:[]).filter(c=>c[1]===k).map(c=>c[0]),r=RCLIPS.filter(c=>c[1]===k).map(c=>c[0]).sort(()=>Math.random()-.5);return [...h,...r]};
