@@ -2992,7 +2992,7 @@ function newsView(){
           <div class="ntl-t"><p class="ntl-k mono">${esc(NKO[kind]||kind)}${w?` · <a href="${href}">${esc(w)}</a>`:""}${n>1?` · ${n} articles`:""}</p>
             <h3>${esc(h3)}</h3>
             <p class="ntl-x">${esc(body)}</p>
-            <ul class="ntl-hl${n>4?" more":""}">${x.items.map((m,q)=>`<li${q>=4?" hidden":""}><a href="${m[3]}" target="_blank" rel="noopener"><b>${esc(m[1])}</b><span>${esc(m[2])}</span><i>↗</i></a></li>`).join("")}</ul>
+            <ul class="ntl-hl${n>4?" hm":""}">${x.items.map((m,q)=>`<li${q>=4?" hidden":""}><a href="${m[3]}" target="_blank" rel="noopener"><b>${esc(m[1])}</b><span>${esc(m[2])}</span><i>↗</i></a></li>`).join("")}</ul>
             ${n>4?`<button class="ntl-mo mono" type="button">+ ${n-4} more</button>`:""}
           </div></div></article>`}).join("")}</section>`).join("")}</div></div>
   </div>`;
