@@ -1651,6 +1651,8 @@ img[src^="spr:"]{opacity:0}
 .ntl-t h3{margin-bottom:6px}
 .ntl-x{margin-bottom:10px;line-height:1.7}
 .ntl-hl a{padding:7px 2px}
+
+.nh-st{display:block;margin-top:18px;font-family:var(--mono);font-weight:400;font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;opacity:.72;white-space:pre;text-align:center}
 /* ── about ── */
 .about{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,6vw,80px)}
 .about .lead{font-family:var(--display);font-size:var(--s1);line-height:1.85;max-width:30em;display:grid;gap:1em}
@@ -1749,7 +1751,6 @@ img[src^="spr:"]{opacity:0}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
-
 
 <header>
   <div class="wrap">
@@ -2989,7 +2990,7 @@ function newsView(){
   const FA=Object.values(FEST).flat(),fests=new Set(FA.filter(f=>f[0]!=="Production Support").map(f=>f[2].split(" · ")[0].replace(/제\s*\d+\s*회\s*/,"")));
   const ST=[[NEWS.length,"Articles","기사"],[new Set(NEWS.map(n=>n[1])).size,"Outlets","매체"],[FA.filter(f=>f[0]==="Award").length,"Awards","수상"]];
   return `<div class="view nwv">
-    <section class="nhero dark" id="nH"><div class="nh-bg" id="nHb">${HK.map((k,i)=>`<i class="${i?"":"on"}" style="background-image:url('${nImg(k)}')"></i>`).join("")}</div><h1 id="nHt">News</h1><span class="nh-dn mono">Scroll</span></section>
+    <section class="nhero dark" id="nH"><div class="nh-bg" id="nHb">${HK.map((k,i)=>`<i class="${i?"":"on"}" style="background-image:url('${nImg(k)}')"></i>`).join("")}</div><h1 id="nHt">News<span class="nh-st mono">${ST.map(([n,en])=>`${n} ${en}`).join("  ·  ")}</span></h1><span class="nh-dn mono">Scroll</span></section>
     <div class="npanel">
     <div class="ntl">${Object.keys(Y).sort().reverse().map(y=>`<section class="ntl-y"><h2 class="ntl-yh mono">${y}</h2>
       ${Y[y].map(x=>{const [k,,title,kind]=x.e,w=wTitle(k),href=k?`#${k[0]==="f"?"film":"commercial"}-${k.slice(1)}`:"",h3=title.includes(" — ")?title.split(" — ").slice(1).join(" — "):title;
