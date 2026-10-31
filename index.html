@@ -1588,7 +1588,7 @@ img[src^="spr:"]{opacity:0}
 .hmx button[aria-pressed=true]{background:var(--fg);color:var(--bg)}
 .fph .hx{position:absolute;inset:0;z-index:3;pointer-events:none}
 #shelf:not([data-hm=l]) .fph .hl{display:none}
-#shelf:not([data-hm=l]) .fitem:hover .fph:has(.hx) .hov{opacity:0}
+.fitem:hover .fph:has(.hxv.in) .hov{opacity:0}
 .hxv{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .35s ease}.hxv.in{opacity:1}
 .hxs{position:absolute;left:10px;right:10px;bottom:10px;display:flex;gap:3px}.hxs b{flex:1;height:2px;background:rgba(255,255,255,.35)}.hxs b.on{background:#fff}
 .hxp{position:absolute;left:0;right:0;bottom:0;height:22%;display:flex;animation:hxp .45s ease}.hxp b{flex:1;position:relative}.hxp em{position:absolute;left:6px;bottom:5px;font-style:normal;font-size:.5rem;letter-spacing:.06em;color:rgba(255,255,255,.75);mix-blend-mode:difference}
@@ -2249,7 +2249,7 @@ function commercial(){
   const items=CO.map(i=>[C[i],i]).map(([c,i])=>{const k="c"+i,r=cRole(i),n=has(k,"s")?MEDIA[k].s.length:0,s=rs(k);
     const tags="all "+ccat(i);
     return `<a class="fitem" href="#commercial-${i}" data-k="${k}" data-tags="${tags}">
-      <span class="fph"><img src="${n?SU(k,s):img(31+i)}" alt="${esc(c[0])}" loading="lazy" data-s="${s}"><img alt="" aria-hidden="true" class="off"><span class="hov">View project</span></span>
+      <span class="fph"><img src="${n?SU(k,s):img(31+i)}" alt="${esc(c[0])}" loading="lazy" data-s="${s}"><img alt="" aria-hidden="true" class="off"><span class="hov">View project</span><span class="hx"></span></span>
       <span class="ft"><b>${esc(c[0])}<i>${c[1].slice(0,4)}</i></b><span class="fr">${roleList(r).join(" · ")}</span></span>
       <span class="fk mono">${CCATN[ccat(i)]}${CCATN[ccat(i)]!==c[2]?" · "+esc(c[2]):""}</span>
     </a>`}).join("");
@@ -2269,7 +2269,7 @@ const pager=(t,i)=>{const k=t+i;
 function artList(){
   const items=AO.map(a=>{const s=rs(a.k);const r=a.f?roleEn(a.d):roleList(cRole(a.i)).join(" · ");
     return `<a class="fitem" href="${a.href}" data-k="${a.k}" data-tags="all">
-      <span class="fph"><img src="${SU(a.k,s)}" alt="${esc(a.d[0])}" loading="lazy" data-s="${s}"><img alt="" aria-hidden="true" class="off"><span class="hov">View project</span>${a.f?laurels(a.i):""}</span>
+      <span class="fph"><img src="${SU(a.k,s)}" alt="${esc(a.d[0])}" loading="lazy" data-s="${s}"><img alt="" aria-hidden="true" class="off"><span class="hov">View project</span>${(a.f&&laurels(a.i))||`<span class="hx"></span>`}</span>
       <span class="ft"><b>${esc(a.d[0])}<i>${a.d[1].slice(0,4)}</i></b><span class="fr">${r}</span></span>
     </a>`}).join("");
   return `${whero("art","ArtFilm","Personal &amp; experimental works",[...ART,...ART,...ART].sort(()=>Math.random()-.5))}<div class="view works wtop">
@@ -3534,8 +3534,8 @@ function bindInstant(){
 function bind(h){
   clearInterval(showTimer);
   if(reelOff){reelOff();reelOff=null}
-  if(h==="art"){bindHero();bindShelf();return}
-  if(h==="film"||h==="commercial"){applyFilter($("#shelf"),h==="film"?state.role:state.kind,false);bindHero();bindShelf();if(h==="film")bindHX();return}
+  if(h==="art"){bindHero();bindShelf();bindHX();return}
+  if(h==="film"||h==="commercial"){applyFilter($("#shelf"),h==="film"?state.role:state.kind,false);bindHero();bindShelf();bindHX();return}
   if(/^film-\d+$/.test(h))return bindGallery("f"+h.split("-")[1]);
   if(/^commercial-\d+$/.test(h))return bindGallery("c"+h.split("-")[1]);
   if(/^color/.test(h))return bindColor();
@@ -3590,11 +3590,12 @@ addEventListener("hashchange",route);
 route();
 
 /* ───────── 영화제 없는 작품의 hover 비교 (임시) ───────── */
+const HVCLIPS=[["hv/c10_1","c10"],["hv/c10_2","c10"],["hv/c12_1","c12"],["hv/c12_2","c12"],["hv/c13_1","c13"],["hv/c14_1","c14"],["hv/c14_2","c14"],["hv/c15_1","c15"],["hv/c15_2","c15"],["hv/c16_1","c16"],["hv/c16_2","c16"],["hv/c17_1","c17"],["hv/c17_2","c17"],["hv/c18_1","c18"],["hv/c18_2","c18"],["hv/c19_1","c19"],["hv/c19_2","c19"],["hv/c20_1","c20"],["hv/c20_2","c20"],["hv/c21_1","c21"],["hv/c21_2","c21"],["hv/c22_1","c22"],["hv/c22_2","c22"],["hv/c23_1","c23"],["hv/c23_2","c23"],["hv/c24_1","c24"],["hv/c24_2","c24"],["hv/c25_1","c25"],["hv/c25_2","c25"],["hv/c26_1","c26"],["hv/c26_2","c26"],["hv/c27_1","c27"],["hv/c29_1","c29"],["hv/c29_2","c29"],["hv/c3_1","c3"],["hv/c3_2","c3"],["hv/f19_1","f19"],["hv/f19_2","f19"],["hv/f22_1","f22"],["hv/f22_2","f22"],["hv/f27_1","f27"],["hv/f27_2","f27"],["hv/f28_1","f28"],["hv/f28_2","f28"],["hv/f30_1","f30"],["hv/f30_2","f30"]];
 function bindHX(){
   const sh=$("#shelf");if(!sh)return;
   sh.querySelectorAll(".fitem").forEach(it=>{const hx=it.querySelector(".hx");if(!hx)return;const k=it.dataset.k,ph=it.querySelector(".fph");
     let vid=null,on=false;
-    const clips=()=>{const h=(typeof HCLIPS!=="undefined"?HCLIPS:[]).filter(c=>c[1]===k).map(c=>c[0]),r=RCLIPS.filter(c=>c[1]===k).map(c=>c[0]).sort(()=>Math.random()-.5);return [...h,...r]};
+    const clips=()=>{const h=(typeof HCLIPS!=="undefined"?HCLIPS:[]).filter(c=>c[1]===k).map(c=>c[0]),r=[...RCLIPS,...HVCLIPS].filter(c=>c[1]===k).map(c=>c[0]).sort(()=>Math.random()-.5);return [...h,...r]};
     const front=()=>{const [a,b]=ph.querySelectorAll("img");return a.classList.contains("off")?b:a};
     it.addEventListener("mouseenter",()=>{on=true;const m=sh.dataset.hm;
       if(m==="v"){const L=clips();if(!L.length)return;let n=0;vid=document.createElement("video");vid.muted=true;vid.playsInline=true;vid.className="hxv";
