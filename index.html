@@ -1717,6 +1717,18 @@ img[src^="spr:"]{opacity:0}
 .hb-no,.hb-c{font-size:.62rem;letter-spacing:.12em;color:inherit;opacity:.7}
 .hb-r b{font-family:"Noto Sans KR",sans-serif;font-weight:800;font-size:clamp(1.3rem,2.4vw,2.2rem);letter-spacing:-.035em}.hb-r i{font-style:normal;font-size:.8rem;opacity:.7}
 @media(max-width:820px){.hg{grid-template-columns:1fr 1fr}.hg-c,.hg-c.big,.hg-c:nth-child(n+6){grid-column:span 2;aspect-ratio:16/9}.hb-r{grid-template-columns:28px 1fr auto}.hb-r i{display:none}.hlx{max-width:calc(100vw - 24px);overflow-x:auto}}
+
+/* 작품 페이지: 쇼릴을 배경에 고정 (시험: 트로픽) */
+:root:has(.fd-bg) body{background:#0b0b0b}
+.fd-bg{--bg:#0b0b0b;--fg:#ece8e0;--muted:#9b978f;--rule:rgba(255,255,255,.14);color:var(--fg);position:relative}
+.fd-bg .fd-rl{position:fixed;inset:0;z-index:0}
+.fd-bg .fd-hero{background-image:none!important;background:transparent}
+.fd-bg .fd-hero::after{background:linear-gradient(180deg,rgba(0,0,0,.25),transparent 30%,rgba(0,0,0,.35) 70%,rgba(11,11,11,.75))}
+.fd-bg>section:not(.fd-hero),.fd-bg>nav,.fd-bg>div:not(.lb){position:relative;z-index:1;background:rgba(11,11,11,.78);-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px);margin-top:0!important;margin-bottom:0!important;padding-top:clamp(28px,3.5vw,56px);padding-bottom:clamp(28px,3.5vw,56px);max-width:none}
+.fd-bg>section:not(.fd-hero)>*,.fd-bg>nav>*{max-width:1240px;margin-left:auto;margin-right:auto}
+.fd-bg .fd-syn p,.fd-bg .fd-side p,.fd-bg .credits dd,.fd-bg dd{color:#d6d2ca}
+.fd-bg a{color:inherit}
+.fd-bg .lb{z-index:50}
 /* ── about ── */
 .about{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,6vw,80px)}
 .about .lead{font-family:var(--display);font-size:var(--s1);line-height:1.85;max-width:30em;display:grid;gap:1em}
@@ -2447,9 +2459,9 @@ const festBlock=fest=>{const rich=fest.filter(x=>Array.isArray(x)&&x.length===4)
 function keyFrame(k,title){const m=MEDIA[k];if(!m||!m.s||!m.s.length)return `<div class="fd-syn"></div>`;
   const l=gl(k).filter(j=>j>0),j=l.length?l[rnd(l.length)]:0;
   return `<figure class="fd-key"><img src="${SU(k,j)}" alt="${esc(title)} still" loading="lazy"></figure>`}
-const HREEL=new Set(["f7","c0"]);
+const HREEL=new Set(["f7","c0"]),BGREEL=new Set(["f7"]);
 function detailShell({k,title,kicker,roles,meta,heroSrc,intro,side,fest,staff,spec,yt,video,prev,next,list}){
-  return `<article class="view fd">
+  return `<article class="view fd${BGREEL.has(k)?" fd-bg dark":""}">
     <section class="fd-hero dark" data-k="${k}" style="background-image:url('${heroSrc}')">${HREEL.has(k)?`<div class="fd-rl" aria-hidden="true"><video muted playsinline preload="auto"></video><video muted playsinline preload="auto"></video></div>`:""}
       <div class="fd-title wrap"><div class="fd-tl">
         <div class="fd-roles">${roles.map(r=>`<span>${r}</span>`).join("")}</div>
@@ -3862,7 +3874,7 @@ function bindWReel(){
   const play=()=>{const v=V[cur];try{v.currentTime=0}catch(e){}v.play().catch(()=>{});V.forEach((x,j)=>x.classList.toggle("on",j===cur))};
   V[0].addEventListener("playing",()=>box.classList.add("in"),{once:true});
   V.forEach((v,j)=>v.addEventListener("ended",()=>{if(j!==cur)return;if(L.length<2){play();return}n++;const old=cur;cur=1-cur;play();setTimeout(()=>ld(V[old],n+1),80)}));
-  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)play();else V.forEach(v=>v.pause())}),{threshold:.1});io.observe(hero);
+  const fixed=!!hero.closest(".fd-bg");const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting||fixed)play();else V.forEach(v=>v.pause())}),{threshold:.1});io.observe(hero);
   const pr=reelOff;reelOff=()=>{io.disconnect();removeEventListener("resize",fit);V.forEach(v=>{v.pause();v.removeAttribute("src")});pr&&pr()};
 }
 
