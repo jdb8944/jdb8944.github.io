@@ -2064,7 +2064,7 @@ const enRT=s=>s?s.replace(/hour/,"h").replace(/(\d+)min/,"$1m").replace(/(\d+)se
 
 const state={role:"all",kind:"all",hv:"q"};
 try{const s=JSON.parse(localStorage.getItem("icf-filters")||"{}");["role","kind","hv"].forEach(k=>{if(s[k])state[k]=s[k]})}catch(_){}
-if(!["c","d","t","r","w","s","p","k","b","v","x","a","e","y","h","q"].includes(state.hv))state.hv="q";
+state.hv="q"; /* 홈은 쇼릴로 고정 */
 if(!["all","mv","cf","brand","corp","doc"].includes(state.kind))state.kind="all";
 const save=()=>{try{localStorage.setItem("icf-filters",JSON.stringify(state))}catch(_){}};
 
@@ -2121,7 +2121,7 @@ function homeD(){
   ${hvSwitch()}
   </div>`;
 }
-const hvSwitch=()=>`<div class="hv" role="group" aria-label="Home drafts">${[["q","Showreel"],["x","Slate"],["a","Aspect"],["e","Credits"],["y","Timeline"],["h","Spotlight"],["k","Contact"],["b","Spectrum"],["v","Monitor"],["s","Screening"],["p","Split"],["t","Titles"],["r","Reel"],["w","Wall"],["d","Instant"],["c","Cover"]].map(([k,l])=>`<button id="hv-${k}" data-hv="${k}" aria-pressed="${state.hv===k}">${l}</button>`).join("")}</div>`;
+const hvSwitch=()=>"";const hvSwitchOld=()=>`<div class="hv" role="group" aria-label="Home drafts">${[["q","Showreel"],["x","Slate"],["a","Aspect"],["e","Credits"],["y","Timeline"],["h","Spotlight"],["k","Contact"],["b","Spectrum"],["v","Monitor"],["s","Screening"],["p","Split"],["t","Titles"],["r","Reel"],["w","Wall"],["d","Instant"],["c","Cover"]].map(([k,l])=>`<button id="hv-${k}" data-hv="${k}" aria-pressed="${state.hv===k}">${l}</button>`).join("")}</div>`;
 function homeT(){
   const items=FO.map(i=>[F[i],i]).map(([f,i])=>{const k="f"+i,po=has(k,"p");
     const src=po?W(k,"p",0):has(k,"s")?SU(k,rs(k)):img(i);
