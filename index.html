@@ -1762,6 +1762,10 @@ img[src^="spr:"]{opacity:0}
 .hs-n{position:absolute;top:14px;right:16px;z-index:1;font-size:.6rem;letter-spacing:.12em;opacity:.8}
 .hs-hd{display:flex;justify-content:space-between;padding:0 clamp(16px,4vw,56px) 14px;font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
 .hx-s .hs{padding-left:clamp(16px,4vw,56px);padding-right:clamp(16px,4vw,56px)}
+
+.fd-rl.calm video{transition:opacity 1.2s ease}
+.fd-rl.calm{transform:scale(1.04);will-change:filter}
+.fd-bg>section:not(.fd-hero),.fd-bg>nav,.fd-bg>div:not(.lb){background:rgba(11,11,11,.66)}
 /* ── about ── */
 .about{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,6vw,80px)}
 .about .lead{font-family:var(--display);font-size:var(--s1);line-height:1.85;max-width:30em;display:grid;gap:1em}
@@ -3896,20 +3900,28 @@ function bindHX(){
 }
 
 /* 작품별 릴: 그 작품의 컷을 이어 재생 */
+const LCLIPS={f7:["h/f7_2","L/f7_L1","L/f7_L2","L/f7_L3","L/f7_L4","L/f7_L5"]};
 function bindWReel(){
   const hero=$(".fd-hero[data-k]");if(!hero)return;const k=hero.dataset.k,box=hero.querySelector(".fd-rl");if(!box)return;
-  const h=HCLIPS.filter(c=>c[1]===k).map(c=>c[0]),o=[...RCLIPS,...HVCLIPS].filter(c=>c[1]===k).map(c=>c[0]).sort(()=>Math.random()-.5);
-  const L=[...h,...o];if(!L.length)return;
+  const calm=!!hero.closest(".fd-bg");
+  let L;if(calm&&LCLIPS[k])L=LCLIPS[k].slice().sort(()=>Math.random()-.5);else{const h=HCLIPS.filter(c=>c[1]===k).map(c=>c[0]),o=[...RCLIPS,...HVCLIPS].filter(c=>c[1]===k).map(c=>c[0]).sort(()=>Math.random()-.5);L=[...h,...o]}
+  if(!L.length)return;
   const V=[...box.querySelectorAll("video")],c=HCROP[k]||[0,0,1,1];
   const fit=()=>{const W=box.clientWidth,H=box.clientHeight,vw=Math.max(W/c[2],H/(.5625*c[3])),vh=vw*.5625;V.forEach(v=>Object.assign(v.style,{width:vw+"px",height:vh+"px",left:(W/2-vw*(c[0]+c[2]/2))+"px",top:(H/2-vh*(c[1]+c[3]/2))+"px"}))};
   fit();addEventListener("resize",fit);
-  let n=0,cur=0;const ld=(v,i)=>{v.src=`mv/${L[i%L.length]}.mp4`;v.load()};
+  let n=0,cur=0,swapping=false;const ld=(v,i)=>{v.src=`mv/${L[i%L.length]}.mp4`;v.load()};
   ld(V[0],0);if(L.length>1)ld(V[1],1);
-  const play=()=>{const v=V[cur];try{v.currentTime=0}catch(e){}v.play().catch(()=>{});V.forEach((x,j)=>x.classList.toggle("on",j===cur))};
+  const start=v=>{try{v.currentTime=0}catch(e){}v.play().catch(()=>{})};
+  const show=()=>{V.forEach((x,j)=>x.classList.toggle("on",j===cur))};
   V[0].addEventListener("playing",()=>box.classList.add("in"),{once:true});
-  V.forEach((v,j)=>v.addEventListener("ended",()=>{if(j!==cur)return;if(L.length<2){play();return}n++;const old=cur;cur=1-cur;play();setTimeout(()=>ld(V[old],n+1),80)}));
-  const fixed=!!hero.closest(".fd-bg");const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting||fixed)play();else V.forEach(v=>v.pause())}),{threshold:.1});io.observe(hero);
-  const pr=reelOff;reelOff=()=>{io.disconnect();removeEventListener("resize",fit);V.forEach(v=>{v.pause();v.removeAttribute("src")});pr&&pr()};
+  const next=()=>{if(L.length<2){start(V[cur]);return}n++;const old=cur;cur=1-cur;start(V[cur]);show();setTimeout(()=>{V[old].pause();ld(V[old],n+1);swapping=false},calm?1400:80)};
+  if(calm){box.classList.add("calm");V.forEach((v,j)=>v.addEventListener("timeupdate",()=>{if(j===cur&&!swapping&&v.duration&&v.currentTime>v.duration-1.2){swapping=true;next()}}))}
+  else V.forEach((v,j)=>v.addEventListener("ended",()=>{if(j===cur)next()}));
+  start(V[0]);show();
+  let raf=0;const sc=()=>{raf=0;if(!calm)return;const p=Math.min(1,Math.max(0,(scrollY-innerHeight*.35)/(innerHeight*.7)));box.style.filter=`blur(${(p*12).toFixed(1)}px) brightness(${(1-p*.45).toFixed(2)})`};
+  const os=()=>{if(!raf)raf=requestAnimationFrame(sc)};if(calm){addEventListener("scroll",os,{passive:true});sc()}
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting||calm)V[cur].play().catch(()=>{});else V.forEach(v=>v.pause())}),{threshold:.1});io.observe(hero);
+  const pr=reelOff;reelOff=()=>{io.disconnect();removeEventListener("resize",fit);removeEventListener("scroll",os);V.forEach(v=>{v.pause();v.removeAttribute("src")});pr&&pr()};
 }
 
 function bindSecReel(){
