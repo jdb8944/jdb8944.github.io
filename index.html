@@ -1594,10 +1594,10 @@ img[src^="spr:"]{opacity:0}
 .hxp{position:absolute;left:0;right:0;bottom:0;height:22%;display:flex;animation:hxp .45s ease}.hxp b{flex:1;position:relative}.hxp em{position:absolute;left:6px;bottom:5px;font-style:normal;font-size:.5rem;letter-spacing:.06em;color:rgba(255,255,255,.75);mix-blend-mode:difference}
 @keyframes hxp{from{transform:translateY(100%)}to{transform:none}}
 
-.fph .hr{position:absolute;inset:0;z-index:2;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.42);opacity:0;transition:opacity .4s ease;pointer-events:none}
-.fph .hr>span{display:flex;flex-direction:column;align-items:center;gap:8px;color:#f4f1ea;transform:translateY(8px);transition:transform .55s cubic-bezier(.2,.7,.2,1)}
-.fph .hr b{font-family:var(--essay);font-weight:400;font-size:clamp(1rem,6cqi,1.45rem);letter-spacing:.02em}
-.fph .hr i{font-style:normal;font-size:.56rem;letter-spacing:.16em;text-transform:uppercase;opacity:.75}
+.fph .hr{position:absolute;inset:0;z-index:4;display:flex;align-items:flex-end;padding:0 16px 14px;background:linear-gradient(180deg,rgba(0,0,0,0) 50%,rgba(0,0,0,.62));opacity:0;transition:opacity .35s ease;pointer-events:none}
+.fph .hr>span{display:flex;flex-direction:column;gap:5px;color:#fff;transform:translateY(6px);transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+.fph .hr b{font-family:"Pretendard","Noto Sans KR",system-ui,sans-serif;font-weight:700;font-size:clamp(.95rem,5cqi,1.2rem);letter-spacing:-.02em;line-height:1.2;text-shadow:0 1px 10px rgba(0,0,0,.35)}
+.fph .hr i{font-family:"Pretendard","Noto Sans KR",system-ui,sans-serif;font-style:normal;font-weight:500;font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;opacity:.82}
 .fitem:hover .hr,.fitem:focus-visible .hr{opacity:1}.fitem:hover .hr>span{transform:none}
 .fitem:hover .fph:has(.hr) .hov{opacity:0}
 .hxu{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:translateY(100%);transition:transform .8s cubic-bezier(.65,0,.35,1)}.hxu.in{transform:none}
@@ -2282,7 +2282,7 @@ function commercial(){
   const items=CO.map(i=>[C[i],i]).map(([c,i])=>{const k="c"+i,r=cRole(i),n=has(k,"s")?MEDIA[k].s.length:0,s=rs(k);
     const tags="all "+ccat(i);
     return `<a class="fitem" href="#commercial-${i}" data-k="${k}" data-tags="${tags}">
-      <span class="fph"><img src="${n?SU(k,s):img(31+i)}" alt="${esc(c[0])}" loading="lazy" data-s="${s}"><img alt="" aria-hidden="true" class="off"><span class="hov">View project</span>${roleHover(r)}</span>
+      <span class="fph"><img src="${n?SU(k,s):img(31+i)}" alt="${esc(c[0])}" loading="lazy" data-s="${s}"><img alt="" aria-hidden="true" class="off"><span class="hov">View project</span><span class="hx"></span>${roleHover(r)}</span>
       <span class="ft"><b>${esc(c[0])}<i>${c[1].slice(0,4)}</i></b><span class="fr">${roleList(r).join(" · ")}</span></span>
       <span class="fk mono">${CCATN[ccat(i)]}${CCATN[ccat(i)]!==c[2]?" · "+esc(c[2]):""}</span>
     </a>`}).join("");
