@@ -1770,6 +1770,8 @@ img[src^="spr:"]{opacity:0}
 .hs-t{left:0;right:0;top:0;bottom:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:4px}
 .hs-c::after{background:rgba(0,0,0,.18)}
 .hx-s .hs{scroll-padding-inline:clamp(16px,4vw,56px)}
+
+.fd-rl-bg{position:absolute;inset:-6%;width:112%;height:112%;filter:blur(28px) brightness(.7) saturate(1.1);display:none}
 /* ── about ── */
 .about{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,6vw,80px)}
 .about .lead{font-family:var(--display);font-size:var(--s1);line-height:1.85;max-width:30em;display:grid;gap:1em}
@@ -3911,9 +3913,14 @@ function bindWReel(){
   let L;if(calm&&LCLIPS[k])L=LCLIPS[k].slice().sort(()=>Math.random()-.5);else if(calm){const h=HCLIPS.filter(c=>c[1]===k).map(c=>c[0]),o=[...RCLIPS,...HVCLIPS].filter(c=>c[1]===k).map(c=>c[0]).sort(()=>Math.random()-.5);L=[...h,...o]}else{const h=HCLIPS.filter(c=>c[1]===k).map(c=>c[0]),o=[...RCLIPS,...HVCLIPS].filter(c=>c[1]===k).map(c=>c[0]).sort(()=>Math.random()-.5);L=[...h,...o]}
   if(!L.length)return;
   const V=[...box.querySelectorAll("video")],c=HCROP[k]||[0,0,1,1];
-  const fit=()=>{const W=box.clientWidth,H=box.clientHeight,vw=Math.max(W/c[2],H/(.5625*c[3])),vh=vw*.5625;V.forEach(v=>Object.assign(v.style,{width:vw+"px",height:vh+"px",left:(W/2-vw*(c[0]+c[2]/2))+"px",top:(H/2-vh*(c[1]+c[3]/2))+"px"}))};
-  fit();addEventListener("resize",fit);
-  let n=0,cur=0,swapping=false;const ld=(v,i)=>{v.src=`mv/${L[i%L.length]}.mp4`;v.load()};
+  let cv=null,cx=null,cvRaf=0,contain=false,n=0,cur=0,swapping=false;
+  const fit=()=>{const W=box.clientWidth,H=box.clientHeight,A=16/9*c[2]/c[3];
+    contain=calm&&W/H<A*.5;
+    const vw=contain?W/c[2]:Math.max(W/c[2],H/(.5625*c[3])),vh=vw*.5625;
+    V.forEach(v=>Object.assign(v.style,{width:vw+"px",height:vh+"px",left:(W/2-vw*(c[0]+c[2]/2))+"px",top:(H/2-vh*(c[1]+c[3]/2))+"px"}));
+    if(contain&&!cv){cv=document.createElement("canvas");cv.width=48;cv.height=27;cv.className="fd-rl-bg";box.prepend(cv);cx=cv.getContext("2d");const draw=()=>{cvRaf=requestAnimationFrame(draw);const v=V[cur];if(v.readyState>=2){try{const sw=v.videoWidth*c[2],sh=v.videoHeight*c[3];cx.drawImage(v,v.videoWidth*c[0],v.videoHeight*c[1],sw,sh,0,0,48,27)}catch(e){}}};draw()}
+    if(cv)cv.style.display=contain?"block":"none";box.classList.toggle("contain",contain)};
+  fit();addEventListener("resize",fit);const ld=(v,i)=>{v.src=`mv/${L[i%L.length]}.mp4`;v.load()};
   ld(V[0],0);if(L.length>1)ld(V[1],1);
   const rate=v=>calm&&/\/(r2|hv)\//.test(v.getAttribute("src")||"")?.6:1;
   const start=v=>{try{v.currentTime=0}catch(e){}v.playbackRate=rate(v);v.play().catch(()=>{})};
@@ -3926,7 +3933,7 @@ function bindWReel(){
   let raf=0;const sc=()=>{raf=0;if(!calm)return;const p=Math.min(1,Math.max(0,(scrollY-innerHeight*.35)/(innerHeight*.7)));box.style.filter=`blur(${(p*12).toFixed(1)}px) brightness(${(1-p*.45).toFixed(2)})`};
   const os=()=>{if(!raf)raf=requestAnimationFrame(sc)};if(calm){addEventListener("scroll",os,{passive:true});sc()}
   const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting||calm)V[cur].play().catch(()=>{});else V.forEach(v=>v.pause())}),{threshold:.1});io.observe(hero);
-  const pr=reelOff;reelOff=()=>{io.disconnect();removeEventListener("resize",fit);removeEventListener("scroll",os);V.forEach(v=>{v.pause();v.removeAttribute("src")});pr&&pr()};
+  const pr=reelOff;reelOff=()=>{io.disconnect();cancelAnimationFrame(cvRaf);removeEventListener("resize",fit);removeEventListener("scroll",os);V.forEach(v=>{v.pause();v.removeAttribute("src")});pr&&pr()};
 }
 
 function bindSecReel(){
