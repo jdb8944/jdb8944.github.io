@@ -3917,7 +3917,8 @@ function bindWReel(){
   const fit=()=>{const W=box.clientWidth,H=box.clientHeight,A=16/9*c[2]/c[3];
     contain=calm&&W/H<A*.5;
     const vw=contain?W/c[2]:Math.max(W/c[2],H/(.5625*c[3])),vh=vw*.5625;
-    V.forEach(v=>Object.assign(v.style,{width:vw+"px",height:vh+"px",left:(W/2-vw*(c[0]+c[2]/2))+"px",top:(H/2-vh*(c[1]+c[3]/2))+"px"}));
+    const cp=`inset(${(c[1]*100).toFixed(2)}% ${((1-c[0]-c[2])*100).toFixed(2)}% ${((1-c[1]-c[3])*100).toFixed(2)}% ${(c[0]*100).toFixed(2)}%)`;
+    V.forEach(v=>Object.assign(v.style,{width:vw+"px",height:vh+"px",left:(W/2-vw*(c[0]+c[2]/2))+"px",top:(H/2-vh*(c[1]+c[3]/2))+"px",clipPath:cp}));
     if(contain&&!cv){cv=document.createElement("canvas");cv.width=48;cv.height=27;cv.className="fd-rl-bg";box.prepend(cv);cx=cv.getContext("2d");const draw=()=>{cvRaf=requestAnimationFrame(draw);const v=V[cur];if(v.readyState>=2){try{const sw=v.videoWidth*c[2],sh=v.videoHeight*c[3];cx.drawImage(v,v.videoWidth*c[0],v.videoHeight*c[1],sw,sh,0,0,48,27)}catch(e){}}};draw()}
     if(cv)cv.style.display=contain?"block":"none";box.classList.toggle("contain",contain)};
   fit();addEventListener("resize",fit);const ld=(v,i)=>{v.src=`mv/${L[i%L.length]}.mp4`;v.load()};
