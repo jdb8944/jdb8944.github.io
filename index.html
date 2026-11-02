@@ -1826,6 +1826,17 @@ img[src^="spr:"]{opacity:0}
 .cm-t{display:grid;grid-template-columns:28px 1fr auto;align-items:baseline;gap:8px}.cm-t .mono{font-size:.6rem;color:var(--muted)}.cm-t b{font-family:"Noto Sans KR",sans-serif;font-weight:800;font-size:clamp(1.05rem,1.4vw,1.3rem);letter-spacing:-.03em}
 .cm-c .cg2-x{padding-left:36px}
 @media(max-width:820px){.cm{grid-template-columns:1fr 1fr}}
+
+/* 통일: Essay / Color / News */
+.fitem .fx{font-size:.78rem;line-height:1.6;color:#666;margin-top:-2px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;word-break:keep-all}
+.fitem .ft b i{font-style:normal;font-weight:400;font-size:.68rem;color:var(--muted);margin-left:8px;font-family:var(--mono)}
+.cgv .cg-lede{margin:0;font-size:.8rem;color:var(--muted);max-width:420px;text-align:right;word-break:keep-all}
+.cgv .fgrid.cm{display:grid}.cgv .cm-w{aspect-ratio:16/9}
+.cgv .cg-cred{margin-top:clamp(60px,7vw,110px)}
+.cvt{display:none!important}
+.nwv.works .ntl{max-width:none;padding-top:8px}
+.nwv.works .ntl-yh{padding-left:calc(84px + 34px)}
+.ntl-e[hidden],.ntl-y[hidden]{display:none}
 /* ── about ── */
 .about{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,6vw,80px)}
 .about .lead{font-family:var(--display);font-size:var(--s1);line-height:1.85;max-width:30em;display:grid;gap:1em}
@@ -2430,6 +2441,10 @@ function phero(title,sub,src){
 }
 
 /* ───────── Film·Commercial 상단 스틸 ───────── */
+function wheroU(kind,title,sub,src){
+  return `<section class="whero dark wh-${kind}" id="wh"><div class="wh-tri">${[0,1,2].map(c=>`<div class="wh-col">${src.filter((_,n)=>n%3===c).slice(0,4).map((u,n)=>`<div class="wh-img${n?"":" on"}" style="background-image:url('${u}')"></div>`).join("")}</div>`).join("")}</div><h1>${title}<span class="it">${sub}</span></h1></section>`;
+}
+const fltTabs=T=>`<div class="ftabs" role="group" aria-label="Filter">${T.map(([k,l,n],i)=>`<button class="ftab" data-flt="${k}" aria-pressed="${i===0}">${l}<sup>${n}</sup></button>`).join("")}</div>`;
 function whero(kind,title,sub,ks){
   const src=ks.filter(k=>gl(k).length).map(k=>SU(k,rs(k)));
   return `<section class="whero dark wh-${kind}" id="wh"><div class="wh-tri">${[0,1,2].map(c=>`<div class="wh-col">${src.filter((_,n)=>n%3===c).slice(0,4).map((u,n)=>`<div class="wh-img${n?"":" on"}" style="background-image:url('${u}')"></div>`).join("")}</div>`).join("")}</div><h1>${title}<span class="it">${sub}</span></h1></section>`;
@@ -3169,15 +3184,15 @@ function newsView(){
   const md=d=>{const [y,m,dd]=d.split(".");return m&&m!=="--"?(dd&&dd!=="--"?`${+m}.${+dd}`:`${+m}`):"—"};
   const FA=Object.values(FEST).flat(),fests=new Set(FA.filter(f=>f[0]!=="Production Support").map(f=>f[2].split(" · ")[0].replace(/제\s*\d+\s*회\s*/,"")));
   const ST=[[NEWS.length,"Articles","기사"],[new Set(NEWS.map(n=>n[1])).size,"Outlets","매체"],[FA.filter(f=>f[0]==="Award").length,"Awards","수상"]];
-  return `<div class="view nwv">
-    <section class="nhero dark" id="nH"><div class="nh-bg" id="nHb">${HK.map((k,i)=>`<i class="${i?"":"on"}" style="background-image:url('${nImg(k)}')"></i>`).join("")}</div><h1 id="nHt">News<span class="nh-st mono">${ST.map(([n,en])=>`${n} ${en}`).join("  ·  ")}</span></h1><span class="nh-dn mono">Scroll</span></section>
-    <div class="npanel">
+  const KC={};L.forEach(x=>{KC[x.e[3]]=(KC[x.e[3]]||0)+1});
+  return `${wheroU("news","News","Festivals &amp; press",HK.map(k=>nImg(k)).concat(["f8","f10","f2","c36","f1","f13"].filter(k=>gl(k).length).map(k=>nImg(k))))}<div class="view works wtop nwv">
+    <div class="works-head"><p class="wcount mono">${NEWS.length} articles · ${new Set(NEWS.map(n=>n[1])).size} outlets</p>${fltTabs([["all","All",L.length],...["Award","Festival","Release"].filter(k=>KC[k]).map(k=>[k,k,KC[k]])])}</div>
     <div class="ntl">${Object.keys(Y).sort().reverse().map(y=>`<section class="ntl-y"><h2 class="ntl-yh mono">${y}</h2>
       ${Y[y].map(x=>{const [k,,title,kind]=x.e,w=wTitle(k),href=k?`#${k[0]==="f"?"film":"commercial"}-${k.slice(1)}`:"",h3=title.includes(" — ")?title.split(" — ").slice(1).join(" — "):title;
-      if(x.rec)return `<article class="ntl-e rec k-${kind}"><p class="ntl-d mono">${md(x.last)}</p><i class="ntl-dot"></i>
+      if(x.rec)return `<article class="ntl-e rec k-${kind}" data-k="${kind}"><p class="ntl-d mono">${md(x.last)}</p><i class="ntl-dot"></i>
         <div class="ntl-c"><div class="ntl-t"><p class="ntl-k mono">${esc(NKO[kind]||kind)}${w?` · <a href="${href}">${esc(w)}</a>`:""}</p><h4>${esc(h3)}</h4></div></div></article>`;
       const body=EVTX[title]||x.items[0][6],n=x.items.length;
-      return `<article class="ntl-e k-${kind}">
+      return `<article class="ntl-e k-${kind}" data-k="${kind}">
         <p class="ntl-d mono">${md(x.last)}</p><i class="ntl-dot"></i>
         <div class="ntl-c">
           ${nImg(k)?`<a class="ntl-im" href="${href}"><img src="${nImg(k)}" alt="" loading="lazy"></a>`:""}
@@ -3186,7 +3201,7 @@ function newsView(){
             <p class="ntl-x">${esc(body)}</p>
             <ul class="ntl-hl${n>4?" hm":""}">${x.items.map((m,q)=>`<li${q>=4?" hidden":""}><a href="${m[3]}" target="_blank" rel="noopener"><b>${esc(m[1])}</b><span>${esc(m[2])}</span><i>↗</i></a></li>`).join("")}</ul>
             ${n>4?`<button class="ntl-mo mono" type="button">+ ${n-4} more</button>`:""}
-          </div></div></article>`}).join("")}</section>`).join("")}</div></div>
+          </div></div></article>`}).join("")}</section>`).join("")}</div>
   </div>`;
 }
 function newsArticle(id){
@@ -3204,7 +3219,7 @@ function newsArticle(id){
   </article>`;
 }
 function bindNews(){
-  const H=$("#nH");if(!H)return;const bg=$("#nHb"),t=$("#nHt"),sl=[...bg.children];let j=0,raf=0;
+  const H=$("#nH");if(!H){const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{rootMargin:"0px 0px -8% 0px"});document.querySelectorAll(".ntl-e").forEach((c,i)=>{c.style.transitionDelay=(i%4)*70+"ms";io.observe(c)});document.querySelectorAll(".ntl-mo").forEach(b=>b.addEventListener("click",()=>{b.previousElementSibling.querySelectorAll("li[hidden]").forEach(l=>l.hidden=false);b.remove()}));reelOff=()=>io.disconnect();return}const bg=$("#nHb"),t=$("#nHt"),sl=[...bg.children];let j=0,raf=0;
   hydrate();
   const iv=setInterval(()=>{if(!document.body.contains(H))return clearInterval(iv);if(sl.length<2)return;sl[j].classList.remove("on");j=(j+1)%sl.length;sl[j].classList.add("on")},4500);
   const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{rootMargin:"0px 0px -8% 0px"});
@@ -3344,16 +3359,13 @@ function essayIndex(){
   const ed=d=>{const [y,m]=d.split(".").map(x=>x.trim());return `${y}-${m.padStart(2,"0")}-28`};
   const L=[...ESSAYS.map(e=>({h:"#journal-"+e.slug,img:e.img,d:ed(e.date),lab:(()=>{const [y,m]=e.date.split(".").map(x=>x.trim());return `${y}년 ${m}월`})(),t:e.title,x:e.lede})),
     ...AFTER.map(a=>({h:"#after-"+a.id,img:a.img,d:a.date,lab:aDate(a.date),t:a.title,x:a.body[0]}))].sort((p,q)=>q.d.localeCompare(p.d));
-  return `<div class="view nwv">
-    <section class="nhero dark" id="nH"><div class="nh-bg" id="nHb">${L.slice(0,7).map((a,i)=>`<i class="${i?"":"on"}" style="background-image:url('${a.img}')"></i>`).join("")}</div><h1 id="nHt">Essay</h1><span class="nh-dn mono">Scroll</span></section>
-    <div class="npanel"><div class="ngrid">${L.map(a=>`<article class="ncd">
-        <a href="${a.h}" class="ncd-im"><img src="${a.img}" alt="" loading="lazy"></a>
-        <p class="ncd-d">On ${a.lab}</p>
-        <h3><a href="${a.h}">${esc(a.t)}</a></h3>
-        <i class="ncd-r"></i>
-        <p class="ncd-x">${esc(a.x)}</p>
-        <a class="ncd-more" href="${a.h}">Keep reading</a>
-      </article>`).join("")}</div></div>
+  const nE=L.filter(x=>x.h.startsWith("#journal")).length,nA=L.length-nE;
+  return `${wheroU("essay","Essay","Notes on light &amp; color",L.slice(0,12).map(x=>x.img).sort(()=>Math.random()-.5))}<div class="view works wtop">
+    <div class="works-head"><p class="wcount mono">${L.length} essays</p>${fltTabs([["all","All",L.length],["essay","Essay",nE],["after","Afterthought",nA]])}</div>
+    <div class="fgrid" id="shelf">${L.map(x=>`<a class="fitem" href="${x.h}" data-tags="all ${x.h.startsWith("#journal")?"essay":"after"}">
+      <span class="fph"><img src="${x.img}" alt="" loading="lazy"><span class="hov">Read</span></span>
+      <span class="ft"><b>${esc(x.t)}<i>${x.d.slice(0,4)}</i></b><span class="fr">${x.lab.replace(/^\d{4}년\s*/,"")}</span></span>
+      <span class="fx">${esc(x.x)}</span></a>`).join("")}</div>
   </div>`;
 }
 /* ───────── Color: DI 보정 전후 ───────── */
@@ -3450,14 +3462,16 @@ function colorView(){
   /* 3. 목록 + 미리보기 */
   const list=`<section class="cv-list wrap"><ol class="cl2">${IT.map((x,i)=>`<li><a href="${x.href}" data-i="${i}"${i?"":' class="on"'}><span class="mono">${String(x.n+1).padStart(2,"0")}</span><b>${esc(x.t)}</b><span class="cl2-pal">${x.pal[0].map((c,j)=>`<i style="background:${c};flex:${x.pal[1][j]||1}"></i>`).join("")}</span></a></li>`).join("")}</ol>
     <figure class="cl2-pv">${IT.map((x,i)=>`<div class="cl2-s${i?"":" on"}" data-i="${i}"><img src="${x.a}" alt="" loading="lazy"><figcaption><span class="mono">${x.y}</span><b>${esc(x.t)}</b><i>${esc(x.line)}</i></figcaption></div>`).join("")}</figure></section>`;
-  return `<div class="view cgv"><section class="cgx-hero"><div class="wrap"><p class="mono">Digital Intermediate · DaVinci Resolve</p><h1>Color</h1><p class="cgx-l">촬영한 작품의 DI를 대부분 직접 한다. 현장에서 세운 빛을 마지막 한 장면까지 책임지고 싶어서. 작품마다 어떤 색을, 왜 골랐는지.</p></div></section>
-   <div class="cvx" data-v="m">${mix}${wall}${grid}${list}</div>
-   <div class="cvt" role="group" aria-label="Color 레이아웃 비교"><span class="mono">Layout</span>${[["m","섞기"],["w","팔레트 벽"],["g","비교 그리드"],["l","목록"]].map(([k,t])=>`<button data-v="${k}">${t}</button>`).join("")}</div>
-   <div class="cg-in wrap"><section class="cg-cred"><h4 class="mono">Color credits</h4><ol>${cols.map(i=>`<li><a href="#film-${i}"><span class="mono">${F[i][1].slice(0,4)}</span><b>${esc(F[i][0])}</b><i>${esc(roleEn(F[i]))}</i></a></li>`).join("")}</ol></section></div></div>`;
+  const imgs=IT.map(x=>x.a).concat(Object.keys(CGK).flatMap(k=>CGK[k].ch.slice(0,3).map(z=>cgImg(k,z[0])))).sort(()=>Math.random()-.5);
+  return `${wheroU("color","Color","Digital intermediate · DaVinci Resolve",imgs)}<div class="view works wtop cgv">
+    <div class="works-head"><p class="wcount mono">${IT.length} cases</p><p class="cg-lede">촬영한 작품의 DI를 대부분 직접 한다. 작품마다 어떤 색을, 왜 골랐는지.</p></div>
+    <div class="fgrid cm" id="shelf">${IT.map(x=>`<a class="fitem cm-c" href="${x.href}"><span class="fph cm-w cg2-w" style="--x:50%"><span class="cm-pal">${x.pal[0].map((c,i)=>`<i style="background:${c};flex:${x.pal[1][i]||1}"></i>`).join("")}</span><span class="cm-im"><img src="${x.a}" alt="${esc(x.t)}" loading="lazy">${x.b?`<img class="cg2-b" src="${x.b}" alt="" loading="lazy"><span class="cg2-l mono">Rec.709${x.real?"":" *"}</span><span class="cg2-r mono">Final</span><i class="cg2-h"></i>`:""}</span></span>
+      <span class="ft"><b>${esc(x.t)}<i>${x.y}</i></b><span class="fr">Case ${String(x.n+1).padStart(2,"0")}</span></span><span class="fx">${esc(x.line)}</span></a>`).join("")}</div>
+    <p class="cg2-note mono">* 임시 비교 이미지</p>
+    <section class="cg-cred"><h4 class="mono">Color credits</h4><ol>${cols.map(i=>`<li><a href="#film-${i}"><span class="mono">${F[i][1].slice(0,4)}</span><b>${esc(F[i][0])}</b><i>${esc(roleEn(F[i]))}</i></a></li>`).join("")}</ol></section></div>`;
 }
 function bindColorIndex(){
-  const X=$(".cvx");if(!X)return;let v="m";try{v=localStorage.getItem("icf-cv2")||"m"}catch(_){}
-  const B=[...document.querySelectorAll(".cvt button")];const set=x=>{X.dataset.v=x;B.forEach(b=>b.setAttribute("aria-pressed",b.dataset.v===x));try{localStorage.setItem("icf-cv2",x)}catch(_){}};set(v);B.forEach(b=>b.addEventListener("click",()=>set(b.dataset.v)));
+  const X=$(".cgv");if(!X)return;
   X.querySelectorAll(".cg2-w").forEach(w=>{w.addEventListener("pointermove",e=>{const r=w.getBoundingClientRect();w.style.setProperty("--x",Math.max(0,Math.min(100,(e.clientX-r.left)/r.width*100))+"%")});w.addEventListener("mouseleave",()=>w.style.setProperty("--x","50%"))});
   const L=[...X.querySelectorAll(".cl2 a")],S=[...X.querySelectorAll(".cl2-s")];L.forEach(a=>a.addEventListener("mouseenter",()=>{L.forEach(x=>x.classList.toggle("on",x===a));S.forEach(s=>s.classList.toggle("on",s.dataset.i===a.dataset.i))}));
   const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{rootMargin:"0px 0px -6% 0px"});X.querySelectorAll(".cw-c,.cg2-c,.cl2 li,.cm-c").forEach((e,i)=>{e.style.transitionDelay=(i%6)*60+"ms";io.observe(e)});
@@ -3901,6 +3915,7 @@ function bind(h){
   if(/^film-\d+$/.test(h)){bindWReel();bindSecReel();return bindGallery("f"+h.split("-")[1])}
   if(/^commercial-\d+$/.test(h)){bindWReel();bindSecReel();return bindGallery("c"+h.split("-")[1])}
   if(/^color/.test(h))return bindColor();
+  if(h==="news"||h==="journal"||h==="color"){bindHero();bindShelf()}
   if(h==="news"||h==="client"||h==="journal"||/^after/.test(h))return bindNews();
   if(h!=="home")return;
   if(state.hv==="q"){bindShowreel();return bindHomeMore()}
@@ -3937,6 +3952,10 @@ document.addEventListener("click",e=>{
     vd.onerror=()=>{n++;if(n<srcs.length)vd.src=srcs[n];else if(YTEMBED&&id&&id!=="-")emb();else{vp.classList.remove("on");vp.innerHTML='<button class="vplay"><span>▶</span><em class="mono">Watch on YouTube</em></button>';vp.onclick=()=>yt()}};
     vd.src=srcs[0];vp.innerHTML="";vp.appendChild(vd);vp.classList.add("on");vd.play().catch(()=>{});return}
   const hv=e.target.closest("[data-hv]");if(hv){state.hv=hv.dataset.hv;save();scrolls.home=0;route();return}
+  const ff=e.target.closest("[data-flt]");
+  if(ff){const k=ff.dataset.flt;document.querySelectorAll("[data-flt]").forEach(b=>b.setAttribute("aria-pressed",b===ff));
+    if($(".ntl")){document.querySelectorAll(".ntl-e").forEach(a=>a.hidden=!(k==="all"||a.dataset.k===k));document.querySelectorAll(".ntl-y").forEach(y=>y.hidden=![...y.querySelectorAll(".ntl-e")].some(a=>!a.hidden))}
+    else applyFilter($("#shelf"),k,true);return}
   const fb=e.target.closest("[data-filter]");
   if(fb){const k=fb.dataset.filter;if(location.hash==="#commercial")state.kind=k;else state.role=k;save();
     document.querySelectorAll("[data-filter]").forEach(b=>b.setAttribute("aria-pressed",b===fb));
