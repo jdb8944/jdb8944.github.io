@@ -3910,7 +3910,8 @@ Object.assign(HCROP,{"f1":[0,0.12,0.997,0.58],"f23":[0,0.12,1,0.759],"f24":[0,0.
 function bindWReel(){
   const hero=$(".fd-hero[data-k]");if(!hero)return;const k=hero.dataset.k,box=hero.querySelector(".fd-rl");if(!box)return;
   const calm=!!hero.closest(".fd-bg");
-  let L;if(calm&&LCLIPS[k])L=LCLIPS[k].slice().sort(()=>Math.random()-.5);else if(calm){const h=HCLIPS.filter(c=>c[1]===k).map(c=>c[0]),o=[...RCLIPS,...HVCLIPS].filter(c=>c[1]===k).map(c=>c[0]).sort(()=>Math.random()-.5);L=[...h,...o]}else{const h=HCLIPS.filter(c=>c[1]===k).map(c=>c[0]),o=[...RCLIPS,...HVCLIPS].filter(c=>c[1]===k).map(c=>c[0]).sort(()=>Math.random()-.5);L=[...h,...o]}
+  let L;if(calm&&LCLIPS[k])L=LCLIPS[k].slice().sort(()=>Math.random()-.5);else{L=[...HCLIPS,...RCLIPS,...HVCLIPS].filter(c=>c[1]===k).map(c=>c[0])}
+  for(let a=L.length-1;a>0;a--){const b=Math.floor(Math.random()*(a+1));[L[a],L[b]]=[L[b],L[a]]}
   if(!L.length)return;
   const V=[...box.querySelectorAll("video")],c=HCROP[k]||[0,0,1,1];
   let cv=null,cx=null,cvRaf=0,contain=false,n=0,cur=0,swapping=false;
@@ -3940,7 +3941,7 @@ function bindWReel(){
 function bindSecReel(){
   const sec=$(".fd-reel");if(!sec)return;const k=sec.dataset.k;
   const h=HCLIPS.filter(c=>c[1]===k).map(c=>c[0]),o=[...RCLIPS,...HVCLIPS].filter(c=>c[1]===k).map(c=>c[0]).sort(()=>Math.random()-.5);
-  const L=[...o.slice(0,2),...h,...o.slice(2)];if(L.length<2)return;sec.hidden=false;
+  const L=[...h,...o];for(let a=L.length-1;a>0;a--){const b=Math.floor(Math.random()*(a+1));[L[a],L[b]]=[L[b],L[a]]}if(L.length<2)return;sec.hidden=false;
   const box=sec.querySelector(".rl-box"),V=[...box.querySelectorAll("video")],cnt=sec.querySelector(".rl-n");
   const c=HCROP[k]||[0,0,1,1];box.style.aspectRatio=(16/9*c[2]/c[3]).toFixed(3);
   V.forEach(v=>Object.assign(v.style,{width:(100/c[2])+"%",height:(100/c[3])+"%",left:(-c[0]/c[2]*100)+"%",top:(-c[1]/c[3]*100)+"%"}));
