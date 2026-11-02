@@ -1772,6 +1772,47 @@ img[src^="spr:"]{opacity:0}
 .hx-s .hs{scroll-padding-inline:clamp(16px,4vw,56px)}
 
 .fd-rl-bg{position:absolute;inset:-6%;width:112%;height:112%;filter:blur(28px) brightness(.7) saturate(1.1);display:none}
+
+/* Color index 비교 (임시) */
+.cvx>section{display:none}.cvx[data-v=w]>.cv-wall,.cvx[data-v=g]>.cv-grid,.cvx[data-v=l]>.cv-list{display:block}.cvx[data-v=l]>.cv-list{display:grid}
+.cvt{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:30;display:flex;align-items:center;gap:2px;background:var(--bg);border:1px solid var(--rule);border-radius:999px;padding:4px 4px 4px 14px;box-shadow:0 6px 24px rgba(0,0,0,.12)}
+.cvt span{font-size:.58rem;letter-spacing:.14em;color:var(--muted);margin-right:8px;text-transform:uppercase}.cvt button{font:inherit;font-size:.78rem;background:none;border:0;border-radius:999px;padding:7px 13px;cursor:pointer;color:var(--muted)}.cvt button[aria-pressed=true]{background:var(--fg);color:var(--bg)}
+.cw-c,.cg2-c,.cl2 li{opacity:0;transform:translateY(28px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}.cw-c.in,.cg2-c.in,.cl2 li.in{opacity:1;transform:none}
+/* 1 팔레트 벽 */
+.cv-wall{padding:0 clamp(16px,4vw,56px) clamp(60px,7vw,110px)}
+.cw-row{display:flex;gap:clamp(6px,.7vw,12px);height:min(72svh,640px)}
+.cw-c{flex:1;position:relative;overflow:hidden;color:#fff;text-decoration:none;transition:flex .7s cubic-bezier(.2,.7,.2,1),opacity .8s,transform .8s}
+.cw-row:hover .cw-c{flex:.7}.cw-row .cw-c:hover{flex:3.2}
+.cw-pal{position:absolute;inset:0;display:flex;flex-direction:column}.cw-pal i{display:block;min-height:6px}
+.cw-im{position:absolute;inset:0;background:center/cover no-repeat;opacity:0;transition:opacity .6s .1s}
+.cw-c:hover .cw-im{opacity:1}
+.cw-c::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(0,0,0,.65));opacity:0;transition:opacity .5s}.cw-c:hover::after{opacity:1}
+.cw-t{position:absolute;left:16px;right:16px;bottom:16px;z-index:1;display:grid;gap:4px;opacity:0;transform:translateY(10px);transition:opacity .5s .15s,transform .5s .15s}.cw-c:hover .cw-t{opacity:1;transform:none}
+.cw-t .mono{font-size:.58rem;letter-spacing:.14em;opacity:.8}.cw-t b{font-family:"Noto Sans KR",sans-serif;font-weight:800;font-size:clamp(1.2rem,1.8vw,1.7rem);letter-spacing:-.03em}.cw-t i{font-style:normal;font-size:.8rem;opacity:.85;max-width:420px;word-break:keep-all}
+/* 2 비교 그리드 */
+.cv-grid{padding-bottom:clamp(60px,7vw,110px)}
+.cg2{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(24px,2.6vw,40px) clamp(14px,1.6vw,24px)}
+.cg2-c{display:grid;gap:8px;color:var(--fg);text-decoration:none}
+.cg2-w{position:relative;display:block;aspect-ratio:16/9;overflow:hidden;background:#111;cursor:ew-resize}
+.cg2-w img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.cg2-b{clip-path:inset(0 calc(100% - var(--x)) 0 0)}
+.cg2-h{position:absolute;top:0;bottom:0;left:var(--x);width:1px;background:rgba(255,255,255,.85)}
+.cg2-l,.cg2-r{position:absolute;top:8px;font-size:.52rem;letter-spacing:.14em;color:#fff;text-shadow:0 1px 6px rgba(0,0,0,.6);z-index:1}.cg2-l{left:10px}.cg2-r{right:10px}
+.cg2-pal{display:flex;height:6px}.cg2-pal i{flex:1}
+.cg2-t{display:flex;justify-content:space-between;align-items:baseline}.cg2-t b{font-family:"Noto Sans KR",sans-serif;font-weight:800;font-size:1.05rem;letter-spacing:-.03em}.cg2-t .mono{font-size:.6rem;color:var(--muted)}
+.cg2-x{font-style:normal;font-size:.78rem;color:#666;line-height:1.6;word-break:keep-all}
+.cg2-note{font-size:.58rem;color:var(--muted);margin-top:24px}
+/* 3 목록 */
+.cv-list{grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:clamp(24px,4vw,64px);align-items:start;padding-bottom:clamp(60px,7vw,110px)}
+.cl2{list-style:none;margin:0;padding:0;border-top:1px solid var(--rule)}.cl2 li{border-bottom:1px solid var(--rule)}
+.cl2 a{display:grid;grid-template-columns:32px 1fr minmax(90px,150px);align-items:center;gap:16px;padding:16px 0;color:var(--fg);text-decoration:none}
+.cl2 a .mono{font-size:.6rem;color:var(--muted)}.cl2 a b{font-family:"Noto Sans KR",sans-serif;font-weight:800;font-size:clamp(1.05rem,1.5vw,1.4rem);letter-spacing:-.03em;transition:transform .4s cubic-bezier(.2,.7,.2,1),color .3s}
+.cl2:hover a:not(:hover) b{color:#bdb9b0}.cl2 a.on b{transform:translateX(6px)}
+.cl2-pal{display:flex;height:10px}.cl2-pal i{display:block}
+.cl2-pv{position:sticky;top:96px;margin:0;aspect-ratio:16/10}
+.cl2-s{position:absolute;inset:0;opacity:0;transition:opacity .45s}.cl2-s.on{opacity:1}.cl2-s img{width:100%;height:100%;object-fit:cover;display:block}
+.cl2-s figcaption{position:absolute;left:0;right:0;top:100%;padding-top:12px;display:grid;gap:3px}.cl2-s figcaption .mono{font-size:.58rem;color:var(--muted)}.cl2-s figcaption b{font-family:"Noto Sans KR",sans-serif;font-weight:800;font-size:1.05rem}.cl2-s figcaption i{font-style:normal;font-size:.8rem;color:#666}
+@media(max-width:820px){.cw-row{flex-direction:column;height:auto}.cw-c{height:90px;flex:none!important}.cw-c:hover{height:260px}.cg2{grid-template-columns:1fr}.cvx[data-v=l]>.cv-list{grid-template-columns:1fr}.cl2-pv{display:none}}
 /* ── about ── */
 .about{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,6vw,80px)}
 .about .lead{font-family:var(--display);font-size:var(--s1);line-height:1.85;max-width:30em;display:grid;gap:1em}
@@ -3385,13 +3426,30 @@ const CGIX=[
  {k:"f34",img:"img/cgk/f34/f34_04_46.webp",bc:"f34hq",line:"순수한 색은 쓰지 않는다. 상실은 깨끗하지 않으니까.",go:"#color-f34"}];
 function colorView(){
   const cols=FO.filter(i=>isCol(F[i]));
+  const PAL=k=>{if(CGPAL[k])return CGPAL[k];const c=CGK[k];if(c&&c.pal&&c.pal[c.hero])return [c.pal[c.hero],c.pal[c.hero].map(()=>1)];if(CGP2[k])return [CGP2[k],CGP2[k].map(()=>1)];return [[],[]]};
+  const IT=CGIX.map((x,n)=>{const [t,y,h]=cgT(x.k),c=CGK[x.k],hero=c?c.hero:"";return {...x,t,y,n,href:x.go||h,a:hero?cgImg(x.k,hero):x.img,b:hero?cgImg(x.k,hero+"_709"):"",pal:PAL(x.k),real:c&&c.r709&&c.r709[hero]}});
+  /* 1. 팔레트 벽 */
+  const wall=`<section class="cv-wall"><div class="cw-row">${IT.map(x=>`<a class="cw-c" href="${x.href}"><span class="cw-pal">${x.pal[0].map((c,i)=>`<i style="background:${c};flex:${x.pal[1][i]||1}"></i>`).join("")}</span><span class="cw-im" style="background-image:url('${x.a}')"></span><span class="cw-t"><span class="mono">${String(x.n+1).padStart(2,"0")} · ${x.y}</span><b>${esc(x.t)}</b><i>${esc(x.line)}</i></span></a>`).join("")}</div></section>`;
+  /* 2. 비교 그리드 */
+  const grid=`<section class="cv-grid wrap"><div class="cg2">${IT.map(x=>`<a class="cg2-c" href="${x.href}"><span class="cg2-w" style="--x:50%"><img src="${x.a}" alt="${esc(x.t)}" loading="lazy">${x.b?`<img class="cg2-b" src="${x.b}" alt="" loading="lazy"><span class="cg2-l mono">Rec.709${x.real?"":" *"}</span><span class="cg2-r mono">Final</span><i class="cg2-h"></i>`:""}</span><span class="cg2-pal">${x.pal[0].map(c=>`<i style="background:${c}"></i>`).join("")}</span><span class="cg2-t"><b>${esc(x.t)}</b><span class="mono">${x.y}</span></span><i class="cg2-x">${esc(x.line)}</i></a>`).join("")}</div><p class="cg2-note mono">* 임시 비교 이미지</p></section>`;
+  /* 3. 목록 + 미리보기 */
+  const list=`<section class="cv-list wrap"><ol class="cl2">${IT.map((x,i)=>`<li><a href="${x.href}" data-i="${i}"${i?"":' class="on"'}><span class="mono">${String(x.n+1).padStart(2,"0")}</span><b>${esc(x.t)}</b><span class="cl2-pal">${x.pal[0].map((c,j)=>`<i style="background:${c};flex:${x.pal[1][j]||1}"></i>`).join("")}</span></a></li>`).join("")}</ol>
+    <figure class="cl2-pv">${IT.map((x,i)=>`<div class="cl2-s${i?"":" on"}" data-i="${i}"><img src="${x.a}" alt="" loading="lazy"><figcaption><span class="mono">${x.y}</span><b>${esc(x.t)}</b><i>${esc(x.line)}</i></figcaption></div>`).join("")}</figure></section>`;
   return `<div class="view cgv"><section class="cgx-hero"><div class="wrap"><p class="mono">Digital Intermediate · DaVinci Resolve</p><h1>Color</h1><p class="cgx-l">촬영한 작품의 DI를 대부분 직접 한다. 현장에서 세운 빛을 마지막 한 장면까지 책임지고 싶어서. 작품마다 어떤 색을, 왜 골랐는지.</p></div></section>
-   <div class="cgx wrap">${CGIX.map((x,n)=>{const [t,y,h]=cgT(x.k);return `<a class="cgx-c${n%2?" r":""}${x.go?"":" soon"}" href="${x.go||h}"><figure><img src="${x.img}" alt="${esc(t)}" loading="lazy"></figure>
-     <div class="cgx-t"><span class="mono">${String(n+1).padStart(2,"0")} · ${y}</span><h2>${esc(t)}</h2><p>${esc(x.line)}</p>${(CGPAL[x.k]||CGP2[x.k])?`<div class="cgx-pal">${(CGPAL[x.k]?CGPAL[x.k][0]:CGP2[x.k]).map(c=>`<i style="background:${c}"></i>`).join("")}</div>`:""}<b class="mono">${x.go?"Case 보기 →":"Case 준비 중"}</b></div></a>`}).join("")}</div>
+   <div class="cvx" data-v="w">${wall}${grid}${list}</div>
+   <div class="cvt" role="group" aria-label="Color 레이아웃 비교"><span class="mono">Layout</span>${[["w","팔레트 벽"],["g","비교 그리드"],["l","목록"]].map(([k,t])=>`<button data-v="${k}">${t}</button>`).join("")}</div>
    <div class="cg-in wrap"><section class="cg-cred"><h4 class="mono">Color credits</h4><ol>${cols.map(i=>`<li><a href="#film-${i}"><span class="mono">${F[i][1].slice(0,4)}</span><b>${esc(F[i][0])}</b><i>${esc(roleEn(F[i]))}</i></a></li>`).join("")}</ol></section></div></div>`;
+}
+function bindColorIndex(){
+  const X=$(".cvx");if(!X)return;let v="w";try{v=localStorage.getItem("icf-cv")||"w"}catch(_){}
+  const B=[...document.querySelectorAll(".cvt button")];const set=x=>{X.dataset.v=x;B.forEach(b=>b.setAttribute("aria-pressed",b.dataset.v===x));try{localStorage.setItem("icf-cv",x)}catch(_){}};set(v);B.forEach(b=>b.addEventListener("click",()=>set(b.dataset.v)));
+  X.querySelectorAll(".cg2-w").forEach(w=>{w.addEventListener("pointermove",e=>{const r=w.getBoundingClientRect();w.style.setProperty("--x",Math.max(0,Math.min(100,(e.clientX-r.left)/r.width*100))+"%")});w.addEventListener("mouseleave",()=>w.style.setProperty("--x","50%"))});
+  const L=[...X.querySelectorAll(".cl2 a")],S=[...X.querySelectorAll(".cl2-s")];L.forEach(a=>a.addEventListener("mouseenter",()=>{L.forEach(x=>x.classList.toggle("on",x===a));S.forEach(s=>s.classList.toggle("on",s.dataset.i===a.dataset.i))}));
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{rootMargin:"0px 0px -6% 0px"});X.querySelectorAll(".cw-c,.cg2-c,.cl2 li").forEach((e,i)=>{e.style.transitionDelay=(i%6)*60+"ms";io.observe(e)});
 }
 function colorCase(k){return CGK[k]?`<div class="view cgv">${cgCaseFull(k)}<div class="cg-in wrap"><a class="cgk-go" href="#color"><span class="mono">Color</span><b>← 다른 작품</b></a></div></div>`:notFound()}
 function bindColor(){
+  bindColorIndex();
   document.querySelectorAll(".cgk-stage").forEach(st=>{const w=st.querySelector(".cgw"),a=w.querySelector(".cga"),l=w.querySelector(".cgl"),n=st.dataset.n,k=(location.hash.split("-")[1]||"f1");
     st.querySelectorAll("button").forEach(b=>b.addEventListener("click",()=>{st.querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",x===b));a.src=cgImg(k,n+"_"+b.dataset.v);l.textContent=b.dataset.v==="log"?"Log":"Rec.709";const em=st.querySelector(".cgk-tabs em");if(em)em.textContent=(b.dataset.v==="log"||em.dataset.r!=="1")?"임시 이미지":""}))});
   document.querySelectorAll(".cw-d,.cgk-pc").forEach(g=>g.addEventListener("click",()=>{const e=document.getElementById("cgch"+g.dataset.i);e&&e.scrollIntoView({behavior:"smooth",block:"center"})}));
