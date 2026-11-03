@@ -2612,7 +2612,7 @@ function keyFrame(k,title){const m=MEDIA[k];if(!m||!m.s||!m.s.length)return `<di
   const l=gl(k).filter(j=>j>0),j=l.length?l[rnd(l.length)]:0;
   return `<figure class="fd-key"><img src="${SU(k,j)}" alt="${esc(title)} still" loading="lazy"></figure>`}
 const hasClips=k=>(typeof LCLIPS!=="undefined"&&!!LCLIPS[k])||[...RCLIPS,...HCLIPS].some(c=>c[1]===k)||(typeof HVCLIPS!=="undefined"&&HVCLIPS.some(c=>c[1]===k));
-const HREEL={has:k=>k==="c0"||(k[0]==="f"&&hasClips(k))},BGREEL={has:k=>k[0]==="f"&&hasClips(k)};
+const HREEL={has:k=>hasClips(k)},BGREEL={has:k=>hasClips(k)};
 function detailShell({k,title,kicker,roles,meta,heroSrc,intro,side,fest,staff,spec,yt,video,prev,next,list}){
   return `<article class="view fd${BGREEL.has(k)?" fd-bg dark":""}">
     <section class="fd-hero dark" data-k="${k}" style="background-image:url('${heroSrc}')">${HREEL.has(k)?`<div class="fd-rl" aria-hidden="true"><video muted playsinline preload="auto"></video><video muted playsinline preload="auto"></video></div>`:""}
@@ -4043,6 +4043,9 @@ function bindHX(){
 
 /* 작품별 릴: 그 작품의 컷을 이어 재생 */
 const LCLIPS={"f7":["h/f7_2","L/f7_L1","L/f7_L2","L/f7_L3","L/f7_L4","L/f7_L5"],"f1":["L/f1_L1","L/f1_L2","L/f1_L3","L/f1_L4"],"f23":["L/f23_L1","L/f23_L2","L/f23_L3"],"f24":["L/f24_L1","L/f24_L2","L/f24_L3"],"f25":["L/f25_L1","L/f25_L2","L/f25_L3"],"f26":["L/f26_L1","L/f26_L2","L/f26_L3"]};
+
+/* 커머셜 배경 릴: 긴 컷 + 기존 짧은 컷 */
+(()=>{const S={"c0":["L/c0_L1","L/c0_L3"],"c2":["L/c2_L1","L/c2_L2"],"c4":["L/c4_L2","L/c4_L3"],"c5":["L/c5_L1"],"c6":["L/c6_L1","L/c6_L3"],"c7":["L/c7_L1","L/c7_L3"],"c8":["L/c8_L2","L/c8_L3"],"c9":["L/c9_L1","L/c9_L3"],"c11":["L/c11_L1","L/c11_L2"],"c14":["L/c14_L1","L/c14_L3"],"c16":["L/c16_L3"],"c17":["L/c17_L1"],"c22":["L/c22_L1"],"c23":["L/c23_L1","L/c23_L3"],"c24":["L/c24_L1","L/c24_L2"],"c25":["L/c25_L1"],"c26":["L/c26_L1","L/c26_L3"],"c27":["L/c27_L2","L/c27_L3"],"c28":["L/c28_L1","L/c28_L3"],"c30":["L/c30_L1","L/c30_L3"],"c32":["L/c32_L1","L/c32_L2"],"c33":["L/c33_L2","L/c33_L3"],"c34":["L/c34_L1","L/c34_L2"],"c35":["L/c35_L1","L/c35_L3"]};const A=[...HCLIPS,...RCLIPS,...HVCLIPS];for(let i=0;i<37;i++){const k='c'+i;const sh=A.filter(c=>c[1]===k).map(c=>c[0]);const L=[...(S[k]||[]),...sh];if(L.length)LCLIPS[k]=L}})();
 Object.assign(HCROP,{"f1":[0,0.12,0.997,0.58],"f23":[0,0.12,1,0.759],"f24":[0,0.102,1,0.796],"f25":[0,0.12,1,0.759],"f26":[0,0.12,1,0.58]});
 function bindWReel(){
   const hero=$(".fd-hero[data-k]");if(!hero)return;const k=hero.dataset.k,box=hero.querySelector(".fd-rl");if(!box)return;
