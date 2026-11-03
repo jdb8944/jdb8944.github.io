@@ -2377,6 +2377,7 @@ const CAMS=[
 /* Alexa Mini: 3.4K RAW로 찍은 작품 (나머지는 4K UHD) */
 const ARRIRAW=new Set(["f0","f5","f6","f10","f11","f16","c1","c5","c12","c13","c17"]);
 const STOCK=/Vivid 500|Kodak|Vision3/i;
+const SPECSCAN={f4:"2K · DPX 10-bit · Korean Film Archive (KOFA)"};
 const SPECCAP={f3:"4K UHD · Apple ProRes 4444 (Alexa Mini) / 5.8K · Apple ProRes 422 HQ (S1II)"};
 const SPECEXTRA={f1:[["Exhibition","2K DCP · Scope"]]};
 const SENSOR=c=>/Super 35/.test(c[2])?"Super 35":/Full-Frame/.test(c[2])?"Full Frame":/Micro Four/.test(c[2])?"Micro Four Thirds":/Large Format/.test(c[2])?"Large Format":/35mm Film/.test(c[2])?"35mm Film":/Dragon/.test(c[2])?"Super 35":"";
@@ -2387,11 +2388,11 @@ function specAuto(k,rt,ar,cam,grade,color,rel){
   const fmt=c=>typeof c[3]==="function"?(c[1]==="ARRI Alexa Mini"?c[3](k):c[3](arn)):c[3];
   const short2=c=>c[1].replace(/^(ARRI|Panasonic Lumix|Sony|RED|Canon EOS|Blackmagic|Fujifilm|DJI) /,"");
   const withF=cams.filter(c=>fmt(c));
-  const cap=SPECCAP[k]||(stock?`35mm · ${stock.replace(/^Fuji/,"Fujifilm Eterna")}`:withF.length>1?withF.map(c=>`${fmt(c)} (${short2(c)})`).join(" / "):withF.length?fmt(withF[0]):"");
+  const cap=SPECCAP[k]||(stock?(SPECSCAN[k]||""):withF.length>1?withF.map(c=>`${fmt(c)} (${short2(c)})`).join(" / "):withF.length?fmt(withF[0]):"");
   const logs=[...new Set(cams.map(c=>c[4]).filter(Boolean))].join(" / ");
   const short=[["Running Time",enRT(rt),1],["Aspect Ratio",ar?ar+" : 1":"",1],["Released",enDate(rel),2]];
   const camLine=cams.map(c=>c[1]).join(" · "),sens=[...new Set(cams.map(SENSOR).filter(Boolean))].join(" · ");
-  const long=[["Camera",camLine],["Sensor",sens],["Lenses",lens.join(" · ")],["Recording Format",cap],["Log · Gamut",logs],["Digital Intermediate",grade?grade+(color?" · Jung Dabin":""):""]];
+  const long=[["Camera",camLine],["Sensor",sens],["Lenses",lens.join(" · ")],[stock?"Scan":"Recording Format",cap],stock?["Film Stock",stock.replace(/^Fuji /,"Fujifilm Eterna ")]:["Log · Gamut",logs],["Digital Intermediate",grade?grade+(color?" · Jung Dabin":""):""]];
   const rows=[...short,...long.map(r=>[...r,2])];
   return `<section class="fd-spec sx wrap"><h4>Technical Specifications</h4>
   <dl class="sx-rows">${rows.map(([a,b,w])=>`<div style="grid-column:span ${w}"><dt>${esc(a)}</dt><dd>${b?esc(b).replace(/Jung Dabin/g,"<b>Jung Dabin</b>"):"&nbsp;"}</dd></div>`).join("")}</dl></section>`;
