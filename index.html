@@ -2439,7 +2439,7 @@ const roleShort=r=>[/Direct/.test(r)&&"Dir",/DOP/.test(r)&&"DOP",/Color/.test(r)
 /* 로컬 원본 이미지 */
 const W=(k,t,n)=>`img/w/${k}/${t}${n}.webp`;
 const has=(k,t)=>MEDIA[k]&&MEDIA[k][t]&&MEDIA[k][t].length;
-const cover=(k,fallback)=>has(k,"s")?W(k,"s",0):fallback;
+const cover=(k,fallback)=>(typeof HQS!=="undefined"&&HQS[k])?HQU(k,0):has(k,"s")?W(k,"s",0):fallback;
 const rnd=n=>Math.floor(Math.random()*n);
 const enDate=s=>{const [y,m]=s.split(".");return ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][+m-1]+" "+y};
 const enRT=s=>s?s.replace(/hour/,"h").replace(/(\d+)min/,"$1m").replace(/(\d+)sec/,"$1s").replace(/^0/,"").replace(/ 0(\d)/g," $1"):"";
@@ -2662,9 +2662,12 @@ function stillsBlock(k,title){
 const sprG=(k,kind,n)=>{const A=kind==="x"?MEDIA[k].x:MEDIA[k].b,[SW,SH]=kind==="x"?MEDIA[k].xs:MEDIA[k].bs,[x,y,w,h]=A[n];
   return `background-image:url('img/w/${k}/${kind==="x"?"x":"bts"}.webp');background-size:${(SW/w*100).toFixed(3)}% ${(SH/h*100).toFixed(3)}%;background-position:${SW>w?(x/(SW-w)*100).toFixed(3):0}% ${SH>h?(y/(SH-h)*100).toFixed(3):0}%`};
 const spr=(k,n)=>sprG(k,"b",n);
-const nStill=k=>MEDIA[k]?MEDIA[k].s.length+(MEDIA[k].x||[]).length:0;
-const stillAr=(k,j)=>{const m=MEDIA[k];return j<m.s.length?m.s[j]:m.x[j-m.s.length][2]/m.x[j-m.s.length][3]};
-const stillEl=(k,j,alt)=>{const m=MEDIA[k];return j<m.s.length?`<img src="${W(k,"s",j)}" alt="${alt}" loading="lazy" style="aspect-ratio:${m.s[j]}">`:`<span class="sti" role="img" aria-label="${alt}" style="aspect-ratio:${stillAr(k,j).toFixed(3)};${sprG(k,"x",j-m.s.length)}"></span>`};
+/* 고화질 개별 스틸 (Cloudflare R2) */
+const HQS={"f4":[1.85,3.181,1.85,1.85,1.85,1.85,1.85,1.85,1.85,1.85,1.85,1.85,1.85,1.85],"f5":[2.388,2.388,2.388,2.388,2.388,2.388,2.388,2.388,2.388,2.577,2.388,2.388,2.388,2.388,2.388,2.388,2.388,2.388,2.388,2.963,2.616,2.388,2.391,2.388,2.388,2.388,2.391,2.388,2.388,2.388,2.388,2.388,2.388,2.391,2.388,2.391,2.391,2.388,2.388,2.388,2.388,2.388,2.388,2.388,2.388,2.388,2.388],"f7":[2.39,2.39,2.39,2.39,2.39,2.39,2.39,2.39,2.39,2.39,2.39,2.39,2.39,2.39,2.391,2.391,2.391,2.39,2.39,2.391,2.391,2.39,2.393,2.39,2.39,2.39,4.21,2.39,2.39,2.39,2.387,2.39,2.39,2.39,2.39,2.39,2.391,2.391,2.39,2.39,2.398,2.39,2.391,2.541,2.39,2.393,2.39,2.391,2.391,2.576,2.391,2.39,2.39,2.829,2.39,2.39,2.39,2.39,2.39,2.39,2.39,2.39,2.39,2.387]};
+const HQU=(k,j,m)=>`https://media.instantclassicfilm.com/st/${k}/${j}${m?"_m":""}.webp`;
+const nStill=k=>HQS[k]?HQS[k].length:MEDIA[k]?MEDIA[k].s.length+(MEDIA[k].x||[]).length:0;
+const stillAr=(k,j)=>{if(HQS[k])return HQS[k][j];const m=MEDIA[k];return j<m.s.length?m.s[j]:m.x[j-m.s.length][2]/m.x[j-m.s.length][3]};
+const stillEl=(k,j,alt)=>{if(HQS[k])return `<img src="${HQU(k,j,1)}" srcset="${HQU(k,j,1)} 1280w, ${HQU(k,j)} 2560w" sizes="(min-width:1340px) 1240px, 100vw" alt="${alt}" loading="lazy" decoding="async" style="aspect-ratio:${HQS[k][j]}">`;const m=MEDIA[k];return j<m.s.length?`<img src="${W(k,"s",j)}" alt="${alt}" loading="lazy" style="aspect-ratio:${m.s[j]}">`:`<span class="sti" role="img" aria-label="${alt}" style="aspect-ratio:${stillAr(k,j).toFixed(3)};${sprG(k,"x",j-m.s.length)}"></span>`};
 function btsBlock(k,title){
   if(!has(k,"b"))return "";
   return `<section class="fd-bts wrap" aria-label="Behind the Scenes"><h4>Behind the Scenes</h4>
@@ -3955,8 +3958,8 @@ function bindGallery(k){
   const rect=()=>t==="b"?MEDIA[k].b[j]:MEDIA[k].x[j-MEDIA[k].s.length];
   const fitSp=()=>{if(sp.hidden)return;const [,,w,h]=rect();const mw=innerWidth-112,mh=innerHeight-96,sc=Math.min(mw/w,mh/h,1.4);sp.style.width=w*sc+"px";sp.style.height=h*sc+"px"};
   const show=x=>{j=(x+n())%n();
-    const isSp=t==="b"||(t==="s"&&j>=MEDIA[k].s.length);
-    if(isSp){im.hidden=true;sp.hidden=false;sp.setAttribute("style",t==="b"?spr(k,j):sprG(k,"x",j-MEDIA[k].s.length));fitSp()}else{sp.hidden=true;im.hidden=false;im.src=W(k,t,j)}
+    const hq=t==="s"&&HQS[k];const isSp=!hq&&(t==="b"||(t==="s"&&j>=MEDIA[k].s.length));
+    if(isSp){im.hidden=true;sp.hidden=false;sp.setAttribute("style",t==="b"?spr(k,j):sprG(k,"x",j-MEDIA[k].s.length));fitSp()}else{sp.hidden=true;im.hidden=false;im.src=hq?HQU(k,j):W(k,t,j)}
     $("#lbC").textContent=`${j+1} / ${n()}`;const li=$("#lbI");if(li){const h=t==="s"?stillInfo(k,j):"";li.innerHTML=h;lb.classList.toggle("has-i",!!h)}};
   const ib=$("#lbIB");if(ib)ib.onclick=e=>{e.stopPropagation();lb.classList.toggle("i-open")};
   addEventListener("resize",fitSp);
