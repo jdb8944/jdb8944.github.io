@@ -2354,38 +2354,43 @@ const FEST={
 const FDATE={"0|0": "2026.07.02", "0|1": "2026.09.03", "1|0": "2025.12.11", "3|0": "2025.09.19", "4|0": "2025.09.17", "4|1": "2025.11.26", "5|0": "2026.10.01", "5|1": "2025.10.28", "5|2": "2026.06.18", "5|3": "2025.09.25", "5|4": "2025.10", "5|5": "2025.10.23", "5|6": "2025.09.04", "5|7": "2025.06.26", "7|0": "2026.07.16", "8|0": "2026.10.27", "8|1": "2026.10.27", "8|2": "2026.10.27", "10|0": "2025.09.27", "11|0": "2025.09.03", "11|1": "2026.10.07", "11|2": "2026.05.01", "11|3": "2026.09.02", "11|4": "2025.11.06", "11|5": "2025.06.20", "11|8": "2025.11.24", "12|0": "2025.07.03", "13|1": "2025.09.24", "13|2": "2025.11.06", "13|3": "2025.10.17", "15|0": "2025.09.05", "15|1": "2024.09", "32|0": "2026.10.23"};
 /* 테크 스펙: 카메라별 기본 사양을 붙여 자동 구성 */
 const CAMS=[
- [/Alexa Mini/i,"ARRI Alexa Mini","Super 35 ALEV III CMOS",k=>ARRIRAW.has(k)?"ARRIRAW 3.4K Open Gate · 4:3":"Apple ProRes 4K UHD · 10-bit 4:2:2","ARRI LogC3 · ARRI Wide Gamut 3"],
- [/S1M2|S1II/i,"Panasonic Lumix S1II","Full-Frame 24.1MP Partially Stacked CMOS",ar=>ar<1.5?"4.8K 4:3 Open Gate · Apple ProRes 422 HQ · 10-bit":"5.8K 17:9 · Apple ProRes 422 HQ · 10-bit","ARRI LogC3 · ARRI Wide Gamut 3"],
+ [/Alexa Mini/i,"ARRI Alexa Mini","Super 35 ALEV III CMOS",k=>ARRIRAW.has(k)?"3.4K Open Gate 4:3 · ARRIRAW · 12-bit":"4K UHD · Apple ProRes · 10-bit 4:2:2","ARRI LogC3 · ARRI Wide Gamut 3"],
+ [/S1M2|S1II/i,"Panasonic Lumix S1II","Full-Frame 24.1MP Partially Stacked CMOS",ar=>ar<1.5?"4.8K Open Gate 4:3 · Apple ProRes 422 HQ · 10-bit 4:2:2":"5.8K 17:9 · Apple ProRes 422 HQ · 10-bit 4:2:2","ARRI LogC3 · ARRI Wide Gamut 3"],
  [/FX3/i,"Sony FX3","Full-Frame 12.1MP CMOS","4K UHD · XAVC S-I · 10-bit 4:2:2","S-Log3 · S-Gamut3.Cine"],
  [/FX6/i,"Sony FX6","Full-Frame 12.1MP CMOS","4K UHD · XAVC-I · 10-bit 4:2:2","S-Log3 · S-Gamut3.Cine"],
  [/FX9/i,"Sony FX9","Full-Frame 6K CMOS","4K UHD · XAVC-I · 10-bit 4:2:2","S-Log3 · S-Gamut3.Cine"],
  [/Sony A1\b|α1/i,"Sony α1","Full-Frame 50.1MP Stacked CMOS","4K UHD · XAVC S-I · 10-bit 4:2:2","S-Log3 · S-Gamut3.Cine"],
- [/A7S II/i,"Sony α7S II","Full-Frame 12.2MP CMOS","4K UHD · XAVC S · 8-bit","S-Log3 · S-Gamut3.Cine"],
- [/A7 III/i,"Sony α7 III","Full-Frame 24.2MP CMOS","4K UHD · XAVC S · 8-bit","S-Log3 · S-Gamut3.Cine"],
- [/Komodo/i,"RED Komodo 6K","Super 35 Global Shutter CMOS","6K REDCODE RAW","Log3G10 · REDWideGamutRGB"],
- [/Scarlet/i,"RED Scarlet-W","Dragon 5K Sensor","5K REDCODE RAW","Log3G10 · REDWideGamutRGB"],
+ [/A7S II/i,"Sony α7S II","Full-Frame 12.2MP CMOS","4K UHD · XAVC S · 8-bit 4:2:0","S-Log3 · S-Gamut3.Cine"],
+ [/A7 III/i,"Sony α7 III","Full-Frame 24.2MP CMOS","4K UHD · XAVC S · 8-bit 4:2:0","S-Log3 · S-Gamut3.Cine"],
+ [/Komodo/i,"RED Komodo 6K","Super 35 Global Shutter CMOS","6K · REDCODE RAW · 16-bit","Log3G10 · REDWideGamutRGB"],
+ [/Scarlet/i,"RED Scarlet-W","Dragon 5K Sensor","5K · REDCODE RAW · 16-bit","Log3G10 · REDWideGamutRGB"],
  [/Canon R5/i,"Canon EOS R5","Full-Frame 45MP CMOS","4K DCI · 10-bit 4:2:2","Canon Log"],
  [/1D C/i,"Canon EOS-1D C","Full-Frame 18.1MP CMOS","4K DCI · Motion JPEG · 8-bit 4:2:2","Canon Log"],
  [/GH5s/i,"Panasonic Lumix GH5S","Micro Four Thirds 10.2MP CMOS","4K DCI · 10-bit 4:2:2","V-Log L"],
  [/Panasonic S1\b/i,"Panasonic Lumix S1","Full-Frame 24.2MP CMOS","4K UHD · 10-bit 4:2:2","V-Log"],
- [/BMPCC 6K/i,"Blackmagic Pocket Cinema Camera 6K","Super 35 CMOS","6K Blackmagic RAW","Blackmagic Film"],
+ [/BMPCC 6K/i,"Blackmagic Pocket Cinema Camera 6K","Super 35 CMOS","6K · Blackmagic RAW · 12-bit","Blackmagic Film"],
  [/GFX Eterna/i,"Fujifilm GFX Eterna 55","Large Format 44×33 CMOS","","F-Log2 C"],
  [/35BL/i,"ARRI 35BL Evolution","35mm Film","",""],
  [/Mavic/i,"DJI Mavic 3 Pro","Aerial","",""]];
 /* Alexa Mini: 3.4K RAW로 찍은 작품 (나머지는 4K UHD) */
 const ARRIRAW=new Set(["f0","f5","f6","f10","f11","f16","c1","c5","c12","c13","c17"]);
 const STOCK=/Vivid 500|Kodak|Vision3/i;
-const SPECCAP={f3:"Alexa Mini · Apple ProRes 4444 4K / S1II · 5.8K Apple ProRes 422 HQ"};
+const SPECCAP={f3:"4K UHD · Apple ProRes 4444 (Alexa Mini) / 5.8K · Apple ProRes 422 HQ (S1II)"};
 const SPECEXTRA={f1:[["Exhibition","2K DCP · Scope"]]};
+const SENSOR=c=>/Super 35/.test(c[2])?"Super 35":/Full-Frame/.test(c[2])?"Full Frame":/Micro Four/.test(c[2])?"Micro Four Thirds":/Large Format/.test(c[2])?"Large Format":/35mm Film/.test(c[2])?"35mm Film":/Dragon/.test(c[2])?"Super 35":"";
 function specAuto(k,rt,ar,cam,grade,color,rel){
   const toks=(cam||"").split(/,\s*/).filter(Boolean);let cams=[],lens=[],stock="";
   toks.forEach(t=>{if(STOCK.test(t)){stock=t;return}const c=CAMS.find(c=>c[0].test(t)||(/^FX6$/.test(t)&&c[1]==="Sony FX6"));if(c)cams.push(c);else lens.push(t)});
   const p=cams.find(c=>c[3]||c[4])||cams[0],arn=parseFloat(ar)||1.78;
-  const cap=SPECCAP[k]||(stock?`35mm · ${stock.replace(/^Fuji/,"Fujifilm Eterna")}`:p?(typeof p[3]==="function"?(p[1]==="ARRI Alexa Mini"?p[3](k):p[3](arn)):p[3]):"");
-  const short=[["Running Time",enRT(rt)],["Aspect Ratio",ar?ar+" : 1":""],["Log · Gamut",p?p[4]:""],["Released",enDate(rel)]];
-  const camLine=cams.length===1?`${cams[0][1]} · ${cams[0][2]}`:cams.map(c=>c[1]).join(" · ");
-  const long=[["Camera",camLine],["Lenses",lens.join(" · ")],["Capture",cap],["Digital Intermediate",grade?grade+(color?" · Jung Dabin":""):""]];
-  const rows=[...short.map(r=>[...r,1]),...long.map(r=>[...r,2])];
+  const fmt=c=>typeof c[3]==="function"?(c[1]==="ARRI Alexa Mini"?c[3](k):c[3](arn)):c[3];
+  const short2=c=>c[1].replace(/^(ARRI|Panasonic Lumix|Sony|RED|Canon EOS|Blackmagic|Fujifilm|DJI) /,"");
+  const withF=cams.filter(c=>fmt(c));
+  const cap=SPECCAP[k]||(stock?`35mm · ${stock.replace(/^Fuji/,"Fujifilm Eterna")}`:withF.length>1?withF.map(c=>`${fmt(c)} (${short2(c)})`).join(" / "):withF.length?fmt(withF[0]):"");
+  const logs=[...new Set(cams.map(c=>c[4]).filter(Boolean))].join(" / ");
+  const short=[["Running Time",enRT(rt),1],["Aspect Ratio",ar?ar+" : 1":"",1],["Released",enDate(rel),2]];
+  const camLine=cams.map(c=>c[1]).join(" · "),sens=[...new Set(cams.map(SENSOR).filter(Boolean))].join(" · ");
+  const long=[["Camera",camLine],["Sensor",sens],["Lenses",lens.join(" · ")],["Recording Format",cap],["Log · Gamut",logs],["Digital Intermediate",grade?grade+(color?" · Jung Dabin":""):""]];
+  const rows=[...short,...long.map(r=>[...r,2])];
   return `<section class="fd-spec sx wrap"><h4>Technical Specifications</h4>
   <dl class="sx-rows">${rows.map(([a,b,w])=>`<div style="grid-column:span ${w}"><dt>${esc(a)}</dt><dd>${b?esc(b).replace(/Jung Dabin/g,"<b>Jung Dabin</b>"):"&nbsp;"}</dd></div>`).join("")}</dl></section>`;
 }
