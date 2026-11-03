@@ -2648,6 +2648,7 @@ function stillsBlock(k,title){
   if(!has(k,"s"))return "";
   const n=nStill(k);let rows=[],q=0;
   const S=Array.from({length:Math.max(0,n-1)},(_,x)=>x+1);for(let a=S.length-1;a>0;a--){const b=Math.floor(Math.random()*(a+1));[S[a],S[b]]=[S[b],S[a]]}
+  S.length=Math.min(S.length,MEDIA[k].sshow||14);
   while(q<S.length){if(rows.length%2===0){rows.push([S[q]]);q++}else{rows.push(S.slice(q,q+2));q+=2}}
   return `<section class="fd-stills wrap" aria-label="Stills"><h4>Stills</h4>
     ${rows.map(r=>`<div class="srow s${r.length}"${r.length>1?` style="grid-template-columns:${r.map(x=>stillAr(k,x).toFixed(3)+"fr").join(" ")}"`:""}>${r.map(s=>`<button class="st" data-gal="s" data-n="${s}" aria-label="크게 보기">${stillEl(k,s,esc(title)+" still")}</button>`).join("")}</div>`).join("")}</section>`;
