@@ -2106,6 +2106,7 @@ const CINFO=[["Director, DOP, Color", "T-i30X72rkw", "03min 36sec", "1.33", "GFX
 const FGRADE=["DaVinci Resolve 20", "DaVinci Resolve 20", "DaVinci Resolve 20", "DaVinci Resolve 20", "DaVinci Resolve 19", "DaVinci Resolve 19", "DaVinci Resolve 19", "DaVinci Resolve 19", "DaVinci Resolve 19", "DaVinci Resolve 19", "DaVinci Resolve 18", "DaVinci Resolve 18", "DaVinci Resolve 18", "DaVinci Resolve 18", "DaVinci Resolve 18", "DaVinci Resolve 17", "DaVinci Resolve 17", "DaVinci Resolve 17", "DaVinci Resolve 17", "DaVinci Resolve 17", "DaVinci Resolve 16", "DaVinci Resolve 16", "DaVinci Resolve 18", "DaVinci Resolve 15", "DaVinci Resolve 15", "", "", "", "", "", ""];
 /* 아티팩트(claude) 안에서만 /_blob 자산 사용, 그 외(로컬·일반 호스팅)는 로컬 파일 */
 const ONART=location.protocol!=="file:"&&!document.querySelector("meta[name=icf-web]");
+const MVB=location.protocol==="file:"?"mv/":"https://media.instantclassicfilm.com/mv/";
 /* 폴더에서 새로 추가한 작품 (f31~ / c26~) */
 F.push(...[["오마이드레스","2024.02","DOP, Color","18m 57s","1.78","",[],"단편"],["Fin","2026.05","Director","5m 48s","1.85","",["서울국제초단편영화제 국내경쟁"],"단편"],["Finding Rose","2026.07","Director","2m 16s","1.33","",[],"단편"],["잔상","2026.08","Director","3m 13s","1.33","",[],"단편"]]);
 INFO.push(...[[[],"",""],[["완벽한 시나리오를 쓰려는 작가가 있습니다.","그녀는 오늘도 카페 창가에서 1씬을 쓰고 지웁니다.","완벽주의는 때로 가장 조용한 형태의 자기 감금입니다.","그리고 아이러니하게도, 그 이야기를 완성하는 건 그녀가 아니었습니다."],"박재희, 한홍규",""],[[],"",""],[[],"",""]]);
@@ -3765,7 +3766,7 @@ function bindShowreel(){
   let ph="mid";const Q=[];
   const fill=()=>{while(Q.length<4){ph=ORDER[ph][Math.floor(Math.random()*ORDER[ph].length)];Q.push(...PH[ph]())}};
   const take=()=>{fill();return Q.shift()};
-  const load=(v,s)=>{v.dataset.k=s[0][1];v.dataset.d=s[1];v.src=`mv/${s[0][0]}.mp4`;v.load()};
+  const load=(v,s)=>{v.dataset.k=s[0][1];v.dataset.d=s[1];v.src=`${MVB}${s[0][0]}.mp4`;v.load()};
   load(V[0],take());load(V[1],take());load(V[2],take());
   const show=i=>{V.forEach((v,j)=>v.classList.toggle("on",j===i));const v=V[i];try{v.currentTime=0}catch(e){}v.play().catch(()=>{});
     const k=v.dataset.k;$("#qrT").textContent=reelT(k);$("#qrNow").href=reelH(k)};
@@ -3991,7 +3992,7 @@ document.addEventListener("click",e=>{
   const vp=e.target.closest(".vframe[data-yt]");if(vp&&!vp.classList.contains("on")){const id=vp.dataset.yt,k=vp.dataset.k;
     const emb=()=>{vp.innerHTML=`<iframe src="https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&playsinline=1" allow="autoplay; encrypted-media; fullscreen; picture-in-picture" allowfullscreen title="video"></iframe>`;vp.classList.add("on")};
     const yt=()=>{if(!id||id==="-")return;if(YTEMBED)emb();else window.open("https://www.youtube.com/watch?v="+id,"_blank","noopener")};
-    const srcs=[ONART&&MVBLOB[k],(!ONART||MVBLOB[k])&&MVLOCAL.has(k)&&"mv/"+k+".mp4"].filter(Boolean);
+    const srcs=[ONART&&MVBLOB[k],(!ONART||MVBLOB[k])&&MVLOCAL.has(k)&&MVB+k+".mp4"].filter(Boolean);
     if(!srcs.length){yt();return}
     const vd=document.createElement("video");vd.controls=true;vd.autoplay=true;vd.playsInline=true;let n=0;
     vd.onerror=()=>{n++;if(n<srcs.length)vd.src=srcs[n];else if(YTEMBED&&id&&id!=="-")emb();else{vp.classList.remove("on");vp.innerHTML='<button class="vplay"><span>▶</span><em class="mono">Watch on YouTube</em></button>';vp.onclick=()=>yt()}};
@@ -4028,7 +4029,7 @@ function bindHX(){
         const up=()=>{if(!on)return;const im=document.createElement("img");im.className="hxu";im.alt="";im.onload=()=>{hx.appendChild(im);requestAnimationFrame(()=>requestAnimationFrame(()=>im.classList.add("in")));const old=[...hx.querySelectorAll(".hxu")].slice(0,-2);setTimeout(()=>old.forEach(o=>o.remove()),900)};setSrc(im,SU(k,G[n++%G.length]))};
         up();tk=setInterval(up,1100);return}
       if(m==="v"){const L=clips();if(!L.length)return;let n=0;vid=document.createElement("video");vid.muted=true;vid.playsInline=true;vid.className="hxv";
-        const nx=()=>{vid.src=`mv/${L[n++%L.length]}.mp4`;vid.play().catch(()=>{})};vid.addEventListener("ended",nx);vid.addEventListener("playing",()=>vid.classList.add("in"),{once:true});nx();hx.appendChild(vid);
+        const nx=()=>{vid.src=`${MVB}${L[n++%L.length]}.mp4`;vid.play().catch(()=>{})};vid.addEventListener("ended",nx);vid.addEventListener("playing",()=>vid.classList.add("in"),{once:true});nx();hx.appendChild(vid);
         const c=HCROP[k];if(c){const W=ph.clientWidth,H=ph.clientHeight,vw=Math.max(W/c[2],H/(.5625*c[3])),vh=vw*.5625;Object.assign(vid.style,{objectFit:"fill",width:vw+"px",height:vh+"px",left:(W/2-vw*(c[0]+c[2]/2))+"px",top:(H/2-vh*(c[1]+c[3]/2))+"px",right:"auto",bottom:"auto"})}}
       if(m==="s"){const G=gl(k);hx.innerHTML=G.length>1?`<i class="hxs">${G.map(()=>"<b></b>").join("")}</i>`:""}
       if(m==="p"){const im=front();const draw=()=>{if(!on)return;try{const c=document.createElement("canvas"),w=48,h=27;c.width=w;c.height=h;const x=c.getContext("2d");x.drawImage(im,0,0,w,h);const d=x.getImageData(0,0,w,h).data,px=[];for(let j=0;j<d.length;j+=4)px.push([d[j],d[j+1],d[j+2]]);
@@ -4062,7 +4063,7 @@ function bindWReel(){
     V.forEach(v=>Object.assign(v.style,{width:vw+"px",height:vh+"px",left:(W/2-vw*(c[0]+c[2]/2))+"px",top:(H/2-vh*(c[1]+c[3]/2))+"px",clipPath:cp}));
     if(contain&&!cv){cv=document.createElement("canvas");cv.width=48;cv.height=27;cv.className="fd-rl-bg";box.prepend(cv);cx=cv.getContext("2d");const draw=()=>{cvRaf=requestAnimationFrame(draw);const v=V[cur];if(v.readyState>=2){try{const sw=v.videoWidth*c[2],sh=v.videoHeight*c[3];cx.drawImage(v,v.videoWidth*c[0],v.videoHeight*c[1],sw,sh,0,0,48,27)}catch(e){}}};draw()}
     if(cv)cv.style.display=contain?"block":"none";box.classList.toggle("contain",contain)};
-  fit();addEventListener("resize",fit);const ld=(v,i)=>{v.src=`mv/${L[i%L.length]}.mp4`;v.load()};
+  fit();addEventListener("resize",fit);const ld=(v,i)=>{v.src=`${MVB}${L[i%L.length]}.mp4`;v.load()};
   ld(V[0],0);if(L.length>1)ld(V[1],1);
   const rate=v=>calm&&/\/(r2|hv)\//.test(v.getAttribute("src")||"")?.6:1;
   const start=v=>{try{v.currentTime=0}catch(e){}v.playbackRate=rate(v);v.play().catch(()=>{})};
@@ -4085,7 +4086,7 @@ function bindSecReel(){
   const box=sec.querySelector(".rl-box"),V=[...box.querySelectorAll("video")],cnt=sec.querySelector(".rl-n");
   const c=HCROP[k]||[0,0,1,1];box.style.aspectRatio=(16/9*c[2]/c[3]).toFixed(3);
   V.forEach(v=>Object.assign(v.style,{width:(100/c[2])+"%",height:(100/c[3])+"%",left:(-c[0]/c[2]*100)+"%",top:(-c[1]/c[3]*100)+"%"}));
-  let n=0,cur=0;const ld=(v,i)=>{v.src=`mv/${L[i%L.length]}.mp4`;v.load()};ld(V[0],0);ld(V[1],1);
+  let n=0,cur=0;const ld=(v,i)=>{v.src=`${MVB}${L[i%L.length]}.mp4`;v.load()};ld(V[0],0);ld(V[1],1);
   const play=()=>{const v=V[cur];try{v.currentTime=0}catch(e){}v.play().catch(()=>{});V.forEach((x,j)=>x.classList.toggle("on",j===cur));cnt.textContent=`${String(n%L.length+1).padStart(2,"0")} / ${String(L.length).padStart(2,"0")}`};
   V.forEach((v,j)=>v.addEventListener("ended",()=>{if(j!==cur)return;n++;const old=cur;cur=1-cur;play();setTimeout(()=>ld(V[old],n+1),80)}));
   const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)play();else V.forEach(v=>v.pause())}),{threshold:.25});io.observe(box);
