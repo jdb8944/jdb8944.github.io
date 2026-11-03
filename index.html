@@ -1846,6 +1846,22 @@ img[src^="spr:"]{opacity:0}
 .nwv2 .ntl{padding-top:8px}
 
 .srow{grid-template-columns:minmax(0,1fr);width:100%;justify-self:stretch}.srow .st{width:100%;min-width:0}
+
+/* 작품 상단 정렬 통일: 제목·시놉·역할·영화제 같은 폭 */
+.fd .fd-title{max-width:1240px;margin-inline:auto}
+.fd .fd-intro{max-width:1240px;margin-inline:auto;box-sizing:content-box;grid-template-columns:minmax(0,1fr) 260px;gap:clamp(32px,5vw,80px);align-items:start}
+.fd .fd-syn,.fd .fd-side{max-width:none}
+.fd .fd-syn p{max-width:60ch}
+.fd .fd-side{padding:0 0 0 28px;border-left:1px solid rgba(127,127,127,.28);gap:20px}
+.fd .fd-side>div h4{margin:0 0 6px}
+@media(max-width:820px){.fd .fd-intro{grid-template-columns:minmax(0,1fr)}.fd .fd-side{border-left:0;padding:20px 0 0;border-top:1px solid rgba(127,127,127,.28)}}
+
+.fd-bg .fd-intro{display:grid;grid-template-columns:minmax(16px,1fr) minmax(0,940px) 300px minmax(16px,1fr);column-gap:0}
+.fd-bg .fd-intro>.fd-syn{grid-column:2;margin:0;padding-right:48px}
+.fd-bg .fd-intro>.fd-side{grid-column:3;margin:0;padding-left:32px}
+@media(max-width:820px){.fd-bg .fd-intro{grid-template-columns:0 minmax(0,1fr) 0}.fd-bg .fd-intro>.fd-syn,.fd-bg .fd-intro>.fd-side{grid-column:2;padding-right:0}.fd-bg .fd-intro>.fd-side{padding-left:0}}
+
+@media(min-width:1300px){.fd .fd-title{padding-left:0;padding-right:0}}
 /* ── about ── */
 .about{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,6vw,80px)}
 .about .lead{font-family:var(--display);font-size:var(--s1);line-height:1.85;max-width:30em;display:grid;gap:1em}
