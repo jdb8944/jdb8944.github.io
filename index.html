@@ -2388,7 +2388,7 @@ const CAMS=[
  [/35BL/i,"ARRI 35BL Evolution","35mm Film","",""],
  [/Mavic/i,"DJI Mavic 3 Pro","Aerial","",""]];
 /* Alexa Mini: 3.4K RAW로 찍은 작품 (나머지는 4K UHD) */
-const ARRIRAW=new Set(["f0","f5","f6","f11","f16","c1","c5","c12","c13","c17"]);
+const ARRIRAW=new Set(["f0","f5","f6","f11","f12","f16","c1","c5","c12","c13","c17"]);
 const STOCK=/Vivid 500|Kodak|Vision3/i;
 const SPECSCAN={f4:"2K · DPX 10-bit · Korean Film Archive (KOFA)"};
 const SPECCAP={f5:"4K UHD · Apple ProRes 4444 · 10-bit 4:4:4",f3:"4K UHD · Apple ProRes 4444 · 10-bit 4:4:4 (Alexa Mini) / 5.8K · Apple ProRes 422 HQ · 10-bit 4:2:2 (S1II)"};
@@ -2655,7 +2655,7 @@ function artList(){
   </div>`;
 }
 /* ───────── 작품 페이지 (Film · Commercial 공통) ───────── */
-const HQSKIP={"f15":[28,29,30,32,33,34],"c17":[11,12],"f12":[12,14,16,32,36],"c15":[10,11,12,13,15,17],"f22":[8,18,22,35],"f10":[9,23,25,27,28,29,30,31,36,38],"f9":[23,28,32],"c20":[19,25],"f13":[8,16],"c22":[7,9,10,11],"c3":[30],"f14":[4,20],"c34":[9],"f30":[3]};
+const HQSKIP={"f15":[28,29,30,32,33,34],"c17":[4,11,12],"f12":[12,14,16,32,36],"c15":[10,11,12,13,15,17],"f22":[8,18,22,35],"f10":[9,23,25,27,28,29,30,31,36,38],"f9":[23,28,32],"c20":[19,25],"f13":[6,8,16],"c22":[7,9,10,11],"c3":[30],"f14":[4,20],"c34":[9],"f30":[3]};
 function stillsBlock(k,title){
   if(!has(k,"s"))return "";
   const n=nStill(k);let rows=[],q=0;
