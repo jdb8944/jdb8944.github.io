@@ -2364,7 +2364,7 @@ const FEST={
 const FDATE={"0|0": "2026.07.02", "0|1": "2026.09.03", "1|0": "2025.12.11", "3|0": "2025.09.19", "4|0": "2025.09.17", "4|1": "2025.11.26", "5|0": "2026.10.01", "5|1": "2025.10.28", "5|2": "2026.06.18", "5|3": "2025.09.25", "5|4": "2025.10", "5|5": "2025.10.23", "5|6": "2025.09.04", "5|7": "2025.06.26", "7|0": "2026.07.16", "8|0": "2026.10.27", "8|1": "2026.10.27", "8|2": "2026.10.27", "10|0": "2025.09.27", "11|0": "2025.09.03", "11|1": "2026.10.07", "11|2": "2026.05.01", "11|3": "2026.09.02", "11|4": "2025.11.06", "11|5": "2025.06.20", "11|8": "2025.11.24", "12|0": "2025.07.03", "13|1": "2025.09.24", "13|2": "2025.11.06", "13|3": "2025.10.17", "15|0": "2025.09.05", "15|1": "2024.09", "32|0": "2026.10.23"};
 /* 테크 스펙: 카메라별 기본 사양을 붙여 자동 구성 */
 const CAMS=[
- [/Alexa Mini/i,"ARRI Alexa Mini","Super 35 ALEV III CMOS",k=>ARRIRAW.has(k)?"3.4K Open Gate 4:3 · ARRIRAW · 12-bit":"4K UHD · Apple ProRes · 10-bit 4:2:2","ARRI LogC3 · ARRI Wide Gamut 3"],
+ [/Alexa Mini/i,"ARRI Alexa Mini","Super 35 ALEV III CMOS",k=>ARRIRAW.has(k)?"3.4K Open Gate 4:3 · ARRIRAW · 12-bit":"4K UHD · Apple ProRes 4444 · 10-bit 4:4:4","ARRI LogC3 · ARRI Wide Gamut 3"],
  [/S1M2|S1II/i,"Panasonic Lumix S1II","Full-Frame 24.1MP Partially Stacked CMOS",ar=>ar<1.5?"4.8K Open Gate 4:3 · Apple ProRes 422 HQ · 10-bit 4:2:2":"5.8K 17:9 · Apple ProRes 422 HQ · 10-bit 4:2:2","ARRI LogC3 · ARRI Wide Gamut 3"],
  [/FX3/i,"Sony FX3","Full-Frame 12.1MP CMOS","4K UHD · XAVC S-I · 10-bit 4:2:2","S-Log3 · S-Gamut3.Cine"],
  [/FX6/i,"Sony FX6","Full-Frame 12.1MP CMOS","4K UHD · XAVC-I · 10-bit 4:2:2","S-Log3 · S-Gamut3.Cine"],
