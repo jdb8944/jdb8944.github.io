@@ -2718,10 +2718,11 @@ function detailShell({k,title,kicker,roles,meta,heroSrc,intro,side,fest,staff,sp
       ${intro?`<div class="fd-syn"><h4>${kicker}</h4>${intro}</div>`:keyFrame(k,title)}
       <aside class="fd-side">${k[0]==="f"&&STAFF[+k.slice(1)]?"":posterBlock(k,title)}${side}${yt&&!video?`<a class="watch-btn" href="https://www.youtube.com/watch?v=${yt}" target="_blank" rel="noopener">Watch ↗</a>`:""}</aside>
     </section>
-    ${video&&YTEMBED&&video!=="-"&&!MVLOCAL.has(k)?`<section class="fd-video wrap"><div class="vframe on${VPORT.has(k)?" vport":""}"><iframe src="https://www.youtube-nocookie.com/embed/${video}?rel=0&playsinline=1" loading="lazy" allow="autoplay; encrypted-media; fullscreen; picture-in-picture" allowfullscreen title="${esc(title)}"></iframe></div></section>`:video?`<section class="fd-video wrap"><div class="vframe${VPORT.has(k)?" vport":""}" data-yt="${video}" data-k="${k}" style="background-image:url('${heroSrc}')"><button class="vplay" aria-label="영상 재생"><span>▶</span><em class="mono">${k[0]==="f"?"Play Film":/MV/.test((C[+k.slice(1)]||[])[2]||"")?"Play Music Video":"Play"}</em></button></div></section>`:""}${fest&&fest.length?festBlock(fest):""}
+    ${fest&&fest.length?festBlock(fest):""}
     ${staff||""}
     ${spec}
     ${HREEL.has(k)?"":`<section class="fd-reel wrap" data-k="${k}" hidden><h4>Reel</h4><div class="rl-box"><video muted playsinline preload="auto"></video><video muted playsinline preload="auto"></video><span class="rl-n mono"></span></div></section>`}
+    ${video&&YTEMBED&&video!=="-"&&!MVLOCAL.has(k)?`<section class="fd-video wrap"><div class="vframe on${VPORT.has(k)?" vport":""}"><iframe src="https://www.youtube-nocookie.com/embed/${video}?rel=0&playsinline=1" loading="lazy" allow="autoplay; encrypted-media; fullscreen; picture-in-picture" allowfullscreen title="${esc(title)}"></iframe></div></section>`:video?`<section class="fd-video wrap"><div class="vframe${VPORT.has(k)?" vport":""}" data-yt="${video}" data-k="${k}" style="background-image:url('${heroSrc}')"><button class="vplay" aria-label="영상 재생"><span>▶</span><em class="mono">${k[0]==="f"?"Play Film":/MV/.test((C[+k.slice(1)]||[])[2]||"")?"Play Music Video":"Play"}</em></button></div></section>`:""}
     ${stillsBlock(k,title)}
     ${btsBlock(k,title)}
     <nav class="pager wrap" aria-label="More">
