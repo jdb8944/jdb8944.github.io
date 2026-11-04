@@ -2386,7 +2386,7 @@ const CAMS=[
 const ARRIRAW=new Set(["f0","f5","f6","f10","f11","f16","c1","c5","c12","c13","c17"]);
 const STOCK=/Vivid 500|Kodak|Vision3/i;
 const SPECSCAN={f4:"2K · DPX 10-bit · Korean Film Archive (KOFA)"};
-const SPECCAP={f5:"4K UHD · Apple ProRes 4444 · 12-bit 4:4:4",f3:"4K UHD · Apple ProRes 4444 (Alexa Mini) / 5.8K · Apple ProRes 422 HQ (S1II)"};
+const SPECCAP={f5:"4K UHD · Apple ProRes 4444 · 10-bit 4:4:4",f3:"4K UHD · Apple ProRes 4444 · 10-bit 4:4:4 (Alexa Mini) / 5.8K · Apple ProRes 422 HQ · 10-bit 4:2:2 (S1II)"};
 const SPECEXTRA={f1:[["Exhibition","2K DCP · Scope"]]};
 const SENSOR=c=>/Super 35/.test(c[2])?"Super 35":/Full-Frame/.test(c[2])?"Full Frame":/Micro Four/.test(c[2])?"Micro Four Thirds":/Large Format/.test(c[2])?"Large Format":/35mm Film/.test(c[2])?"35mm Film":/Dragon/.test(c[2])?"Super 35":"";
 function specAuto(k,rt,ar,cam,grade,color,rel){
