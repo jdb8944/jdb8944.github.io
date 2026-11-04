@@ -2299,6 +2299,7 @@ if(INFO[28]&&!(INFO[28][0]||[]).length)INFO[28][0]=["정직원이 된 날에도,
 if(INFO[29]&&!(INFO[29][0]||[]).length)INFO[29][0]=["특촬물 히어로 '레드소닉'의 슈트 속에서 청춘을 보낸 배우 민성.", "촬영 당일, 그는 자신의 자리가 신인 아이돌에게 넘어간다는 통보를 받는다.", "모든 힘을 넘겨주는 마지막 장면 앞에서, 민성은 레드소닉의 다음을 묻는다."];
 if(INFO[33]&&!(INFO[33][0]||[]).length)INFO[33][0]=["짙은 초록이 고인 여름 숲, 한 여자가 사라진 장미를 찾아 걷는다.", "숨 막힐 듯 무성한 정적 속에서 그녀는 붉은 잔상을 좇고,", "길을 잃은 작은 숨은 나비의 날갯짓처럼 먼 곳으로 흩어진다."];
 if(INFO[34]&&!(INFO[34][0]||[]).length)INFO[34][0]=["그녀가 떠난 집에 홀로 남은 남자.", "빛이 바뀔 때마다 방은 다른 색으로 물들고, 떠난 이유는 새벽이 되어서야 희미하게 드러난다.", "지워지지 않는 흔적 속에서, 그는 끝내 번져 가는 쪽을 택한다."];
+F[31][5]=F[31][5]||"ARRI Alexa Mini";
 /* 영화제·수상·제작지원 (원본 사이트 + 기존 기록 통합): [구분, 연도, 국문, 영문] */
 const FEST={
 0:[["Competition","2026","제30회 부천국제판타스틱영화제 · 부천 초이스 코리안 장편 공식 경쟁","30th Bucheon International Fantastic Film Festival (BIFAN) — Bucheon Choice: Korean Features"],
@@ -2373,6 +2374,9 @@ const FEST={
 
 /* 영화제 개최일 (About 날짜순 정렬용): "작품|순번" */
 const FDATE={"0|0": "2026.07.02", "0|1": "2026.09.03", "1|0": "2025.12.11", "3|0": "2025.09.19", "4|0": "2025.09.17", "4|1": "2025.11.26", "5|0": "2026.10.01", "5|1": "2025.10.28", "5|2": "2026.06.18", "5|3": "2025.09.25", "5|4": "2025.10", "5|5": "2025.10.23", "5|6": "2025.09.04", "5|7": "2025.06.26", "7|0": "2026.07.16", "8|0": "2026.10.27", "8|1": "2026.10.27", "8|2": "2026.10.27", "10|0": "2025.09.27", "11|0": "2025.09.03", "11|1": "2026.10.07", "11|2": "2026.05.01", "11|3": "2026.09.02", "11|4": "2025.11.06", "11|5": "2025.06.20", "11|8": "2025.11.24", "12|0": "2025.07.03", "13|1": "2025.09.24", "13|2": "2025.11.06", "13|3": "2025.10.17", "15|0": "2025.09.05", "15|1": "2024.09", "32|0": "2026.10.23"};
+/* 한예종 워크숍 표기 */
+(()=>{const W={6: "중급", 5: "고급", 2: "중급", 8: "고급", 13: "중급", 31: "중급", 15: "초급", 16: "초급"},E={"초급":"Introductory","중급":"Intermediate","고급":"Advanced"};
+for(const [i,l] of Object.entries(W)){const y=(F[i][1]||"").slice(0,4);const cur=(FEST[i]||F[i][6]||[]).filter(x=>!(Array.isArray(x)&&/^Production/.test(x[0])&&/한국예술종합학교/.test(x[2])));FEST[i]=[["Production Support",y,`한국예술종합학교 영상원 전문사 ${l} 워크숍 제작`,`K-ARTS School of Film, TV & Multimedia — M.F.A. ${E[l]} Workshop Production`],...cur]}})();
 /* 테크 스펙: 카메라별 기본 사양을 붙여 자동 구성 */
 const CAMS=[
  [/Alexa Mini/i,"ARRI Alexa Mini","Super 35 ALEV III CMOS",k=>ARRIRAW.has(k)?"3.4K Open Gate 4:3 · ARRIRAW · 12-bit":"4K UHD · Apple ProRes 4444 · 10-bit 4:4:4","ARRI LogC3 · ARRI Wide Gamut 3"],
@@ -2394,7 +2398,7 @@ const CAMS=[
  [/35BL/i,"ARRI 35BL Evolution","35mm Film","",""],
  [/Mavic/i,"DJI Mavic 3 Pro","Aerial","",""]];
 /* Alexa Mini: 3.4K RAW로 찍은 작품 (나머지는 4K UHD) */
-const ARRIRAW=new Set(["f0","f5","f6","f11","f12","f16","c1","c5","c12","c13","c17"]);
+const ARRIRAW=new Set(["f0","f5","f6","f11","f12","c1","c5","c12","c13","c17"]);
 const STOCK=/Vivid 500|Kodak|Vision3/i;
 const SPECSCAN={f4:"2K · DPX 10-bit · Korean Film Archive (KOFA)"};
 const SPECCAP={f5:"4K UHD · Apple ProRes 4444 · 10-bit 4:4:4",f3:"4K UHD · Apple ProRes 4444 · 10-bit 4:4:4 (Alexa Mini) / 5.8K · Apple ProRes 422 HQ · 10-bit 4:2:2 (S1II)"};
