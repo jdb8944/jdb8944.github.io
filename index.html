@@ -3958,6 +3958,7 @@ function bindShelf(){
     back.dataset.s=s;setSrc(back,SU(kk,s));
   },1500);
 }
+let lbTok=0;
 function bindGallery(k){
   const lb=$("#lb");if(!lb)return;let t="s",j=0;
   let L=[],p=0;const seq=()=>{const a=[...document.querySelectorAll(`[data-gal="${t}"]`)].map(b=>+b.dataset.n);return a.length?a:Array.from({length:t==="s"?nStill(k):MEDIA[k][t].length},(_,x)=>x)};const n=()=>L.length;
@@ -3966,12 +3967,12 @@ function bindGallery(k){
   const fitSp=()=>{if(sp.hidden)return;const [,,w,h]=rect();const mw=innerWidth-112,mh=innerHeight-96,sc=Math.min(mw/w,mh/h,1.4);sp.style.width=w*sc+"px";sp.style.height=h*sc+"px"};
   const show=x=>{p=(x+n())%n();j=L[p];
     const hq=t==="s"&&HQS[k];const isSp=!hq&&(t==="b"||(t==="s"&&j>=MEDIA[k].s.length));
-    if(isSp){im.hidden=true;sp.hidden=false;sp.setAttribute("style",t==="b"?spr(k,j):sprG(k,"x",j-MEDIA[k].s.length));fitSp()}else{sp.hidden=true;im.hidden=false;im.src=hq?HQU(k,j):W(k,t,j)}
+    if(isSp){im.hidden=true;sp.hidden=false;sp.setAttribute("style",t==="b"?spr(k,j):sprG(k,"x",j-MEDIA[k].s.length));fitSp()}else{sp.hidden=true;im.hidden=false;const tok=++lbTok;im.removeAttribute("src");if(hq){im.src=HQU(k,j,1);const hi=new Image();hi.onload=()=>{if(tok===lbTok)im.src=hi.src};hi.src=HQU(k,j)}else im.src=W(k,t,j)}
     $("#lbC").textContent=`${p+1} / ${n()}`;const li=$("#lbI");if(li){const h=t==="s"?stillInfo(k,j):"";li.innerHTML=h;lb.classList.toggle("has-i",!!h)}};
   const ib=$("#lbIB");if(ib)ib.onclick=e=>{e.stopPropagation();lb.classList.toggle("i-open")};
   addEventListener("resize",fitSp);
   document.querySelectorAll("[data-gal]").forEach(b=>b.onclick=()=>{t=b.dataset.gal;L=seq();const q=L.indexOf(+b.dataset.n);show(q<0?0:q);lb.hidden=false;document.body.style.overflow="hidden";document.body.classList.add("lb-open");$("#lbX").focus()});
-  const close=()=>{lb.hidden=true;document.body.style.overflow="";document.body.classList.remove("lb-open")};
+  const close=()=>{lbTok++;im.removeAttribute("src");lb.hidden=true;document.body.style.overflow="";document.body.classList.remove("lb-open")};
   $("#lbX").onclick=close;$("#lbP").onclick=()=>show(p-1);$("#lbN").onclick=()=>show(p+1);
   lb.onclick=e=>{if(e.target===lb)close()};
   const key=e=>{if(lb.hidden)return;if(e.key==="Escape")close();if(e.key==="ArrowLeft")show(p-1);if(e.key==="ArrowRight")show(p+1)};
