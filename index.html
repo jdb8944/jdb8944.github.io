@@ -2650,10 +2650,11 @@ function artList(){
   </div>`;
 }
 /* ───────── 작품 페이지 (Film · Commercial 공통) ───────── */
+const HQSKIP={"f15":[28,29,30,32,33,34],"c17":[11,12],"f12":[12,14,16,32,36],"c15":[10,11,12,13,15,17],"f22":[8,18,22,35],"f10":[9,23,25,27,28,29,30,31,36,38],"f9":[23,28,32],"c20":[19,25],"f13":[8,16],"c22":[7,9,10,11],"c3":[30],"f14":[4,20],"c34":[9],"f30":[3]};
 function stillsBlock(k,title){
   if(!has(k,"s"))return "";
   const n=nStill(k);let rows=[],q=0;
-  const S=Array.from({length:Math.max(0,n-1)},(_,x)=>x+1);for(let a=S.length-1;a>0;a--){const b=Math.floor(Math.random()*(a+1));[S[a],S[b]]=[S[b],S[a]]}
+  const sk=new Set(HQS[k]&&HQSKIP[k]||[]);const S=Array.from({length:Math.max(0,n-1)},(_,x)=>x+1).filter(x=>!sk.has(x));for(let a=S.length-1;a>0;a--){const b=Math.floor(Math.random()*(a+1));[S[a],S[b]]=[S[b],S[a]]}
   S.length=Math.min(S.length,MEDIA[k].sshow||14);
   while(q<S.length){if(rows.length%2===0){rows.push([S[q]]);q++}else{rows.push(S.slice(q,q+2));q+=2}}
   return `<section class="fd-stills wrap" aria-label="Stills"><h4>Stills</h4>
