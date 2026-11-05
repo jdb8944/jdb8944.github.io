@@ -1862,6 +1862,17 @@ img[src^="spr:"]{opacity:0}
 @media(max-width:820px){.fd-bg .fd-intro{grid-template-columns:0 minmax(0,1fr) 0}.fd-bg .fd-intro>.fd-syn,.fd-bg .fd-intro>.fd-side{grid-column:2;padding-right:0}.fd-bg .fd-intro>.fd-side{padding-left:0}}
 
 @media(min-width:1300px){.fd .fd-title{padding-left:0;padding-right:0}}
+
+/* 역할 색 구분 */
+:root{--rl-dir:#b5532d;--rl-dop:#2a6d8f;--rl-col:#8a4fa3}
+.rl{white-space:nowrap}
+.rl-sep{opacity:.5}
+body .rl.rl-dir{color:var(--rl-dir)}
+body .rl.rl-dop{color:var(--rl-dop)}
+body .rl.rl-col{color:var(--rl-col)}
+body .fd .rl.rl-dir,body .cv-line .rl.rl-dir,body .as-cap .rl.rl-dir,body .mv-bot .rl.rl-dir,body .sc-meta .rl.rl-dir,body .rl-cap .rl.rl-dir,body .ab-dark .rl.rl-dir,body .hov .rl.rl-dir,body .hr .rl.rl-dir{color:#f0a37e}
+body .fd .rl.rl-dop,body .cv-line .rl.rl-dop,body .as-cap .rl.rl-dop,body .mv-bot .rl.rl-dop,body .sc-meta .rl.rl-dop,body .rl-cap .rl.rl-dop,body .ab-dark .rl.rl-dop,body .hov .rl.rl-dop,body .hr .rl.rl-dop{color:#8fcbe8}
+body .fd .rl.rl-col,body .cv-line .rl.rl-col,body .as-cap .rl.rl-col,body .mv-bot .rl.rl-col,body .sc-meta .rl.rl-col,body .rl-cap .rl.rl-col,body .ab-dark .rl.rl-col,body .hov .rl.rl-col,body .hr .rl.rl-col{color:#d3a8ef}
 /* ── about ── */
 .about{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,6vw,80px)}
 .about .lead{font-family:var(--display);font-size:var(--s1);line-height:1.85;max-width:30em;display:grid;gap:1em}
@@ -2451,7 +2462,10 @@ const img=i=>`img/${String(i).padStart(2,"0")}.webp`;
 const vimg=i=>`img/ef${String(i).padStart(2,"0")}.webp`;
 const isDir=f=>/Direct/.test(f[2]), isDop=f=>/DOP/.test(f[2]), isCol=f=>/Color/.test(f[2]);
 const roleList=r=>[/Direct/.test(r)&&"Director",/DOP/.test(r)&&"Cinematographer",/Color/.test(r)&&"Colorist"].filter(Boolean);
-const roleEn=f=>roleList(f[2]).join(" · ");
+const ROLEC={Director:"dir",Cinematographer:"dop",Colorist:"col"};
+const roleTag=x=>`<span class="rl rl-${ROLEC[x]||"x"}">${x}</span>`;
+const roleHTML=L=>L.map(roleTag).join('<span class="rl-sep"> · </span>');
+const roleEn=f=>roleHTML(roleList(f[2]));
 const roleShort=r=>[/Direct/.test(r)&&"Dir",/DOP/.test(r)&&"DOP",/Color/.test(r)&&"Color"].filter(Boolean).join(" + ");
 /* 로컬 원본 이미지 */
 const W=(k,t,n)=>`img/w/${k}/${t}${n}.webp`;
@@ -2563,7 +2577,7 @@ function homeS(){
   </section>${hvSwitch()}</div>`;
 }
 function homeP(){
-  const L=[...FO.map(i=>[F[i],i]).map(([f,i])=>["f"+i,"#film-"+i,f[0],f[1].slice(0,4),roleEn(f),"Film"]),...CO.map(i=>[C[i],i]).map(([c,i])=>["c"+i,"#commercial-"+i,c[0],c[1].slice(0,4),roleList(cRole(i)).join(" · "),c[2]])].filter(x=>has(x[0],"s"));
+  const L=[...FO.map(i=>[F[i],i]).map(([f,i])=>["f"+i,"#film-"+i,f[0],f[1].slice(0,4),roleEn(f),"Film"]),...CO.map(i=>[C[i],i]).map(([c,i])=>["c"+i,"#commercial-"+i,c[0],c[1].slice(0,4),roleHTML(roleList(cRole(i))),c[2]])].filter(x=>has(x[0],"s"));
   return `<div class="view split"><section class="sp">
     <div class="sp-pic" id="spPic"><img alt="" class="on" src="${W(L[0][0],"s",0)}"><img alt=""><p class="sp-cap mono" id="spCap">${esc(L[0][2])}</p></div>
     <div class="sp-list" id="spList">
@@ -2627,7 +2641,7 @@ function filmList(){
 
 /* ───────── Commercial: 목록형 인덱스 ───────── */
 const isMV=c=>/MV/.test(c[2]);
-const roleHover=r=>{const L=roleList(r),K={Director:"연출",Cinematographer:"촬영",Colorist:"색보정"};return L.length?`<span class="hr"><span><b>${L.map(x=>K[x]).join(" · ")}</b><i class="mono">${L.join(" · ")}</i></span></span>`:""};
+const roleHover=r=>{const L=roleList(r),K={Director:"연출",Cinematographer:"촬영",Colorist:"색보정"};return L.length?`<span class="hr"><span><b>${L.map(x=>`<span class="rl rl-${ROLEC[x]}">${K[x]}</span>`).join(" · ")}</b><i class="mono">${L.join(" · ")}</i></span></span>`:""};
 const cRole=i=>CINFO[i]?CINFO[i][0]:"DOP";
 /* 커머셜 분류 */
 const CCAT={mv:[0,2,4,6,8,11,23,24,26,35,36],cf:[1,5,12,13,15,16,17,18,19,22,25,32],brand:[7,9,14,27,30,31],corp:[3,10,20,29],doc:[21]};
@@ -2639,7 +2653,7 @@ function commercial(){
     const tags="all "+ccat(i);
     return `<a class="fitem" href="#commercial-${i}" data-k="${k}" data-tags="${tags}">
       <span class="fph"><img src="${n?SU(k,s):img(31+i)}" alt="${esc(c[0])}" loading="lazy" data-s="${s}"><img alt="" aria-hidden="true" class="off"><span class="hov">View project</span><span class="hx"></span>${roleHover(r)}</span>
-      <span class="ft"><b>${esc(c[0])}<i>${c[1].slice(0,4)}</i></b><span class="fr">${roleList(r).join(" · ")}</span></span>
+      <span class="ft"><b>${esc(c[0])}<i>${c[1].slice(0,4)}</i></b><span class="fr">${roleHTML(roleList(r))}</span></span>
       <span class="fk mono">${CCATN[ccat(i)]}${CCATN[ccat(i)]!==c[2]?" · "+esc(c[2]):""}</span>
     </a>`}).join("");
   const ck=[0,1,2,3,4,5,6,7,8,9,11,12,17,29,32,35,36].map(i=>"c"+i).filter(k=>has(k,"s")).sort(()=>Math.random()-.5);
@@ -2656,7 +2670,7 @@ const pager=(t,i)=>{const k=t+i;
   const O=t==="f"?FO:CO,A=t==="f"?F:C,h=t==="f"?"#film-":"#commercial-",o=O.indexOf(i),L=O.length,p=O[(o-1+L)%L],n=O[(o+1)%L];
   return {prev:[h+p,A[p][0]],next:[h+n,A[n][0]],list:t==="f"?["#film","Film"]:["#commercial","Commercial"]}};
 function artList(){
-  const items=AO.map(a=>{const s=rs(a.k);const r=a.f?roleEn(a.d):roleList(cRole(a.i)).join(" · ");
+  const items=AO.map(a=>{const s=rs(a.k);const r=a.f?roleEn(a.d):roleHTML(roleList(cRole(a.i)));
     return `<a class="fitem" href="${a.href}" data-k="${a.k}" data-tags="all">
       <span class="fph"><img src="${SU(a.k,s)}" alt="${esc(a.d[0])}" loading="lazy" data-s="${s}"><img alt="" aria-hidden="true" class="off"><span class="hov">View project</span><span class="hx"></span></span>
       <span class="ft"><b>${esc(a.d[0])}<i>${a.d[1].slice(0,4)}</i></b><span class="fr">${r}</span></span>
@@ -2720,7 +2734,7 @@ function detailShell({k,title,kicker,roles,meta,heroSrc,intro,side,fest,staff,sp
   return `<article class="view fd${BGREEL.has(k)?" fd-bg dark":""}">
     <section class="fd-hero dark" data-k="${k}" style="background-image:url('${heroSrc}')">${HREEL.has(k)?`<div class="fd-rl" aria-hidden="true"><video muted playsinline preload="auto"></video><video muted playsinline preload="auto"></video></div>`:""}
       <div class="fd-title wrap"><div class="fd-tl">
-        <div class="fd-roles">${roles.map(r=>`<span>${r}</span>`).join("")}</div>
+        <div class="fd-roles">${roles.map(r=>`<span class="rl rl-${ROLEC[r]||"x"}">${r}</span>`).join("")}</div>
         <h1>${esc(title)}</h1>
         <p class="mono">${meta}</p></div>
         ${k[0]==="f"?laurelRow(+k.slice(1)):""}
@@ -2756,7 +2770,7 @@ function filmDetail(i){
     meta:`${f[7]==="장편"?"Feature":"Short"} · ${enDate(f[1])}${f[3]?" · "+enRT(f[3]):""}`,
     heroSrc:cover(k,img(i)),
     intro:syn.length?syn.map(l=>`<p>${esc(l)}</p>`).join(""):"",
-    side:`${cast&&!(STAFF[i]&&STAFF[i].cast&&STAFF[i].cast.length)?`<div><h4>Cast</h4><p>${esc(cast)}</p></div>`:""}<div><h4>${roleList(f[2]).join(" · ")}</h4><p>Jung Dabin</p></div>`,
+    side:`${cast&&!(STAFF[i]&&STAFF[i].cast&&STAFF[i].cast.length)?`<div><h4>Cast</h4><p>${esc(cast)}</p></div>`:""}<div><h4>${roleHTML(roleList(f[2]))}</h4><p>Jung Dabin</p></div>`,
     fest:FEST[i]||f[6]||[],
     staff:staffBlock(i),
     spec:specAuto("f"+i,f[3],f[4],f[5],FGRADE[i],isCol(f),f[1])||specBlock([["Aspect Ratio",f[4]+" : 1"],["Running Time",enRT(f[3])],["Released",enDate(f[1])]]),
@@ -3618,7 +3632,7 @@ function colorView(){
     <div class="fgrid cm" id="shelf">${IT.map(x=>`<a class="fitem cm-c" href="${x.href}"><span class="fph cm-w cg2-w" style="--x:50%"><span class="cm-pal">${x.pal[0].map((c,i)=>`<i style="background:${c};flex:${x.pal[1][i]||1}"></i>`).join("")}</span><span class="cm-im"><img src="${x.a}" alt="${esc(x.t)}" loading="lazy">${x.b?`<img class="cg2-b" src="${x.b}" alt="" loading="lazy"><span class="cg2-l mono">Rec.709${x.real?"":" *"}</span><span class="cg2-r mono">Final</span><i class="cg2-h"></i>`:""}</span></span>
       <span class="ft"><b>${esc(x.t)}<i>${x.y}</i></b><span class="fr">Case ${String(x.n+1).padStart(2,"0")}</span></span><span class="fx">${esc(x.line)}</span></a>`).join("")}</div>
     <p class="cg2-note mono">* 임시 비교 이미지</p>
-    <section class="cg-cred"><h4 class="mono">Color credits</h4><ol>${cols.map(i=>`<li><a href="#film-${i}"><span class="mono">${F[i][1].slice(0,4)}</span><b>${esc(F[i][0])}</b><i>${esc(roleEn(F[i]))}</i></a></li>`).join("")}</ol></section></div></div>`;
+    <section class="cg-cred"><h4 class="mono">Color credits</h4><ol>${cols.map(i=>`<li><a href="#film-${i}"><span class="mono">${F[i][1].slice(0,4)}</span><b>${esc(F[i][0])}</b><i>${roleEn(F[i])}</i></a></li>`).join("")}</ol></section></div></div>`;
 }
 function bindColorIndex(){
   const X=$(".cgv");if(!X)return;
@@ -3702,7 +3716,7 @@ function bindMonitor(){
   const mv=$("#mv");if(!mv)return;const L=mv.dataset.list.split(",").map(Number);let j=0,t0=performance.now(),raf=0,base=Math.random()*3600*24;const D=6000,fr=$("#mvF");
   const go=n=>{j=(n+L.length)%L.length;const i=L[j],k="f"+i,f=F[i];const [a,b]=fr.querySelectorAll("img");const front=a.classList.contains("on")?a:b,back=front===a?b:a;
     back.onload=()=>{back.classList.add("on");front.classList.remove("on")};setSrc(back,SU(k,rs(k)));fr.href="#film-"+i;
-    $("#mvT").textContent=f[0];$("#mvM").textContent=roleEn(f);$("#mvClip").textContent=`A${String(i).padStart(3,"0")}C${String(j+1).padStart(3,"0")} · ${f[1].replace(".","")}`;$("#mvCam").textContent=camShort(f[5]);$("#mvN").textContent=`${String(j+1).padStart(2,"0")} / ${String(L.length).padStart(2,"0")}`;t0=performance.now()};
+    $("#mvT").textContent=f[0];$("#mvM").innerHTML=roleEn(f);$("#mvClip").textContent=`A${String(i).padStart(3,"0")}C${String(j+1).padStart(3,"0")} · ${f[1].replace(".","")}`;$("#mvCam").textContent=camShort(f[5]);$("#mvN").textContent=`${String(j+1).padStart(2,"0")} / ${String(L.length).padStart(2,"0")}`;t0=performance.now()};
   const p2=x=>String(Math.floor(x)).padStart(2,"0");
   const tick=now=>{if(!document.body.contains(mv))return;const s=base+now/1000;$("#mvTc").textContent=`${p2(s/3600%24)}:${p2(s/60%60)}:${p2(s%60)}:${p2(now/1000*24%24)}`;if(now-t0>=D&&!reduced())go(j+1);raf=requestAnimationFrame(tick)};
   $("#mvP").onclick=e=>{e.preventDefault();go(j-1)};$("#mvX").onclick=e=>{e.preventDefault();go(j+1)};
@@ -3751,7 +3765,7 @@ function homeA(){
 function bindAspect(){
   const as=$("#as");if(!as)return;const L=as.dataset.list.split(",").map(Number),w=$("#asW"),im=$("#asI");
   mkFlip(as,5000,j=>{const i=L[((j%L.length)+L.length)%L.length];w.classList.add("out");
-    setTimeout(()=>{w.style.setProperty("--ar",parseFloat(F[i][4]));w.href="#film-"+i;setSrc(im,SU("f"+i,rs("f"+i)));$("#asAr").textContent=F[i][4];$("#asT").textContent=F[i][0];$("#asM").textContent=F[i][1].slice(0,4)+" · "+roleEn(F[i]);setTimeout(()=>w.classList.remove("out"),120)},500)});
+    setTimeout(()=>{w.style.setProperty("--ar",parseFloat(F[i][4]));w.href="#film-"+i;setSrc(im,SU("f"+i,rs("f"+i)));$("#asAr").textContent=F[i][4];$("#asT").textContent=F[i][0];$("#asM").innerHTML=F[i][1].slice(0,4)+" · "+roleEn(F[i]);setTimeout(()=>w.classList.remove("out"),120)},500)});
 }
 
 /* E: 엔딩 크레딧 — 검은 화면에 크레딧이 천천히 올라간다. 줄에 올리면 그 장면이 뒤에 깔린다 */
@@ -3942,7 +3956,7 @@ function bindCover(){
   const cv=$("#cover");if(!cv)return;
   const ims=[...cv.querySelectorAll(".cv-img")],mast=$("#mast");let k=0;
   const set=n=>{ims[k].classList.remove("on");k=(n+ims.length)%ims.length;ims[k].classList.add("on");
-    const i=COVER[k],f=F[i];$("#cvT").textContent=f[0];$("#cvM").textContent=roleEn(f);$("#cvLink").href="#film-"+i};
+    const i=COVER[k],f=F[i];$("#cvT").textContent=f[0];$("#cvM").innerHTML=roleEn(f);$("#cvLink").href="#film-"+i};
   if(!reduced())showTimer=setInterval(()=>set(k+1),6000);
   const on=()=>{const y=scrollY;mast.style.transform=`translateY(${y*.35}px)`;mast.style.opacity=Math.max(0,1-y/(innerHeight*.7))};
   addEventListener("scroll",on,{passive:true});on();
@@ -3979,7 +3993,7 @@ function bindGallery(k){
   const fitSp=()=>{if(sp.hidden)return;const [,,w,h]=rect();const mw=innerWidth-112,mh=innerHeight-96,sc=Math.min(mw/w,mh/h,1.4);sp.style.width=w*sc+"px";sp.style.height=h*sc+"px"};
   const show=x=>{p=(x+n())%n();j=L[p];
     const hq=t==="s"&&HQS[k];const isSp=!hq&&(t==="b"||(t==="s"&&j>=MEDIA[k].s.length));
-    if(isSp){im.hidden=true;sp.hidden=false;sp.setAttribute("style",t==="b"?spr(k,j):sprG(k,"x",j-MEDIA[k].s.length));fitSp()}else{sp.hidden=true;im.hidden=false;const tok=++lbTok;im.removeAttribute("src");if(hq){im.src=HQU(k,j,1);const hi=new Image();hi.onload=()=>{if(tok===lbTok)im.src=hi.src};hi.src=HQU(k,j)}else im.src=W(k,t,j)}
+    if(isSp){im.hidden=true;sp.hidden=false;sp.setAttribute("style",t==="b"?spr(k,j):sprG(k,"x",j-MEDIA[k].s.length));fitSp()}else{sp.hidden=true;im.hidden=false;const tok=++lbTok;im.removeAttribute("src");const ar=hq?HQS[k][j]:0;if(ar){im.style.aspectRatio=ar;im.style.width=`min(calc(100vw - 112px), calc((100vh - 96px) * ${ar}))`;im.style.height="auto";im.style.maxWidth="none";im.style.maxHeight="none"}else{im.style.cssText=""}if(hq){im.src=HQU(k,j,1);const hi=new Image();hi.onload=()=>{if(tok===lbTok)im.src=hi.src};hi.src=HQU(k,j)}else im.src=W(k,t,j)}
     $("#lbC").textContent=`${p+1} / ${n()}`;const li=$("#lbI");if(li){const h=t==="s"?stillInfo(k,j):"";li.innerHTML=h;lb.classList.toggle("has-i",!!h)}};
   const ib=$("#lbIB");if(ib)ib.onclick=e=>{e.stopPropagation();lb.classList.toggle("i-open")};
   addEventListener("resize",fitSp);
@@ -4003,7 +4017,7 @@ function bindScreen(){
   const sc=$("#sc");if(!sc)return;const L=sc.dataset.list.split(",").map(Number);let j=0;const fr=$("#scF");const D=5200;let t0=performance.now(),raf=0;
   const go=n=>{j=(n+L.length)%L.length;const i=L[j],k="f"+i;const [a,b]=fr.querySelectorAll("img");const front=a.classList.contains("on")?a:b,back=front===a?b:a;
     back.onload=()=>{back.classList.add("on");front.classList.remove("on")};setSrc(back,SU(k,rs(k)));fr.href="#film-"+i;
-    $("#scSub").textContent=F[i][0];$("#scMeta").textContent=F[i][1].slice(0,4)+" · "+roleEn(F[i]);$("#scN").textContent=`Now showing ${String(j+1).padStart(2,"0")} / ${String(L.length).padStart(2,"0")}`;t0=performance.now()};
+    $("#scSub").textContent=F[i][0];$("#scMeta").innerHTML=F[i][1].slice(0,4)+" · "+roleEn(F[i]);$("#scN").textContent=`Now showing ${String(j+1).padStart(2,"0")} / ${String(L.length).padStart(2,"0")}`;t0=performance.now()};
   const tick=now=>{if(!document.body.contains(sc))return;const p=Math.min(1,(now-t0)/D);$("#scBar").style.transform=`scaleX(${p})`;if(p>=1&&!reduced())go(j+1);raf=requestAnimationFrame(tick)};
   $("#scP").onclick=()=>go(j-1);$("#scX").onclick=()=>go(j+1);
   const key=e=>{if(e.key==="ArrowRight")go(j+1);if(e.key==="ArrowLeft")go(j-1)};addEventListener("keydown",key);
@@ -4028,7 +4042,7 @@ function bindReel(){
   const S=$("#rlS"),T=$("#rlT");if(!S)return;let x=0,v=.6,raf=0,hover=false,drag=null,last=-1;
   const half=()=>T.scrollWidth/2;
   const cap=()=>{const c=innerWidth/2;let best=null,bd=1e9;T.querySelectorAll(".rf").forEach(a=>{const r=a.getBoundingClientRect(),d=Math.abs(r.left+r.width/2-c);if(d<bd){bd=d;best=a}});
-    if(best&&best.dataset.i!=last){last=best.dataset.i;const f=F[+last];$("#rlTitle").textContent=f[0];$("#rlMeta").textContent=f[1].slice(0,4)+" · "+roleEn(f);
+    if(best&&best.dataset.i!=last){last=best.dataset.i;const f=F[+last];$("#rlTitle").textContent=f[0];$("#rlMeta").innerHTML=f[1].slice(0,4)+" · "+roleEn(f);
       T.querySelectorAll(".rf.on").forEach(a=>a.classList.remove("on"));best.classList.add("on")}};
   const loop=()=>{if(!document.body.contains(T))return;if(!hover&&!drag)x-=reduced()?0:v;const h=half();if(h){if(x<=-h)x+=h;if(x>0)x-=h}T.style.transform=`translate3d(${x}px,0,0)`;cap();raf=requestAnimationFrame(loop)};
   S.addEventListener("mouseenter",()=>hover=true);S.addEventListener("mouseleave",()=>hover=false);
