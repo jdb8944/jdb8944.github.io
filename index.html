@@ -276,7 +276,7 @@ nav a:hover,nav a[aria-current="page"]{color:var(--fg)}
 .fd .pager{max-width:1240px;margin-top:clamp(64px,9vw,120px);padding-bottom:140px}
 .lb{position:fixed;inset:0;z-index:30;background:rgba(8,8,8,.96);display:grid;place-items:center;padding:max(48px,env(safe-area-inset-top,0px)) max(56px,env(safe-area-inset-right,0px)) max(48px,env(safe-area-inset-bottom,0px)) max(56px,env(safe-area-inset-left,0px))}
 body.lb-open header,body.lb-open .hv{visibility:hidden}
-.lb img{max-width:100%;max-height:100%;object-fit:contain}
+.lb img{max-width:min(100%,calc(100vw - 112px));max-height:calc(100vh - 96px);object-fit:contain}
 .lb button{position:absolute;background:none;border:0;color:#fff;font-size:1.6rem;cursor:pointer;padding:10px;opacity:.8}
 .lb button:hover{opacity:1}
 .lb-x{top:calc(14px + env(safe-area-inset-top,0px));right:calc(18px + env(safe-area-inset-right,0px));font-size:1.1rem!important}
@@ -2477,7 +2477,7 @@ const roleHTML=L=>L.map(roleTag).join('<span class="rl-sep"> · </span>');
 const roleEn=f=>roleHTML(roleList(f[2]));
 const roleShort=r=>[/Direct/.test(r)&&"Dir",/DOP/.test(r)&&"DOP",/Color/.test(r)&&"Color"].filter(Boolean).join(" + ");
 /* 로컬 원본 이미지 */
-const W=(k,t,n)=>`img/w/${k}/${t}${n}.webp`;
+const W=(k,t,n)=>`img/w/${k}/${t}${n}.webp${t==="p"?"?v=2":""}`;
 const has=(k,t)=>MEDIA[k]&&MEDIA[k][t]&&MEDIA[k][t].length;
 const cover=(k,fallback)=>(typeof HQS!=="undefined"&&HQS[k])?HQU(k,0):has(k,"s")?W(k,"s",0):fallback;
 const rnd=n=>Math.floor(Math.random()*n);
@@ -4002,7 +4002,7 @@ function bindGallery(k){
   const fitSp=()=>{if(sp.hidden)return;const [,,w,h]=rect();const mw=innerWidth-112,mh=innerHeight-96,sc=Math.min(mw/w,mh/h,1.4);sp.style.width=w*sc+"px";sp.style.height=h*sc+"px"};
   const show=x=>{p=(x+n())%n();j=L[p];
     const hq=t==="s"&&HQS[k];const isSp=!hq&&(t==="b"||(t==="s"&&j>=MEDIA[k].s.length));
-    if(isSp){im.hidden=true;sp.hidden=false;sp.setAttribute("style",t==="b"?spr(k,j):sprG(k,"x",j-MEDIA[k].s.length));fitSp()}else{sp.hidden=true;im.hidden=false;const tok=++lbTok;im.removeAttribute("src");const ar=hq?HQS[k][j]:0;if(ar){im.style.aspectRatio=ar;im.style.width=`min(calc(100vw - 112px), calc((100vh - 96px) * ${ar}))`;im.style.height="auto";im.style.maxWidth="none";im.style.maxHeight="none"}else{im.style.cssText=""}if(hq){im.src=HQU(k,j,1);const hi=new Image();hi.onload=()=>{if(tok===lbTok)im.src=hi.src};hi.src=HQU(k,j)}else im.src=W(k,t,j)}
+    if(isSp){im.hidden=true;sp.hidden=false;sp.setAttribute("style",t==="b"?spr(k,j):sprG(k,"x",j-MEDIA[k].s.length));fitSp()}else{sp.hidden=true;im.hidden=false;const tok=++lbTok;im.removeAttribute("src");const ar=hq?HQS[k][j]:(t==="p"&&MEDIA[k].p?MEDIA[k].p[j]:0);if(ar){im.style.aspectRatio=ar;im.style.width=`min(calc(100vw - 112px), calc((100vh - 96px) * ${ar}))`;im.style.height="auto";im.style.maxWidth="none";im.style.maxHeight="none"}else{im.style.cssText=""}if(hq){im.src=HQU(k,j,1);const hi=new Image();hi.onload=()=>{if(tok===lbTok)im.src=hi.src};hi.src=HQU(k,j)}else im.src=W(k,t,j)}
     $("#lbC").textContent=`${p+1} / ${n()}`;const li=$("#lbI");if(li){const h=t==="s"?stillInfo(k,j):"";li.innerHTML=h;lb.classList.toggle("has-i",!!h)}};
   const ib=$("#lbIB");if(ib)ib.onclick=e=>{e.stopPropagation();lb.classList.toggle("i-open")};
   addEventListener("resize",fitSp);
