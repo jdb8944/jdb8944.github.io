@@ -2361,7 +2361,7 @@ const FEST={
    ["Production Support", "2025", "한국예술종합학교 제작", "Produced by K-ARTS (Korea National University of Arts)"]],
 9:[["Production Support","2023","영화진흥위원회 독립예술영화 단편부문 제작지원작","Korean Film Council (KOFIC) — Independent & Art Film Production Support, Shorts"],
    ["Production Support","2024","제이포엔터테인먼트 단편영화 제작지원작","J4 Entertainment Short Film Production Support"]],
-10:[["Official Selection","2025","제3회 통영영화제 · T-Green 섹션 공식 초청","3rd Tongyeong Film Festival — T-Green Section, Official Invitation"]],
+10:[["Competition","2025","제3회 통영영화제 · 경쟁부문 본선 (T-Green)","3rd Tongyeong Film Festival — Competition Finalist, T-Green Section"]],
 11:[["Award","2025","제17회 대단한단편영화제 · 대단한 감독상","17th Daedanhan Short Film Festival — Best Director Award"],
    ["Competition","2026","루스트슈트라이펜 영화제 (스위스 바젤) · 국제경쟁 ABRACADABRA","Luststreifen Film Festival, Basel — International Competition: ABRACADABRA"],
    ["Official Selection","2026","제7회 퀴어 이스트 영화제 (영국) 공식 초청","7th Queer East Film Festival, London — Official Selection"],
@@ -2467,7 +2467,7 @@ const roleHTML=L=>L.map(roleTag).join('<span class="rl-sep"> · </span>');
 const roleEn=f=>roleHTML(roleList(f[2]));
 const roleShort=r=>[/Direct/.test(r)&&"Dir",/DOP/.test(r)&&"DOP",/Color/.test(r)&&"Color"].filter(Boolean).join(" + ");
 /* 로컬 원본 이미지 */
-const W=(k,t,n)=>`img/w/${k}/${t}${n}.webp${t==="p"?"?v=22":""}`;
+const W=(k,t,n)=>`img/w/${k}/${t}${n}.webp${t==="p"?"?v=23":""}`;
 const has=(k,t)=>MEDIA[k]&&MEDIA[k][t]&&MEDIA[k][t].length;
 const cover=(k,fallback)=>(typeof HQS!=="undefined"&&HQS[k])?HQU(k,0):has(k,"s")?W(k,"s",0):fallback;
 const rnd=n=>Math.floor(Math.random()*n);
