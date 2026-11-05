@@ -2436,7 +2436,8 @@ function specAuto(k,rt,ar,cam,grade,color,rel){
   const logs=[...new Set(cams.map(c=>c[4]).filter(Boolean))].join(" / ");
   const short=[["Running Time",enRT(rt),1],["Aspect Ratio",ar?ar+" : 1":"",1],["Released",enDate(rel),2]];
   const camLine=cams.map(c=>c[1]).join(" · "),sens=[...new Set(cams.map(SENSOR).filter(Boolean))].join(" · ");
-  const long=[["Camera",camLine],["Sensor",sens],["Lenses",lens.join(" · ")],[stock?"Scan":"Recording Format",cap],stock?["Film Stock",stock.replace(/^Fuji /,"Fujifilm Eterna ")]:["Log · Gamut",logs],["Digital Intermediate",grade?grade+(color?" · Jung Dabin":""):""]];
+  const noBit=x=>String(x||"").replace(/\s*\b\d+-bit\b\s*/gi," ").replace(/\s+·\s+(?=\(|\/)/g," ").replace(/\s+·\s*$/,"").replace(/·\s*·/g,"·").replace(/\s{2,}/g," ").replace(/\s+·\s*$/,"").trim();
+  const long=[["Camera",camLine],["Sensor",sens],["Lenses",lens.join(" · ")],[stock?"Scan":"Recording Format",noBit(cap)],stock?["Film Stock",stock.replace(/^Fuji /,"Fujifilm Eterna ")]:["Log · Gamut",logs],["Digital Intermediate",grade?grade+(color?" · Jung Dabin":""):""]];
   const rows=[...short,...long.map(r=>[...r,2])];
   return `<section class="fd-spec sx wrap"><h4>Technical Specifications</h4>
   <dl class="sx-rows">${rows.map(([a,b,w])=>`<div style="grid-column:span ${w}"><dt>${esc(a)}</dt><dd>${b?esc(b).replace(/Jung Dabin/g,"<b>Jung Dabin</b>"):"&nbsp;"}</dd></div>`).join("")}</dl></section>`;
