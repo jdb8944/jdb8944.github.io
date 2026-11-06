@@ -1916,6 +1916,8 @@ header{transition:background .3s,box-shadow .3s}
  .lb-pal b{width:16px;height:16px}
 }
 @media (orientation:landscape) and (max-height:520px){.lb-info,.lb-bar{opacity:.0}.lb-c{bottom:calc(8px + env(safe-area-inset-bottom,0px))!important}}
+.lrh.many{gap:8px 8px;flex-basis:58%}.lrh.many .lrl.lo{width:124px;height:52px}.lrh.many .lrl.lo img{width:calc(25px*var(--r));height:calc(25px/var(--r));max-width:104px;max-height:38px}.lrh.many .lrl.lo img.box{width:calc(30px*var(--r));height:calc(30px/var(--r))}.lrh.many .lrl.lo img.chip{width:calc(23px*var(--r));height:calc(23px/var(--r))}
+@media(max-width:800px){.lrh.many .lrl.lo{width:100px;height:44px}.lrh.many .lrl.lo img{width:calc(21px*var(--r));height:calc(21px/var(--r));max-width:84px;max-height:32px}.lrh.many .lrl.lo img.box{width:calc(26px*var(--r));height:calc(26px/var(--r))}}
 /* ── about ── */
 .about{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,6vw,80px)}
 .about .lead{font-family:var(--display);font-size:var(--s1);line-height:1.85;max-width:30em;display:grid;gap:1em}
@@ -2646,9 +2648,9 @@ const FASP={"bhiff.png": 1.861, "bifan.png": 1.384, "bifan30.svg": 2.339, "biff.
 const flogo=en=>{const h=en.split(" — ")[0];const m=FLOGO.find(([r])=>r.test(h));return m?{f:m[1],c:m[2]}:""};
 const LRK={"Award":0,"Competition":1,"Official Selection":2,"Special Screening":3};
 const dedupL=L=>{const seen=new Set();return L.filter(x=>{const lg=flogo(x[3]);if(!lg)return true;if(seen.has(lg.f))return false;seen.add(lg.f);return true})};
-const laurelRow=i=>{const L=dedupL((FEST[i]||[]).filter(x=>x[0]!=="Production Support"&&x[0]!=="Broadcast").map((x,n)=>[x,n]).sort((a,b)=>(LRK[a[0][0]]??9)-(LRK[b[0][0]]??9)||a[1]-b[1]).map(x=>x[0])).slice(0,6);
+const laurelRow=i=>{const L=dedupL((FEST[i]||[]).filter(x=>x[0]!=="Production Support"&&x[0]!=="Broadcast").map((x,n)=>[x,n]).sort((a,b)=>(LRK[a[0][0]]??9)-(LRK[b[0][0]]??9)||a[1]-b[1]).map(x=>x[0]));
   if(!L.length)return "";
-  return `<div class="lrh">${L.map(([t,y,ko,en])=>{const lg=flogo(en),cl=`lrl${t==="Award"?" lw":""}${lg?" lg":""}`;return lg?`<span class="${cl} lo"><img style="--r:${FASP[lg.f]||1.4}" src="img/fl2/${lg.f}"${lg.c?' class="chip box"':/\.jpg$|kodak/.test(lg.f)?' class="box"':""} alt="${esc(festShort(en))}" title="${esc(festLabel(t,en))} · ${y}"></span>`:`<span class="${cl}">${LBR}<span class="lrt"><em>${esc(festLabel(t,en))}</em><b>${esc(festShort(en))}</b><i>${y}</i></span>${LBR}</span>`}).join("")}</div>`};
+  return `<div class="lrh${L.length>6?" many":""}">${L.map(([t,y,ko,en])=>{const lg=flogo(en),cl=`lrl${t==="Award"?" lw":""}${lg?" lg":""}`;return lg?`<span class="${cl} lo"><img style="--r:${FASP[lg.f]||1.4}" src="img/fl2/${lg.f}"${lg.c?' class="chip box"':/\.jpg$|kodak/.test(lg.f)?' class="box"':""} alt="${esc(festShort(en))}" title="${esc(festLabel(t,en))} · ${y}"></span>`:`<span class="${cl}">${LBR}<span class="lrt"><em>${esc(festLabel(t,en))}</em><b>${esc(festShort(en))}</b><i>${y}</i></span>${LBR}</span>`}).join("")}</div>`};
 const laurels=i=>{const L=dedupL((FEST[i]||[]).filter(x=>x[0]!=="Production Support"&&x[0]!=="Broadcast").map((x,n)=>[x,n]).sort((a,b)=>(LRK[a[0][0]]??9)-(LRK[b[0][0]]??9)||a[1]-b[1]).map(x=>x[0]));
   if(!L.length)return "";
   const n=L.length,c=n<2?1:n<5?2:n<10?3:4,sc=n<2?1.5:n<3?1.1:n<5?.9:n<7?.72:n<10?.6:.48;
