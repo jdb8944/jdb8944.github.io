@@ -3911,7 +3911,7 @@ function bindShowreel(){
   const box=$("#qrVs");if(!box)return;const V=[...box.querySelectorAll("video")];
   let cur=0,timer=0,wait=0,alive=true;const slow=reduced()?2.2:1;
   const bucket=L=>{const B={};L.forEach(c=>(B[c[1]]=B[c[1]]||[]).push(c));return B};
-  const NOREEL=new Set(["f21","c11","f18","c33"]),BK=bucket(RCLIPS.filter(c=>!NOREEL.has(c[1]))),HB=bucket(HCLIPS.filter(c=>!NOREEL.has(c[1]))),WK=Object.keys(BK);const used=new Set(),recent=[];
+  const NOREEL=new Set(["f21","c11","f18","c33","f16"]),BK=bucket(RCLIPS.filter(c=>!NOREEL.has(c[1]))),HB=bucket(HCLIPS.filter(c=>!NOREEL.has(c[1]))),WK=Object.keys(BK);const used=new Set(),recent=[];
   const pickK=ks=>{let k,t=0;do{k=ks[Math.floor(Math.random()*ks.length)];t++}while(recent.includes(k)&&t<30);recent.push(k);if(recent.length>Math.min(8,WK.length-1))recent.shift();return k};
   const pickC=B=>{const k=pickK(Object.keys(B));let pool=B[k].filter(c=>!used.has(c[0]));if(!pool.length){B[k].forEach(c=>used.delete(c[0]));pool=B[k]}const c=pool[Math.floor(Math.random()*pool.length)];used.add(c[0]);return c};
   const R=(a,b)=>a+Math.random()*(b-a);
