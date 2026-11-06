@@ -1883,6 +1883,7 @@ body .fd .rl.rl-col,body .cv-line .rl.rl-col,body .as-cap .rl.rl-col,body .mv-bo
 :root[data-scrolled][data-onimg] header{background:rgba(11,11,11,.74);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);box-shadow:0 1px 0 rgba(255,255,255,.06)}
 header{transition:background .3s,box-shadow .3s}
 .lrl.lg img.chip{background:#f4f2ee;padding:4px 7px;border-radius:3px;box-sizing:content-box}
+.lrl.lo{padding:0 calc(var(--s)*1.2cqw)}.lrl.lo img{max-width:calc(var(--s)*24cqw);max-height:calc(var(--s)*11cqw)}.lrh .lrl.lo{padding:0 6px}.lrh .lrl.lo img{max-width:130px;max-height:44px}
 .cl-l img[src*="cl/hy."],.cl-l img[src*="cl/vine."]{background:#1b1b1b;padding:6px 10px;border-radius:4px;box-sizing:border-box}
 /* ── about ── */
 .about{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,6vw,80px)}
@@ -2467,7 +2468,7 @@ const roleHTML=L=>L.map(roleTag).join('<span class="rl-sep"> · </span>');
 const roleEn=f=>roleHTML(roleList(f[2]));
 const roleShort=r=>[/Direct/.test(r)&&"Dir",/DOP/.test(r)&&"DOP",/Color/.test(r)&&"Color"].filter(Boolean).join(" + ");
 /* 로컬 원본 이미지 */
-const W=(k,t,n)=>`img/w/${k}/${t}${n}.webp${t==="p"?"?v=29":""}`;
+const W=(k,t,n)=>`img/w/${k}/${t}${n}.webp${t==="p"?"?v=30":""}`;
 const has=(k,t)=>MEDIA[k]&&MEDIA[k][t]&&MEDIA[k][t].length;
 const cover=(k,fallback)=>(typeof HQS!=="undefined"&&HQS[k])?HQU(k,0):has(k,"s")?W(k,"s",0):fallback;
 const rnd=n=>Math.floor(Math.random()*n);
@@ -2609,13 +2610,14 @@ const festLabel=(t,en)=>{if(t!=="Award")return t==="Competition"?"Official Compe
 const FLOGO=[[/^30th Bucheon/,"bifan30.svg"],[/^29th Bucheon/,"bifan.png",1],[/Busan International/,"biff.png"],[/Fantasia/,"fantasia30.png"],[/Jecheon/,"jimff.svg"],[/Namdo/,"ndff.png"],[/Queer East/,"queereast.svg",1],[/Extreme-Short/,"sesiff.png",1],[/Senior Film/,"sisff.png"],[/Indieground/,"indieground.png",1],[/Mise-en-sc/,"msff.png"],[/Festival du Film Cor/,"ffcp.webp"],[/Korea Queer/,"kqff.png",1],[/Hapcheon/,"bhiff.png",1],[/Tongyeong/,"tyff_ig.jpg"],[/Jeonju International Short/,"jisff_ig.jpg"],[/Gwangju Women/,"wffig_ig.jpg"],[/Lucky Video Store|^LVS Arthouse/,"lvs_ig.jpg"],[/Pride Film/,"sipff.png"],[/^Community BIFF/,"communitybiff2025.svg",1],[/2030 Youth/,"syff.png",1],[/^4th Korean Film Festival$/,"koff.png"],[/Chungbuk World Family/,"cbwff.jpg",1],[/Children.s Film/,"sicff.png",1],[/Daedanhan/,"gsff18.png"],[/^Bulldog/,"bulldog_ig.jpg"],[/Chuncheon Film/,"ccff_ig.jpg"],[/Gangwon Film/,"gwindie_ig.jpg"],[/Jeonbuk Independent/,"jifa.gif",1],[/Easternmost/,"teff.png"],[/City Film Festival/,"urbanff_ig.jpg"],[/Luststreifen/,"lust_ig.jpg"],[/Sogang Youth/,"sogang_syff.png"],[/Geumcheon Fashion/,"gcfac.png",1],[/Kodak Apparel/,"kodak.png"],[/Jeju Women/,"jejuwomen_ig.jpg"],[/Filmgate/,"syk.png",1],[/Sangroksu/,"made_sangroksu_w.svg"],[/^Ulsan Short/,"made_usff_w.svg"],[/Seoul World Short/,"made_swsff_w.svg"],[/Cheonghak/,"made_cheonghak_w.svg"]];
 const flogo=en=>{const h=en.split(" — ")[0];const m=FLOGO.find(([r])=>r.test(h));return m?{f:m[1],c:m[2]}:""};
 const LRK={"Award":0,"Competition":1,"Official Selection":2,"Special Screening":3};
-const laurelRow=i=>{const L=(FEST[i]||[]).filter(x=>x[0]!=="Production Support"&&x[0]!=="Broadcast").map((x,n)=>[x,n]).sort((a,b)=>(LRK[a[0][0]]??9)-(LRK[b[0][0]]??9)||a[1]-b[1]).map(x=>x[0]).slice(0,6);
+const dedupL=L=>{const seen=new Set();return L.filter(x=>{const lg=flogo(x[3]);if(!lg)return true;if(seen.has(lg.f))return false;seen.add(lg.f);return true})};
+const laurelRow=i=>{const L=dedupL((FEST[i]||[]).filter(x=>x[0]!=="Production Support"&&x[0]!=="Broadcast").map((x,n)=>[x,n]).sort((a,b)=>(LRK[a[0][0]]??9)-(LRK[b[0][0]]??9)||a[1]-b[1]).map(x=>x[0])).slice(0,6);
   if(!L.length)return "";
-  return `<div class="lrh">${L.map(([t,y,ko,en])=>{const lg=flogo(en),cl=`lrl${t==="Award"?" lw":""}${lg?" lg":""}`;return lg?`<span class="${cl}">${LBR}<span class="lgc"><img src="img/fl2/${lg.f}"${lg.c?' class="chip"':""} alt="${esc(festShort(en))}"><span class="lrt"><em>${esc(festLabel(t,en))}</em><i>${y}</i></span></span>${LBR}</span>`:`<span class="${cl}">${LBR}<span class="lrt"><em>${esc(festLabel(t,en))}</em><b>${esc(festShort(en))}</b><i>${y}</i></span>${LBR}</span>`}).join("")}</div>`};
-const laurels=i=>{const L=(FEST[i]||[]).filter(x=>x[0]!=="Production Support"&&x[0]!=="Broadcast").map((x,n)=>[x,n]).sort((a,b)=>(LRK[a[0][0]]??9)-(LRK[b[0][0]]??9)||a[1]-b[1]).map(x=>x[0]);
+  return `<div class="lrh">${L.map(([t,y,ko,en])=>{const lg=flogo(en),cl=`lrl${t==="Award"?" lw":""}${lg?" lg":""}`;return lg?`<span class="${cl} lo"><img src="img/fl2/${lg.f}"${lg.c?' class="chip"':""} alt="${esc(festShort(en))}" title="${esc(festLabel(t,en))} · ${y}"></span>`:`<span class="${cl}">${LBR}<span class="lrt"><em>${esc(festLabel(t,en))}</em><b>${esc(festShort(en))}</b><i>${y}</i></span>${LBR}</span>`}).join("")}</div>`};
+const laurels=i=>{const L=dedupL((FEST[i]||[]).filter(x=>x[0]!=="Production Support"&&x[0]!=="Broadcast").map((x,n)=>[x,n]).sort((a,b)=>(LRK[a[0][0]]??9)-(LRK[b[0][0]]??9)||a[1]-b[1]).map(x=>x[0]));
   if(!L.length)return "";
   const n=L.length,c=n<2?1:n<5?2:n<10?3:4,sc=n<2?1.5:n<3?1.1:n<5?.9:n<7?.72:n<10?.6:.48;
-  return `<span class="lr" style="--c:${c};--s:${sc}">${L.map(([t,y,ko,en],n)=>{const lg=flogo(en),cl=`lrl${t==="Award"?" lw":""}${lg?" lg":""}`;return lg?`<span class="${cl}" style="--d:${n*70}ms">${LBR}<span class="lgc"><img src="img/fl2/${lg.f}"${lg.c?' class="chip"':""} alt="${esc(festShort(en))}"><span class="lrt"><em>${esc(festLabel(t,en))}</em><i>${y}</i></span></span>${LBR}</span>`:`<span class="${cl}" style="--d:${n*70}ms">${LBR}<span class="lrt"><em>${esc(festLabel(t,en))}</em><b>${esc(festShort(en))}</b><i>${y}</i></span>${LBR}</span>`}).join("")}</span>`};
+  return `<span class="lr" style="--c:${c};--s:${sc}">${L.map(([t,y,ko,en],n)=>{const lg=flogo(en),cl=`lrl${t==="Award"?" lw":""}${lg?" lg":""}`;return lg?`<span class="${cl} lo" style="--d:${n*70}ms"><img src="img/fl2/${lg.f}"${lg.c?' class="chip"':""} alt="${esc(festShort(en))}" title="${esc(festLabel(t,en))} · ${y}"></span>`:`<span class="${cl}" style="--d:${n*70}ms">${LBR}<span class="lrt"><em>${esc(festLabel(t,en))}</em><b>${esc(festShort(en))}</b><i>${y}</i></span>${LBR}</span>`}).join("")}</span>`};
 var hmode="v";
 const HM=()=>hmode;
 const LOGX={34:"사람이 떠난 집에 혼자 남은 남자. 여덟 개의 장면, 여덟 개의 색."};
