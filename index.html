@@ -1599,6 +1599,7 @@ img[src^="spr:"]{opacity:0}
 .fitem:hover .hr,.fitem:focus-visible .hr{opacity:1}.fitem:hover .hr>span{transform:none}
 .fitem:hover .fph:has(.hr) .hov{opacity:0}
 .fph .hl:has(~.hr){padding-bottom:max(12%,52px)}.fph:has(.lr.v2) .hr{background:none}.fph:has(.hr) .lr.v2{flex-wrap:nowrap;transform:translateY(-16px)}
+.ft .fmeta{font-size:.66rem;letter-spacing:.08em;color:var(--muted);white-space:nowrap}
 .fph .hr b{display:flex;flex-wrap:wrap;gap:8px;font-family:"Pretendard","Noto Sans KR",system-ui,sans-serif;font-weight:600;font-size:clamp(.66rem,2.8cqi,.76rem);letter-spacing:0;text-transform:none;text-shadow:none}.fph .hr b .rl{border:1px solid rgba(255,255,255,.7);border-radius:999px;padding:2px 12px;background:rgba(0,0,0,.18)}.fph .hr b .rl::before{display:none}
 .hxu{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:translateY(100%);transition:transform .8s cubic-bezier(.65,0,.35,1)}.hxu.in{transform:none}
 .fph .hx{overflow:hidden}
@@ -2540,7 +2541,7 @@ const roleHTML=L=>L.map(roleTag).join('<span class="rl-sep"> · </span>');
 const roleEn=f=>roleHTML(roleList(f[2]));
 const roleShort=r=>[/Direct/.test(r)&&"Dir",/DOP/.test(r)&&"DOP",/Color/.test(r)&&"Color"].filter(Boolean).join(" + ");
 /* 로컬 원본 이미지 */
-const W=(k,t,n)=>`img/w/${k}/${t}${n}.webp${t==="p"?"?v=56":""}`;
+const W=(k,t,n)=>`img/w/${k}/${t}${n}.webp${t==="p"?"?v=57":""}`;
 const has=(k,t)=>MEDIA[k]&&MEDIA[k][t]&&MEDIA[k][t].length;
 const cover=(k,fallback)=>(typeof HQS!=="undefined"&&HQS[k])?HQU(k,0):has(k,"s")?W(k,"s",0):fallback;
 const rnd=n=>Math.floor(Math.random()*n);
@@ -2713,7 +2714,7 @@ function filmList(){
   const items=FO.map(i=>[F[i],i]).map(([f,i])=>{const k="f"+i,s=pickStill(i);const tags=["all",isDir(f)&&"dir",isDop(f)&&"dop",isCol(f)&&"col"].filter(Boolean).join(" ");
     return `<a class="fitem" href="#film-${i}" data-i="${i}" data-k="f${i}" data-tags="${tags}">
       <span class="fph"><img src="${has(k,"s")?SU(k,s):img(i)}" alt="${esc(f[0])}" loading="lazy" data-s="${s}"><img alt="" aria-hidden="true" class="off"><span class="hov">View project</span>${laurels(i)||`${logline(i)}<span class="hx" data-i="${i}"></span>`}${roleHover(f[2])}</span>
-      <span class="ft"><b>${esc(f[0])}<i>${f[1].slice(0,4)}</i></b><span class="fr">${roleEn(f)}</span></span>
+      <span class="ft"><b>${esc(f[0])}<i>${f[1].slice(0,4)}</i></b><span class="fr fmeta mono">${f[7]==="장편"?"Feature":"Short"}${f[3]?" · "+enRT(f[3]).replace(/\s*\d+s$/,""):""}</span></span>
     </a>`}).join("");
   const fk=[4,0,7,5,1,12,2,11,9,6,14,16,8,10,3,13,15,22,19,31].map(i=>"f"+i).sort(()=>Math.random()-.5);
   return `${whero("film","Film","Short films &amp; features",fk)}<div class="view works wtop">
