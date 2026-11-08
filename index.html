@@ -1598,7 +1598,7 @@ img[src^="spr:"]{opacity:0}
 .fph .hr i{font-family:"Pretendard","Noto Sans KR",system-ui,sans-serif;font-style:normal;font-weight:500;font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;opacity:.82}
 .fitem:hover .hr,.fitem:focus-visible .hr{opacity:1}.fitem:hover .hr>span{transform:none}
 .fitem:hover .fph:has(.hr) .hov{opacity:0}
-.fph .hr b{display:flex;flex-wrap:wrap;gap:4px 1.1em;font-family:var(--mono);font-weight:600;font-size:clamp(.6rem,2.6cqi,.72rem);letter-spacing:.14em;text-transform:uppercase;text-shadow:0 1px 8px rgba(0,0,0,.5)}.fph .hr b .rl::before{width:.45em;height:.45em;margin-right:.5em}
+.fph .hr b{display:flex;flex-wrap:wrap;gap:8px;font-family:"Pretendard","Noto Sans KR",system-ui,sans-serif;font-weight:600;font-size:clamp(.66rem,2.8cqi,.76rem);letter-spacing:0;text-transform:none;text-shadow:none}.fph .hr b .rl{border:1px solid rgba(255,255,255,.7);border-radius:999px;padding:2px 12px;background:rgba(0,0,0,.18)}.fph .hr b .rl::before{display:none}
 .hxu{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:translateY(100%);transition:transform .8s cubic-bezier(.65,0,.35,1)}.hxu.in{transform:none}
 .fph .hx{overflow:hidden}
 .fitem:hover .fph:has(.hxu) .hov{opacity:0}
@@ -2539,7 +2539,7 @@ const roleHTML=L=>L.map(roleTag).join('<span class="rl-sep"> · </span>');
 const roleEn=f=>roleHTML(roleList(f[2]));
 const roleShort=r=>[/Direct/.test(r)&&"Dir",/DOP/.test(r)&&"DOP",/Color/.test(r)&&"Color"].filter(Boolean).join(" + ");
 /* 로컬 원본 이미지 */
-const W=(k,t,n)=>`img/w/${k}/${t}${n}.webp${t==="p"?"?v=52":""}`;
+const W=(k,t,n)=>`img/w/${k}/${t}${n}.webp${t==="p"?"?v=54":""}`;
 const has=(k,t)=>MEDIA[k]&&MEDIA[k][t]&&MEDIA[k][t].length;
 const cover=(k,fallback)=>(typeof HQS!=="undefined"&&HQS[k])?HQU(k,0):has(k,"s")?W(k,"s",0):fallback;
 const rnd=n=>Math.floor(Math.random()*n);
@@ -2872,7 +2872,7 @@ function commercialDetail(i){
     meta:`${esc(c[2])} · ${enDate(c[1])}${ci[2]?" · "+enRT(ci[2]):""}`,
     heroSrc:cover(k,img(31+i)),
     intro:cr.length?`<dl class="credits">${cr.map(([a,b])=>`<div><dt>${esc(a)}</dt><dd>${esc(b)}</dd></div>`).join("")}</dl>`:ovC(c,ci),
-    side:cr.length?`<div class="fd-sidecr"><h4>Info</h4><dl class="credits one">${[...extra,["Type",c[2]]].map(([a,b])=>`<div><dt>${esc(a)}</dt><dd>${esc(b)}</dd></div>`).join("")}</dl></div>`:extra.map(([a,b])=>`<div><h4>${a}</h4><p>${esc(b)}</p></div>`).join(""),
+    side:cr.length?`<div class="fd-sidecr"><h4>Info</h4><dl class="credits one">${(()=>{const mv=/MV$/.test(c[2]),nm=c[0].split(" — "),L=[...extra];if(L.length+1<Math.ceil(cr.length/3))L.push([mv?"Artist":"Client",mv?nm[0]:c[0]]);return [...L,["Type",c[2]]]})().map(([a,b])=>`<div><dt>${esc(a)}</dt><dd>${esc(b)}</dd></div>`).join("")}</dl></div>`:extra.map(([a,b])=>`<div><h4>${a}</h4><p>${esc(b)}</p></div>`).join(""),
     fest:[],
     spec:specAuto("c"+i,ci[2],ci[3],ci[4],ci[5],/Color/.test(ci[0]),c[1])||specBlock([["Aspect Ratio",ci[3]?ci[3]+" : 1":""],["Running Time",enRT(ci[2])],["Released",enDate(c[1])]]),
     yt:ci[1],video:hasVid(k,ci[1])?(ci[1]||"-"):"",prev:pg.prev,next:pg.next,list:pg.list});
