@@ -2083,7 +2083,7 @@ const F=[
 ["친절한 희진씨","2024.02","DOP, Color","19m 25s","1.85","Sony FX3, DZOFILM Vespid Prime",[]],
 ["자전거 수업","2023.05","DOP, Color","9m 53s","1.85","ARRI Alexa Mini, Leica R Vintage",["KBS1TV 독립영화관 방영"]],
 ["영원의 관문","2023.05","DOP, Color","12m 52s","2.39","ARRI Alexa Mini, DZOFILM Vespid Prime",[]],
-["FIREFLY","2023.03","Director, DOP, Color","","1.33","Sony A1, Tamron",[]],
+["FIREFLY","2023.03","Director, DOP, Color","","1.33","Sony A1, Tamron 28-75mm F2.8",[]],
 ["피가 되고 살이 되는","2022.09","DOP, Color","17m 05s","2.39","RED Komodo, Leica R Vintage",[]],
 ["우리 안녕을 춤으로 보내요","2022.04","Director, DOP, Color","12m 40s","2.39","RED Komodo, Samyang XEEN",[]],
 ["모두의 캅","2021.11","DOP, Color","","2.39","Sony FX3, FX6, Samyang XEEN",[]],
@@ -2544,7 +2544,7 @@ const roleHTML=L=>L.map(roleTag).join('<span class="rl-sep"> · </span>');
 const roleEn=f=>roleHTML(roleList(f[2]));
 const roleShort=r=>[/Direct/.test(r)&&"Dir",/DOP/.test(r)&&"DOP",/Color/.test(r)&&"Color"].filter(Boolean).join(" + ");
 /* 로컬 원본 이미지 */
-const W=(k,t,n)=>`img/w/${k}/${t}${n}.webp${t==="p"?"?v=81":""}`;
+const W=(k,t,n)=>`img/w/${k}/${t}${n}.webp${t==="p"?"?v=82":""}`;
 const has=(k,t)=>MEDIA[k]&&MEDIA[k][t]&&MEDIA[k][t].length;
 const cover=(k,fallback)=>(typeof HQS!=="undefined"&&HQS[k])?HQU(k,0):has(k,"s")?W(k,"s",0):fallback;
 const rnd=n=>Math.floor(Math.random()*n);
