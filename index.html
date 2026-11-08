@@ -1600,7 +1600,8 @@ img[src^="spr:"]{opacity:0}
 .fitem:hover .fph:has(.hr) .hov{opacity:0}
 .fph .hl:has(~.hr){padding-bottom:max(12%,52px)}.fph:has(.lr.v2) .hr{background:none}.fph:has(.hr) .lr.v2{flex-wrap:nowrap;transform:translateY(-16px)}
 .ft .fmeta{font-size:.66rem;letter-spacing:.08em;color:var(--muted);white-space:nowrap}
-.fph .hr b{display:flex;flex-wrap:wrap;gap:8px;font-family:"Pretendard","Noto Sans KR",system-ui,sans-serif;font-weight:600;font-size:clamp(.66rem,2.8cqi,.76rem);letter-spacing:0;text-transform:none;text-shadow:none}.fph .hr b .rl{border:1px solid rgba(255,255,255,.7);border-radius:999px;padding:2px 12px;background:rgba(0,0,0,.18)}.fph .hr b .rl::before{display:none}
+.fph .hr{justify-content:flex-end}.fph .hr>span{align-items:flex-end}
+.fph .hr b{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:8px;font-family:"Pretendard","Noto Sans KR",system-ui,sans-serif;font-weight:600;font-size:clamp(.66rem,2.8cqi,.76rem);letter-spacing:0;text-transform:none;text-shadow:none}.fph .hr b .rl{border:1px solid rgba(255,255,255,.7);border-radius:999px;padding:2px 12px;background:rgba(0,0,0,.18)}.fph .hr b .rl::before{display:none}
 .hxu{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:translateY(100%);transition:transform .8s cubic-bezier(.65,0,.35,1)}.hxu.in{transform:none}
 .fph .hx{overflow:hidden}
 .fitem:hover .fph:has(.hxu) .hov{opacity:0}
@@ -2541,7 +2542,7 @@ const roleHTML=L=>L.map(roleTag).join('<span class="rl-sep"> · </span>');
 const roleEn=f=>roleHTML(roleList(f[2]));
 const roleShort=r=>[/Direct/.test(r)&&"Dir",/DOP/.test(r)&&"DOP",/Color/.test(r)&&"Color"].filter(Boolean).join(" + ");
 /* 로컬 원본 이미지 */
-const W=(k,t,n)=>`img/w/${k}/${t}${n}.webp${t==="p"?"?v=58":""}`;
+const W=(k,t,n)=>`img/w/${k}/${t}${n}.webp${t==="p"?"?v=60":""}`;
 const has=(k,t)=>MEDIA[k]&&MEDIA[k][t]&&MEDIA[k][t].length;
 const cover=(k,fallback)=>(typeof HQS!=="undefined"&&HQS[k])?HQU(k,0):has(k,"s")?W(k,"s",0):fallback;
 const rnd=n=>Math.floor(Math.random()*n);
@@ -2738,7 +2739,7 @@ function commercial(){
     const tags="all "+ccat(i);
     return `<a class="fitem" href="#commercial-${i}" data-k="${k}" data-tags="${tags}">
       <span class="fph"><img src="${n?SU(k,s):img(31+i)}" alt="${esc(c[0])}" loading="lazy" data-s="${s}"><img alt="" aria-hidden="true" class="off"><span class="hov">View project</span><span class="hx"></span>${roleHover(r)}</span>
-      <span class="ft"><b>${esc(c[0])}<i>${c[1].slice(0,4)}</i></b><span class="fr">${roleHTML(roleList(r))}</span></span>
+      <span class="ft"><b>${esc(c[0])}<i>${c[1].slice(0,4)}</i></b><span class="fr fmeta mono">${(CINFO[i]&&CINFO[i][2])?enRT(CINFO[i][2]):""}</span></span>
       <span class="fk mono">${CCATN[ccat(i)]}${CCATN[ccat(i)]!==c[2]?" · "+esc(c[2]):""}</span>
     </a>`}).join("");
   const ck=[0,1,2,3,4,5,6,7,8,9,11,12,17,29,32,35,36].map(i=>"c"+i).filter(k=>has(k,"s")).sort(()=>Math.random()-.5);
@@ -2755,10 +2756,10 @@ const pager=(t,i)=>{const k=t+i;
   const O=t==="f"?FO:CO,A=t==="f"?F:C,h=t==="f"?"#film-":"#commercial-",o=O.indexOf(i),L=O.length,p=O[(o-1+L)%L],n=O[(o+1)%L];
   return {prev:[h+p,A[p][0]],next:[h+n,A[n][0]],list:t==="f"?["#film","Film"]:["#commercial","Commercial"]}};
 function artList(){
-  const items=AO.map(a=>{const s=rs(a.k);const r=a.f?roleEn(a.d):roleHTML(roleList(cRole(a.i)));
+  const items=AO.map(a=>{const s=rs(a.k);const rr=a.f?a.d[2]:cRole(a.i),rt=a.f?a.d[3]:(CINFO[a.i]&&CINFO[a.i][2]),r=rt?enRT(rt).replace(/(\d+m)\s*\d+s$/,a.f?"$1":"$&"):"";
     return `<a class="fitem" href="${a.href}" data-k="${a.k}" data-tags="all">
-      <span class="fph"><img src="${SU(a.k,s)}" alt="${esc(a.d[0])}" loading="lazy" data-s="${s}"><img alt="" aria-hidden="true" class="off"><span class="hov">View project</span><span class="hx"></span></span>
-      <span class="ft"><b>${esc(a.d[0])}<i>${a.d[1].slice(0,4)}</i></b><span class="fr">${r}</span></span>
+      <span class="fph"><img src="${SU(a.k,s)}" alt="${esc(a.d[0])}" loading="lazy" data-s="${s}"><img alt="" aria-hidden="true" class="off"><span class="hov">View project</span><span class="hx"></span>${roleHover(rr)}</span>
+      <span class="ft"><b>${esc(a.d[0])}<i>${a.d[1].slice(0,4)}</i></b><span class="fr fmeta mono">${r}</span></span>
     </a>`}).join("");
   return `${whero("art","ArtFilm","Personal &amp; experimental works",[...ART,...ART,...ART].sort(()=>Math.random()-.5))}<div class="view works wtop">
     <div class="works-head"><p class="wcount mono">${AO.length} works</p></div>
