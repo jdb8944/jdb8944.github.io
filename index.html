@@ -1919,37 +1919,33 @@ header{transition:background .3s,box-shadow .3s}
 .lrh.many{gap:8px 8px;flex-basis:58%}.lrh.many .lrl.lo{width:124px;height:52px}.lrh.many .lrl.lo img{width:calc(25px*var(--r));height:calc(25px/var(--r));max-width:104px;max-height:38px}.lrh.many .lrl.lo img.box{width:calc(30px*var(--r));height:calc(30px/var(--r))}.lrh.many .lrl.lo img.chip{width:calc(23px*var(--r));height:calc(23px/var(--r))}
 @media(max-width:800px){.lrh.many .lrl.lo{width:100px;height:44px}.lrh.many .lrl.lo img{width:calc(21px*var(--r));height:calc(21px/var(--r));max-width:84px;max-height:32px}.lrh.many .lrl.lo img.box{width:calc(26px*var(--r));height:calc(26px/var(--r))}}
 /* 2026-11-07 수상=월계관 / 경쟁·초청=로고+한 줄 */
-.lr.v2{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:calc(var(--s)*2.6cqw)}
+.lr.v2{--q:1cqw;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:calc(var(--s)*2.6*var(--q))}
 .lr.v2 .lra,.lr.v2 .lrc{display:flex;flex-wrap:wrap;justify-content:center;align-items:flex-end}
-.lr.v2 .lra{gap:calc(var(--s)*1.5cqw)}.lr.v2 .lrc{gap:calc(var(--s)*2.2cqw) calc(var(--s)*1.6cqw);max-width:calc(var(--k,5)*var(--s)*19cqw + (var(--k,5) - 1)*var(--s)*1.6cqw + 1px)}
-.la{position:relative;width:calc(var(--s)*27cqw);aspect-ratio:400/360;color:#d2b064;flex:none}
+.lr.v2 .lra{gap:calc(var(--s)*1.5*var(--q))}.lr.v2 .lrc{gap:calc(var(--s)*2.2*var(--q)) calc(var(--s)*1.6*var(--q));max-width:calc(var(--k,5)*var(--s)*19*var(--q) + (var(--k,5) - 1)*var(--s)*1.6*var(--q) + 1px)}
+.la{position:relative;width:calc(var(--s)*27*var(--q));aspect-ratio:400/360;color:#d2b064;flex:none}
 .la .lag{position:absolute;inset:0;width:100%;height:100%}
 .la .lai{position:absolute;left:18%;right:18%;top:15%;bottom:12%;display:flex;flex-direction:column;align-items:center;justify-content:space-between;text-align:center}
-.la em{font:500 calc(var(--s)*1.35cqw)/1.2 "Cormorant Garamond",Georgia,serif;font-style:normal;letter-spacing:.14em;white-space:nowrap}
-.la i{font:500 calc(var(--s)*2.1cqw) "Cormorant Garamond",Georgia,serif;font-style:normal;letter-spacing:.08em}
+.la em{font:500 calc(var(--s)*1.35*var(--q))/1.2 "Cormorant Garamond",Georgia,serif;font-style:normal;letter-spacing:.14em;white-space:nowrap}
+.la i{font:500 calc(var(--s)*2.1*var(--q)) "Cormorant Garamond",Georgia,serif;font-style:normal;letter-spacing:.08em}
 .la .lal{flex:1;display:flex;align-items:center;justify-content:center;min-height:0}
 .fitem .fph .lr.v2 img{position:static;inset:auto;transform:none;opacity:1;transition:none}
-.fitem .fph .la img,.lrh .la img{width:calc(var(--s)*8.8cqw*var(--r)*var(--k,1));height:calc(var(--s)*8.8cqw/var(--r)*var(--k,1));max-width:calc(var(--s)*12.6cqw);max-height:calc(var(--s)*9.6cqw);object-fit:contain}
-.fitem .fph .la img.chip{max-width:calc(var(--s)*11cqw)}.lrh.v2 .la .lal img.chip{max-width:70px}
-.lc{display:flex;flex-direction:column;align-items:center;width:calc(var(--s)*19cqw);color:#f2efe8;flex:none}
-.lc .lcl{height:calc(var(--s)*9.6cqw);display:flex;align-items:flex-end;justify-content:center}
-.fitem .fph .lc img,.lrh .lc img{width:calc(var(--s)*8cqw*var(--r)*var(--k,1));height:calc(var(--s)*8cqw/var(--r)*var(--k,1));max-width:calc(var(--s)*18.6cqw);max-height:calc(var(--s)*8.8cqw);object-fit:contain}
-.fitem .fph .lc img.box{width:calc(var(--s)*7cqw*var(--r)*var(--k,1));height:calc(var(--s)*7cqw/var(--r)*var(--k,1))}
-.fitem .fph .lc img.chip{width:calc(var(--s)*8.6cqw*var(--r)*var(--k,1));height:calc(var(--s)*8.6cqw/var(--r)*var(--k,1));max-height:calc(var(--s)*8.6cqw);max-width:calc(var(--s)*17cqw)}
-.fitem .fph .la img.chip,.fitem .fph .lc img.chip,.lrh .la img.chip,.lrh .lc img.chip{background:#f4f2ee;padding:3px 6px;border-radius:3px;box-sizing:content-box}
-.lc b{display:block;width:100%;height:1px;background:currentColor;opacity:.32;margin:calc(var(--s)*.75cqw) 0 calc(var(--s)*.9cqw)}
-.lc em{font:500 calc(var(--s)*.95cqw) "Noto Sans KR",system-ui,sans-serif;font-style:normal;letter-spacing:.14em;opacity:.8;white-space:nowrap}
+.fitem .fph .la img,.lrh .la img{width:calc(var(--s)*8.8*var(--q)*var(--r)*var(--k,1));height:calc(var(--s)*8.8*var(--q)/var(--r)*var(--k,1));max-width:calc(var(--s)*12.6*var(--q));max-height:calc(var(--s)*9.6*var(--q));object-fit:contain}
+.fitem .fph .la img.chip,.lrh .la img.chip{max-width:calc(var(--s)*11*var(--q))}
+.lc{display:flex;flex-direction:column;align-items:center;width:calc(var(--s)*19*var(--q));color:#f2efe8;flex:none}
+.lc .lcl{height:calc(var(--s)*9.6*var(--q));display:flex;align-items:flex-end;justify-content:center}
+.fitem .fph .lc img,.lrh .lc img{width:calc(var(--s)*8*var(--q)*var(--r)*var(--k,1));height:calc(var(--s)*8*var(--q)/var(--r)*var(--k,1));max-width:calc(var(--s)*18.6*var(--q));max-height:calc(var(--s)*8.8*var(--q));object-fit:contain}
+.fitem .fph .lc img.box,.lrh .lc img.box{width:calc(var(--s)*7*var(--q)*var(--r)*var(--k,1));height:calc(var(--s)*7*var(--q)/var(--r)*var(--k,1))}
+.fitem .fph .lc img.chip,.lrh .lc img.chip{width:calc(var(--s)*8.6*var(--q)*var(--r)*var(--k,1));height:calc(var(--s)*8.6*var(--q)/var(--r)*var(--k,1));max-height:calc(var(--s)*8.6*var(--q));max-width:calc(var(--s)*17*var(--q))}
+.fitem .fph .la img.chip,.fitem .fph .lc img.chip,.lrh .la img.chip,.lrh .lc img.chip{background:#f4f2ee;padding:calc(var(--s)*.4*var(--q)) calc(var(--s)*.8*var(--q));border-radius:3px;box-sizing:content-box}
+.lc b{display:block;width:100%;height:1px;background:currentColor;opacity:.32;margin:calc(var(--s)*.75*var(--q)) 0 calc(var(--s)*.9*var(--q))}
+.lc em{font:500 calc(var(--s)*.95*var(--q)) "Noto Sans KR",system-ui,sans-serif;font-style:normal;letter-spacing:.14em;opacity:.8;white-space:nowrap}
 .lr.v2 .la,.lr.v2 .lc{opacity:0;transform:translateY(6px);transition:opacity .45s ease var(--d),transform .45s ease var(--d)}
 .fitem:hover .lr.v2 .la,.fitem:hover .lr.v2 .lc,.fitem:focus-visible .lr.v2 .la,.fitem:focus-visible .lr.v2 .lc{opacity:1;transform:none}
-/* 상세 페이지 */
-.lrh.v2{display:flex;flex-direction:column;align-items:flex-end;gap:16px;margin-left:auto}
-.lrh.v2 .lra,.lrh.v2 .lrc{justify-content:flex-end}
-@media(max-width:800px){.lrh.v2{align-items:flex-start;margin-left:0}.lrh.v2 .lra,.lrh.v2 .lrc{justify-content:flex-start}}
-.lrh.v2 .lra,.lrh.v2 .lrc{display:flex;flex-wrap:wrap;gap:12px 12px;align-items:flex-end}
-.lrh.v2 .la{--s:1;width:164px}.lrh.v2 .la em{font-size:8.6px;letter-spacing:.1em}.lrh.v2 .la i{font-size:14px}.lrh.v2 .la .lal img{width:calc(48px*var(--r)*var(--k,1));height:calc(48px/var(--r)*var(--k,1));max-width:78px;max-height:54px}
-.lrh.v2 .lc{width:150px;color:inherit}.lrh.v2 .lc .lcl{height:58px}.lrh.v2 .lc .lcl img{width:calc(42px*var(--r)*var(--k,1));height:calc(42px/var(--r)*var(--k,1));max-width:148px;max-height:52px}.lrh.v2 .lc .lcl img.box{width:calc(36px*var(--r)*var(--k,1));height:calc(36px/var(--r)*var(--k,1))}.lrh.v2 .lc .lcl img.chip{width:calc(44px*var(--r)*var(--k,1));height:calc(44px/var(--r)*var(--k,1));max-height:50px;max-width:136px}
-.lrh.v2 .lc b{margin:6px 0 6px}.lrh.v2 .lc em{font-size:7px;letter-spacing:.1em}
-@media(max-width:800px){.lrh.v2 .lra,.lrh.v2 .lrc{gap:10px 8px}.lrh.v2 .la{width:132px}.lrh.v2 .la em{font-size:7px}.lrh.v2 .la i{font-size:12px}.lrh.v2 .la .lal img{width:calc(40px*var(--r)*var(--k,1));height:calc(40px/var(--r)*var(--k,1));max-width:62px;max-height:44px}.lrh.v2 .lc{width:126px}.lrh.v2 .lc em{font-size:6px}.lrh.v2 .lc .lcl{height:48px}.lrh.v2 .lc .lcl img{width:calc(34px*var(--r)*var(--k,1));height:calc(34px/var(--r)*var(--k,1));max-width:120px;max-height:42px}.lrh.v2 .lc .lcl img.box{width:calc(30px*var(--r)*var(--k,1));height:calc(30px/var(--r)*var(--k,1))}.lrh.v2 .la .lal img.chip{max-width:56px}.lrh.v2 .lc .lcl img.chip{width:calc(36px*var(--r)*var(--k,1));height:calc(36px/var(--r)*var(--k,1));max-height:40px;max-width:112px}}
+/* 상세 페이지 — 커서 올렸을 때와 같은 비율(--q만 다름) */
+.lrh.v2{--q:7.4px;--s:1;display:flex;flex-direction:column;align-items:flex-end;gap:16px;margin-left:auto}
+.lrh.v2 .lra,.lrh.v2 .lrc{display:flex;flex-wrap:wrap;gap:12px 12px;align-items:flex-end;justify-content:flex-end}
+.lrh.v2 .lc{color:inherit}
+@media(max-width:800px){.lrh.v2{--q:6.1px;align-items:flex-start;margin-left:0}.lrh.v2 .lra,.lrh.v2 .lrc{justify-content:flex-start;gap:10px 8px}.lrh.v2 .lc em{font-size:6px}}
 /* ── about ── */
 .about{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,6vw,80px)}
 .about .lead{font-family:var(--display);font-size:var(--s1);line-height:1.85;max-width:30em;display:grid;gap:1em}
