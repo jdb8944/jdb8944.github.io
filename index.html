@@ -1941,6 +1941,8 @@ header{transition:background .3s,box-shadow .3s}
 .lc em{font:500 calc(var(--s)*.95*var(--q)) "Noto Sans KR",system-ui,sans-serif;font-style:normal;letter-spacing:.14em;opacity:.8;white-space:nowrap}
 .lr.v2 .la,.lr.v2 .lc{opacity:0;transform:translateY(6px);transition:opacity .45s ease var(--d),transform .45s ease var(--d)}
 .fitem:hover .lr.v2 .la,.fitem:hover .lr.v2 .lc,.fitem:focus-visible .lr.v2 .la,.fitem:focus-visible .lr.v2 .lc{opacity:1;transform:none}
+.fitem .fph .lr.v2 img.dk,.lrh img.dk{background:radial-gradient(closest-side,rgba(240,236,228,.8),rgba(240,236,228,.6) 50%,rgba(240,236,228,.22) 80%,rgba(240,236,228,0));padding:calc(var(--s)*.9*var(--q)) calc(var(--s)*1.6*var(--q));box-sizing:content-box}
+.fitem .fph .lc img.dk,.lrh .lc img.dk{max-width:calc(var(--s)*15.4*var(--q));max-height:calc(var(--s)*7.4*var(--q))}.fitem .fph .la img.dk,.lrh .la img.dk{max-width:calc(var(--s)*9.4*var(--q));max-height:calc(var(--s)*7.8*var(--q))}
 /* 상세 페이지 — 커서 올렸을 때와 같은 비율(--q만 다름) */
 .lrh.v2{--q:7.4px;--s:1;display:flex;flex-direction:column;align-items:flex-end;gap:16px;margin-left:auto}
 .lrh.v2 .lra,.lrh.v2 .lrc{display:flex;flex-wrap:wrap;gap:12px 12px;align-items:flex-end;justify-content:flex-end}
@@ -2532,7 +2534,7 @@ const roleHTML=L=>L.map(roleTag).join('<span class="rl-sep"> · </span>');
 const roleEn=f=>roleHTML(roleList(f[2]));
 const roleShort=r=>[/Direct/.test(r)&&"Dir",/DOP/.test(r)&&"DOP",/Color/.test(r)&&"Color"].filter(Boolean).join(" + ");
 /* 로컬 원본 이미지 */
-const W=(k,t,n)=>`img/w/${k}/${t}${n}.webp${t==="p"?"?v=42":""}`;
+const W=(k,t,n)=>`img/w/${k}/${t}${n}.webp${t==="p"?"?v=43":""}`;
 const has=(k,t)=>MEDIA[k]&&MEDIA[k][t]&&MEDIA[k][t].length;
 const cover=(k,fallback)=>(typeof HQS!=="undefined"&&HQS[k])?HQU(k,0):has(k,"s")?W(k,"s",0):fallback;
 const rnd=n=>Math.floor(Math.random()*n);
@@ -2672,6 +2674,7 @@ const festShort=en=>{const head=en.split(" — ")[0];for(const [r,s] of LMAP)if(
 const festLabel=(t,en)=>{if(t!=="Award")return t==="Competition"?"Official Competition":t;let l=en.split(" — ").pop().split(":")[0];const k=l.indexOf("Best");if(k>0)l=l.slice(k);return l||"Winner"};
 /* 영화제 공식 로고: 영화제가 배포한 원본 그대로 (색·모양 수정 없음). c=밝은 바탕 필요 */
 const FLOGO=[[/^30th Bucheon/,"bifan30.svg"],[/^29th Bucheon/,"bifan.png",1],[/Busan International/,"biff.png"],[/Fantasia/,"fantasia30.png"],[/Jecheon/,"jimff.svg"],[/Namdo/,"ndff.png"],[/Queer East/,"queereast.svg",1],[/Extreme-Short/,"sesiff.png",1],[/Senior Film/,"sisff.png"],[/Indieground/,"indieground.png",1],[/Mise-en-sc/,"msff.png"],[/Festival du Film Cor/,"ffcp.webp"],[/Korea Queer/,"kqff.png",1],[/Hapcheon/,"bhiff.png",1],[/Tongyeong/,"tyff_x.png",1],[/Jeonju International Short/,"jisff_x.png",1],[/Gwangju Women/,"wffig_x.png",1],[/Lucky Video Store|^LVS Arthouse/,"lvs_crop.jpg"],[/Pride Film/,"sipff_crop.png"],[/^Community BIFF/,"communitybiff2025.svg",1],[/2030 Youth/,"syff.png",1],[/^4th Korean Film Festival$/,"koff.png"],[/Chungbuk World Family/,"cbwff_x.png",1],[/Children.s Film/,"sicff.png",1],[/^17th Daedanhan/,"gsff17_made.png"],[/Daedanhan/,"gsff18.png"],[/^Bulldog/,"bulldog_ig.jpg"],[/Chuncheon Film/,"ccff_x.png",1],[/Gangwon Film/,"gwindie_x.png",1],[/Jeonbuk Independent/,"jifa_x.png",1],[/Easternmost/,"teff.png"],[/City Film Festival/,"urbanff_x.png",1],[/Luststreifen/,"lust_ig.jpg"],[/Sogang Youth/,"sogang_syff.png"],[/Geumcheon Fashion/,"gcfac.png",1],[/Kodak Apparel/,"kodak.png"],[/Jeju Women/,"jejuwomen_x.png",1],[/Filmgate/,"syk.png",1],[/Sangroksu/,"made_sangroksu_w.svg"],[/^Ulsan Short/,"made_usff_w.svg"],[/Seoul World Short/,"made_swsff_w.svg"],[/Cheonghak/,"made_cheonghak_w.svg"]];
+const FDARK=new Set(["bifan.png", "indieground.png", "kqff.png", "bhiff.png", "tyff_x.png", "jisff_x.png", "wffig_x.png", "cbwff_x.png", "sicff.png", "ccff_x.png", "gwindie_x.png", "jifa_x.png", "urbanff_x.png", "gcfac.png", "jejuwomen_x.png", "syk.png", "sesiff.png", "queereast.svg", "communitybiff2025.svg"]);
 const FBOOST={"lvs_crop.jpg":1.5,"sipff_crop.png":1.3};
 const FASP={"bhiff.png": 1.861, "bifan.png": 1.384, "bifan30.svg": 2.339, "biff.png": 2.08, "bulldog_ig.jpg": 1.0, "communitybiff2025.svg": 2.795, "fantasia30.png": 1.732, "ffcp.webp": 1.333, "gcfac.png": 1.332, "gsff17_made.png": 1.568, "gsff18.png": 1.568, "indieground.png": 1.443, "jifa_x.png": 2.761, "jimff.svg": 2.761, "kodak.png": 1.0, "koff.png": 1.551, "kqff.png": 1.349, "lust_ig.jpg": 1.0, "lvs_crop.jpg": 1.257, "made_cheonghak_w.svg": 2.214, "made_sangroksu_w.svg": 2.17, "made_swsff_w.svg": 2.329, "made_usff_w.svg": 1.862, "msff.png": 1.65, "ndff.png": 1.371, "queereast.svg": 1.0, "sesiff.png": 1.431, "sicff.png": 1.202, "sipff_crop.png": 1.648, "sisff.png": 1.667, "sogang_syff.png": 1.414, "syff.png": 1.355, "syk.png": 2.169, "teff.png": 1.0, "tyff_x.png": 1.294, "jisff_x.png": 0.982, "wffig_x.png": 1.166, "cbwff_x.png": 0.772, "ccff_x.png": 1.64, "gwindie_x.png": 2.101, "urbanff_x.png": 1.645, "jejuwomen_x.png": 1.012};
 const flogo=en=>{const h=en.split(" — ")[0];const m=FLOGO.find(([r])=>r.test(h));return m?{f:m[1],c:m[2]}:""};
@@ -2683,7 +2686,7 @@ const capName=(t,en)=>/Finalist/.test(en)?"FINALIST":t==="Competition"?"OFFICIAL
 const splitF=i=>{const L=fItems(i),A=[],C=[],sa=new Set(),al=new Set(),sc=new Set();
   L.forEach(x=>{const lg=flogo(x[3]);if(!lg||x[0]!=="Award")return;const key=lg.f+awName(x[3]).join();if(sa.has(key))return;sa.add(key);al.add(lg.f);A.push([x,lg])});
   L.forEach(x=>{const lg=flogo(x[3]);if(!lg||x[0]==="Award"||al.has(lg.f)||sc.has(lg.f))return;sc.add(lg.f);C.push([x,lg])});return [A,C]};
-const lgImg=(lg,en)=>`<img style="--r:${FASP[lg.f]||1.4};--k:${(Math.max(1,(FASP[lg.f]||1.4)**.4)*(FBOOST[lg.f]||1)).toFixed(3)}" src="img/fl2/${lg.f}"${false?'':/\.jpg$|kodak/.test(lg.f)&&!/lvs/.test(lg.f)?' class="box"':""} alt="${esc(festShort(en))}">`;
+const lgImg=(lg,en)=>`<img style="--r:${FASP[lg.f]||1.4};--k:${(Math.max(1,(FASP[lg.f]||1.4)**.4)*(FBOOST[lg.f]||1)).toFixed(3)}" src="img/fl2/${lg.f}"${FDARK.has(lg.f)?' class="dk"':/\.jpg$|kodak/.test(lg.f)&&!/lvs/.test(lg.f)?' class="box"':""} alt="${esc(festShort(en))}">`;
 const awTile=([[t,y,ko,en],lg],n)=>`<span class="la" style="--d:${n*70}ms" title="${esc(ko)}">${LAURG}<span class="lai"><em>${awName(en).map(esc).join("<br>")}</em><span class="lal">${lgImg(lg,en)}</span><i>${y}</i></span></span>`;
 const cpTile=([[t,y,ko,en],lg],n)=>`<span class="lc" style="--d:${n*70}ms" title="${esc(ko)}"><span class="lcl">${lgImg(lg,en)}</span><b></b><em>${capName(t,en)} · ${y}</em></span>`;
 const laurelRow=i=>{const [A,C]=splitF(i);if(!A.length&&!C.length)return "";
