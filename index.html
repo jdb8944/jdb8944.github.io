@@ -2395,7 +2395,7 @@ if(INFO[28]&&!(INFO[28][0]||[]).length)INFO[28][0]=["정직원이 된 날에도,
 if(INFO[29]&&!(INFO[29][0]||[]).length)INFO[29][0]=["특촬물 히어로 '레드소닉'의 슈트 속에서 청춘을 보낸 배우 민성.", "촬영 당일, 그는 자신의 자리가 신인 아이돌에게 넘어간다는 통보를 받는다.", "모든 힘을 넘겨주는 마지막 장면 앞에서, 민성은 레드소닉의 다음을 묻는다."];
 if(INFO[33]&&!(INFO[33][0]||[]).length)INFO[33][0]=["짙은 초록이 고인 여름 숲, 한 여자가 사라진 장미를 찾아 걷는다.", "숨 막힐 듯 무성한 정적 속에서 그녀는 붉은 잔상을 좇고,", "길을 잃은 작은 숨은 나비의 날갯짓처럼 먼 곳으로 흩어진다."];
 if(INFO[34]&&!(INFO[34][0]||[]).length)INFO[34][0]=["그녀가 떠난 집에 홀로 남은 남자.", "빛이 바뀔 때마다 방은 다른 색으로 물들고, 떠난 이유는 새벽이 되어서야 희미하게 드러난다.", "지워지지 않는 흔적 속에서, 그는 끝내 번져 가는 쪽을 택한다."];
-F[31][5]=F[31][5]||"ARRI Alexa Mini";
+F[31][5]=F[31][5]||"ARRI Alexa Mini";F[34][5]="ARRI Alexa Mini, NiSi Aureus Prime, Helios 44-2 58mm";
 F[28][4]="1.85";F[29][4]="1.85 · 1.33";F[29][5]=F[29][5]||"Sony A7S II";
 F[30][4]="2.39 · 1.85";F[30][5]="Sony A7S II, Samyang XEEN";
 
@@ -2500,7 +2500,7 @@ const CAMS=[
  [/35BL/i,"ARRI 35BL Evolution","35mm Film","",""],
  [/Mavic/i,"DJI Mavic 3 Pro","Aerial","",""]];
 /* Alexa Mini: 3.4K RAW로 찍은 작품 (나머지는 4K UHD) */
-const ARRIRAW=new Set(["f0","f5","f6","f11","f12","c1","c5","c12","c13","c17"]);
+const ARRIRAW=new Set(["f34","f0","f5","f6","f11","f12","c1","c5","c12","c13","c17"]);
 const STOCK=/Vivid 500|Kodak|Vision3/i;
 const SPECSCAN={f4:"2K · DPX 10-bit · Korean Film Archive (KOFA)"};
 const SPECCAP={f5:"4K UHD · Apple ProRes 4444 · 10-bit 4:4:4",f3:"4K UHD · Apple ProRes 4444 · 10-bit 4:4:4 (Alexa Mini) / 5.8K · Apple ProRes 422 HQ · 10-bit 4:2:2 (S1II)"};
@@ -2544,7 +2544,7 @@ const roleHTML=L=>L.map(roleTag).join('<span class="rl-sep"> · </span>');
 const roleEn=f=>roleHTML(roleList(f[2]));
 const roleShort=r=>[/Direct/.test(r)&&"Dir",/DOP/.test(r)&&"DOP",/Color/.test(r)&&"Color"].filter(Boolean).join(" + ");
 /* 로컬 원본 이미지 */
-const W=(k,t,n)=>`img/w/${k}/${t}${n}.webp${t==="p"?"?v=77":""}`;
+const W=(k,t,n)=>`img/w/${k}/${t}${n}.webp${t==="p"?"?v=78":""}`;
 const has=(k,t)=>MEDIA[k]&&MEDIA[k][t]&&MEDIA[k][t].length;
 const cover=(k,fallback)=>(typeof HQS!=="undefined"&&HQS[k])?HQU(k,0):has(k,"s")?W(k,"s",0):fallback;
 const rnd=n=>Math.floor(Math.random()*n);
