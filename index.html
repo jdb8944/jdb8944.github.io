@@ -2541,7 +2541,7 @@ const roleHTML=L=>L.map(roleTag).join('<span class="rl-sep"> · </span>');
 const roleEn=f=>roleHTML(roleList(f[2]));
 const roleShort=r=>[/Direct/.test(r)&&"Dir",/DOP/.test(r)&&"DOP",/Color/.test(r)&&"Color"].filter(Boolean).join(" + ");
 /* 로컬 원본 이미지 */
-const W=(k,t,n)=>`img/w/${k}/${t}${n}.webp${t==="p"?"?v=57":""}`;
+const W=(k,t,n)=>`img/w/${k}/${t}${n}.webp${t==="p"?"?v=58":""}`;
 const has=(k,t)=>MEDIA[k]&&MEDIA[k][t]&&MEDIA[k][t].length;
 const cover=(k,fallback)=>(typeof HQS!=="undefined"&&HQS[k])?HQU(k,0):has(k,"s")?W(k,"s",0):fallback;
 const rnd=n=>Math.floor(Math.random()*n);
@@ -2874,7 +2874,7 @@ function commercialDetail(i){
     meta:`${esc(c[2])} · ${enDate(c[1])}${ci[2]?" · "+enRT(ci[2]):""}`,
     heroSrc:cover(k,img(31+i)),
     intro:cr.length?`<dl class="credits">${cr.map(([a,b])=>`<div><dt>${esc(a)}</dt><dd>${esc(b)}</dd></div>`).join("")}</dl>`:ovC(c,ci),
-    side:cr.length?`<div class="fd-sidecr"><h4>Info</h4><dl class="credits one">${(()=>{const mv=/MV$/.test(c[2]),nm=c[0].split(" — "),L=[...extra];if(L.length+1<Math.ceil(cr.length/3))L.push(mv&&nm[1]?["Track",nm[1]]:[mv?"Artist":"Client",mv?nm[0]:c[0]]);return [...L,["Type",c[2]]]})().map(([a,b])=>`<div><dt>${esc(a)}</dt><dd>${esc(b)}</dd></div>`).join("")}</dl></div>`:extra.map(([a,b])=>`<div><h4>${a}</h4><p>${esc(b)}</p></div>`).join(""),
+    side:cr.length?`<div class="fd-sidecr"><h4>Info</h4><dl class="credits one">${(()=>{const mv=/MV$/.test(c[2]),nm=c[0].split(" — "),cast=extra.filter(r=>r[0]==="Cast"),mus=extra.filter(r=>r[0]==="Music"&&!(nm[1]&&r[1].toLowerCase().includes(nm[1].toLowerCase().split(" (")[0]))&&!(!/,/.test(r[1])&&r[1].includes(nm[0])));if(mv)return [["Artist",nm[0]],...(nm[1]?[["Track",nm[1]]]:[]),...mus,...cast,["Type",c[2]]];const L=[...extra];if(L.length+1<Math.ceil(cr.length/3))L.push(["Client",c[0]]);return [...L,["Type",c[2]]]})().map(([a,b])=>`<div><dt>${esc(a)}</dt><dd>${esc(b)}</dd></div>`).join("")}</dl></div>`:extra.map(([a,b])=>`<div><h4>${a}</h4><p>${esc(b)}</p></div>`).join(""),
     fest:[],
     spec:specAuto("c"+i,ci[2],ci[3],ci[4],ci[5],/Color/.test(ci[0]),c[1])||specBlock([["Aspect Ratio",ci[3]?ci[3]+" : 1":""],["Running Time",enRT(ci[2])],["Released",enDate(c[1])]]),
     yt:ci[1],video:hasVid(k,ci[1])?(ci[1]||"-"):"",prev:pg.prev,next:pg.next,list:pg.list});
