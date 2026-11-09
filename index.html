@@ -1617,6 +1617,43 @@ img[src^="spr:"]{opacity:0}
 .v4-sd .cgm-r i{background:#333}.v4-sd .cgk-sw{height:20px}
 @media(max-width:1100px){.v4-g{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:860px){.v4-g{grid-template-columns:repeat(2,minmax(0,1fr))}.v4-in{grid-template-columns:1fr;max-height:100%;overflow:auto}.v4-lb{align-items:flex-start;padding-top:56px}.v4-x{top:-40px}}
+html:has(.cgdark),body:has(.cgdark){background:#0b0c0c}
+.cgdark{background:#0b0c0c;color:#e8e4dc;--fg:#e8e4dc;--muted:#8d8a84;--line:#2c2d2d;--bg:#0b0c0c}
+.cgdark .cgk-go{border-color:#555}
+.r5-con{display:grid;grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);gap:clamp(32px,4.5vw,80px);padding-top:clamp(70px,9vw,140px);padding-bottom:clamp(60px,8vw,120px);align-items:start}
+.r5-k,.r5-hd span{font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin:0 0 18px}
+.r5-con h2{font-family:"Noto Sans KR",sans-serif;font-weight:800;font-size:clamp(1.9rem,3.2vw,2.9rem);letter-spacing:-.035em;line-height:1.25;margin:0 0 24px;word-break:keep-all}
+.r5-b{font-family:var(--essay);font-size:clamp(.98rem,1.1vw,1.06rem);line-height:1.95;color:#bdb8af;margin:0 0 34px;word-break:keep-all}
+.r5-rl{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.r5-rl li{display:grid;grid-template-columns:38px 1fr;gap:6px;padding:18px 0;border-bottom:1px solid var(--line)}
+.r5-rl li>span{font-size:.72rem;color:#d4a373;padding-top:3px}
+.r5-rl b{display:block;font-size:1rem;font-weight:700;margin-bottom:6px;letter-spacing:-.01em}
+.r5-rl p{margin:0;font-size:.86rem;line-height:1.8;color:#9c978f;word-break:keep-all}
+.r5-r img{display:block;width:100%;aspect-ratio:2.39;object-fit:cover}
+.r5-tn{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
+.r5-tn i{display:block;height:44px}.r5-tn span{display:block;font-size:.56rem;letter-spacing:.12em;color:var(--muted);margin-top:7px}
+.r5-pp{display:flex;align-items:center;gap:12px;margin-top:26px;font-size:.62rem;letter-spacing:.12em;flex-wrap:wrap}
+.r5-pp span{border:1px solid #3a3b3b;padding:9px 14px;color:#b8b3aa}.r5-pp span.on{border-color:#d4a373;color:#f1ece3}.r5-pp i{font-style:normal;color:#666}
+.r5-sh{padding-top:clamp(40px,5vw,70px);padding-bottom:clamp(40px,5vw,70px);border-top:1px solid var(--line)}
+.r5-hd{display:flex;align-items:baseline;gap:18px;margin-bottom:22px}.r5-hd span{margin:0}
+.r5-hd h3{margin:0;font-family:"Noto Sans KR",sans-serif;font-weight:800;font-size:clamp(1.3rem,2vw,1.8rem);letter-spacing:-.03em}
+.r5-g{display:grid;grid-template-columns:minmax(0,2.55fr) minmax(0,1fr);gap:clamp(14px,1.8vw,26px);row-gap:22px}
+.r5-g figure{margin:0}.r5-g img{display:block;width:100%;aspect-ratio:2.39;object-fit:cover}
+.r5-g figcaption{font-size:.56rem;letter-spacing:.16em;color:var(--muted);margin-top:9px;text-transform:uppercase}
+.r5-m figcaption{color:#d4a373}
+.r5-s{display:flex;flex-direction:column;gap:18px}
+.r5-tx{margin:0;font-family:var(--essay);font-size:clamp(.95rem,1.05vw,1.02rem);line-height:1.9;color:#c9c4bb;word-break:keep-all;max-width:820px}
+.r5-tw>span{display:block;font-size:.56rem;letter-spacing:.14em;color:var(--muted)}.r5-tw .r5-tn{margin-top:10px;gap:6px}.r5-tw .r5-tn i{height:22px}
+.r5-fl{padding-top:clamp(40px,5vw,70px);padding-bottom:clamp(60px,7vw,100px);border-top:1px solid var(--line)}
+.r5-st{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:6px}
+.r5-st figure{margin:0}.r5-st img{display:block;width:100%;aspect-ratio:1;object-fit:cover}
+.r5-sp{display:flex;height:5px;margin-top:4px}.r5-sp i{flex:1}
+.r5-st figcaption{font-size:.54rem;color:var(--muted);margin-top:6px;letter-spacing:.1em}
+.r5-fin{position:relative;margin-bottom:clamp(50px,6vw,90px)}
+.r5-fin .cgw img:first-child{width:100%;height:min(100svh,56.25vw);object-fit:cover}.r5-fin .cgw .cga{object-fit:cover}
+.r5-fin p{position:absolute;left:4vw;bottom:clamp(20px,3vw,40px);margin:0;max-width:560px;color:#f1ece3;font-size:clamp(.85rem,1vw,.98rem);line-height:1.7;text-shadow:0 1px 12px rgba(0,0,0,.6);pointer-events:none;word-break:keep-all}
+.r5 .cgk-in{padding-top:0}
+@media(max-width:860px){.r5-con{grid-template-columns:1fr}.r5-g{grid-template-columns:1fr}.r5-s{flex-direction:row}.r5-s figure{flex:1}.r5-st{grid-template-columns:repeat(5,minmax(0,1fr))}.r5-fin p{position:static;padding:14px 16px 0;color:#bdb8af;text-shadow:none}.r5-fin .cgw img:first-child{height:auto;aspect-ratio:2.39}}
 .cgk-cap{grid-template-columns:110px 1fr 300px}
 .cgk-sc>img{display:block;width:100%;max-width:300px;aspect-ratio:1;background:#0e0e0e;margin-bottom:14px}
 .cgm-r{display:grid;grid-template-columns:52px 1fr 40px;gap:10px;align-items:center;font-size:.7rem;margin:6px 0}
@@ -2601,7 +2638,7 @@ const roleHTML=L=>L.map(roleTag).join('<span class="rl-sep"> · </span>');
 const roleEn=f=>roleHTML(roleList(f[2]));
 const roleShort=r=>[/Direct/.test(r)&&"Dir",/DOP/.test(r)&&"DOP",/Color/.test(r)&&"Color"].filter(Boolean).join(" + ");
 /* 로컬 원본 이미지 */
-const W=(k,t,n)=>`img/w/${k}/${t}${n}.webp${t==="p"?"?v=88":""}`;
+const W=(k,t,n)=>`img/w/${k}/${t}${n}.webp${t==="p"?"?v=92":""}`;
 const has=(k,t)=>MEDIA[k]&&MEDIA[k][t]&&MEDIA[k][t].length;
 const cover=(k,fallback)=>(typeof HQS!=="undefined"&&HQS[k])?HQU(k,0):has(k,"s")?W(k,"s",0):fallback;
 const rnd=n=>Math.floor(Math.random()*n);
@@ -3734,7 +3771,7 @@ function cgWarm(c){const W=1000,H=120,w=c.warm,mn=Math.min(...w),mx=Math.max(...
   const d=w.map((v,i)=>`${i?"L":"M"}${(i/(w.length-1)*W).toFixed(1)} ${y(v).toFixed(1)}`).join(" ");
   const dots=c.ch.map(([n],i)=>{const x=cgSec(n)/c.dur*W,ix=Math.round(x/W*(w.length-1));return `<g class="cw-d" data-i="${i}"><line x1="${x}" x2="${x}" y1="0" y2="${H}"/><circle cx="${x}" cy="${y(w[ix])}" r="4"/><text x="${x}" y="${H+16}">${i+1}</text></g>`}).join("");
   return `<svg class="cw" viewBox="0 -4 ${W} ${H+26}" preserveAspectRatio="none"><path d="${d}"/>${dots}</svg>`}
-function cgCaseFull(k){const c=CGK[k],[t,y,h]=cgT(k);
+function cgCaseFull(k){const c=CGK[k],[t,y,h]=cgT(k);if(CGV5.has(k))return cgReport(k,c,t,y,h);
   return `<article class="cgk">
    <section class="cgk-hero dark" style="background-image:url('${cgImg(k,c.hero)}')"><div class="cgk-ht"><p class="mono">Color · Case ${String(CGIX.findIndex(x=>x.k===k)+1).padStart(2,"0")}</p><h1>${esc(t)}</h1><p class="cgk-c">${esc(c.concept)}</p></div></section>
    <div class="cgk-in wrap">
@@ -3823,7 +3860,7 @@ function bindV3(){const V=$(".v3");if(!V)return;const k=V.dataset.k,c=CGK[k],st=
   V.querySelectorAll(".v3-nav button").forEach(b=>b.addEventListener("click",()=>go(cur+ +b.dataset.s)));
   const kd=e=>{if(!document.body.contains(V))return removeEventListener("keydown",kd);if(e.key==="ArrowRight")go(cur+1);if(e.key==="ArrowLeft")go(cur-1)};addEventListener("keydown",kd);
   go(0)}
-const CGV4=new Set(["f1"]);
+const CGV4=new Set([]);
 function cgSheet(k,c){
   return `<section class="v4" data-k="${k}">
    <div class="v4-h"><h4 class="mono">Scenes · ${c.ch.length}</h4><div class="v4-m mono" role="group"><button data-v="log">Log</button><button data-v="709">Rec.709</button><button data-v="final" aria-pressed="true">Final</button></div></div>
@@ -3853,7 +3890,29 @@ function bindV4(){const V=$(".v4");if(!V)return;const k=V.dataset.k,c=CGK[k],M=c
   V.querySelectorAll(".v4-c").forEach(b=>b.addEventListener("click",()=>open(+b.dataset.i)));
   const kd=e=>{if(!document.body.contains(V)){box.remove();return removeEventListener("keydown",kd)}if(box.hidden)return;if(e.key==="Escape")close();if(e.key==="ArrowRight"){cur=(cur+1)%c.ch.length;draw()}if(e.key==="ArrowLeft"){cur=(cur-1+c.ch.length)%c.ch.length;draw()}};addEventListener("keydown",kd);
   addEventListener("hashchange",()=>{if(box&&!box.hidden)close()},{once:true})}
-function colorCase(k){return CGK[k]?`<div class="view cgv">${cgCaseFull(k)}<div class="cg-in wrap"><a class="cgk-go" href="#color"><span class="mono">Color</span><b>← 다른 작품</b></a></div></div>`:notFound()}
+const CGV5=new Set(["f1"]);
+const CGREP={f1:{head:"온기는 끝까지 아껴 두었다.",
+  rules:[["두 세계를 나눈다","사이토의 장면은 화이트밸런스를 중립에 묶고 채도를 눌렀다. 다희의 장면은 햇빛의 파랑과 초록을 맑게 열어 두었다."],
+         ["온기는 마지막에","앞에서는 따뜻함을 쓰지 않았다. 노을 장면에서만 하이라이트를 따뜻하게 열어 두 사람이 한 빛 안에 포개지게 했다."],
+         ["색이 앞지르지 않게","관객이 두 사람의 거리를 먼저 느끼고, 그 거리가 좁혀지는 건 마지막에 색으로 확인하게 했다."]],
+  pick:[0,2,3,6],lead:8,img:4,fin:"같은 프레임. 709에서는 아직 중립이던 방이, 그레이딩을 거쳐 영화에서 가장 따뜻한 순간이 된다."}};
+function cgReport(k,c,t,y,h){const R=CGREP[k],ch=c.ch,tone=n=>{const p=c.pal[n]||[];return [p[0],p[2],p[4]]},n0=ch[R.lead][0];
+  const sw=(n,lab)=>`<div class="r5-tn">${tone(n).map((x,i)=>`<div><i style="background:${x}"></i>${lab?`<span class="mono">${["섀도","미드톤","하이라이트"][i]}</span>`:""}</div>`).join("")}</div>`;
+  return `<article class="cgk r5">
+   <section class="cgk-hero dark" style="background-image:url('${cgImg(k,c.hero)}')"><div class="cgk-ht"><p class="mono">Color Grading · ${y}</p><h1>${esc(t)}</h1><p class="cgk-c">${esc(c.concept)}</p></div></section>
+   <section class="r5-con wrap"><div class="r5-l"><p class="r5-k mono">Look Concept</p><h2>${esc(R.head)}</h2><p class="r5-b">${esc(c.quote)}</p>
+     <ol class="r5-rl">${R.rules.map(([a,b],i)=>`<li><span class="mono">${String(i+1).padStart(2,"0")}</span><div><b>${esc(a)}</b><p>${esc(b)}</p></div></li>`).join("")}</ol></div>
+    <div class="r5-r"><img src="${cgImg(k,ch[R.img][0])}" alt="">${sw(ch[R.img][0],1)}<div class="r5-pp mono"><span>Log 원본</span><i>→</i><span>Rec.709 변환</span><i>→</i><span class="on">최종 그레이딩</span></div></div></section>
+   ${R.pick.map((ix,j)=>{const [n,ti,tx]=ch[ix];return `<section class="r5-sh wrap"><div class="r5-hd"><span class="mono">Scene ${String(ix+1).padStart(2,"0")}${c.notc?"":` · ${cgTC(cgSec(n))}`}</span><h3>${esc(ti)}</h3></div>
+     <div class="r5-g"><figure class="r5-m"><img src="${cgImg(k,n)}" alt="${esc(ti)}" loading="lazy"><figcaption class="mono">최종 그레이딩</figcaption></figure>
+      <div class="r5-s"><figure><img src="${cgImg(k,n+"_log")}" alt="" loading="lazy"><figcaption class="mono">Log 원본</figcaption></figure><figure><img src="${cgImg(k,n+"_709")}" alt="" loading="lazy"><figcaption class="mono">Rec.709 변환</figcaption></figure></div>
+      <p class="r5-tx">${esc(tx)}</p><div class="r5-tw"><span class="mono">톤 · 섀도 / 미드 / 하이</span>${sw(n,0)}</div></div></section>`}).join("")}
+   <section class="r5-fl wrap"><div class="r5-hd"><span class="mono">Color Flow</span><h3>장면 ${ch.length}개의 흐름</h3></div>
+    <div class="r5-st">${ch.map(([n,ti],i)=>`<figure title="${esc(ti)}"><img src="${cgImg(k,n)}" alt="" loading="lazy"><span class="r5-sp">${(c.pal[n]||[]).map(x=>`<i style="background:${x}"></i>`).join("")}</span><figcaption class="mono">${String(i+1).padStart(2,"0")}</figcaption></figure>`).join("")}</div></section>
+   <section class="r5-fin"><div class="cgw" style="--x:50%"><img src="${cgImg(k,n0)}" alt=""><img class="cga" src="${cgImg(k,n0+"_709")}" alt=""><span class="cgl mono">Rec.709</span><span class="cgr mono">최종 그레이딩</span><i class="cgh"></i></div><p>${esc(R.fin)}</p></section>
+   <div class="cgk-in wrap"><dl class="cgk-spec">${c.spec.map(([a,b])=>`<div><dt class="mono">${a}</dt><dd>${esc(b)}</dd></div>`).join("")}</dl>
+    ${h?`<a class="cgk-go" href="${h}"><span class="mono">Project</span><b>${esc(t)} →</b></a>`:""}</div></article>`}
+function colorCase(k){return CGK[k]?`<div class="view cgv${CGV5.has(k)?" cgdark dark":""}">${cgCaseFull(k)}<div class="cg-in wrap"><a class="cgk-go" href="#color"><span class="mono">Color</span><b>← 다른 작품</b></a></div></div>`:notFound()}
 function bindColor(){
   bindColorIndex();bindV3();bindV4();
   document.querySelectorAll(".cgk-stage").forEach(st=>{const w=st.querySelector(".cgw"),a=w.querySelector(".cga"),l=w.querySelector(".cgl"),n=st.dataset.n,k=(location.hash.split("-")[1]||"f1");
