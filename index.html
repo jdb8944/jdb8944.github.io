@@ -2062,14 +2062,14 @@ header{transition:background .3s,box-shadow .3s}
 
 /* color index — client */
 .cx-hero{position:relative;height:min(92vh,980px);min-height:520px;background:#0b0b0b;color:#fff;overflow:hidden;margin-top:calc(-1 * var(--hh,0px))}
-.cx-w{position:absolute;inset:0;aspect-ratio:auto}
+.cx-w{position:absolute;inset:0;aspect-ratio:auto;transition:opacity .45s ease}.cx-w.fd{opacity:0}
 .cx-w::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.62),rgba(0,0,0,.08) 55%,rgba(0,0,0,0)),linear-gradient(0deg,rgba(0,0,0,.5),rgba(0,0,0,0) 40%);pointer-events:none}
 .cx-w .cg2-l,.cx-w .cg2-r{top:auto;bottom:22px;font-size:.6rem;z-index:2}
 .cx-w .cg2-l{left:auto;right:calc(100% - var(--x) + 12px)}.cx-w .cg2-r{right:auto;left:calc(var(--x) + 12px)}
 .cx-ov{position:absolute;left:clamp(20px,4.5vw,64px);bottom:clamp(70px,12vh,140px);max-width:620px;z-index:3;pointer-events:none}
 .cx-ov p.mono{font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;opacity:.8;margin:0 0 10px}
 .cx-ov h1{font-size:clamp(3.4rem,9vw,8.4rem);line-height:.9;margin:0 0 18px;letter-spacing:-.02em}
-.cx-l{font-size:clamp(.95rem,1.3vw,1.15rem);line-height:1.75;margin:0 0 24px;opacity:.92}
+.cx-l{font-size:clamp(.95rem,1.3vw,1.15rem);line-height:1.75;margin:0;opacity:.92}
 .cx-btn{display:flex;gap:10px;pointer-events:auto}
 .cx-btn a{font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:#fff;text-decoration:none;border:1px solid rgba(255,255,255,.6);padding:11px 18px}
 .cx-btn a.on{background:#fff;color:#111;border-color:#fff}
@@ -2124,6 +2124,7 @@ header{transition:background .3s,box-shadow .3s}
 .cxt-g img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;background:#111}
 @media (max-width:900px){.cx-facts,.cx-flow ol{grid-template-columns:1fr 1fr}.cx-g{grid-template-columns:1fr 1fr}.cxt-b{grid-template-columns:1fr}}
 @media (max-width:640px){.cx-hero{height:78vh;min-height:480px}.cx-g{grid-template-columns:1fr}.cx-facts{grid-template-columns:1fr 1fr}.cx-flow ol{grid-template-columns:1fr}.cx-dots{display:none}.cx-hint{display:none}.cxt-g{grid-template-columns:1fr 1fr}.cx-tabs{gap:12px}}
+.cx .cgw2{padding-bottom:clamp(80px,9vw,140px)}
 /* ── about ── */
 .about{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,6vw,80px)}
 .about .lead{font-family:var(--display);font-size:var(--s1);line-height:1.85;max-width:30em;display:grid;gap:1em}
@@ -2714,7 +2715,7 @@ const roleHTML=L=>L.map(roleTag).join('<span class="rl-sep"> · </span>');
 const roleEn=f=>roleHTML(roleList(f[2]));
 const roleShort=r=>[/Direct/.test(r)&&"Dir",/DOP/.test(r)&&"DOP",/Color/.test(r)&&"Color"].filter(Boolean).join(" + ");
 /* 로컬 원본 이미지 */
-const W=(k,t,n)=>`img/w/${k}/${t}${n}.webp${t==="p"?"?v=97":""}`;
+const W=(k,t,n)=>`img/w/${k}/${t}${n}.webp${t==="p"?"?v=98":""}`;
 const has=(k,t)=>MEDIA[k]&&MEDIA[k][t]&&MEDIA[k][t].length;
 const cover=(k,fallback)=>(typeof HQS!=="undefined"&&HQS[k])?HQU(k,0):has(k,"s")?W(k,"s",0):fallback;
 const rnd=n=>Math.floor(Math.random()*n);
@@ -3889,7 +3890,7 @@ function cgText(k){const c=CGT[k],[t,y,h]=cgT(k),st=cgSt(k,10).filter(j=>j!==(c.
    <section class="cxt-b wrap"><div class="cxt-tx">${c.body.map(p=>`<p>${esc(p)}</p>`).join("")}<a class="cxt-go mono" href="${h}">작품 페이지 →</a></div>
     <div class="cxt-g">${st.map(j=>`<img src="${HQU(k,j,1)}" alt="${esc(t)} still" loading="lazy" decoding="async">`).join("")}</div></section>
    <div class="cg-in wrap"><a class="cgk-go" href="#color"><span class="mono">Color</span><b>← 다른 작품</b></a></div></div>`}
-const CXH=[["f1","mk_69_1262"],["f6","f6_07_875"],["f2","f2_07_1506"],["f4","f4_06_344"]];
+let CXP=[];let cxT=0;
 function colorView(){
   const cols=FO.filter(i=>isCol(F[i]));
   const PAL=k=>{if(CGPAL[k])return CGPAL[k];const c=CGK[k];if(c&&c.pal&&c.pal[c.hero])return [c.pal[c.hero],c.pal[c.hero].map(()=>1)];if(CGP2[k])return [CGP2[k],CGP2[k].map(()=>1)];return [[],[]]};
@@ -3907,12 +3908,12 @@ function colorView(){
   const band=IT.flatMap(x=>x.pal[0].map((col,i)=>[col,x.pal[1][i]||1]));
   const ALL=IT.map(x=>({k:x.k,t:x.t,y:x.y,href:x.href,a:x.a,b:x.real?x.b:"",line:x.line,cat:CGCAT(x.k),cmp:1})).concat(Object.keys(CGT).map(k=>{const [t,y]=cgT(k);return {k,t,y,href:"#color-"+k,a:HQU(k,CGT[k].h||0,1),b:"",line:CGT[k].line,cat:CGT[k].cat,cmp:0}}));
   const n=k=>ALL.filter(x=>x.cat===k).length;
-  const [hk,hn]=CXH[0];
+  CXP=IT.filter(x=>x.real).map(x=>[x.a,x.b,x.t]);const [ha,hb]=CXP[0];
   return `<div class="view cgv cx">
-   <section class="cx-hero"><div class="cx-w cg2-w" style="--x:50%" data-i="0"><img class="cx-a" src="${cgImg(hk,hn)}" alt=""><img class="cg2-b cx-b" src="${cgImg(hk,hn+"_709")}" alt=""><span class="cg2-l mono">Rec.709</span><span class="cg2-r mono">Final</span><i class="cg2-h"></i></div>
+   <section class="cx-hero"><div class="cx-w cg2-w" style="--x:50%" data-i="0"><img class="cx-a" src="${ha}" alt=""><img class="cg2-b cx-b" src="${hb}" alt=""><span class="cg2-l mono">Rec.709</span><span class="cg2-r mono">Final</span><i class="cg2-h"></i></div>
     <div class="cx-ov"><p class="mono">Colorist · DaVinci Resolve Studio</p><h1>Color</h1><p class="cx-l">촬영감독의 눈으로 마지막 색까지 완성합니다.<br>장편·단편 영화, 뮤직비디오, 광고의 DI.</p>
-     <div class="cx-btn"><a class="mono" href="#cx-cases">작업 보기</a><a class="mono on" href="mailto:jdb8944@hanmail.net?subject=%5BColor%5D%20DI%20%EC%9E%91%EC%97%85%20%EB%AC%B8%EC%9D%98">작업 문의</a></div></div>
-    <div class="cx-dots">${CXH.map(([k],i)=>`<button class="mono${i?"":" on"}" data-i="${i}">${esc(cgT(k)[0])}</button>`).join("")}</div><p class="cx-hint mono">← 드래그해서 Rec.709와 비교 →</p></section>
+</div>
+    <div class="cx-dots">${CXP.map((x,i)=>`<button class="mono${i?"":" on"}" data-i="${i}">${esc(x[2])}</button>`).join("")}</div><p class="cx-hint mono">← 드래그해서 Rec.709와 비교 →</p></section>
    <section class="cx-facts wrap">
     <div><span class="mono">Credits</span><b>${cols.length}+</b><p>DI를 맡은 영화. 뮤직비디오·광고 별도</p></div>
     <div><span class="mono">Selected</span><b>BIFF · Fantasia</b><p>부산국제영화제 와이드앵글 경쟁, 판타지아 국제영화제 촬영상, 파리한국영화제 심사위원 특별언급</p></div>
@@ -3927,16 +3928,20 @@ function colorView(){
     <li><span class="mono">03</span><b>그레이딩</b><p>프라이머리로 장면의 리듬을, 세컨더리로 피부와 디테일을. 필름 에뮬레이션(그레인·할레이션)과 노이즈 리덕션까지.</p></li>
     <li><span class="mono">04</span><b>딜리버리</b><p>OTT·웹 Rec.709 / Gamma 2.4, 극장 DCI-P3. 캘리브레이션된 레퍼런스 모니터에서 최종 확인합니다.</p></li></ol></section>
    <div class="works wrap cgw2"><section class="cg-cred"><h4 class="mono">Color credits</h4><ol>${cols.map(i=>`<li><a href="#film-${i}"><span class="mono">${F[i][1].slice(0,4)}</span><b>${esc(F[i][0])}</b><i>${roleEn(F[i])}</i></a></li>`).join("")}</ol></section></div>
-   <section class="cx-cta wrap"><p class="mono">Contact</p><h2>색보정이 필요한 작품이 있다면.</h2><p>작품 길이, 촬영 카메라, 납품 일정만 알려 주시면 바로 답장드립니다.</p><a class="mono" href="mailto:jdb8944@hanmail.net?subject=%5BColor%5D%20DI%20%EC%9E%91%EC%97%85%20%EB%AC%B8%EC%9D%98">jdb8944@hanmail.net</a></section></div>`;
+</div>`;
 }
 function bindColorIndex(){
   const X=$(".cgv");if(!X)return;
   X.querySelectorAll(".cg2-w").forEach(w=>{w.addEventListener("pointermove",e=>{const r=w.getBoundingClientRect();w.style.setProperty("--x",Math.max(0,Math.min(100,(e.clientX-r.left)/r.width*100))+"%")});w.addEventListener("mouseleave",()=>w.style.setProperty("--x","50%"))});
   const L=[...X.querySelectorAll(".cl2 a")],S=[...X.querySelectorAll(".cl2-s")];L.forEach(a=>a.addEventListener("mouseenter",()=>{L.forEach(x=>x.classList.toggle("on",x===a));S.forEach(s=>s.classList.toggle("on",s.dataset.i===a.dataset.i))}));
   X.querySelectorAll(".cx-tabs button").forEach(b=>b.addEventListener("click",()=>{X.querySelectorAll(".cx-tabs button").forEach(x=>x.classList.toggle("on",x===b));X.querySelectorAll(".cx-c").forEach(c=>c.hidden=!!b.dataset.c&&c.dataset.c!==b.dataset.c)}));
-  const hw=X.querySelector(".cx-w");if(hw){const A=hw.querySelector(".cx-a"),B=hw.querySelector(".cx-b");X.querySelectorAll(".cx-dots button").forEach(b=>b.addEventListener("click",()=>{const [k,nm]=CXH[+b.dataset.i];A.src=cgImg(k,nm);B.src=cgImg(k,nm+"_709");X.querySelectorAll(".cx-dots button").forEach(x=>x.classList.toggle("on",x===b))}));
-    hw.closest(".cx-hero").addEventListener("pointermove",e=>{const r=hw.getBoundingClientRect();hw.style.setProperty("--x",Math.max(0,Math.min(100,(e.clientX-r.left)/r.width*100))+"%")});
-    let t0=null;const sw=ts=>{if(!t0)t0=ts;const p=(ts-t0)/2200;if(p<1&&!hw.dataset.u){hw.style.setProperty("--x",(50+28*Math.sin(p*Math.PI*2))+"%");requestAnimationFrame(sw)}};requestAnimationFrame(sw);hw.closest(".cx-hero").addEventListener("pointerdown",()=>hw.dataset.u=1)}
+  const hw=X.querySelector(".cx-w");if(hw){const A=hw.querySelector(".cx-a"),B=hw.querySelector(".cx-b"),H=hw.closest(".cx-hero"),D=[...X.querySelectorAll(".cx-dots button")];let cur=0,raf=0;
+    const sweep=()=>{cancelAnimationFrame(raf);let t0=null;const f=ts=>{if(!t0)t0=ts;const p=(ts-t0)/2600;if(p<1&&!hw.dataset.u){hw.style.setProperty("--x",(50+30*Math.sin(p*Math.PI*2))+"%");raf=requestAnimationFrame(f)}else if(!hw.dataset.u)hw.style.setProperty("--x","50%")};raf=requestAnimationFrame(f)};
+    const go=i=>{cur=(i+CXP.length)%CXP.length;const [a,b]=CXP[cur];const na=new Image(),nb=new Image();let k=0;const sw=()=>{if(++k<2)return;hw.classList.add("fd");setTimeout(()=>{A.src=a;B.src=b;D.forEach((x,j)=>x.classList.toggle("on",j===cur));hw.classList.remove("fd");delete hw.dataset.u;sweep()},450)};na.onload=nb.onload=na.onerror=nb.onerror=sw;na.src=a;nb.src=b};
+    const auto=()=>{clearInterval(cxT);cxT=setInterval(()=>{if(!document.body.contains(hw)){clearInterval(cxT);return}if(!H.matches(":hover"))go(cur+1)},6500)};
+    D.forEach(b=>b.addEventListener("click",()=>{go(+b.dataset.i);auto()}));
+    H.addEventListener("pointermove",e=>{const r=hw.getBoundingClientRect();hw.style.setProperty("--x",Math.max(0,Math.min(100,(e.clientX-r.left)/r.width*100))+"%")});
+    H.addEventListener("pointerdown",()=>hw.dataset.u=1);sweep();auto()}
   const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{rootMargin:"0px 0px -6% 0px"});X.querySelectorAll(".cx-c,.cw-c,.cg2-c,.cl2 li,.cm-c").forEach((e,i)=>{e.style.transitionDelay=(i%6)*60+"ms";io.observe(e)});
 }
 const CGV3=new Set(["f1"]);
