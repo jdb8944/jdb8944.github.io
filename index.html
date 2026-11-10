@@ -2193,6 +2193,34 @@ header{transition:background .3s,box-shadow .3s}
 .e2-next em{font-style:normal;font-family:var(--essay);max-width:40em;opacity:.8;line-height:1.8;font-size:.95rem}
 @media (max-width:640px){.e2-f1,.e2-f2{width:auto;margin-left:20px;margin-right:20px}.e2-f0 img{height:62vh}.e2-rest{grid-template-columns:1fr 1fr}.e2-cue{display:none}.e2-s p{line-height:2.05}}
 @media (prefers-reduced-motion:reduce){.ev2 .rv{opacity:1;transform:none;transition:none}.e2-bg{animation:none}}
+
+/* color: scroll to grade + one-per-screen */
+.cxs{position:relative;height:300vh;background:#0b0b0b;color:#fff;margin-top:calc(-1 * var(--hh,0px))}
+.cxs-st{position:sticky;top:0;height:100vh;overflow:hidden}
+.cxs-im{position:absolute;inset:0}
+.cxs-im img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.cxs-im .l1{clip-path:inset(0 calc(100% - var(--a,0%)) 0 0)}
+.cxs-im .l2{clip-path:inset(0 calc(100% - var(--b,0%)) 0 0)}
+.cxs-im i{position:absolute;top:0;bottom:0;width:1px;background:rgba(255,255,255,.85);box-shadow:0 0 18px rgba(255,255,255,.5);opacity:0;transition:opacity .3s;z-index:1}
+.cxs-im .e1{left:var(--a,0%)}.cxs-im .e2{left:var(--b,0%)}
+.cxs.ea .e1,.cxs.eb .e2{opacity:1}
+.cxs-st::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.55),rgba(0,0,0,.05) 55%,rgba(0,0,0,0)),linear-gradient(0deg,rgba(0,0,0,.5),rgba(0,0,0,0) 38%);pointer-events:none;z-index:1}
+.cxs-cue{position:absolute;left:50%;bottom:34px;transform:translateX(-50%);z-index:3;font-size:.58rem;letter-spacing:.2em;margin:0;animation:cxb 2.2s ease-in-out infinite}
+@keyframes cxb{50%{transform:translate(-50%,6px)}}
+.cx-g{display:block}
+.cx-c{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:clamp(20px,3vw,48px);align-items:end;padding:clamp(28px,4vw,56px) 0;border-top:1px solid var(--line,rgba(0,0,0,.12))}
+.cx-c.rv{opacity:0;transform:translateY(40px);transition:opacity 1.2s cubic-bezier(.2,.7,.2,1),transform 1.2s cubic-bezier(.2,.7,.2,1)}
+.cx-c.rv.in{opacity:1;transform:none}
+.cx-c .cx-im{aspect-ratio:2.39/1}
+.cx-m{padding-bottom:6px}
+.cx-no{display:block;font-size:.6rem;letter-spacing:.18em;color:var(--muted);margin-bottom:18px}
+.cx-m h3{font-size:clamp(1.5rem,2.4vw,2.2rem);margin:0 0 10px;line-height:1.2}
+.cx-m h3 a{color:var(--fg);text-decoration:none}
+.cx-k{font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0 0 16px}
+.cx-m .cx-x{font-size:.9rem;line-height:1.75;margin:0 0 20px}
+.cx-go{font-size:.6rem;letter-spacing:.16em;color:var(--fg);text-decoration:none;border-bottom:1px solid var(--fg);padding-bottom:3px}
+@media (max-width:900px){.cx-c{grid-template-columns:1fr;align-items:start}.cx-c .cx-im{aspect-ratio:16/9}}
+@media (max-width:640px){.cxs-cue{display:none}.cxs{height:260vh}}
 /* ── about ── */
 .about{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,6vw,80px)}
 .about .lead{font-family:var(--display);font-size:var(--s1);line-height:1.85;max-width:30em;display:grid;gap:1em}
@@ -2783,7 +2811,7 @@ const roleHTML=L=>L.map(roleTag).join('<span class="rl-sep"> · </span>');
 const roleEn=f=>roleHTML(roleList(f[2]));
 const roleShort=r=>[/Direct/.test(r)&&"Dir",/DOP/.test(r)&&"DOP",/Color/.test(r)&&"Color"].filter(Boolean).join(" + ");
 /* 로컬 원본 이미지 */
-const W=(k,t,n)=>`img/w/${k}/${t}${n}.webp${t==="p"?"?v=100":""}`;
+const W=(k,t,n)=>`img/w/${k}/${t}${n}.webp${t==="p"?"?v=101":""}`;
 const has=(k,t)=>MEDIA[k]&&MEDIA[k][t]&&MEDIA[k][t].length;
 const cover=(k,fallback)=>(typeof HQS!=="undefined"&&HQS[k])?HQU(k,0):has(k,"s")?W(k,"s",0):fallback;
 const rnd=n=>Math.floor(Math.random()*n);
@@ -4006,17 +4034,17 @@ function colorView(){
   const n=k=>ALL.filter(x=>x.cat===k).length;
   {const R=IT.filter(x=>x.real).map(x=>{const c=CGK[x.k],ns=c.ch.map(z=>z[0]).filter(n=>n!==c.hero&&c.r709[n]);return [c.hero,ns[Math.floor(ns.length/2)]].filter(Boolean).map(n=>({k:x.k,t:x.t,h:x.href,n}))});CXP=[];for(let r=0;r<2;r++)R.forEach(a=>{if(a[r])CXP.push(a[r])})}
   return `<div class="view cgv cx">
-   <section class="cx-hero cxr"><div class="cxr-s"></div><div class="cxr-s"></div>
+   <section class="cxs"><div class="cxs-st"><div class="cxs-im"><img class="l0" alt=""><img class="l1" alt=""><img class="l2" alt=""><i class="e1"></i><i class="e2"></i></div>
     <div class="cx-ov"><p class="mono">Colorist · DaVinci Resolve Studio</p><h1>Color</h1><p class="cx-l">촬영감독의 눈으로 마지막 색까지 완성합니다.<br>장편·단편 영화, 뮤직비디오, 광고의 DI.</p></div>
-    <div class="cxr-lb mono"><span>Log</span><i></i><span>Rec.709</span><i></i><span>Final</span></div><a class="cxr-t mono" href="#color"></a><div class="cxr-p"><b></b></div></section>
+    <div class="cxr-lb mono"><span class="on">Log</span><i></i><span>Rec.709</span><i></i><span>Final</span></div><a class="cxr-t mono" href="#color"></a><p class="cxs-cue mono">Scroll to grade ↓</p><div class="cxr-p"><b></b></div></div></section>
    <section class="cx-facts wrap">
     <div><span class="mono">Credits</span><b>${cols.length}+</b><p>DI를 맡은 영화. 뮤직비디오·광고 별도</p></div>
     <div><span class="mono">Selected</span><b>BIFF · Fantasia</b><p>부산국제영화제 와이드앵글 경쟁, 판타지아 국제영화제 촬영상, 파리한국영화제 심사위원 특별언급</p></div>
     <div><span class="mono">Suite</span><b>Resolve Studio 20</b><p>EIZO ColorEdge CG2700S · Mac M4 Max · Micro Color Panel</p></div>
     <div><span class="mono">Pipeline</span><b>DWG / DI</b><p>ARRIRAW · RED IPP2 · S-Log3 · V-Log · Rec.709 G2.4 · DCI-P3</p></div></section>
    <section class="cx-cases wrap" id="cx-cases"><div class="cx-hd"><h2>Selected work</h2><div class="cx-tabs mono"><button class="on" data-c="">All <sup>${ALL.length}</sup></button>${["Film","MV","Commercial"].map(c=>`<button data-c="${c}">${c} <sup>${n(c)}</sup></button>`).join("")}</div></div>
-    <div class="cx-g">${ALL.map(x=>`<a class="cx-c" href="${x.href}" data-c="${x.cat}"><span class="cx-im${x.b?" cg2-w":""}" style="--x:50%"><img src="${x.a}" alt="${esc(x.t)}" loading="lazy">${x.b?`<img class="cg2-b" src="${x.b}" alt="" loading="lazy"><span class="cg2-l mono">Rec.709</span><span class="cg2-r mono">Final</span><i class="cg2-h"></i>`:""}${x.b?`<em class="mono">Log · 709 · Final</em>`:""}</span>
-      <span class="cx-t"><b>${esc(x.t)}</b><span class="mono">${x.cat} · ${x.y}</span></span><span class="cx-x">${esc(x.line)}</span></a>`).join("")}</div></section>
+    <div class="cx-g">${ALL.map((x,i)=>`<article class="cx-c rv" data-c="${x.cat}"><a class="cx-im${x.b?" cg2-w":""}" href="${x.href}" style="--x:50%"><img src="${x.a}" alt="${esc(x.t)}" loading="lazy">${x.b?`<img class="cg2-b" src="${x.b}" alt="" loading="lazy"><span class="cg2-l mono">Rec.709</span><span class="cg2-r mono">Final</span><i class="cg2-h"></i>`:""}</a>
+      <div class="cx-m"><span class="cx-no mono">${String(i+1).padStart(2,"0")} / ${String(ALL.length).padStart(2,"0")}</span><h3><a href="${x.href}">${esc(x.t)}</a></h3><p class="cx-k mono">${x.cat} · ${x.y}${x.b?" · Log / 709 / Final":""}</p><p class="cx-x">${esc(x.line)}</p><a class="cx-go mono" href="${x.href}">View case →</a></div></article>`).join("")}</div></section>
    <section class="cx-flow wrap"><h2>How I work</h2><ol>
     <li><span class="mono">01</span><b>룩 설계</b><p>촬영 단계부터 함께 합니다. 현장에서 세운 빛과 노출을 알고 있으니, 의도한 톤까지 가장 짧은 길로 갑니다.</p></li>
     <li><span class="mono">02</span><b>컬러 매니지먼트</b><p>DaVinci Wide Gamut / Intermediate 기반의 비파괴 파이프라인. 기종이 섞인 소스도 하나의 색으로 맞춥니다.</p></li>
@@ -4030,18 +4058,15 @@ function bindColorIndex(){
   X.querySelectorAll(".cg2-w").forEach(w=>{w.addEventListener("pointermove",e=>{const r=w.getBoundingClientRect();w.style.setProperty("--x",Math.max(0,Math.min(100,(e.clientX-r.left)/r.width*100))+"%")});w.addEventListener("mouseleave",()=>w.style.setProperty("--x","50%"))});
   const L=[...X.querySelectorAll(".cl2 a")],S=[...X.querySelectorAll(".cl2-s")];L.forEach(a=>a.addEventListener("mouseenter",()=>{L.forEach(x=>x.classList.toggle("on",x===a));S.forEach(s=>s.classList.toggle("on",s.dataset.i===a.dataset.i))}));
   X.querySelectorAll(".cx-tabs button").forEach(b=>b.addEventListener("click",()=>{X.querySelectorAll(".cx-tabs button").forEach(x=>x.classList.toggle("on",x===b));X.querySelectorAll(".cx-c").forEach(c=>c.hidden=!!b.dataset.c&&c.dataset.c!==b.dataset.c)}));
-  const H=X.querySelector(".cxr");if(H&&CXP.length){const S=[...H.querySelectorAll(".cxr-s")],L=[...H.querySelectorAll(".cxr-lb span")],T=H.querySelector(".cxr-t"),P=H.querySelector(".cxr-p b");let cur=-1,face=0;clearTimeout(cxT);
-    const put=(el,x)=>{el.innerHTML=["_log","_709",""].map((sf,i)=>`<img class="l${i}" src="${cgImg(x.k,x.n+sf)}" alt="" decoding="async">`).join("")};
-    const ld=x=>Promise.all(["_log","_709",""].map(sf=>new Promise(r=>{const im=new Image();im.onload=im.onerror=r;im.src=cgImg(x.k,x.n+sf)})));
-    const stage=(el,i)=>{el.dataset.s=i;L.forEach((x,j)=>x.classList.toggle("on",j===i))};
-    const D=[1700,1700,3200],tot=D[0]+D[1]+D[2];
-    const next=async()=>{if(!document.body.contains(H))return;cur=(cur+1)%CXP.length;const x=CXP[cur];await ld(x);if(!document.body.contains(H))return;
-      const el=S[face],old=S[1-face];put(el,x);stage(el,0);el.classList.add("on");old.classList.remove("on");face=1-face;
-      T.textContent=x.t;T.href=x.h;P.style.transition="none";P.style.width="0";void P.offsetWidth;P.style.transition=`width ${tot}ms linear`;P.style.width="100%";
-      cxT=setTimeout(()=>{stage(el,1);cxT=setTimeout(()=>{stage(el,2);cxT=setTimeout(next,D[2])},D[1])},D[0]);
-      const n2=CXP[(cur+1)%CXP.length];ld(n2)};
-    next()}
-  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{rootMargin:"0px 0px -6% 0px"});X.querySelectorAll(".cx-c,.cw-c,.cg2-c,.cl2 li,.cm-c").forEach((e,i)=>{e.style.transitionDelay=(i%6)*60+"ms";io.observe(e)});
+  const H=X.querySelector(".cxs");if(H&&CXP.length){const x=CXP[Math.floor(Math.random()*CXP.length)],I=[...H.querySelectorAll(".cxs-im img")],L=[...H.querySelectorAll(".cxr-lb span")],T=H.querySelector(".cxr-t"),P=H.querySelector(".cxr-p b"),O=H.querySelector(".cx-ov"),C=H.querySelector(".cxs-cue");
+    ["_log","_709",""].forEach((sf,i)=>I[i].src=cgImg(x.k,x.n+sf));T.textContent=x.t;T.href=x.h;
+    const cl=(v,a,b)=>Math.max(0,Math.min(1,(v-a)/(b-a)));let raf=0;
+    const on=()=>{if(!document.body.contains(H)){removeEventListener("scroll",on);return}cancelAnimationFrame(raf);raf=requestAnimationFrame(()=>{const r=H.getBoundingClientRect(),p=cl(-r.top,0,H.offsetHeight-innerHeight),a=cl(p,.08,.42),b=cl(p,.5,.84);
+      H.style.setProperty("--a",(a*100).toFixed(2)+"%");H.style.setProperty("--b",(b*100).toFixed(2)+"%");H.classList.toggle("ea",a>0&&a<1);H.classList.toggle("eb",b>0&&b<1);
+      const st=b>=.5?2:a>=.5?1:0;L.forEach((s,j)=>s.classList.toggle("on",j===st));P.style.width=(p*100)+"%";O.style.opacity=Math.max(0,1-p*2.2);C.style.opacity=Math.max(0,1-p*6)})};
+    addEventListener("scroll",on,{passive:true});addEventListener("resize",on);on()}
+  {const io2=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io2.unobserve(e.target)}}),{rootMargin:"0px 0px -10% 0px"});X.querySelectorAll(".cx-c.rv").forEach(el=>io2.observe(el))}
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{rootMargin:"0px 0px -6% 0px"});X.querySelectorAll(".cw-c,.cg2-c,.cl2 li,.cm-c").forEach((e,i)=>{e.style.transitionDelay=(i%6)*60+"ms";io.observe(e)});
 }
 const CGV3=new Set(["f1"]);
 function cgViewer(k,c){
