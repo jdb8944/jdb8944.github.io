@@ -2140,6 +2140,59 @@ header{transition:background .3s,box-shadow .3s}
 .cxr-p{position:absolute;left:0;right:0;bottom:0;height:2px;background:rgba(255,255,255,.15);z-index:3}
 .cxr-p b{display:block;height:100%;width:0;background:#fff}
 @media (max-width:640px){.cxr-lb,.cxr-t{right:20px}.cxr-lb{bottom:24px;gap:8px;font-size:.54rem}.cxr-t{bottom:48px}.cx-ov{bottom:96px}}
+
+/* essay v2 — sensory */
+.ev2{--ink:#1a1917}
+.ev2 .rv{opacity:0;transform:translateY(22px);transition:opacity 1.3s cubic-bezier(.2,.7,.2,1),transform 1.3s cubic-bezier(.2,.7,.2,1)}
+.ev2 .rv.in{opacity:1;transform:none}
+.e2-hero{position:relative;height:100vh;min-height:560px;overflow:hidden;background:#0b0b0b;color:#fff;display:flex;align-items:flex-end;margin-top:calc(-1 * var(--hh,0px))}
+.e2-bg{position:absolute;inset:-4% 0 0;background-size:cover;background-position:center;transform:scale(1.06);will-change:transform;animation:e2in 2.4s cubic-bezier(.2,.7,.2,1) both}
+@keyframes e2in{from{opacity:0;filter:blur(8px)}to{opacity:1;filter:none}}
+.e2-hero::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.72),rgba(0,0,0,.1) 55%,rgba(0,0,0,.25))}
+.e2-ht{position:relative;z-index:2;padding:0 clamp(20px,6vw,96px) clamp(56px,11vh,120px);max-width:820px;opacity:var(--o,1);animation:e2up 1.6s .5s cubic-bezier(.2,.7,.2,1) both}
+@keyframes e2up{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+.e2-back{display:inline-block;color:#fff;opacity:.7;font-size:.58rem;letter-spacing:.16em;text-decoration:none;margin-bottom:22px}
+.e2-ht p.mono{font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;opacity:.75;margin:0 0 14px}
+.e2-ht h1{font-family:var(--essay);font-weight:400;font-size:clamp(2.4rem,6vw,5.2rem);line-height:1.15;margin:0 0 20px;letter-spacing:-.01em}
+.e2-lede{font-family:var(--essay);font-size:clamp(.95rem,1.3vw,1.1rem);line-height:1.9;opacity:.86;margin:0;max-width:34em}
+.e2-cue{position:absolute;right:clamp(20px,6vw,96px);bottom:clamp(56px,11vh,120px);z-index:2;font-size:.55rem;letter-spacing:.2em;opacity:.6;writing-mode:vertical-rl}
+.e2-verse{padding:clamp(110px,18vh,220px) 20px;text-align:center;font-family:var(--essay)}
+.e2-verse p{font-size:clamp(1.2rem,2.3vw,1.85rem);line-height:1.7;margin:0;color:var(--fg)}
+.e2-verse p.rv{transition-duration:1.8s}
+.e2-verse p:nth-child(2n).rv{transition-delay:.15s}
+.e2-body{padding-bottom:40px}
+.e2-s{max-width:640px;margin:0 auto;padding:clamp(56px,8vw,110px) 24px clamp(24px,3vw,40px);font-family:var(--essay)}
+.e2-n{display:block;font-size:.58rem;letter-spacing:.2em;color:var(--muted);margin-bottom:14px}
+.e2-s h3{font-family:var(--essay);font-weight:400;font-size:clamp(1.45rem,2.4vw,2rem);margin:0 0 30px;line-height:1.4}
+.e2-s p{font-size:clamp(1rem,1.15vw,1.1rem);line-height:2.15;margin:0 0 1.5em;color:var(--fg);word-break:keep-all}
+.e2-f{margin:clamp(40px,6vw,90px) auto}
+.e2-f img{display:block;width:100%;height:auto;background:#111}
+.e2-f figcaption{font-size:.55rem;letter-spacing:.14em;color:var(--muted);margin-top:12px}
+.e2-f0{width:100%}.e2-f0 img{height:min(88vh,62vw);object-fit:cover}.e2-f0 figcaption{padding:0 clamp(20px,6vw,96px)}
+.e2-f1{width:min(1100px,86vw);margin-left:auto;margin-right:clamp(20px,6vw,96px)}
+.e2-f2{width:min(760px,70vw);margin-left:clamp(20px,10vw,180px)}
+.e2-q{position:relative;margin:clamp(60px,8vw,120px) 0;padding:clamp(110px,16vw,220px) 24px;text-align:center;overflow:hidden;background:#0b0b0b;color:#fff}
+.e2-q i{position:absolute;inset:-20px;background-size:cover;background-position:center;filter:blur(18px) brightness(.38);transform:scale(1.1)}
+.e2-q p{position:relative;font-family:var(--essay);font-size:clamp(1.5rem,3.4vw,2.8rem);line-height:1.6;max-width:22em;margin:0 auto}
+.e2-q p::before{content:"“";display:block;font-family:var(--didone);font-size:3em;line-height:.6;opacity:.5;margin-bottom:.15em}
+.e2-rest{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:6px;padding:0 clamp(20px,4vw,64px);margin:60px 0}
+.e2-rest figure{margin:0}.e2-rest img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block}
+.e2-rest figcaption{font-size:.52rem;letter-spacing:.12em;color:var(--muted);margin-top:8px}
+.e2-coda{padding:clamp(110px,16vh,200px) 20px;text-align:center;font-family:var(--essay)}
+.e2-coda p{font-size:clamp(1.3rem,2.6vw,2.1rem);line-height:1.7;margin:0}
+.e2-sign{display:block;margin-top:44px;font-family:var(--essay);color:var(--muted);font-size:.95rem}
+.e2-sign1{text-align:center;padding:60px 0}
+.e2-notes{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:40px;padding-block:60px;border-top:1px solid var(--line,rgba(0,0,0,.12))}
+.e2-notes>*{margin:0!important}
+.e2-next{position:relative;display:block;height:70vh;min-height:420px;overflow:hidden;color:#fff;text-decoration:none;background:#0b0b0b;margin-top:60px}
+.e2-next i{position:absolute;inset:0;background-size:cover;background-position:center;opacity:.55;transition:transform 1.6s cubic-bezier(.2,.7,.2,1),opacity .8s}
+.e2-next:hover i{transform:scale(1.04);opacity:.7}
+.e2-next span,.e2-next b,.e2-next em{position:relative;display:block;padding:0 clamp(20px,6vw,96px)}
+.e2-next span{padding-top:clamp(120px,26vh,260px);font-size:.58rem;letter-spacing:.2em;opacity:.75;margin-bottom:16px}
+.e2-next b{font-family:var(--essay);font-weight:400;font-size:clamp(2rem,5vw,4rem);margin-bottom:16px}
+.e2-next em{font-style:normal;font-family:var(--essay);max-width:40em;opacity:.8;line-height:1.8;font-size:.95rem}
+@media (max-width:640px){.e2-f1,.e2-f2{width:auto;margin-left:20px;margin-right:20px}.e2-f0 img{height:62vh}.e2-rest{grid-template-columns:1fr 1fr}.e2-cue{display:none}.e2-s p{line-height:2.05}}
+@media (prefers-reduced-motion:reduce){.ev2 .rv{opacity:1;transform:none;transition:none}.e2-bg{animation:none}}
 /* ── about ── */
 .about{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,6vw,80px)}
 .about .lead{font-family:var(--display);font-size:var(--s1);line-height:1.85;max-width:30em;display:grid;gap:1em}
@@ -2730,7 +2783,7 @@ const roleHTML=L=>L.map(roleTag).join('<span class="rl-sep"> · </span>');
 const roleEn=f=>roleHTML(roleList(f[2]));
 const roleShort=r=>[/Direct/.test(r)&&"Dir",/DOP/.test(r)&&"DOP",/Color/.test(r)&&"Color"].filter(Boolean).join(" + ");
 /* 로컬 원본 이미지 */
-const W=(k,t,n)=>`img/w/${k}/${t}${n}.webp${t==="p"?"?v=99":""}`;
+const W=(k,t,n)=>`img/w/${k}/${t}${n}.webp${t==="p"?"?v=100":""}`;
 const has=(k,t)=>MEDIA[k]&&MEDIA[k][t]&&MEDIA[k][t].length;
 const cover=(k,fallback)=>(typeof HQS!=="undefined"&&HQS[k])?HQU(k,0):has(k,"s")?W(k,"s",0):fallback;
 const rnd=n=>Math.floor(Math.random()*n);
@@ -3188,20 +3241,20 @@ const ESSAYS=[
  sec:[
   ["때로는",[
    "노트 첫 장에 이렇게 적었다. 때로는 화려하고, 때로는 담백하게. 때로는 냉정하고, 때로는 긴박하게. 다양한 촬영 방식과 여러 조명비를 쓰되 정갈하게. 여러 감정과 상황을 다루되 끝내 하나의 이야기로.",
-   "장편은 길다. 길면 흩어진다. 그래서 장면마다 무엇을 할지보다, 무엇을 지킬지를 먼저 정했다."]],
+   "장편은 길다. 길면 흩어진다. 몇 달 동안 같은 교실에 서 있다 보면, 처음에 무엇을 지키려 했는지 잊는 날이 온다. 그래서 장면마다 무엇을 할지보다, 무엇을 지킬지를 먼저 정했다. 잊었을 때 돌아올 자리."]],
   ["주호의 비, 도희의 온기",[
-   "이야기는 주호에서 시작한다. 비가 오는 듯 눅눅하고 우울한 이미지. 로우키, 차가운 색. 도망가는 주호를 카메라가 따라가고, 그는 늘 프레임 오른쪽에서 왼쪽으로 움직인다. 물건을 바라볼 때는 심도를 얕게 했다.",
-   "그러다 도희가 슬며시 그의 세계에 들어온다. 카메라는 주호의 시선을 쫓아, 멀리서 도희를 훔쳐본다. 도희의 파트는 반대로 따뜻한 톤으로 연다. 다만 콘트라스트를 짙게 두어, 따뜻함 아래에 있는 그녀의 사정을 암시했다. 그리고 주호보다 도희에게 한 발 더 들어갔다."]],
+   "이야기는 주호에서 시작한다. 젖은 운동화처럼 눅눅한 화면. 로우키, 차가운 색. 도망가는 주호를 카메라가 따라가고, 그는 늘 프레임 오른쪽에서 왼쪽으로 움직인다. 물건을 바라볼 때만 심도를 얕게 했다. 그 순간 그의 세계에는 그것 하나만 남으니까.",
+   "그러다 도희가 슬며시 그의 세계에 들어온다. 카메라는 주호의 시선을 쫓아, 멀리서 도희를 훔쳐본다. 도희의 파트는 반대로 따뜻한 톤으로 연다. 다만 콘트라스트를 짙게 두었다. 따뜻한 사람에게도 그늘은 있고, 그늘이 짙을수록 빛은 더 따뜻해 보인다. 그리고 주호보다 도희에게 한 발 더 들어갔다."]],
   ["빛의 아홉 문장",[
-   "학교 장면이 가장 많았다. 같은 교실, 같은 복도가 수십 번 나온다. 그래서 빛을 아홉 개의 문장으로 정리해 두고 씬마다 하나씩 붙였다.",
+   "학교 장면이 가장 많았다. 같은 교실, 같은 복도가 수십 번 나온다. 같은 공간이 매번 다르게 느껴지려면 빛이 먼저 달라져야 했다. 그래서 빛을 아홉 개의 문장으로 정리해 두고 씬마다 하나씩 붙였다.",
    "햇빛이 들어오는데 차갑다. 햇빛이 들어오는데 중립적이다. 햇빛이 들어오는데 따뜻하다. 산광만 들어오는데 차갑다. 산광만 들어오는데 중립적이다. 산광만 들어오는데 따뜻하다. 해 질 녘 노을 느낌으로 따뜻하다. 해 질 녘 해가 안 떠서 차갑다. 비가 온 듯 어둡다.",
-   "주호가 전학 와서 처음 샤프를 훔치는 아침은 햇빛이 드는데 차갑다. 휴대폰을 잃어버리고 도희가 그것을 몰래 가방에 넣는 오후는 노을이 따뜻하다. 둘이 키링을 두고 도둑 배틀을 벌이는 날은 산광만 드는데 따뜻하다. 문장만 읽어도 그날의 마음이 보이길 바랐다."]],
+   "주호가 전학 와서 처음 샤프를 훔치는 아침은 햇빛이 드는데 차갑다. 휴대폰을 잃어버리고 도희가 그것을 몰래 가방에 넣는 오후는 노을이 따뜻하다. 둘이 키링을 두고 도둑 배틀을 벌이는 날은 산광만 드는데 따뜻하다. 문장만 읽어도 그날의 마음이 보이길 바랐다. 날씨처럼 적었지만, 사실은 마음의 이름이었다."]],
   ["훔치는 순간",[
    "도벽이 일어나는 순간만큼은 따로 규칙을 만들었다. 주호와 도희의 도벽 샷은 같은 언어로. 기본은 시점 샷, 느린 줌 혹은 얕은 심도. 인물의 눈이나 물건을 극단적인 매크로로 잡았다.",
-   "때로는 콘티뉴이티를 일부러 비틀었다. 갑자기 연극적인 조명이 켜지고, 특정한 물건 앞에서는 화면의 문법이 잠깐 바뀐다. 무언가에 끌리는 마음은 원래 그렇게 갑작스럽다."]],
+   "때로는 콘티뉴이티를 일부러 비틀었다. 갑자기 연극적인 조명이 켜지고, 특정한 물건 앞에서는 화면의 문법이 잠깐 바뀐다. 무언가에 끌리는 마음은 원래 그렇게 갑작스럽다. 이유를 묻기 전에 손이 먼저 간다."]],
   ["왼쪽과 오른쪽",[
    "인물을 프레임의 어느 쪽에 두는지, 어느 쪽을 향해 걷는지로 관계를 적었다. 주호와 도희를 한동안 같은 쪽에 일정하게 두어 관객에게 익숙하게 만든 다음, 관계가 뒤집히는 순간 자리를 바꾼다. 민준이 나타나면 두 사람을 같은 선 위에 세운다.",
-   "달리는 장면도 그렇다. 물건을 훔치고 달아날 때와, 실마리를 찾아 달려갈 때. 같은 달리기를 반대 방향으로 찍었다. 도망치는 것과 향해 가는 것은 방향이 다르다."]]],
+   "달리는 장면도 그렇다. 물건을 훔치고 달아날 때와, 실마리를 찾아 달려갈 때. 같은 달리기를 반대 방향으로 찍었다. 도망치는 것과 향해 가는 것은 방향이 다르다. 같은 다리로 달려도."]]],
  coda:["다양한 감정과 여러 상황을 다루지만,","끝내 하나의 이야기로."],
  quote:"나한테 물건을 왜 훔치냐고 물어본 사람은 너가 처음이었어.",
  gear:[["Camera","ARRI Alexa Mini · Sony FX3"],["Lens","DZOFILM Arles Prime"],["Aspect","2.00 : 1"]],
@@ -3450,6 +3503,34 @@ function journal(){
   </div>`;
 }
 
+function article2(slug){
+  const k=ESSAYS.findIndex(e=>e.slug===slug);const e=ESSAYS[k];if(!e)return notFound();
+  const nx=ESSAYS[(k+1)%ESSAYS.length],FG=(e.figs||[]).filter(Boolean),qi=Math.min(2,e.sec.length-1);
+  const mins=Math.max(1,Math.round(e.sec.flat(2).join("").length/500));
+  const fig=(f,n)=>{const [s,c]=f,m=n%3;return `<figure class="e2-f e2-f${m} rv"><img src="${s}" alt="${esc(c)}" loading="lazy" decoding="async"><figcaption class="mono">${esc(c)}</figcaption></figure>`};
+  const P=p=>`<p class="rv">${esc(p)}</p>`;
+  const body=e.frag?`<section class="e2-s">${e.sec[0][1].map(P).join("")}</section>${FG.map(fig).join("")}`:
+   e.sec.map(([h,ps],n)=>`<section class="e2-s"><span class="e2-n mono rv">${String(n+1).padStart(2,"0")}</span><h3 class="rv">${esc(h)}</h3>${ps.map(P).join("")}</section>${FG[n]?fig(FG[n],n):""}${n===qi&&e.quote?`<blockquote class="e2-q dark"><i style="background-image:url('${(FG[qi+1]||FG[0]||[e.img])[0]}')"></i><p class="rv">${esc(e.quote)}</p></blockquote>`:""}`).join("");
+  const rest=e.frag?[]:FG.slice(e.sec.length);
+  const notes=[e.map?`<div class="es-map"><p class="mono">Cinematography Map</p>${e.map.map(([l,a,b,x0,x1,v])=>`<div class="em-r"><span class="em-l">${l}</span><span class="em-a mono">${a}</span><span class="em-t">${x0===x1?`<i class="dot" style="left:${x0*100}%"><em class="mono">${v||""}</em></i>`:`<i style="left:${x0*100}%;width:${(x1-x0)*100}%"></i>`}</span><span class="em-b mono">${b}</span></div>`).join("")}</div>`:"",
+    e.palette?`<div class="pal"><p class="mono">장면별 색 · 카메라 4300K 고정</p>${e.palette.map(([c,pl,d],n)=>`<div><i style="background:${c}"></i><b>${n+1}</b><span>${esc(pl)}</span><small>${esc(d)}</small></div>`).join("")}</div>`:"",
+    e.gear?`<dl class="es-gear"><p class="mono">Notes</p>${e.gear.map(([a,b])=>`<div><dt>${esc(a)}</dt><dd>${esc(b)}</dd></div>`).join("")}</dl>`:"",
+    e.refs&&e.refs.length?`<div class="es-refs"><p class="mono">Referenced</p><ul>${e.refs.map(r=>`<li>${esc(r)}</li>`).join("")}</ul></div>`:"",
+    e.yt||e.film||e.work?`<div class="es-watch">${e.work?`<a href="#${e.work}"><span class="mono">Project</span><b>작품 보기 →</b></a>`:""}${e.yt?`<a href="https://www.youtube.com/watch?v=${e.yt}" target="_blank" rel="noopener"><span class="mono">Video essay</span><b>영상으로 보기 ↗</b></a>`:""}${e.film?`<a href="https://www.youtube.com/watch?v=${e.film[1]}" target="_blank" rel="noopener"><span class="mono">Short film</span><b>${esc(e.film[0])} ↗</b></a>`:""}</div>`:""].join("");
+  return `<article class="view ev2">
+   <header class="e2-hero dark"><i class="e2-bg" style="background-image:url('${e.img}')"></i>
+    <div class="e2-ht"><a class="mono e2-back" href="#journal">← Essay</a><p class="mono">${e.date} · ${e.frag?"단상":`${mins} min read · ${e.src||"EmptyFrame"}`}</p><h1>${esc(e.title)}</h1><p class="e2-lede">${esc(e.lede)}</p></div><span class="e2-cue mono">Scroll</span></header>
+   ${e.verse?`<section class="e2-verse">${e.verse.map(l=>l?`<p class="rv">${esc(l)}</p>`:`<br>`).join("")}</section>`:""}
+   <div class="e2-body">${body}</div>
+   ${rest.length?`<div class="e2-rest">${rest.map(([s,c])=>`<figure class="rv"><img src="${s}" alt="${esc(c)}" loading="lazy"><figcaption class="mono">${esc(c)}</figcaption></figure>`).join("")}</div>`:""}
+   ${e.coda?`<section class="e2-coda">${e.coda.map(l=>`<p class="rv">${esc(l)}</p>`).join("")}<span class="e2-sign rv">— 정다빈</span></section>`:`<p class="e2-sign e2-sign1 rv">— 정다빈</p>`}
+   ${notes?`<div class="e2-notes wrap">${notes}</div>`:""}
+   <a class="e2-next dark" href="#journal-${nx.slug}"><i style="background-image:url('${nx.img}')"></i><span class="mono">Next essay</span><b>${esc(nx.title)}</b><em>${esc(nx.lede)}</em></a>
+  </article>`;
+}
+function bindE2(){const X=document.querySelector(".ev2");if(!X)return;
+  const io=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting){en.target.classList.add("in");io.unobserve(en.target)}}),{rootMargin:"0px 0px -8% 0px"});X.querySelectorAll(".rv").forEach(el=>io.observe(el));
+  const bg=X.querySelector(".e2-bg"),hd=X.querySelector(".e2-hero");let raf=0;const on=()=>{if(!document.body.contains(X)){removeEventListener("scroll",on);return}cancelAnimationFrame(raf);raf=requestAnimationFrame(()=>{const y=scrollY,h=hd.offsetHeight;if(y<h*1.2){bg.style.transform=`translateY(${y*.35}px) scale(${1.06+y/h*.06})`;hd.style.setProperty("--o",Math.max(0,1-y/(h*.7)).toFixed(3))}})};addEventListener("scroll",on,{passive:true});on()}
 function article(slug){
   const k=ESSAYS.findIndex(e=>e.slug===slug);const e=ESSAYS[k];if(!e)return notFound();
   const nx=ESSAYS[(k+1)%ESSAYS.length];
@@ -4325,7 +4406,7 @@ function route(){document.body.classList.remove("lb-open");document.body.style.o
   else if(/^after-/.test(h))html=afterPost(h.slice(6)),section="journal";
   else if(h==="client"){location.replace("#about");setTimeout(()=>{const c=document.getElementById("clients");c&&c.scrollIntoView()},400);return}
   else if(/^news-\d+$/.test(h))html=newsArticle(h.slice(5)),section="news";
-  else if(/^journal-/.test(h))html=article(h.slice(8)),section="journal";
+  else if(/^journal-/.test(h))html=article2(h.slice(8)),section="journal";
   else if(h==="about"||h==="contact")html=`<div class="view cv dark ab-dark" style="background-image:url('${cover("f17",img(17))}')"><div class="cv-in"><div class="cv-title"><h1>About</h1><p>Jung Dabin — Director · Cinematographer · Colorist</p></div>${about()}</div></div>`,section="about";
   else html=notFound();
   if(/^(film|commercial)-\d+$/.test(h)&&ART.includes(h[0]+h.split("-")[1]))section="art";
@@ -4497,6 +4578,7 @@ function bind(h){
   if(/^film-\d+$/.test(h)){bindWReel();bindSecReel();return bindGallery("f"+h.split("-")[1])}
   if(/^commercial-\d+$/.test(h)){bindWReel();bindSecReel();return bindGallery("c"+h.split("-")[1])}
   if(/^color/.test(h))return bindColor();
+  if(/^journal-/.test(h))return bindE2();
   if(h==="news"||h==="client"||h==="journal"||/^after/.test(h))return bindNews();
   if(h!=="home")return;
   if(state.hv==="q"){bindShowreel();return bindHomeMore()}
