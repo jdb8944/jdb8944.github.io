@@ -2048,6 +2048,17 @@ header{transition:background .3s,box-shadow .3s}
 .lrh.v2 .lra,.lrh.v2 .lrc{display:flex;flex-wrap:wrap;gap:12px 12px;align-items:flex-end;justify-content:flex-end}
 .lrh.v2 .lc{color:inherit}
 @media(max-width:800px){.lrh.v2{--q:6.1px;align-items:flex-start;margin-left:0}.lrh.v2 .lra,.lrh.v2 .lrc{justify-content:flex-start;gap:10px 8px}.lrh.v2 .lc em{font-size:6px}}
+
+@media (max-width:640px){
+ header .wrap{flex-direction:column;align-items:stretch;gap:10px;padding-block:16px 12px}
+ header nav{flex-wrap:nowrap;justify-content:space-between;gap:8px;padding-top:0;overflow-x:auto;scrollbar-width:none}
+ header nav::-webkit-scrollbar{display:none}
+ header nav a{font-size:.6rem;letter-spacing:.08em;white-space:nowrap}
+ .ftabs{flex-wrap:nowrap;gap:14px;overflow-x:auto;scrollbar-width:none}
+ .ftabs::-webkit-scrollbar{display:none}
+ .ftab{font-size:.64rem;letter-spacing:.06em;white-space:nowrap}
+ .ftab sup{font-size:.5rem;margin-left:2px}
+}
 /* ── about ── */
 .about{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,6vw,80px)}
 .about .lead{font-family:var(--display);font-size:var(--s1);line-height:1.85;max-width:30em;display:grid;gap:1em}
@@ -2638,7 +2649,7 @@ const roleHTML=L=>L.map(roleTag).join('<span class="rl-sep"> · </span>');
 const roleEn=f=>roleHTML(roleList(f[2]));
 const roleShort=r=>[/Direct/.test(r)&&"Dir",/DOP/.test(r)&&"DOP",/Color/.test(r)&&"Color"].filter(Boolean).join(" + ");
 /* 로컬 원본 이미지 */
-const W=(k,t,n)=>`img/w/${k}/${t}${n}.webp${t==="p"?"?v=93":""}`;
+const W=(k,t,n)=>`img/w/${k}/${t}${n}.webp${t==="p"?"?v=94":""}`;
 const has=(k,t)=>MEDIA[k]&&MEDIA[k][t]&&MEDIA[k][t].length;
 const cover=(k,fallback)=>(typeof HQS!=="undefined"&&HQS[k])?HQU(k,0):has(k,"s")?W(k,"s",0):fallback;
 const rnd=n=>Math.floor(Math.random()*n);
