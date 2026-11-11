@@ -2221,6 +2221,21 @@ header{transition:background .3s,box-shadow .3s}
 .cx-go{font-size:.6rem;letter-spacing:.16em;color:var(--fg);text-decoration:none;border-bottom:1px solid var(--fg);padding-bottom:3px}
 @media (max-width:900px){.cx-c{grid-template-columns:1fr;align-items:start}.cx-c .cx-im{aspect-ratio:16/9}}
 @media (max-width:640px){.cxs-cue{display:none}.cxs{height:260vh}}
+
+.cc-b{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,4fr);gap:clamp(28px,5vw,80px);padding-block:clamp(56px,7vw,100px) clamp(30px,4vw,56px)}
+.cc-b .cxt-tx{max-width:620px}
+.cc-sp{margin:0;display:grid;gap:14px;align-content:start;border-top:1px solid var(--line,rgba(0,0,0,.12));padding-top:18px}
+.cc-sp dt{font-size:.55rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.cc-sp dd{margin:0;font-size:.86rem;line-height:1.5}
+.cc-h{font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;margin:0 0 16px}
+.cc-h span{color:var(--muted);text-transform:none;letter-spacing:.04em}
+.cc-gr{display:grid;grid-template-columns:1fr 1fr;gap:clamp(8px,1vw,14px)}
+.cc-f{margin:0}
+.cc-f>img,.cc-w{display:block;width:100%;aspect-ratio:2.39/1;object-fit:cover;background:#111}
+.cc-w{position:relative;overflow:hidden;cursor:ew-resize;touch-action:pan-y}
+.cc-w img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.cc .cg-in{padding-block:60px 100px}
+@media (max-width:900px){.cc-b{grid-template-columns:1fr}.cc-gr{grid-template-columns:1fr}}
 /* ── about ── */
 .about{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,6vw,80px)}
 .about .lead{font-family:var(--display);font-size:var(--s1);line-height:1.85;max-width:30em;display:grid;gap:1em}
@@ -2811,7 +2826,7 @@ const roleHTML=L=>L.map(roleTag).join('<span class="rl-sep"> · </span>');
 const roleEn=f=>roleHTML(roleList(f[2]));
 const roleShort=r=>[/Direct/.test(r)&&"Dir",/DOP/.test(r)&&"DOP",/Color/.test(r)&&"Color"].filter(Boolean).join(" + ");
 /* 로컬 원본 이미지 */
-const W=(k,t,n)=>`img/w/${k}/${t}${n}.webp${t==="p"?"?v=101":""}`;
+const W=(k,t,n)=>`img/w/${k}/${t}${n}.webp${t==="p"?"?v=102":""}`;
 const has=(k,t)=>MEDIA[k]&&MEDIA[k][t]&&MEDIA[k][t].length;
 const cover=(k,fallback)=>(typeof HQS!=="undefined"&&HQS[k])?HQU(k,0):has(k,"s")?W(k,"s",0):fallback;
 const rnd=n=>Math.floor(Math.random()*n);
@@ -4154,9 +4169,18 @@ function cgReport(k,c,t,y,h){const R=CGREP[k],ch=c.ch,tone=n=>{const p=c.pal[n]|
    <section class="r5-fin"><div class="cgw" style="--x:50%"><img src="${cgImg(k,n0)}" alt=""><img class="cga" src="${cgImg(k,n0+"_709")}" alt=""><span class="cgl mono">Rec.709</span><span class="cgr mono">최종 그레이딩</span><i class="cgh"></i></div><p>${esc(R.fin)}</p></section>
    <div class="cgk-in wrap"><dl class="cgk-spec">${c.spec.map(([a,b])=>`<div><dt class="mono">${a}</dt><dd>${esc(b)}</dd></div>`).join("")}</dl>
     ${h?`<a class="cgk-go" href="${h}"><span class="mono">Project</span><b>${esc(t)} →</b></a>`:""}</div></article>`}
-function colorCase(k){if(!CGK[k]&&CGT[k])return cgText(k);return CGK[k]?`<div class="view cgv${CGV5.has(k)?" cgdark dark":""}">${cgCaseFull(k)}<div class="cg-in wrap"><a class="cgk-go" href="#color"><span class="mono">Color</span><b>← 다른 작품</b></a></div></div>`:notFound()}
+function cgClean(k){const c=CGK[k],[t,y,h]=cgT(k),cat=CGCAT(k),why=Array.isArray(c.why)?c.why:[c.why||c.concept||""];
+  const cuts=c.ch.map(z=>z[0]).filter(n=>n!==c.hero).concat([c.hero]).filter((n,i,a)=>a.indexOf(n)===i);
+  const cut=n=>c.r709[n]?`<figure class="cc-f"><div class="cg2-w cc-w" style="--x:50%"><img src="${cgImg(k,n)}" alt="${esc(t)} final" loading="lazy" decoding="async"><img class="cg2-b" src="${cgImg(k,n+"_709")}" alt="${esc(t)} Rec.709" loading="lazy" decoding="async"><span class="cg2-l mono">Rec.709</span><span class="cg2-r mono">Final</span><i class="cg2-h"></i></div></figure>`:`<figure class="cc-f"><img src="${cgImg(k,n)}" alt="${esc(t)}" loading="lazy" decoding="async"></figure>`;
+  return `<div class="view cgv cxt cc"><section class="cxt-hero dark" style="background-image:url('${cgImg(k,c.hero)}')"><div class="wrap"><p class="mono">Color · ${cat} · ${y}</p><h1>${esc(t)}</h1><p class="cxt-l">${esc(c.concept||"")}</p></div></section>
+   <section class="cc-b wrap"><div class="cxt-tx">${why.map(p=>`<p>${esc(p)}</p>`).join("")}<a class="cxt-go mono" href="${h}">작품 페이지 →</a></div>
+    ${c.spec?`<dl class="cc-sp">${c.spec.map(([a,b])=>`<div><dt class="mono">${esc(a)}</dt><dd>${esc(b)}</dd></div>`).join("")}</dl>`:""}</section>
+   <section class="cc-g wrap">${cuts.some(n=>c.r709[n])?`<p class="cc-h mono">Rec.709 / Final <span>— 드래그해서 비교</span></p>`:`<p class="cc-h mono">Stills</p>`}<div class="cc-gr">${cuts.map(cut).join("")}</div></section>
+   <div class="cg-in wrap"><a class="cgk-go" href="#color"><span class="mono">Color</span><b>← 다른 작품</b></a></div></div>`}
+function colorCase(k){if(!CGK[k]&&CGT[k])return cgText(k);if(CGK[k])return cgClean(k);return CGK[k]?`<div class="view cgv${CGV5.has(k)?" cgdark dark":""}">${cgCaseFull(k)}<div class="cg-in wrap"><a class="cgk-go" href="#color"><span class="mono">Color</span><b>← 다른 작품</b></a></div></div>`:notFound()}
 function bindColor(){
   bindColorIndex();bindV3();bindV4();
+  document.querySelectorAll(".cc-w").forEach(w=>{const mv=e=>{const r=w.getBoundingClientRect();w.style.setProperty("--x",Math.max(0,Math.min(100,(e.clientX-r.left)/r.width*100))+"%")};w.addEventListener("pointermove",mv);w.addEventListener("pointerdown",mv)});
   document.querySelectorAll(".cgk-stage").forEach(st=>{const w=st.querySelector(".cgw"),a=w.querySelector(".cga"),l=w.querySelector(".cgl"),n=st.dataset.n,k=(location.hash.split("-")[1]||"f1");
     st.querySelectorAll("button[data-v]").forEach(b=>b.addEventListener("click",()=>{const n=st.dataset.n;st.querySelectorAll("button[data-v]").forEach(x=>x.setAttribute("aria-pressed",x===b));a.src=cgImg(k,n+"_"+b.dataset.v);l.textContent=b.dataset.v==="log"?"Log":"Rec.709";const em=st.querySelector(".cgk-tabs em");if(em)em.textContent=(b.dataset.v==="log"||em.dataset.r!=="1")?"임시 이미지":""}))});
   document.querySelectorAll(".cw-d,.cgk-pc").forEach(g=>g.addEventListener("click",()=>{const e=document.getElementById("cgch"+g.dataset.i);e&&e.scrollIntoView({behavior:"smooth",block:"center"})}));
