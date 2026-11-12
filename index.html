@@ -2238,7 +2238,7 @@ header{transition:background .3s,box-shadow .3s}
 @media (max-width:900px){.cc-b{grid-template-columns:1fr}.cc-gr{grid-template-columns:1fr}}
 
 .cxv{position:relative;background:#000;color:#fff;margin-top:calc(-1 * var(--hh,0px))}
-.cxv video{display:block;width:100%;aspect-ratio:1920/804;object-fit:cover;background:#000}
+.cxv video{display:block;width:100%;aspect-ratio:16/9;max-height:100vh;object-fit:cover;background:#000}
 .cxv::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.5),rgba(0,0,0,0) 45%);pointer-events:none}
 .cxv .cx-ov{bottom:clamp(36px,7vw,90px);z-index:2}
 .cxv .cx-ov h1{font-size:clamp(3rem,7vw,6.6rem)}
@@ -2834,7 +2834,7 @@ const roleHTML=L=>L.map(roleTag).join('<span class="rl-sep"> · </span>');
 const roleEn=f=>roleHTML(roleList(f[2]));
 const roleShort=r=>[/Direct/.test(r)&&"Dir",/DOP/.test(r)&&"DOP",/Color/.test(r)&&"Color"].filter(Boolean).join(" + ");
 /* 로컬 원본 이미지 */
-const W=(k,t,n)=>`img/w/${k}/${t}${n}.webp${t==="p"?"?v=103":""}`;
+const W=(k,t,n)=>`img/w/${k}/${t}${n}.webp${t==="p"?"?v=104":""}`;
 const has=(k,t)=>MEDIA[k]&&MEDIA[k][t]&&MEDIA[k][t].length;
 const cover=(k,fallback)=>(typeof HQS!=="undefined"&&HQS[k])?HQU(k,0):has(k,"s")?W(k,"s",0):fallback;
 const rnd=n=>Math.floor(Math.random()*n);
@@ -4057,7 +4057,7 @@ function colorView(){
   const n=k=>ALL.filter(x=>x.cat===k).length;
   {const R=IT.filter(x=>x.real).map(x=>{const c=CGK[x.k],ns=c.ch.map(z=>z[0]).filter(n=>n!==c.hero&&c.r709[n]);return [c.hero,ns[Math.floor(ns.length/2)]].filter(Boolean).map(n=>({k:x.k,t:x.t,h:x.href,n}))});CXP=[];for(let r=0;r<2;r++)R.forEach(a=>{if(a[r])CXP.push(a[r])})}
   return `<div class="view cgv cx">
-   <section class="cxv"><video src="mv/color_reel.mp4?v=1" poster="mv/color_reel.jpg" autoplay muted loop playsinline preload="auto"></video>
+   <section class="cxv"><video src="mv/color_reel.mp4?v=2" poster="mv/color_reel.jpg?v=2" autoplay muted loop playsinline preload="auto"></video>
     <div class="cx-ov"><p class="mono">Colorist · DaVinci Resolve Studio</p><h1>Color</h1><p class="cx-l">촬영감독의 눈으로 마지막 색까지 완성합니다.<br>장편·단편 영화, 뮤직비디오, 광고의 DI.</p></div></section>
    <section class="cx-facts wrap">
     <div><span class="mono">Credits</span><b>${cols.length}+</b><p>DI를 맡은 영화. 뮤직비디오·광고 별도</p></div>
